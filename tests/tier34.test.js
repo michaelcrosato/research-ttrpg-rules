@@ -809,6 +809,8 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       `;
 
       const scriptPath = path.resolve(__dirname, '../scratch/mem_benchmark.js');
+      const scratchDir = path.dirname(scriptPath);
+      if (!fs.existsSync(scratchDir)) fs.mkdirSync(scratchDir, { recursive: true });
       fs.writeFileSync(scriptPath, benchmarkScript, 'utf8');
 
       try {

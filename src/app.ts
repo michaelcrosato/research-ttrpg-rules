@@ -856,14 +856,30 @@ window.downloadUpdatedRegistry = downloadUpdatedRegistry;
 window.searchBGG = searchBGG;
 window.importBGGGame = importBGGGame;
 
-// Initialize Web Worker
+// Initialize Web Worker with fallback for CDN/offline failures
 function initSearchWorker() {
   if (typeof Worker !== 'undefined') {
-    searchWorker = new Worker('dist/search-worker.js');
+    try {
+      const worker = new Worker('dist/search-worker.js');
+      worker.onerror = function (err) {
+        console.warn('Web Worker failed to load, falling back to LocalSearchWorker:', err);
+        searchWorker = new LocalSearchWorker() as unknown as Worker;
+        wireWorkerMessageHandler();
+        searchWorker.postMessage({ type: 'init', dbUrl: 'registry.json' });
+      };
+      searchWorker = worker;
+    } catch (e) {
+      console.warn('Worker construction failed, using LocalSearchWorker:', e);
+      searchWorker = new LocalSearchWorker() as unknown as Worker;
+    }
   } else {
     searchWorker = new LocalSearchWorker() as unknown as Worker;
   }
 
+  wireWorkerMessageHandler();
+}
+
+function wireWorkerMessageHandler() {
   searchWorker.onmessage = function (e: MessageEvent) {
     const data = e.data;
     if (!data) return;
@@ -1703,7 +1719,6 @@ function renderExplorer() {
 function createCardDOM(game: GameRulesetInternal) {
   const card = document.createElement('div');
   card.className = `game-card ${game.medium}`;
-  card.setAttribute('onclick', `openGameDetails('${game.game_id}')`);
   card.addEventListener('click', () => openGameDetails(game.game_id));
 
   const content = document.createElement('div');
@@ -1872,7 +1887,7 @@ function progressiveRenderDict(results: any[], container: HTMLElement) {
       const link = document.createElement('span');
       link.className = 'dict-game-link';
       link.textContent = game.title;
-      link.setAttribute('onclick', `openGameDetails('${game.game_id}')`);
+      link.style.cursor = 'pointer';
       link.addEventListener('click', () => openGameDetails(game.game_id));
       gamesDiv.appendChild(link);
     });
