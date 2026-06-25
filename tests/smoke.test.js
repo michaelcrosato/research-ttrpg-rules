@@ -3,42 +3,36 @@ const path = require('path');
 
 // Mock Data
 const mockRegistryData = {
-  "ttrpg": [
+  ttrpg: [
     {
-      "game_id": "mock_ttrpg_fantasy",
-      "title": "Mock Fantasy RPG",
-      "year": 2024,
-      "medium": "ttrpg",
-      "primary_genre": "Fantasy",
-      "subgenres": ["Adventure"],
-      "governed_vectors": [
-        "character.character_creation.class_based",
-        "combat.melee.tactical"
-      ],
-      "vector_explanations": {
-        "character.character_creation.class_based": "Uses classes to build characters.",
-        "combat.melee.tactical": "Features grid-based tactical melee."
-      }
-    }
+      game_id: 'mock_ttrpg_fantasy',
+      title: 'Mock Fantasy RPG',
+      year: 2024,
+      medium: 'ttrpg',
+      primary_genre: 'Fantasy',
+      subgenres: ['Adventure'],
+      governed_vectors: ['character.character_creation.class_based', 'combat.melee.tactical'],
+      vector_explanations: {
+        'character.character_creation.class_based': 'Uses classes to build characters.',
+        'combat.melee.tactical': 'Features grid-based tactical melee.',
+      },
+    },
   ],
-  "board_game": [
+  board_game: [
     {
-      "game_id": "mock_bg_euro",
-      "title": "Mock Euro Game",
-      "year": 2020,
-      "medium": "board_game",
-      "primary_genre": "Strategy",
-      "subgenres": ["Economic"],
-      "governed_vectors": [
-        "economy.market.worker_placement",
-        "combat.melee.tactical"
-      ],
-      "vector_explanations": {
-        "economy.market.worker_placement": "Place workers to gather resources.",
-        "combat.melee.tactical": "Simple skirmish resolution rules."
-      }
-    }
-  ]
+      game_id: 'mock_bg_euro',
+      title: 'Mock Euro Game',
+      year: 2020,
+      medium: 'board_game',
+      primary_genre: 'Strategy',
+      subgenres: ['Economic'],
+      governed_vectors: ['economy.market.worker_placement', 'combat.melee.tactical'],
+      vector_explanations: {
+        'economy.market.worker_placement': 'Place workers to gather resources.',
+        'combat.melee.tactical': 'Simple skirmish resolution rules.',
+      },
+    },
+  ],
 };
 
 describe('Systems Indexer - E2E Smoke Tests', () => {
@@ -57,7 +51,7 @@ describe('Systems Indexer - E2E Smoke Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(mockRegistryData)
+          json: () => Promise.resolve(mockRegistryData),
         });
       }
       return Promise.reject(new Error(`Unhandled URL: ${url}`));
@@ -89,7 +83,7 @@ describe('Systems Indexer - E2E Smoke Tests', () => {
 
     const gameCards = document.querySelectorAll('.game-card');
     // Verify titles on cards
-    const cardTitles = Array.from(gameCards).map(card => card.querySelector('h2').textContent);
+    const cardTitles = Array.from(gameCards).map((card) => card.querySelector('h2').textContent);
     expect(cardTitles).toContain('Mock Fantasy RPG');
     expect(cardTitles).toContain('Mock Euro Game');
   });

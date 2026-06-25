@@ -19,10 +19,10 @@ const getCaptureOption = (options) => {
   return false;
 };
 
-window.addEventListener = function(type, listener, options) {
+window.addEventListener = function (type, listener, options) {
   const capture = getCaptureOption(options);
   const exists = windowListeners.some(
-    item => item.type === type && item.listener === listener && getCaptureOption(item.options) === capture
+    (item) => item.type === type && item.listener === listener && getCaptureOption(item.options) === capture
   );
   if (!exists) {
     windowListeners.push({ type, listener, options });
@@ -30,18 +30,18 @@ window.addEventListener = function(type, listener, options) {
   return originalWindowAdd.call(this, type, listener, options);
 };
 
-window.removeEventListener = function(type, listener, options) {
+window.removeEventListener = function (type, listener, options) {
   const capture = getCaptureOption(options);
   windowListeners = windowListeners.filter(
-    item => !(item.type === type && item.listener === listener && getCaptureOption(item.options) === capture)
+    (item) => !(item.type === type && item.listener === listener && getCaptureOption(item.options) === capture)
   );
   return originalWindowRemove.call(this, type, listener, options);
 };
 
-document.addEventListener = function(type, listener, options) {
+document.addEventListener = function (type, listener, options) {
   const capture = getCaptureOption(options);
   const exists = documentListeners.some(
-    item => item.type === type && item.listener === listener && getCaptureOption(item.options) === capture
+    (item) => item.type === type && item.listener === listener && getCaptureOption(item.options) === capture
   );
   if (!exists) {
     documentListeners.push({ type, listener, options });
@@ -49,10 +49,10 @@ document.addEventListener = function(type, listener, options) {
   return originalDocumentAdd.call(this, type, listener, options);
 };
 
-document.removeEventListener = function(type, listener, options) {
+document.removeEventListener = function (type, listener, options) {
   const capture = getCaptureOption(options);
   documentListeners = documentListeners.filter(
-    item => !(item.type === type && item.listener === listener && getCaptureOption(item.options) === capture)
+    (item) => !(item.type === type && item.listener === listener && getCaptureOption(item.options) === capture)
   );
   return originalDocumentRemove.call(this, type, listener, options);
 };
@@ -76,7 +76,7 @@ afterEach(() => {
 });
 
 // Robust polling wait helper
-global.waitFor = async function(fn, timeout = 1000, interval = 10) {
+global.waitFor = async function (fn, timeout = 1000, interval = 10) {
   const startTime = Date.now();
   while (true) {
     try {
@@ -92,6 +92,6 @@ global.waitFor = async function(fn, timeout = 1000, interval = 10) {
     if (Date.now() - startTime > timeout) {
       throw new Error(`Timeout waiting for condition in waitFor`);
     }
-    await new Promise(resolve => setTimeout(resolve, interval));
+    await new Promise((resolve) => setTimeout(resolve, interval));
   }
 };

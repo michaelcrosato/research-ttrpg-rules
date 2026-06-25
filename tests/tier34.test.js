@@ -3,126 +3,115 @@ const path = require('path');
 
 // 7-Game Dataset for Tier 3 & Tier 4 tests
 const mockRegistryData = {
-  "ttrpg": [
+  ttrpg: [
     {
-      "game_id": "dnd_5e",
-      "title": "Dungeons & Dragons 5e",
-      "year": 2014,
-      "medium": "ttrpg",
-      "primary_genre": "Fantasy",
-      "subgenres": ["Adventure", "High Fantasy"],
-      "governed_vectors": [
-        "combat.melee.dice_rolls",
-        "character.progression.campaign_based",
-        "simulation.magic.spell_slots"
+      game_id: 'dnd_5e',
+      title: 'Dungeons & Dragons 5e',
+      year: 2014,
+      medium: 'ttrpg',
+      primary_genre: 'Fantasy',
+      subgenres: ['Adventure', 'High Fantasy'],
+      governed_vectors: [
+        'combat.melee.dice_rolls',
+        'character.progression.campaign_based',
+        'simulation.magic.spell_slots',
       ],
-      "vector_explanations": {
-        "combat.melee.dice_rolls": "Uses d20 + modifiers to hit.",
-        "character.progression.campaign_based": "Character level increases via XP or milestones.",
-        "simulation.magic.spell_slots": "Vancian slots governing daily spells."
-      }
+      vector_explanations: {
+        'combat.melee.dice_rolls': 'Uses d20 + modifiers to hit.',
+        'character.progression.campaign_based': 'Character level increases via XP or milestones.',
+        'simulation.magic.spell_slots': 'Vancian slots governing daily spells.',
+      },
     },
     {
-      "game_id": "fate_core",
-      "title": "Fate Core",
-      "year": 2013,
-      "medium": "ttrpg",
-      "primary_genre": "Universal",
-      "subgenres": ["Narrative", "Rules-Light"],
-      "governed_vectors": [
-        "politics.factions.loyalty",
-        "combat.melee.dice_rolls"
-      ],
-      "vector_explanations": {
-        "politics.factions.loyalty": "Factions track reputation and allegiance.",
-        "combat.melee.dice_rolls": "Uses four Fudge/Fate dice to resolve actions."
-      }
+      game_id: 'fate_core',
+      title: 'Fate Core',
+      year: 2013,
+      medium: 'ttrpg',
+      primary_genre: 'Universal',
+      subgenres: ['Narrative', 'Rules-Light'],
+      governed_vectors: ['politics.factions.loyalty', 'combat.melee.dice_rolls'],
+      vector_explanations: {
+        'politics.factions.loyalty': 'Factions track reputation and allegiance.',
+        'combat.melee.dice_rolls': 'Uses four Fudge/Fate dice to resolve actions.',
+      },
     },
     {
-      "game_id": "coriolis_empyrean_canticle_2e_edition_2026",
-      "title": "Coriolis: Empyrean Canticle 2e Edition",
-      "year": 2026,
-      "medium": "ttrpg",
-      "primary_genre": "Sci-Fi",
-      "subgenres": ["Space Opera", "Survival"],
-      "governed_vectors": [
-        "combat.melee.tactical",
-        "combat.initiative.dexterity_based",
-        "character.character_creation.playbook_based"
+      game_id: 'coriolis_empyrean_canticle_2e_edition_2026',
+      title: 'Coriolis: Empyrean Canticle 2e Edition',
+      year: 2026,
+      medium: 'ttrpg',
+      primary_genre: 'Sci-Fi',
+      subgenres: ['Space Opera', 'Survival'],
+      governed_vectors: [
+        'combat.melee.tactical',
+        'combat.initiative.dexterity_based',
+        'character.character_creation.playbook_based',
       ],
-      "vector_explanations": {
-        "combat.melee.tactical": "Tactical combat rules dictate range and positioning.",
-        "combat.initiative.dexterity_based": "Fast-paced action order based on Dexterity.",
-        "character.character_creation.playbook_based": "Choose archetype playbooks to start."
-      }
+      vector_explanations: {
+        'combat.melee.tactical': 'Tactical combat rules dictate range and positioning.',
+        'combat.initiative.dexterity_based': 'Fast-paced action order based on Dexterity.',
+        'character.character_creation.playbook_based': 'Choose archetype playbooks to start.',
+      },
     },
     {
-      "game_id": "cyberpunk_red_2045_chronicle_book_2026",
-      "title": "Cyberpunk Red: 2045 Chronicle Book",
-      "year": 2026,
-      "medium": "ttrpg",
-      "primary_genre": "Cyberpunk",
-      "subgenres": ["Dystopian", "Narrative"],
-      "governed_vectors": [
-        "combat.melee.tactical",
-        "combat.initiative.dexterity_based"
-      ],
-      "vector_explanations": {
-        "combat.melee.tactical": "Tactical combat options govern cover and melee.",
-        "combat.initiative.dexterity_based": "Initiative determined by Reflex/Dexterity stats."
-      }
+      game_id: 'cyberpunk_red_2045_chronicle_book_2026',
+      title: 'Cyberpunk Red: 2045 Chronicle Book',
+      year: 2026,
+      medium: 'ttrpg',
+      primary_genre: 'Cyberpunk',
+      subgenres: ['Dystopian', 'Narrative'],
+      governed_vectors: ['combat.melee.tactical', 'combat.initiative.dexterity_based'],
+      vector_explanations: {
+        'combat.melee.tactical': 'Tactical combat options govern cover and melee.',
+        'combat.initiative.dexterity_based': 'Initiative determined by Reflex/Dexterity stats.',
+      },
     },
     {
-      "game_id": "delta_green_final_apocalypse",
-      "title": "Delta Green: Final Apocalypse",
-      "year": 2026,
-      "medium": "ttrpg",
-      "primary_genre": "Horror",
-      "subgenres": ["Conspiracy", "Survival"],
-      "governed_vectors": [
-        "character.character_creation.playbook_based"
-      ],
-      "vector_explanations": {
-        "character.character_creation.playbook_based": "Choose agent playbooks with standard kits."
-      }
-    }
+      game_id: 'delta_green_final_apocalypse',
+      title: 'Delta Green: Final Apocalypse',
+      year: 2026,
+      medium: 'ttrpg',
+      primary_genre: 'Horror',
+      subgenres: ['Conspiracy', 'Survival'],
+      governed_vectors: ['character.character_creation.playbook_based'],
+      vector_explanations: {
+        'character.character_creation.playbook_based': 'Choose agent playbooks with standard kits.',
+      },
+    },
   ],
-  "board_game": [
+  board_game: [
     {
-      "game_id": "scythe",
-      "title": "Scythe",
-      "year": 2016,
-      "medium": "board_game",
-      "primary_genre": "Strategy",
-      "subgenres": ["Economic", "Steampunk"],
-      "governed_vectors": [
-        "economy.market.worker_placement",
-        "combat.movement.hex_grid",
-        "politics.factions.area_influence"
+      game_id: 'scythe',
+      title: 'Scythe',
+      year: 2016,
+      medium: 'board_game',
+      primary_genre: 'Strategy',
+      subgenres: ['Economic', 'Steampunk'],
+      governed_vectors: [
+        'economy.market.worker_placement',
+        'combat.movement.hex_grid',
+        'politics.factions.area_influence',
       ],
-      "vector_explanations": {
-        "economy.market.worker_placement": "Place workers to produce resources.",
-        "combat.movement.hex_grid": "Units move on a hexagon-grid map.",
-        "politics.factions.area_influence": "Factions control territories for points."
-      }
+      vector_explanations: {
+        'economy.market.worker_placement': 'Place workers to produce resources.',
+        'combat.movement.hex_grid': 'Units move on a hexagon-grid map.',
+        'politics.factions.area_influence': 'Factions control territories for points.',
+      },
     },
     {
-      "game_id": "agricola",
-      "title": "Agricola",
-      "year": 2007,
-      "medium": "board_game",
-      "primary_genre": "Strategy",
-      "subgenres": ["Farming", "Economic"],
-      "governed_vectors": [
-        "economy.market.worker_placement",
-        "logistics.survival.rations"
-      ],
-      "vector_explanations": {
-        "economy.market.worker_placement": "Place workers to take actions and gather resources.",
-        "logistics.survival.rations": "Must feed family members each harvest."
-      }
-    }
-  ]
+      game_id: 'agricola',
+      title: 'Agricola',
+      year: 2007,
+      medium: 'board_game',
+      primary_genre: 'Strategy',
+      subgenres: ['Farming', 'Economic'],
+      governed_vectors: ['economy.market.worker_placement', 'logistics.survival.rations'],
+      vector_explanations: {
+        'economy.market.worker_placement': 'Place workers to take actions and gather resources.',
+        'logistics.survival.rations': 'Must feed family members each harvest.',
+      },
+    },
+  ],
 };
 
 const mockBggSearchXml = `
@@ -146,7 +135,6 @@ const mockBggThingXml = `
 `;
 
 describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
-  
   describe('E2E Interaction Scenarios (Tiers 3 & 4)', () => {
     beforeEach(async () => {
       jest.resetModules();
@@ -161,7 +149,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
           return Promise.resolve({
             ok: true,
             status: 200,
-            json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData)))
+            json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData))),
           });
         }
         return Promise.reject(new Error(`Unhandled URL: ${url}`));
@@ -187,9 +175,9 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
         return document.querySelectorAll('#vector-search-results .vector-game-item').length === 2;
       });
 
-      const coriolisLink = Array.from(document.querySelectorAll('#vector-search-results .vector-game-item a.vector-game-title')).find(
-        a => a.textContent === 'Coriolis: Empyrean Canticle 2e Edition'
-      );
+      const coriolisLink = Array.from(
+        document.querySelectorAll('#vector-search-results .vector-game-item a.vector-game-title')
+      ).find((a) => a.textContent === 'Coriolis: Empyrean Canticle 2e Edition');
       coriolisLink.click();
 
       const modal = document.getElementById('details-modal-overlay');
@@ -200,8 +188,8 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       expect(modal.classList.contains('active')).toBe(false);
 
       document.getElementById('tab-nav-dictionary').click();
-      const combatBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('combat')
+      const combatBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('combat')
       );
       combatBtn.click();
 
@@ -209,10 +197,10 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       expect(activeBtn.textContent).toContain('combat');
 
       const card = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'combat.melee.tactical'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'combat.melee.tactical'
       );
       expect(card).toBeTruthy();
-      const links = Array.from(card.querySelectorAll('.dict-game-link')).map(l => l.textContent);
+      const links = Array.from(card.querySelectorAll('.dict-game-link')).map((l) => l.textContent);
       expect(links).toContain('Coriolis: Empyrean Canticle 2e Edition');
     });
 
@@ -229,17 +217,19 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       cb.checked = true;
       cb.dispatchEvent(new window.Event('change', { bubbles: true }));
 
-      const textarea = document.querySelector('#editor-explanations-inputs textarea[data-vector="combat.melee.tactical"]');
+      const textarea = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="combat.melee.tactical"]'
+      );
       textarea.value = 'Tactical survival checks dictate combat outcomes in dark rooms.';
 
       document.getElementById('add-game-form').dispatchEvent(new window.Event('submit', { bubbles: true }));
 
-      expect(global.alert).toHaveBeenCalledWith(expect.stringContaining("successfully indexed"));
+      expect(global.alert).toHaveBeenCalledWith(expect.stringContaining('successfully indexed'));
       expect(document.getElementById('stat-total-games').textContent).toBe('8');
       expect(document.getElementById('stat-total-ttrpgs').textContent).toBe('6');
 
       document.getElementById('tab-nav-explorer').click();
-      
+
       const maxYearInput = document.getElementById('filter-year-max');
       maxYearInput.value = '2026';
       maxYearInput.dispatchEvent(new window.Event('change', { bubbles: true }));
@@ -270,19 +260,21 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggSearchXml)
+          text: () => Promise.resolve(mockBggSearchXml),
         });
       });
 
       document.getElementById('bgg-search-query').value = 'Scythe';
-      Array.from(document.querySelectorAll('#bgg-import-card button')).find(btn => btn.textContent === 'Search BGG').click();
+      Array.from(document.querySelectorAll('#bgg-import-card button'))
+        .find((btn) => btn.textContent === 'Search BGG')
+        .click();
       await waitFor(() => document.getElementById('bgg-search-results-area').style.display === 'block');
 
       global.fetch.mockImplementationOnce((url) => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggThingXml)
+          text: () => Promise.resolve(mockBggThingXml),
         });
       });
 
@@ -298,17 +290,17 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       document.getElementById('new-game-title').value = 'Scythe - Custom Testing';
 
       document.getElementById('add-game-form').dispatchEvent(new window.Event('submit', { bubbles: true }));
-      expect(global.alert).toHaveBeenCalledWith(expect.stringContaining("indexed in memory"));
+      expect(global.alert).toHaveBeenCalledWith(expect.stringContaining('indexed in memory'));
 
       document.getElementById('tab-nav-compare').click();
 
-      const btnA = Array.from(document.querySelectorAll('#compare-selector-a button')).find(
-        b => b.textContent.includes('Scythe - Custom Testing')
+      const btnA = Array.from(document.querySelectorAll('#compare-selector-a button')).find((b) =>
+        b.textContent.includes('Scythe - Custom Testing')
       );
       btnA.click();
 
-      const btnB = Array.from(document.querySelectorAll('#compare-selector-b button')).find(
-        b => b.textContent.includes('Cyberpunk Red: 2045 Chronicle Book')
+      const btnB = Array.from(document.querySelectorAll('#compare-selector-b button')).find((b) =>
+        b.textContent.includes('Cyberpunk Red: 2045 Chronicle Book')
       );
       btnB.click();
 
@@ -328,7 +320,9 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       expect(cb).toBeTruthy();
       expect(cb.checked).toBe(true);
 
-      const textarea = document.querySelector('#editor-explanations-inputs textarea[data-vector="simulation.weather.blizzard"]');
+      const textarea = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="simulation.weather.blizzard"]'
+      );
       textarea.value = 'Failing survival checks in extreme blizzards freezes movement speed.';
 
       document.getElementById('new-game-title').value = 'Frostpunk RPG';
@@ -340,8 +334,8 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       expect(global.alert).toHaveBeenCalledWith(expect.stringContaining('successfully indexed'));
 
       document.getElementById('tab-nav-dictionary').click();
-      const simBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('simulation')
+      const simBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('simulation')
       );
       simBtn.click();
 
@@ -349,7 +343,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       expect(activeBtn.textContent).toContain('simulation');
 
       const card = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'simulation.weather.blizzard'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'simulation.weather.blizzard'
       );
       expect(card).toBeTruthy();
       expect(card.querySelector('.dict-game-link').textContent).toBe('Frostpunk RPG');
@@ -357,16 +351,16 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
 
     test('TEST-305: Dictionary Navigation -> Details Modal -> Multi-Tab State Persistence', async () => {
       document.getElementById('tab-nav-dictionary').click();
-      const charBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('character')
+      const charBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('character')
       );
       charBtn.click();
 
       const card = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'character.character_creation.playbook_based'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'character.character_creation.playbook_based'
       );
       const link = Array.from(card.querySelectorAll('.dict-game-link')).find(
-        l => l.textContent === 'Coriolis: Empyrean Canticle 2e Edition'
+        (l) => l.textContent === 'Coriolis: Empyrean Canticle 2e Edition'
       );
       link.click();
 
@@ -407,8 +401,12 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
     // ==========================================
     test('SCENARIO-401: TTRPG Designer System Mechanic Overlap Audit', async () => {
       document.getElementById('tab-nav-compare').click();
-      document.querySelector('#compare-selector-a button[data-game-id="coriolis_empyrean_canticle_2e_edition_2026"]').click();
-      document.querySelector('#compare-selector-b button[data-game-id="cyberpunk_red_2045_chronicle_book_2026"]').click();
+      document
+        .querySelector('#compare-selector-a button[data-game-id="coriolis_empyrean_canticle_2e_edition_2026"]')
+        .click();
+      document
+        .querySelector('#compare-selector-b button[data-game-id="cyberpunk_red_2045_chronicle_book_2026"]')
+        .click();
 
       await waitFor(() => document.querySelector('.venn-diagram-container') !== null);
 
@@ -419,7 +417,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       expect(colBoth.style.boxShadow).not.toBe('');
 
       const sharedItem = Array.from(colBoth.querySelectorAll('.compare-vector-item')).find(
-        item => item.textContent === 'combat.melee.tactical'
+        (item) => item.textContent === 'combat.melee.tactical'
       );
       expect(sharedItem.getAttribute('title')).toContain('[Coriolis: Empyrean Canticle 2e Edition]:');
       expect(sharedItem.getAttribute('title')).toContain('[Cyberpunk Red: 2045 Chronicle Book]:');
@@ -440,11 +438,13 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       });
 
       const cards = document.querySelectorAll('.game-card');
-      const coriolisCard = Array.from(cards).find(c => c.querySelector('h2').textContent.includes('Coriolis'));
+      const coriolisCard = Array.from(cards).find((c) => c.querySelector('h2').textContent.includes('Coriolis'));
       coriolisCard.click();
 
       expect(document.getElementById('details-modal-overlay').classList.contains('active')).toBe(true);
-      expect(document.getElementById('modal-vectors-content').textContent).toContain('Choose archetype playbooks to start.');
+      expect(document.getElementById('modal-vectors-content').textContent).toContain(
+        'Choose archetype playbooks to start.'
+      );
     });
 
     test('SCENARIO-402: Hobbyist Adding Custom Mechanics and Verifying Registry Placement', async () => {
@@ -462,7 +462,9 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       const cb = document.getElementById('check-vec-economy.market.stock_trading');
       expect(cb.checked).toBe(true);
 
-      const ta = document.querySelector('#editor-explanations-inputs textarea[data-vector="economy.market.stock_trading"]');
+      const ta = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="economy.market.stock_trading"]'
+      );
       ta.value = 'Players can buy and sell stock shares of properties to earn dividends.';
 
       document.getElementById('add-game-form').dispatchEvent(new window.Event('submit', { bubbles: true }));
@@ -478,7 +480,9 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       });
 
       expect(document.querySelector('.vector-game-title').textContent).toBe('Monopoly: Stocks Expansion');
-      expect(document.querySelector('.vector-rule-text').textContent).toBe('Players can buy and sell stock shares of properties to earn dividends.');
+      expect(document.querySelector('.vector-rule-text').textContent).toBe(
+        'Players can buy and sell stock shares of properties to earn dividends.'
+      );
 
       // Download
       document.getElementById('tab-nav-editor').click();
@@ -511,27 +515,31 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       expect(count).toBe('3');
 
       document.getElementById('tab-nav-dictionary').click();
-      const charBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('character')
+      const charBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('character')
       );
       charBtn.click();
 
       const card = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'character.character_creation.playbook_based'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'character.character_creation.playbook_based'
       );
       expect(card.querySelector('.dict-item-name .badge').textContent.trim()).toBe('Found in 2 games');
 
-      const links = Array.from(card.querySelectorAll('.dict-game-link')).map(l => l.textContent);
+      const links = Array.from(card.querySelectorAll('.dict-game-link')).map((l) => l.textContent);
       expect(links).toContain('Coriolis: Empyrean Canticle 2e Edition');
       expect(links).toContain('Delta Green: Final Apocalypse');
 
-      const dgLink = Array.from(card.querySelectorAll('.dict-game-link')).find(l => l.textContent === 'Delta Green: Final Apocalypse');
+      const dgLink = Array.from(card.querySelectorAll('.dict-game-link')).find(
+        (l) => l.textContent === 'Delta Green: Final Apocalypse'
+      );
       dgLink.click();
 
       const modal = document.getElementById('details-modal-overlay');
       expect(modal.classList.contains('active')).toBe(true);
       expect(document.getElementById('modal-game-title').textContent).toBe('Delta Green: Final Apocalypse');
-      expect(document.getElementById('modal-vectors-content').textContent).toContain('Choose agent playbooks with standard kits.');
+      expect(document.getElementById('modal-vectors-content').textContent).toContain(
+        'Choose agent playbooks with standard kits.'
+      );
 
       document.querySelector('.modal-close-btn').click();
     });
@@ -543,19 +551,21 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggSearchXml)
+          text: () => Promise.resolve(mockBggSearchXml),
         });
       });
 
       document.getElementById('bgg-search-query').value = 'Scythe';
-      Array.from(document.querySelectorAll('#bgg-import-card button')).find(btn => btn.textContent === 'Search BGG').click();
+      Array.from(document.querySelectorAll('#bgg-import-card button'))
+        .find((btn) => btn.textContent === 'Search BGG')
+        .click();
       await waitFor(() => document.getElementById('bgg-search-results-area').style.display === 'block');
 
       global.fetch.mockImplementationOnce((url) => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggThingXml)
+          text: () => Promise.resolve(mockBggThingXml),
         });
       });
 
@@ -583,8 +593,8 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
 
       // Check comparison selectors have updated
       document.getElementById('tab-nav-compare').click();
-      const compareBtn = Array.from(document.querySelectorAll('#compare-selector-a button')).find(
-        btn => btn.textContent.includes('Scythe')
+      const compareBtn = Array.from(document.querySelectorAll('#compare-selector-a button')).find((btn) =>
+        btn.textContent.includes('Scythe')
       );
       expect(compareBtn).toBeTruthy();
     });
@@ -609,9 +619,9 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
 
       const previewText = document.getElementById('export-json-preview').textContent;
       const parsed = JSON.parse(previewText);
-      expect(parsed.board_game.some(g => g.title === 'Audit Test Game')).toBe(true);
+      expect(parsed.board_game.some((g) => g.title === 'Audit Test Game')).toBe(true);
 
-      const auditGame = parsed.board_game.find(g => g.title === 'Audit Test Game');
+      const auditGame = parsed.board_game.find((g) => g.title === 'Audit Test Game');
       expect(auditGame.game_id).toBe('audit_test_game');
       expect(auditGame.year).toBe(2026);
       expect(auditGame.primary_genre).toBe('Logic');
@@ -643,7 +653,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       global.postMessage = jest.fn((msg) => {
         lastMessage = msg;
       });
-      
+
       if (!global.performance) {
         global.performance = require('perf_hooks').performance;
       }
@@ -667,7 +677,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
             }
             return results;
           }
-        }
+        },
       };
 
       const workerCodePath = path.resolve(__dirname, '../dist/search-worker.js');
@@ -681,7 +691,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(registryData)
+          json: () => Promise.resolve(registryData),
         });
       });
 
@@ -828,7 +838,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
         totalLatency += lastMessage.latencyMs;
       }
       const avgDurationMs = totalLatency / runs;
-      
+
       expect(avgDurationMs).toBeLessThan(0.5); // under 500 microseconds (0.5 ms)
     });
 
@@ -886,7 +896,7 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
           return Promise.resolve({
             ok: true,
             status: 200,
-            json: () => Promise.resolve(mockRegistryData)
+            json: () => Promise.resolve(mockRegistryData),
           });
         }
         return Promise.reject(new Error(`Unhandled URL: ${url}`));

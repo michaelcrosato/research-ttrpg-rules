@@ -3,78 +3,72 @@ const path = require('path');
 
 // Standard Mock Dataset
 const mockRegistryData = {
-  "ttrpg": [
+  ttrpg: [
     {
-      "game_id": "dnd_5e",
-      "title": "Dungeons & Dragons 5e",
-      "year": 2014,
-      "medium": "ttrpg",
-      "primary_genre": "Fantasy",
-      "subgenres": ["Adventure", "High Fantasy"],
-      "governed_vectors": [
-        "combat.melee.dice_rolls",
-        "character.progression.campaign_based",
-        "simulation.magic.spell_slots"
+      game_id: 'dnd_5e',
+      title: 'Dungeons & Dragons 5e',
+      year: 2014,
+      medium: 'ttrpg',
+      primary_genre: 'Fantasy',
+      subgenres: ['Adventure', 'High Fantasy'],
+      governed_vectors: [
+        'combat.melee.dice_rolls',
+        'character.progression.campaign_based',
+        'simulation.magic.spell_slots',
       ],
-      "vector_explanations": {
-        "combat.melee.dice_rolls": "Uses d20 + modifiers to hit.",
-        "character.progression.campaign_based": "Character level increases via XP or milestones.",
-        "simulation.magic.spell_slots": "Vancian slots governing daily spells."
-      }
+      vector_explanations: {
+        'combat.melee.dice_rolls': 'Uses d20 + modifiers to hit.',
+        'character.progression.campaign_based': 'Character level increases via XP or milestones.',
+        'simulation.magic.spell_slots': 'Vancian slots governing daily spells.',
+      },
     },
     {
-      "game_id": "fate_core",
-      "title": "Fate Core",
-      "year": 2013,
-      "medium": "ttrpg",
-      "primary_genre": "Universal",
-      "subgenres": ["Narrative", "Rules-Light"],
-      "governed_vectors": [
-        "politics.factions.loyalty",
-        "combat.melee.dice_rolls"
-      ],
-      "vector_explanations": {
-        "politics.factions.loyalty": "Factions track reputation and allegiance.",
-        "combat.melee.dice_rolls": "Uses four Fudge/Fate dice to resolve actions."
-      }
-    }
+      game_id: 'fate_core',
+      title: 'Fate Core',
+      year: 2013,
+      medium: 'ttrpg',
+      primary_genre: 'Universal',
+      subgenres: ['Narrative', 'Rules-Light'],
+      governed_vectors: ['politics.factions.loyalty', 'combat.melee.dice_rolls'],
+      vector_explanations: {
+        'politics.factions.loyalty': 'Factions track reputation and allegiance.',
+        'combat.melee.dice_rolls': 'Uses four Fudge/Fate dice to resolve actions.',
+      },
+    },
   ],
-  "board_game": [
+  board_game: [
     {
-      "game_id": "scythe",
-      "title": "Scythe",
-      "year": 2016,
-      "medium": "board_game",
-      "primary_genre": "Strategy",
-      "subgenres": ["Economic", "Steampunk"],
-      "governed_vectors": [
-        "economy.market.worker_placement",
-        "combat.movement.hex_grid",
-        "politics.factions.area_influence"
+      game_id: 'scythe',
+      title: 'Scythe',
+      year: 2016,
+      medium: 'board_game',
+      primary_genre: 'Strategy',
+      subgenres: ['Economic', 'Steampunk'],
+      governed_vectors: [
+        'economy.market.worker_placement',
+        'combat.movement.hex_grid',
+        'politics.factions.area_influence',
       ],
-      "vector_explanations": {
-        "economy.market.worker_placement": "Place workers to produce resources.",
-        "combat.movement.hex_grid": "Units move on a hexagon-grid map.",
-        "politics.factions.area_influence": "Factions control territories for points."
-      }
+      vector_explanations: {
+        'economy.market.worker_placement': 'Place workers to produce resources.',
+        'combat.movement.hex_grid': 'Units move on a hexagon-grid map.',
+        'politics.factions.area_influence': 'Factions control territories for points.',
+      },
     },
     {
-      "game_id": "agricola",
-      "title": "Agricola",
-      "year": 2007,
-      "medium": "board_game",
-      "primary_genre": "Strategy",
-      "subgenres": ["Farming", "Economic"],
-      "governed_vectors": [
-        "economy.market.worker_placement",
-        "logistics.survival.rations"
-      ],
-      "vector_explanations": {
-        "economy.market.worker_placement": "Place workers to take actions and gather resources.",
-        "logistics.survival.rations": "Must feed family members each harvest."
-      }
-    }
-  ]
+      game_id: 'agricola',
+      title: 'Agricola',
+      year: 2007,
+      medium: 'board_game',
+      primary_genre: 'Strategy',
+      subgenres: ['Farming', 'Economic'],
+      governed_vectors: ['economy.market.worker_placement', 'logistics.survival.rations'],
+      vector_explanations: {
+        'economy.market.worker_placement': 'Place workers to take actions and gather resources.',
+        'logistics.survival.rations': 'Must feed family members each harvest.',
+      },
+    },
+  ],
 };
 
 // Mock BGG search XML
@@ -118,7 +112,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData)))
+          json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData))),
         });
       }
       return Promise.reject(new Error(`Unhandled URL: ${url}`));
@@ -169,7 +163,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       const cards = document.querySelectorAll('.game-card');
-      const titles = Array.from(cards).map(c => c.querySelector('h2').textContent);
+      const titles = Array.from(cards).map((c) => c.querySelector('h2').textContent);
       expect(titles).toContain('Dungeons & Dragons 5e');
       expect(titles).toContain('Fate Core');
       expect(document.getElementById('results-count-number').textContent).toBe('2');
@@ -206,7 +200,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       const cards = document.querySelectorAll('.game-card');
-      const titles = Array.from(cards).map(c => c.querySelector('h2').textContent);
+      const titles = Array.from(cards).map((c) => c.querySelector('h2').textContent);
       expect(titles).toContain('Dungeons & Dragons 5e');
       expect(titles).toContain('Fate Core');
       expect(document.getElementById('results-count-number').textContent).toBe('2');
@@ -223,7 +217,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       const cards = document.querySelectorAll('.game-card');
-      const titles = Array.from(cards).map(c => c.querySelector('h2').textContent);
+      const titles = Array.from(cards).map((c) => c.querySelector('h2').textContent);
       expect(titles[0]).toBe('Scythe'); // 2016
       expect(titles[1]).toBe('Dungeons & Dragons 5e'); // 2014
       expect(titles[2]).toBe('Fate Core'); // 2013
@@ -340,7 +334,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
 
       const items = suggestions.querySelectorAll('.suggestion-item');
       expect(items.length).toBeGreaterThan(0);
-      const texts = Array.from(items).map(item => item.textContent);
+      const texts = Array.from(items).map((item) => item.textContent);
       expect(texts).toContain('combat.melee.dice_rolls');
       expect(texts).toContain('combat.movement.hex_grid');
     });
@@ -355,7 +349,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       await waitFor(() => suggestions.style.display === 'block');
 
       const diceRollsItem = Array.from(suggestions.querySelectorAll('.suggestion-item')).find(
-        item => item.textContent === 'combat.melee.dice_rolls'
+        (item) => item.textContent === 'combat.melee.dice_rolls'
       );
       expect(diceRollsItem).toBeTruthy();
       diceRollsItem.click();
@@ -383,11 +377,11 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       const gameItems = document.querySelectorAll('#vector-search-results .vector-game-item');
-      const titles = Array.from(gameItems).map(item => item.querySelector('.vector-game-title').textContent);
+      const titles = Array.from(gameItems).map((item) => item.querySelector('.vector-game-title').textContent);
       expect(titles).toContain('Scythe');
       expect(titles).toContain('Agricola');
 
-      const explanations = Array.from(gameItems).map(item => item.querySelector('.vector-rule-text').textContent);
+      const explanations = Array.from(gameItems).map((item) => item.querySelector('.vector-rule-text').textContent);
       expect(explanations).toContain('Place workers to produce resources.');
       expect(explanations).toContain('Place workers to take actions and gather resources.');
     });
@@ -400,9 +394,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
 
       await waitFor(() => document.querySelectorAll('#vector-search-results .vector-game-item').length === 2);
 
-      const scytheLink = Array.from(document.querySelectorAll('#vector-search-results .vector-game-item')).find(
-        item => item.querySelector('.vector-game-title').textContent === 'Scythe'
-      ).querySelector('.vector-game-title');
+      const scytheLink = Array.from(document.querySelectorAll('#vector-search-results .vector-game-item'))
+        .find((item) => item.querySelector('.vector-game-title').textContent === 'Scythe')
+        .querySelector('.vector-game-title');
 
       scytheLink.click();
 
@@ -423,7 +417,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       const noResults = document.querySelector('#vector-search-results .no-results-state');
-      expect(noResults.textContent).toContain('Please enter a vector namespace to search (e.g. combat.melee.tactical).');
+      expect(noResults.textContent).toContain(
+        'Please enter a vector namespace to search (e.g. combat.melee.tactical).'
+      );
     });
 
     test('F2-T2-02: Non-matching Vector Search Query', async () => {
@@ -437,7 +433,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       const noResults = document.querySelector('#vector-search-results .no-results-state');
-      expect(noResults.textContent).toContain('No games in database feature mechanical governance for vector: stealth.shadows.hiding');
+      expect(noResults.textContent).toContain(
+        'No games in database feature mechanical governance for vector: stealth.shadows.hiding'
+      );
     });
 
     test('F2-T2-03: Close Suggestions Overlay on Click Outside', async () => {
@@ -464,7 +462,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
 
       const items = suggestions.querySelectorAll('.suggestion-item');
       expect(items.length).toBeGreaterThan(0);
-      const texts = Array.from(items).map(item => item.textContent);
+      const texts = Array.from(items).map((item) => item.textContent);
       expect(texts).toContain('combat.melee.dice_rolls');
     });
 
@@ -520,7 +518,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return document.querySelector('.venn-diagram-container') !== null;
       });
 
-      const labels = Array.from(document.querySelectorAll('.venn-game-label')).map(el => el.textContent);
+      const labels = Array.from(document.querySelectorAll('.venn-game-label')).map((el) => el.textContent);
       expect(labels).toContain('Dungeons & Dragons 5e');
       expect(labels).toContain('Fate Core');
 
@@ -557,12 +555,12 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       await waitFor(() => document.querySelector('.venn-diagram-container') !== null);
 
       const spellSlotsItem = Array.from(document.querySelectorAll('#compare-col-a .compare-vector-item')).find(
-        item => item.textContent === 'simulation.magic.spell_slots'
+        (item) => item.textContent === 'simulation.magic.spell_slots'
       );
       expect(spellSlotsItem.getAttribute('title')).toBe('Vancian slots governing daily spells.');
 
       const sharedItem = Array.from(document.querySelectorAll('#compare-col-both .compare-vector-item')).find(
-        item => item.textContent === 'combat.melee.dice_rolls'
+        (item) => item.textContent === 'combat.melee.dice_rolls'
       );
       expect(sharedItem.getAttribute('title')).toContain('[Dungeons & Dragons 5e]: Uses d20 + modifiers to hit.');
       expect(sharedItem.getAttribute('title')).toContain('[Fate Core]: Uses four Fudge/Fate dice to resolve actions.');
@@ -609,7 +607,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       await waitFor(() => document.querySelector('.venn-diagram-container') !== null);
 
       expect(document.querySelector('.venn-circle-intersection .venn-count').textContent).toBe('0 Shared');
-      expect(document.querySelector('#compare-col-both p.text-muted').textContent).toBe('No shared mechanical systems.');
+      expect(document.querySelector('#compare-col-both p.text-muted').textContent).toBe(
+        'No shared mechanical systems.'
+      );
     });
 
     test('F3-T2-04: Venn Highlights Toggle Styles', async () => {
@@ -662,12 +662,12 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       expect(cards.length).toBe(8);
 
       const diceRollsCard = Array.from(cards).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'combat.melee.dice_rolls'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'combat.melee.dice_rolls'
       );
       expect(diceRollsCard).toBeTruthy();
       expect(diceRollsCard.querySelector('.dict-item-name .badge').textContent.trim()).toBe('Found in 2 games');
 
-      const links = Array.from(diceRollsCard.querySelectorAll('.dict-game-link')).map(l => l.textContent);
+      const links = Array.from(diceRollsCard.querySelectorAll('.dict-game-link')).map((l) => l.textContent);
       expect(links).toContain('Dungeons & Dragons 5e');
       expect(links).toContain('Fate Core');
     });
@@ -675,8 +675,8 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
     test('F4-T1-03: Filter Dictionary List by Sidebar Domain', async () => {
       document.getElementById('tab-nav-dictionary').click();
 
-      const combatBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('combat')
+      const combatBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('combat')
       );
       combatBtn.click();
 
@@ -690,7 +690,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       const cards = document.querySelectorAll('#dict-results-list .dict-item-card');
-      const names = Array.from(cards).map(c => c.querySelector('.dict-item-name span').textContent);
+      const names = Array.from(cards).map((c) => c.querySelector('.dict-item-name span').textContent);
       expect(names).toContain('combat.melee.dice_rolls');
       expect(names).toContain('combat.movement.hex_grid');
     });
@@ -699,10 +699,10 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       document.getElementById('tab-nav-dictionary').click();
 
       const diceRollsCard = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'combat.melee.dice_rolls'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'combat.melee.dice_rolls'
       );
       const fateLink = Array.from(diceRollsCard.querySelectorAll('.dict-game-link')).find(
-        l => l.textContent === 'Fate Core'
+        (l) => l.textContent === 'Fate Core'
       );
       fateLink.click();
 
@@ -714,13 +714,13 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
     test('F4-T1-05: Reset Dictionary Filter to All Domains', async () => {
       document.getElementById('tab-nav-dictionary').click();
 
-      const combatBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('combat')
+      const combatBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('combat')
       );
       combatBtn.click();
 
-      const allBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('All Domains')
+      const allBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('All Domains')
       );
       allBtn.click();
 
@@ -744,12 +744,12 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       document.getElementById('tab-nav-dictionary').click();
 
       const diceRollsCard = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'combat.melee.dice_rolls'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'combat.melee.dice_rolls'
       );
       expect(diceRollsCard.querySelector('.dict-item-name .badge').textContent.trim()).toBe('Found in 2 games');
 
       const spellSlotsCard = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'simulation.magic.spell_slots'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'simulation.magic.spell_slots'
       );
       expect(spellSlotsCard.querySelector('.dict-item-name .badge').textContent.trim()).toBe('Found in 1 game');
     });
@@ -757,8 +757,8 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
     test('F4-T2-03: Sidebar Badge Count Matches Rendered Card Volume', async () => {
       document.getElementById('tab-nav-dictionary').click();
 
-      const economyBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('economy')
+      const economyBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('economy')
       );
       economyBtn.click();
 
@@ -768,7 +768,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       await waitFor(() => {
         return document.querySelectorAll('#dict-results-list .dict-item-card').length === 1;
       });
-      expect(document.querySelector('#dict-results-list .dict-item-card .dict-item-name span').textContent).toBe('economy.market.worker_placement');
+      expect(document.querySelector('#dict-results-list .dict-item-card .dict-item-name span').textContent).toBe(
+        'economy.market.worker_placement'
+      );
     });
 
     test('F4-T2-04: Grid Resilience with Long Vector Strings', async () => {
@@ -781,7 +783,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       document.getElementById('tab-nav-dictionary').click();
 
       const card = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'simulation.environment.weather.temperature.heat_levels'
+        (c) =>
+          c.querySelector('.dict-item-name span').textContent ===
+          'simulation.environment.weather.temperature.heat_levels'
       );
       expect(card).toBeTruthy();
     });
@@ -789,13 +793,13 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
     test('F4-T2-05: Modal Close Restores Dictionary State', async () => {
       document.getElementById('tab-nav-dictionary').click();
 
-      const politicsBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find(
-        btn => btn.textContent.includes('politics')
+      const politicsBtn = Array.from(document.querySelectorAll('.dict-domain-btn')).find((btn) =>
+        btn.textContent.includes('politics')
       );
       politicsBtn.click();
 
       const card = Array.from(document.querySelectorAll('#dict-results-list .dict-item-card')).find(
-        c => c.querySelector('.dict-item-name span').textContent === 'politics.factions.loyalty'
+        (c) => c.querySelector('.dict-item-name span').textContent === 'politics.factions.loyalty'
       );
       card.querySelector('.dict-game-link').click(); // Fate Core
 
@@ -830,7 +834,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       cb.checked = true;
       cb.dispatchEvent(new window.Event('change', { bubbles: true }));
 
-      const textarea = document.querySelector('#editor-explanations-inputs textarea[data-vector="combat.melee.dice_rolls"]');
+      const textarea = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="combat.melee.dice_rolls"]'
+      );
       expect(textarea).toBeTruthy();
       expect(textarea.required).toBe(true);
     });
@@ -845,7 +851,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       expect(cb).toBeTruthy();
       expect(cb.checked).toBe(true);
 
-      const textarea = document.querySelector('#editor-explanations-inputs textarea[data-vector="stealth.detection.light_level"]');
+      const textarea = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="stealth.detection.light_level"]'
+      );
       expect(textarea).toBeTruthy();
       expect(input.value).toBe('');
     });
@@ -863,13 +871,17 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       cb.checked = true;
       cb.dispatchEvent(new window.Event('change', { bubbles: true }));
 
-      const textarea = document.querySelector('#editor-explanations-inputs textarea[data-vector="combat.melee.dice_rolls"]');
+      const textarea = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="combat.melee.dice_rolls"]'
+      );
       textarea.value = 'Uses card modifier deck instead of dice rolls.';
 
       // Submit Form
       document.getElementById('add-game-form').dispatchEvent(new window.Event('submit', { bubbles: true }));
 
-      expect(global.alert).toHaveBeenCalledWith(expect.stringContaining("Game 'Gloomhaven' has been successfully indexed"));
+      expect(global.alert).toHaveBeenCalledWith(
+        expect.stringContaining("Game 'Gloomhaven' has been successfully indexed")
+      );
 
       // Verify reset
       expect(document.getElementById('new-game-title').value).toBe('');
@@ -947,7 +959,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
 
       window.addCustomEditorVector();
 
-      expect(global.alert).toHaveBeenCalledWith('Invalid vector notation. Please use domain.subsystem.focus (e.g. combat.melee.tactical)');
+      expect(global.alert).toHaveBeenCalledWith(
+        'Invalid vector notation. Please use domain.subsystem.focus (e.g. combat.melee.tactical)'
+      );
       expect(document.getElementById('check-vec-invalid_notation')).toBeFalsy();
     });
 
@@ -988,7 +1002,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
           return Promise.resolve({
             ok: true,
             status: 200,
-            text: () => Promise.resolve(mockBggSearchXml)
+            text: () => Promise.resolve(mockBggSearchXml),
           });
         }
         return Promise.reject(new Error(`Unhandled URL: ${url}`));
@@ -996,7 +1010,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
 
       document.getElementById('bgg-search-query').value = 'Scythe';
       const searchBtn = Array.from(document.querySelectorAll('#bgg-import-card button')).find(
-        btn => btn.textContent === 'Search BGG'
+        (btn) => btn.textContent === 'Search BGG'
       );
       searchBtn.click();
 
@@ -1019,11 +1033,13 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggSearchXml)
+          text: () => Promise.resolve(mockBggSearchXml),
         });
       });
       document.getElementById('bgg-search-query').value = 'Scythe';
-      Array.from(document.querySelectorAll('#bgg-import-card button')).find(btn => btn.textContent === 'Search BGG').click();
+      Array.from(document.querySelectorAll('#bgg-import-card button'))
+        .find((btn) => btn.textContent === 'Search BGG')
+        .click();
       await waitFor(() => document.getElementById('bgg-search-results-area').style.display === 'block');
 
       // Mock details call
@@ -1032,7 +1048,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
           return Promise.resolve({
             ok: true,
             status: 200,
-            text: () => Promise.resolve(mockBggThingXml)
+            text: () => Promise.resolve(mockBggThingXml),
           });
         }
         return Promise.reject(new Error(`Unhandled URL: ${url}`));
@@ -1047,7 +1063,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       expect(document.getElementById('new-game-year').value).toBe('2022');
       expect(document.getElementById('new-game-medium').value).toBe('board_game');
       expect(document.getElementById('new-game-genre').value).toBe('Fantasy');
-      expect(document.getElementById('bgg-search-status').textContent).toContain("Successfully imported 'Mock BGG Game'!");
+      expect(document.getElementById('bgg-search-status').textContent).toContain(
+        "Successfully imported 'Mock BGG Game'!"
+      );
     });
 
     test('F6-T1-03: BGG Mechanic Maps to Vector Checkbox', async () => {
@@ -1058,7 +1076,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggThingXml)
+          text: () => Promise.resolve(mockBggThingXml),
         });
       });
 
@@ -1079,7 +1097,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggThingXml)
+          text: () => Promise.resolve(mockBggThingXml),
         });
       });
 
@@ -1089,7 +1107,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return document.querySelector('#editor-explanations-inputs textarea') !== null;
       });
 
-      const ta = document.querySelector('#editor-explanations-inputs textarea[data-vector="economy.market.worker_placement"]');
+      const ta = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="economy.market.worker_placement"]'
+      );
       expect(ta.value).toBe('This game features the Worker Placement mechanic. Rules dictate how this works in-game.');
     });
 
@@ -1100,7 +1120,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockBggThingXml)
+          text: () => Promise.resolve(mockBggThingXml),
         });
       });
 
@@ -1111,7 +1131,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       document.getElementById('new-game-title').value = 'Mock BGG Game (Revised Edition)';
-      const ta = document.querySelector('#editor-explanations-inputs textarea[data-vector="economy.market.worker_placement"]');
+      const ta = document.querySelector(
+        '#editor-explanations-inputs textarea[data-vector="economy.market.worker_placement"]'
+      );
       ta.value = 'Custom revised worker placement explanation.';
 
       document.getElementById('add-game-form').dispatchEvent(new window.Event('submit', { bubbles: true }));
@@ -1138,7 +1160,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       document.getElementById('bgg-search-query').value = '';
 
       const searchBtn = Array.from(document.querySelectorAll('#bgg-import-card button')).find(
-        btn => btn.textContent === 'Search BGG'
+        (btn) => btn.textContent === 'Search BGG'
       );
       searchBtn.click();
 
@@ -1153,12 +1175,14 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve('<items total="0"></items>')
+          text: () => Promise.resolve('<items total="0"></items>'),
         });
       });
 
       document.getElementById('bgg-search-query').value = 'unknowngame123';
-      Array.from(document.querySelectorAll('#bgg-import-card button')).find(btn => btn.textContent === 'Search BGG').click();
+      Array.from(document.querySelectorAll('#bgg-import-card button'))
+        .find((btn) => btn.textContent === 'Search BGG')
+        .click();
 
       const statusDiv = document.getElementById('bgg-search-status');
       await waitFor(() => {
@@ -1176,7 +1200,9 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
       });
 
       document.getElementById('bgg-search-query').value = 'Scythe';
-      Array.from(document.querySelectorAll('#bgg-import-card button')).find(btn => btn.textContent === 'Search BGG').click();
+      Array.from(document.querySelectorAll('#bgg-import-card button'))
+        .find((btn) => btn.textContent === 'Search BGG')
+        .click();
 
       const statusDiv = document.getElementById('bgg-search-status');
       await waitFor(() => {
@@ -1200,7 +1226,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockNoMetaXml)
+          text: () => Promise.resolve(mockNoMetaXml),
         });
       });
 
@@ -1232,7 +1258,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          text: () => Promise.resolve(mockUnmappedXml)
+          text: () => Promise.resolve(mockUnmappedXml),
         });
       });
 

@@ -1,6 +1,6 @@
 /**
  * tests/adversarial_gaps.test.js
- * 
+ *
  * Challenger Agent Milestone 6 Test Suite targeting remaining gaps in app.js
  * and verifying adversarial/stress scenarios.
  */
@@ -11,27 +11,25 @@ const path = require('path');
 const mockRegistryData = {
   ttrpg: [
     {
-      game_id: "dnd_5e",
-      title: "Dungeons & Dragons 5e",
+      game_id: 'dnd_5e',
+      title: 'Dungeons & Dragons 5e',
       year: 2014,
-      medium: "ttrpg",
-      primary_genre: "Fantasy",
-      subgenres: ["Adventure", "High Fantasy"],
-      governed_vectors: [
-        "combat.melee.dice_rolls"
-      ],
+      medium: 'ttrpg',
+      primary_genre: 'Fantasy',
+      subgenres: ['Adventure', 'High Fantasy'],
+      governed_vectors: ['combat.melee.dice_rolls'],
       vector_explanations: {
-        "combat.melee.dice_rolls": "Uses d20 + modifiers to hit."
-      }
+        'combat.melee.dice_rolls': 'Uses d20 + modifiers to hit.',
+      },
     },
     {
-      game_id: "desc_game",
-      title: "Game with Description",
+      game_id: 'desc_game',
+      title: 'Game with Description',
       year: 2021,
-      medium: "ttrpg",
-      primary_genre: "Strategy",
-      description: "This is a detailed description of the game rules.",
-      governed_vectors: ["combat.melee.tactical"]
+      medium: 'ttrpg',
+      primary_genre: 'Strategy',
+      description: 'This is a detailed description of the game rules.',
+      governed_vectors: ['combat.melee.tactical'],
     },
     // We need at least 15 games total to trigger progressive rendering (> 10 items)
     // We give them unique vectors to trigger progressive dictionary rendering (> 10 items)
@@ -39,36 +37,34 @@ const mockRegistryData = {
       game_id: `dummy_ttrpg_${i}`,
       title: `Dummy TTRPG ${i}`,
       year: 2010 + i,
-      medium: "ttrpg",
-      primary_genre: "Fantasy",
-      governed_vectors: [`dummy.vector.${i}`]
-    }))
+      medium: 'ttrpg',
+      primary_genre: 'Fantasy',
+      governed_vectors: [`dummy.vector.${i}`],
+    })),
   ],
   board_game: [
     {
-      game_id: "scythe",
-      title: "Scythe",
+      game_id: 'scythe',
+      title: 'Scythe',
       year: 2016,
-      medium: "board_game",
-      primary_genre: "Strategy",
-      subgenres: ["Economic"],
-      governed_vectors: [
-        "economy.market.worker_placement"
-      ],
+      medium: 'board_game',
+      primary_genre: 'Strategy',
+      subgenres: ['Economic'],
+      governed_vectors: ['economy.market.worker_placement'],
       vector_explanations: {
-        "economy.market.worker_placement": "Place workers to produce resources."
-      }
+        'economy.market.worker_placement': 'Place workers to produce resources.',
+      },
     },
     {
-      game_id: "empty_game",
-      title: "Empty Game",
+      game_id: 'empty_game',
+      title: 'Empty Game',
       year: 2020,
-      medium: "board_game",
-      primary_genre: "Strategy",
+      medium: 'board_game',
+      primary_genre: 'Strategy',
       subgenres: [],
-      governed_vectors: []
-    }
-  ]
+      governed_vectors: [],
+    },
+  ],
 };
 
 describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => {
@@ -90,7 +86,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData)))
+          json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData))),
         });
       }
       return Promise.reject(new Error(`Unhandled URL: ${url}`));
@@ -107,11 +103,13 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
 
   test('Gap 1 & 9: Database load failure error rendering (lines 600, 624-626)', async () => {
     // Mock fetch to fail database load
-    global.fetch.mockImplementationOnce(() => Promise.resolve({
-      ok: false,
-      status: 500,
-      statusText: 'Internal Server Error'
-    }));
+    global.fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: false,
+        status: 500,
+        statusText: 'Internal Server Error',
+      })
+    );
 
     require('../app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
@@ -125,18 +123,20 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   test('Gap 2: LocalSearchWorker database fetch failure catch block (lines 99-100)', async () => {
     // Mock first fetch (loadDatabase) to succeed, and second fetch (LocalSearchWorker init) to fail
     global.fetch
-      .mockImplementationOnce(() => Promise.resolve({
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData)))
-      }))
-      .mockImplementationOnce(() => Promise.reject(new Error("Local worker fetch failure")));
+      .mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve(JSON.parse(JSON.stringify(mockRegistryData))),
+        })
+      )
+      .mockImplementationOnce(() => Promise.reject(new Error('Local worker fetch failure')));
 
     require('../app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     // Wait to let it execute
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
   });
 
   test('Gap 3 & 7: LocalSearchWorker postMessage error try-catch & Worker error log (lines 334-335, 378-379)', async () => {
@@ -150,7 +150,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     // Mock Map.prototype.get to throw an error inside LocalSearchWorker.postMessage (after initialization is complete)
     const originalGet = Map.prototype.get;
     Map.prototype.get = jest.fn().mockImplementation(() => {
-      throw new Error("Simulated Map error");
+      throw new Error('Simulated Map error');
     });
 
     // Trigger comparison tool action using the DOM buttons
@@ -161,7 +161,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
       btnB.click();
     }
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Worker error:", "Simulated Map error");
+    expect(consoleErrorSpy).toHaveBeenCalledWith('Worker error:', 'Simulated Map error');
 
     // Restore
     Map.prototype.get = originalGet;
@@ -179,7 +179,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     if (sortSelect) {
       sortSelect.value = 'title-desc';
       sortSelect.dispatchEvent(new window.Event('change', { bubbles: true }));
-      
+
       sortSelect.value = 'year-asc';
       sortSelect.dispatchEvent(new window.Event('change', { bubbles: true }));
 
@@ -199,14 +199,14 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     }
 
     // Wait for autocomplete debounce
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise((resolve) => setTimeout(resolve, 200));
   });
 
   test('Gap 6: Worker initialization check for standard Worker (line 349)', async () => {
     const originalWorker = global.Worker;
     const mockWorkerInstance = {
       postMessage: jest.fn(),
-      onmessage: null
+      onmessage: null,
     };
     global.Worker = jest.fn().mockImplementation(() => mockWorkerInstance);
 
@@ -250,7 +250,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
 
     await waitForWorkerReady();
 
-    window.openGameDetails("empty_game");
+    window.openGameDetails('empty_game');
 
     const modalOverlay = document.getElementById('details-modal-overlay');
     expect(modalOverlay.classList.contains('active')).toBe(true);
@@ -272,7 +272,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     // Mock requestAnimationFrame to return a handle instead of executing synchronously
     const originalRAF = window.requestAnimationFrame;
     const originalCAF = window.cancelAnimationFrame;
-    
+
     window.requestAnimationFrame = jest.fn().mockReturnValue(777);
     window.cancelAnimationFrame = jest.fn();
 
@@ -306,8 +306,8 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     const omniSearch = document.getElementById('omni-search');
     omniSearch.value = 'dummy'; // matches all 15 dummy games
     omniSearch.dispatchEvent(new window.Event('input', { bubbles: true }));
-    
-    await new Promise(resolve => setTimeout(resolve, 200));
+
+    await new Promise((resolve) => setTimeout(resolve, 200));
 
     // 2. Trigger search grid progressive render: case where gamesToRender.length > 10 (visibleCount = 12) but totalFilteredCount (17 games total) > visibleCount (12)
     // This hits lines 920-945 and line 940!
@@ -315,7 +315,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     omniSearch.value = 'dummy';
     omniSearch.dispatchEvent(new window.Event('input', { bubbles: true }));
 
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise((resolve) => setTimeout(resolve, 200));
 
     // 3. Trigger dictionary view with many items (we have > 15 unique vectors, triggering progressive dict render)
     // This hits lines 1013-1031
@@ -334,10 +334,10 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
 
     await waitForWorkerReady();
 
-    window.openGameDetails("desc_game");
+    window.openGameDetails('desc_game');
 
     const descText = document.getElementById('modal-description-text');
-    expect(descText.textContent).toBe("This is a detailed description of the game rules.");
+    expect(descText.textContent).toBe('This is a detailed description of the game rules.');
   });
 
   test('Gap 19: Clear autocomplete when query is empty/whitespace (lines 1138-1140)', async () => {
@@ -348,15 +348,15 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
 
     const searchInput = document.getElementById('vector-query-input');
     const suggestionsBox = document.getElementById('vector-query-suggestions');
-    
+
     suggestionsBox.style.display = 'block';
-    
+
     // Type empty value
     searchInput.value = '   ';
     searchInput.dispatchEvent(new window.Event('input', { bubbles: true }));
 
     // Wait for debounce
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await new Promise((resolve) => setTimeout(resolve, 200));
 
     expect(suggestionsBox.style.display).toBe('none');
     expect(suggestionsBox.innerHTML).toBe('');
@@ -371,15 +371,17 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     // 1. Mock fetch to reject (BGG Import fetch error path - lines 1662-1663)
     global.fetch.mockImplementationOnce(() => Promise.reject(new Error('BGG offline')));
     await window.importBGGGame('99999');
-    
+
     const statusDiv = document.getElementById('bgg-search-status');
     expect(statusDiv.textContent).toBe('Error importing game details.');
 
     // 2. Mock fetch to return XML lacking item tag (lines 1593-1594)
-    global.fetch.mockImplementationOnce(() => Promise.resolve({
-      ok: true,
-      text: () => Promise.resolve('<items></items>')
-    }));
+    global.fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        text: () => Promise.resolve('<items></items>'),
+      })
+    );
     await window.importBGGGame('99999');
     expect(statusDiv.textContent).toBe('Failed to load details for this game.');
 
@@ -396,12 +398,14 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
         </item>
       </items>
     `;
-    global.fetch.mockImplementationOnce(() => Promise.resolve({
-      ok: true,
-      text: () => Promise.resolve(xmlWithMultipleCategories)
-    }));
+    global.fetch.mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        text: () => Promise.resolve(xmlWithMultipleCategories),
+      })
+    );
     await window.importBGGGame('12345');
-    
+
     expect(document.getElementById('new-game-title').value).toBe('Test Multi Genre');
     expect(document.getElementById('new-game-subgenres').value).toBe('Category A, Category B, Category C');
   });
