@@ -7,4 +7,7 @@ registry.json
 registry_names.json
 package-lock.json
 *.md
-
+.agents
+.agent-cleaner
+src/transformers.min.js
+src/flexsearch.bundle.js
