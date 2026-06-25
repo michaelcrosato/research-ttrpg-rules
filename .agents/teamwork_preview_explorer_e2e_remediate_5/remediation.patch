@@ -1,0 +1,267 @@
+diff --git a/tests/setup.js b/tests/setup.js
+index 9b75248..ca17013 100644
+--- a/tests/setup.js
++++ b/tests/setup.js
+@@ -13,26 +13,42 @@ const originalWindowRemove = window.removeEventListener;
+ const originalDocumentAdd = document.addEventListener;
+ const originalDocumentRemove = document.removeEventListener;
+ 
++const getCaptureOption = (options) => {
++  if (typeof options === 'boolean') return options;
++  if (options && typeof options === 'object') return !!options.capture;
++  return false;
++};
++
+ window.addEventListener = function(type, listener, options) {
+-  windowListeners.push({ type, listener, options });
++  const capture = getCaptureOption(options);
++  const exists = windowListeners.some(
++    item => item.type === type && item.listener === listener && getCaptureOption(item.options) === capture
++  );
++  if (!exists) {
++    windowListeners.push({ type, listener, options });
++  }
+   return originalWindowAdd.call(this, type, listener, options);
+ };
+ 
+ window.removeEventListener = function(type, listener, options) {
++  const capture = getCaptureOption(options);
+   windowListeners = windowListeners.filter(
+-    item => !(item.type === type && item.listener === listener)
++    item => !(item.type === type && item.listener === listener && getCaptureOption(item.options) === capture)
+   );
+   return originalWindowRemove.call(this, type, listener, options);
+ };
+ 
+ document.addEventListener = function(type, listener, options) {
+-  documentListeners.push({ type, listener, options });
++  const capture = getCaptureOption(options);
++  const exists = documentListeners.some(
++    item => item.type === type && item.listener === listener && getCaptureOption(item.options) === capture
++  );
++  if (!exists) {
++    documentListeners.push({ type, listener, options });
++  }
+   return originalDocumentAdd.call(this, type, listener, options);
+ };
+ 
+ document.removeEventListener = function(type, listener, options) {
++  const capture = getCaptureOption(options);
+   documentListeners = documentListeners.filter(
+-    item => !(item.type === type && item.listener === listener)
++    item => !(item.type === type && item.listener === listener && getCaptureOption(item.options) === capture)
+   );
+   return originalDocumentRemove.call(this, type, listener, options);
+ };
+diff --git a/tests/smoke.test.js b/tests/smoke.test.js
+index c8d8d3f..a278913 100644
+--- a/tests/smoke.test.js
++++ b/tests/smoke.test.js
+@@ -81,22 +81,24 @@ describe('Systems Indexer - Smoke & Lifecycle Tests', () => {
+   });
+ 
+   test('Registry database loads successfully and renders game cards', async () => {
+-    // Flush microtasks queue to allow async fetch of database to complete
+-    await new Promise(resolve => setTimeout(resolve, 50));
++    // Polling wait helper replacing raw setTimeout
++    await global.waitFor(() => {
++      const gameCards = document.querySelectorAll('.game-card');
++      expect(gameCards.length).toBe(2);
++    });
+ 
+     // Verify game cards are loaded in the DOM grid
+     const gameCards = document.querySelectorAll('.game-card');
+-    expect(gameCards.length).toBe(2);
+ 
+     // Verify titles on cards
+     const cardTitles = Array.from(gameCards).map(card => card.querySelector('h2').textContent);
+     expect(cardTitles).toContain('Mock Fantasy RPG');
+     expect(cardTitles).toContain('Mock Euro Game');
+   });
+ 
+   test('Dashboard counts are rendered correctly', async () => {
+-    // Flush microtasks queue
+-    await new Promise(resolve => setTimeout(resolve, 50));
++    // Polling wait helper replacing raw setTimeout
++    await global.waitFor(() => {
++      const totalGames = document.getElementById('stat-total-games').textContent;
++      expect(totalGames).toBe('2');
++    });
+ 
+     // Assert dashboard elements contain correct counts
+     const totalGames = document.getElementById('stat-total-games').textContent;
+diff --git a/tests/worker.test.js b/tests/worker.test.js
+index f30ad10..b1192e4 100644
+--- a/tests/worker.test.js
++++ b/tests/worker.test.js
+@@ -11,11 +11,21 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
+   let workerScope;
+   let lastMessage;
+-  let originalFlexSearch;
++  let originalSelf;
++  let originalImportScripts;
++  let originalPostMessage;
++  let originalFlexSearch;
++  let originalOnmessage;
+ 
+   beforeAll(() => {
++    originalSelf = global.self;
++    originalImportScripts = global.importScripts;
++    originalPostMessage = global.postMessage;
++    originalFlexSearch = global.FlexSearch;
++    originalOnmessage = global.onmessage;
++
+     // 1. Setup mock environment representing the Web Worker global scope
+     global.self = global;
+     global.importScripts = jest.fn();
+     global.postMessage = jest.fn((msg) => {
+       lastMessage = msg;
+     });
+@@ -63,14 +73,42 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
+   beforeEach(() => {
+     lastMessage = null;
+     jest.clearAllMocks();
+   });
+ 
++  afterAll(() => {
++    if (originalSelf === undefined) {
++      delete global.self;
++    } else {
++      global.self = originalSelf;
++    }
++    if (originalImportScripts === undefined) {
++      delete global.importScripts;
++    } else {
++      global.importScripts = originalImportScripts;
++    }
++    if (originalPostMessage === undefined) {
++      delete global.postMessage;
++    } else {
++      global.postMessage = originalPostMessage;
++    }
++    if (originalFlexSearch === undefined) {
++      delete global.FlexSearch;
++    } else {
++      global.FlexSearch = originalFlexSearch;
++    }
++    if (originalOnmessage === undefined) {
++      delete global.onmessage;
++    } else {
++      global.onmessage = originalOnmessage;
++    }
++  });
++
+   test('Worker requires initialization before actions', async () => {
+     global.onmessage({ data: { type: 'search', filters: { searchTerm: 'tactical' } } });
+     
+-    // Flush microtasks since onmessage is async
+-    await new Promise(resolve => setTimeout(resolve, 10));
+-    
+-    expect(lastMessage).toBeDefined();
+-    expect(lastMessage.error).toBe('Worker is not initialized. Please run init action first.');
++    // Polling wait helper replacing raw setTimeout
++    await global.waitFor(() => {
++      expect(lastMessage).toBeDefined();
++      expect(lastMessage.error).toBe('Worker is not initialized. Please run init action first.');
++    });
+   });
+ 
+   test('init action succeeds and indexes registry data', async () => {
+@@ -90,14 +108,12 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
+     global.onmessage({ data: { type: 'init', dbUrl: 'registry.json' } });
+     
+-    // Flush microtasks
+-    await new Promise(resolve => setTimeout(resolve, 50));
+-
+-    expect(lastMessage).toBeDefined();
+-    expect(lastMessage.type).toBe('ready');
+-    expect(lastMessage.success).toBe(true);
+-    expect(lastMessage.stats.totalGames).toBeGreaterThan(0);
+-    expect(lastMessage.stats.uniqueVectorsCount).toBeGreaterThan(0);
++    // Polling wait helper replacing raw setTimeout
++    await global.waitFor(() => {
++      expect(lastMessage).toBeDefined();
++      expect(lastMessage.type).toBe('ready');
++      expect(lastMessage.success).toBe(true);
++      expect(lastMessage.stats.totalGames).toBeGreaterThan(0);
++      expect(lastMessage.stats.uniqueVectorsCount).toBeGreaterThan(0);
++    });
+   });
+ 
+diff --git a/tests/tier34.test.js b/tests/tier34.test.js
+index eb9da41..700efc2 100644
+--- a/tests/tier34.test.js
++++ b/tests/tier34.test.js
+@@ -626,14 +626,47 @@ describe('Systems Indexer - Tier 3 & Tier 4 E2E Tests', () => {
+   describe('Systems Indexer - Performance Constraints Benchmarks', () => {
+     let lastMessage;
++    let originalSelf;
++    let originalImportScripts;
++    let originalPostMessage;
++    let originalFlexSearch;
++    let originalOnmessage;
+ 
+     beforeAll(() => {
++      originalSelf = global.self;
++      originalImportScripts = global.importScripts;
++      originalPostMessage = global.postMessage;
++      originalFlexSearch = global.FlexSearch;
++      originalOnmessage = global.onmessage;
++
+       global.self = global;
+       global.importScripts = jest.fn();
+       global.postMessage = jest.fn((msg) => {
+         lastMessage = msg;
+       });
+       
+       if (!global.performance) {
+         global.performance = require('perf_hooks').performance;
+       }
+@@ -673,7 +706,35 @@ describe('Systems Indexer - Tier 3 & Tier 4 E2E Tests', () => {
+       const workerCode = fs.readFileSync(workerCodePath, 'utf8');
+       eval(workerCode);
+     });
+ 
++    afterAll(() => {
++      if (originalSelf === undefined) {
++        delete global.self;
++      } else {
++        global.self = originalSelf;
++      }
++      if (originalImportScripts === undefined) {
++        delete global.importScripts;
++      } else {
++        global.importScripts = originalImportScripts;
++      }
++      if (originalPostMessage === undefined) {
++        delete global.postMessage;
++      } else {
++        global.postMessage = originalPostMessage;
++      }
++      if (originalFlexSearch === undefined) {
++        delete global.FlexSearch;
++      } else {
++        global.FlexSearch = originalFlexSearch;
++      }
++      if (originalOnmessage === undefined) {
++        delete global.onmessage;
++      } else {
++        global.onmessage = originalOnmessage;
++      }
++    });
++
+     test('Benchmark: Database indexing and memory footprint under 10MB', async () => {
+       const largeGamesList = [];
+       for (let i = 0; i < 4700; i++) {
+@@ -712,7 +773,10 @@ describe('Systems Indexer - Tier 3 & Tier 4 E2E Tests', () => {
+       });
+ 
+       global.onmessage({ data: { type: 'init', dbUrl: 'registry.json' } });
+-      await new Promise(resolve => setTimeout(resolve, 100));
++      // Polling wait helper replacing raw setTimeout
++      await global.waitFor(() => {
++        expect(lastMessage).toBeDefined();
++        expect(lastMessage.type).toBe('ready');
++      });
+ 
+       const memAfter = process.memoryUsage().heapUsed;

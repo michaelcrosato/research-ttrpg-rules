@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Systems Indexer | TTRPG & Board Game Rules Registry</title>
+  <meta name="description" content="An exhaustive, searchable database indexing the governed mechanical subsystems, rulesets, and gameplay vectors of tabletop roleplaying games and board games.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo-container">
+        <div class="logo-icon">Σ</div>
+        <div>
+          <h1>SYSTEMS INDEXER</h1>
+          <p class="subtitle">An exhaustive mechanical registry and search engine for TTRPG & Board Game rulesets</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Stats Dashboard -->
+      <section class="dashboard-summary" aria-label="Database Summary Statistics">
+        <div class="stat-card" id="card-stat-total">
+          <h3>Total Rulesets</h3>
+          <div class="stat-value" id="stat-total-games">0</div>
+          <div class="stat-value-sub">Indexed entries</div>
+        </div>
+        <div class="stat-card" id="card-stat-ttrpgs">
+          <h3>TTRPG Rulesets</h3>
+          <div class="stat-value" id="stat-total-ttrpgs">0</div>
+          <div class="stat-value-sub">Roleplaying games</div>
+        </div>
+        <div class="stat-card" id="card-stat-boardgames">
+          <h3>Board Games</h3>
+          <div class="stat-value" id="stat-total-boardgames">0</div>
+          <div class="stat-value-sub">Board & card systems</div>
+        </div>
+        <div class="stat-card" id="card-stat-vectors">
+          <h3>Unique Vectors</h3>
+          <div class="stat-value" id="stat-total-vectors">0</div>
+          <div class="stat-value-sub">Governed mechanics</div>
+        </div>
+      </section>
+
+      <!-- Navigation Tabs -->
+      <nav class="tab-container" role="tablist" aria-label="Application sections">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="explorer-view" data-tab="explorer" id="tab-nav-explorer">
+          Explorer Grid <span class="badge" id="results-count-number">0</span>
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="vector-search-view" data-tab="vector-search" id="tab-nav-vector-search">
+          Vector Search Engine
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="compare-view" data-tab="compare" id="tab-nav-compare">
+          Venn Comparison Tool
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="dictionary-view" data-tab="dictionary" id="tab-nav-dictionary">
+          Vector Dictionary
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="editor-view" data-tab="editor" id="tab-nav-editor">
+          Database Editor
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="sandbox-view" data-tab="sandbox" id="tab-nav-sandbox">
+          OmniRuleset Sandbox <span class="badge" style="background: var(--color-accent);">AI</span>
+        </button>
+      </nav>
+
+      <!-- 1. EXPLORER GRID VIEW -->
+      <section id="explorer-view" class="view-panel active" role="tabpanel" aria-labelledby="tab-nav-explorer">
+        <div class="explorer-layout">
+          <!-- Filters Sidebar -->
+          <aside class="filters-sidebar" aria-label="Search filters">
+            <div class="filter-section">
+              <h4>Omni Search</h4>
+              <div class="search-input-wrapper">
+                <input type="text" id="omni-search" class="search-input" placeholder="Search title, genre, vector...">
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h4>Medium</h4>
+              <div class="filter-pills">
+                <button class="filter-pill-btn active" data-medium="all" id="pill-medium-all">All</button>
+                <button class="filter-pill-btn" data-medium="ttrpg" id="pill-medium-ttrpg">TTRPG</button>
+                <button class="filter-pill-btn" data-medium="board_game" id="pill-medium-board-game">Board Game</button>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <h4>Genre</h4>
+              <select id="filter-genre" class="form-control">
+                <option value="all">All Genres</option>
+              </select>
+            </div>
+
+            <div class="filter-section">
+              <h4>Release Year</h4>
+              <div class="range-inputs">
+                <input type="number" id="filter-year-min" min="1950" max="2026" value="2000" aria-label="Minimum year">
+                <span class="text-secondary" style="font-family: var(--font-mono)">to</span>
+                <input type="number" id="filter-year-max" min="1950" max="2026" value="2026" aria-label="Maximum year">
+              </div>
+            </div>
+            
+            <div class="filter-section">
+              <h4>Sort By</h4>
+              <select id="filter-sort" class="form-control">
+                <option value="title-asc">Title (A - Z)</option>
+                <option value="title-desc">Title (Z - A)</option>
+                <option value="year-desc">Year (Newest)</option>
+                <option value="year-asc">Year (Oldest)</option>
+              </select>
+            </div>
+          </aside>
+
+          <!-- Grid Display -->
+          <div class="grid-container-area">
+            <div class="results-header">
+              <h2 class="text-secondary" style="font-family: var(--font-mono); font-size: 1.1rem; text-transform: uppercase;">Indexed Rulesets</h2>
+            </div>
+            <div class="games-grid" id="games-grid">
+              <!-- Cards rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. VECTOR SEARCH VIEW -->
+      <section id="vector-search-view" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-vector-search">
+        <div class="vector-search-container">
+          <div class="vector-search-bar">
+            <h2 style="font-family: var(--font-mono); font-size: 1.25rem;">Query Specific Gameplay Vector</h2>
+            <p class="text-secondary" style="font-size: 0.9rem;">Find exactly which games feature dedicated, explicit mechanics governing a specific subsystem. Uses namespaces, e.g. <code>combat.melee.tactical</code> or <code>simulation.agriculture.farming</code>.</p>
+            <div class="vector-search-row">
+              <div class="search-input-wrapper" style="flex: 1;">
+                <input type="text" id="vector-query-input" class="search-input" placeholder="Type vector namespace (e.g. logistics.survival.rations)..." autocomplete="off">
+                <div class="autocomplete-suggestions" id="vector-query-suggestions" style="display: none;"></div>
+              </div>
+              <button class="btn" id="vector-search-btn">Search Systems</button>
+            </div>
+          </div>
+
+          <div class="vector-results" id="vector-search-results">
+            <div class="no-results-state" style="grid-column: span 1; padding: 4rem 2rem;">
+              <p>Type a vector above or select one from the auto-suggestions to search rules definitions.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. COMPARE VIEW -->
+      <section id="compare-view" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-compare">
+        <div class="compare-container">
+          <!-- Game Selectors -->
+          <aside class="compare-selector-card" id="compare-selector-a"></aside>
+          <aside class="compare-selector-card" id="compare-selector-b"></aside>
+
+          <!-- Venn Comparison Display -->
+          <div class="comparison-results-panel" id="comparison-results">
+            <div class="no-results-state" style="grid-column: span 1; padding: 3rem 1.5rem;">
+              <p>Please select two rulesets from the panels above to analyze overlaps and differences in their mechanical systems.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. DICTIONARY VIEW -->
+      <section id="dictionary-view" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-dictionary">
+        <div class="dictionary-container">
+          <!-- Domain Navigation -->
+          <aside class="dict-sidebar" id="dict-domains-sidebar"></aside>
+
+          <!-- Dictionary Matches -->
+          <div class="dict-results">
+            <h2 id="dict-current-domain">All System Vectors</h2>
+            <div id="dict-results-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. EDITOR VIEW -->
+      <section id="editor-view" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-editor">
+        <div class="editor-container">
+          <!-- Left column elements (Import Card + Form Card) -->
+          <div style="display: flex; flex-direction: column; gap: 2rem;">
+            
+            <!-- BoardGameGeek Import Card -->
+            <div class="editor-card" id="bgg-import-card">
+              <h2>Import from BoardGameGeek</h2>
+              <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem;">
+                Search for any board game on BoardGameGeek. We will fetch its metadata (title, year, genres) and map its BGG mechanics directly to our namespaced gameplay vectors to pre-fill the registry form!
+              </p>
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <input type="text" id="bgg-search-query" class="form-control" placeholder="Search board game on BGG (e.g. Scythe, Agricola)...">
+                <button type="button" class="btn btn-cyan" onclick="searchBGG()">Search BGG</button>
+              </div>
+              <div id="bgg-search-status" class="text-secondary" style="font-size: 0.8rem; margin-bottom: 0.5rem; display: none;"></div>
+              <div id="bgg-search-results-area" style="max-height: 180px; overflow-y: auto; background: rgba(0,0,0,0.25); border-radius: var(--radius-sm); border: 1px solid var(--border-color); display: none; padding: 0.5rem;">
+                <!-- Search results load dynamically -->
+              </div>
+            </div>
+
+            <!-- Data Input Card -->
+            <div class="editor-card">
+              <h2>Add Game to Registry</h2>
+              <form id="add-game-form">
+                <div class="form-group">
+                  <label for="new-game-title">Official Title</label>
+                <input type="text" id="new-game-title" class="form-control" placeholder="e.g. Dungeons & Dragons 5e" required>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="new-game-year">Publication Year</label>
+                  <input type="number" id="new-game-year" class="form-control" placeholder="2014" min="1900" max="2026" required>
+                </div>
+                <div class="form-group">
+                  <label for="new-game-medium">Medium Format</label>
+                  <select id="new-game-medium" class="form-control">
+                    <option value="ttrpg">TTRPG (Roleplaying Game)</option>
+                    <option value="board_game">Board Game</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="new-game-genre">Primary Genre</label>
+                  <input type="text" id="new-game-genre" class="form-control" placeholder="e.g. Fantasy" required>
+                </div>
+                <div class="form-group">
+                  <label for="new-game-subgenres">Subgenres (Comma separated)</label>
+                  <input type="text" id="new-game-subgenres" class="form-control" placeholder="e.g. High Fantasy, Adventure">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Select Governed Vectors (Check all that apply)</label>
+                <div class="vector-input-list" id="editor-vectors-list">
+                  <!-- Generated check items -->
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Define Custom Vector (If not in list above)</label>
+                <div style="display: flex; gap: 0.5rem;">
+                  <input type="text" id="custom-vector-name" class="form-control" placeholder="domain.subsystem.focus (e.g. combat.melee.tactical)">
+                  <button type="button" class="btn btn-secondary" onclick="addCustomEditorVector()">Add</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Rules Explanations (Explain mechanics for each selected vector)</label>
+                <div class="vector-explanations-editor" id="editor-explanations-inputs">
+                  <!-- Inputs append dynamically based on checkboxes -->
+                </div>
+              </div>
+
+              <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Add to Local Index</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- JSON Export/Download Panel -->
+          <div class="editor-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h2>Export Database Registry</h2>
+              <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1.5rem;">Below is the serialized JSON reflecting the in-memory master database. When you add new games, this text compiles instantly. Copy this code or download it to save changes permanently to your <code>registry.json</code>.</p>
+              <pre class="export-preview" id="export-json-preview"></pre>
+            </div>
+            <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+              <button class="btn btn-cyan" onclick="downloadUpdatedRegistry()" style="flex: 1;">Download registry.json</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. OMNIRULESET SANDBOX VIEW -->
+      <section id="sandbox-view" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-sandbox">
+        <div class="sandbox-container">
+          <!-- Left Column: Vector Selector + Conflict Checker -->
+          <div class="sandbox-left-col">
+            <div class="glass-panel sandbox-panel">
+              <h2 class="sandbox-panel-title">⚙️ Vector Selector</h2>
+              <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem;">Select mechanical vectors to combine into a unified ruleset. The conflict checker will flag incompatibilities before synthesis.</p>
+              <div class="sandbox-vector-search-wrapper">
+                <input type="text" id="sandbox-vector-input" class="search-input" placeholder="Search vectors to add (e.g. combat.melee)...">
+                <div class="autocomplete-suggestions" id="sandbox-vector-suggestions"></div>
+              </div>
+              <div id="sandbox-selected-vectors" class="sandbox-selected-vectors"></div>
+              <button class="btn" id="sandbox-clear-vectors" style="margin-top: 0.75rem; width: 100%; opacity: 0.7;">Clear All Vectors</button>
+            </div>
+
+            <div class="glass-panel sandbox-panel">
+              <h2 class="sandbox-panel-title">🔍 Conflict Analysis</h2>
+              <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem;">Detected mechanical contradictions among selected vectors.</p>
+              <div id="sandbox-conflicts" class="sandbox-conflicts">
+                <div class="sandbox-empty-state">Select 2+ vectors to analyze conflicts</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Center Column: Synthesized Ruleset -->
+          <div class="sandbox-center-col">
+            <div class="glass-panel sandbox-panel sandbox-synthesis-panel">
+              <div class="sandbox-synthesis-header">
+                <h2 class="sandbox-panel-title">📜 Synthesized Ruleset</h2>
+                <button class="btn" id="sandbox-synthesize-btn" disabled>Synthesize Ruleset</button>
+              </div>
+              <div id="sandbox-ruleset-output" class="sandbox-ruleset-output">
+                <div class="sandbox-empty-state">Select vectors and click "Synthesize Ruleset" to generate a unified rules sheet</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: AI GM Playtest Chat -->
+          <div class="sandbox-right-col">
+            <div class="glass-panel sandbox-panel sandbox-chat-panel">
+              <h2 class="sandbox-panel-title">🎲 AI Game Master</h2>
+              <div id="sandbox-character-sheet" class="sandbox-character-sheet">
+                <div class="sandbox-empty-state">Synthesize a ruleset to begin a playtest session</div>
+              </div>
+              <div id="sandbox-chat-log" class="sandbox-chat-log">
+                <!-- Chat messages will be appended here -->
+              </div>
+              <div class="sandbox-chat-input-wrapper">
+                <input type="text" id="sandbox-chat-input" class="search-input" placeholder="Describe your action..." disabled>
+                <button class="btn" id="sandbox-chat-send" disabled>Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top: 5rem; border-top: 1px solid var(--border-color); padding: 2rem 0; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.8rem;">
+      SYSTEMS INDEXER DATABASE ENGINE // BUILT FOR HIGH-DENSITY FEATURE QUERYING // Gemini 3.5 Flash
+    </footer>
+  </div>
+
+  <!-- Detail Drawer/Modal Overlay -->
+  <div class="modal-overlay" id="details-modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-area">
+          <span id="modal-medium" class="medium-badge ttrpg-badge">TTRPG</span>
+          <h2 id="modal-game-title" style="font-family: var(--font-mono); font-size: 1.8rem; margin-top: 0.25rem; color: #fff;">Game Title</h2>
+        </div>
+        <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <section class="modal-metadata" aria-label="Game metadata">
+          <div class="meta-item">
+            <span class="meta-label">Publication Year</span>
+            <span class="meta-value" id="modal-year">2026</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Primary Theme</span>
+            <span class="meta-value" id="modal-primary-genre">Fantasy</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Subgenres</span>
+            <span class="meta-value" id="modal-subgenres">None</span>
+          </div>
+        </section>
+        
+        <div id="modal-description-container" style="margin-bottom: 1.5rem; display: none;">
+          <p id="modal-description-text" style="font-size: 0.95rem; line-height: 1.5; color: var(--text-secondary); font-style: italic; background: rgba(255, 255, 255, 0.03); padding: 0.75rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);"></p>
+        </div>
+        
+        <div class="modal-section-header" style="margin-bottom: 1.25rem;">
+          <h3 class="modal-section-title" style="margin-bottom: 0.25rem;">GOVERNED VECTORS</h3>
+          <p class="text-secondary" style="font-size: 0.85rem;">Gameplay subsystems containing mathematical loops, specialized rule books, or distinct conditions.</p>
+        </div>
+        
+        <div id="modal-vectors-content">
+          <!-- Dynamically populated structured blocks -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript application file -->
+  <script src="dist/app.js"></script>
+</body>
+</html>

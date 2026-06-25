@@ -1,0 +1,25 @@
+{
+  "name": "research-ttrpg-rules",
+  "version": "1.0.0",
+  "description": "Rules Explorer application",
+  "main": "app.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc && node strip-exports.js",
+    "build:watch": "tsc -w",
+    "pretest": "npm run build && node -e \"setTimeout(() => {}, 2000)\"",
+    "test": "jest --runInBand"
+  },
+  "dependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/jsdom": "^28.0.3",
+    "@types/node": "^26.0.1",
+    "rimraf": "^6.1.3",
+    "ts-jest": "^29.4.11",
+    "typescript": "^6.0.3"
+  }
+}
