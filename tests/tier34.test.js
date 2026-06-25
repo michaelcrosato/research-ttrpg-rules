@@ -178,9 +178,26 @@ describe('Systems Indexer - Tier 3, Tier 4 E2E & Performance Tests', () => {
       const coriolisLink = Array.from(
         document.querySelectorAll('#vector-search-results .vector-game-item a.vector-game-title')
       ).find((a) => a.textContent === 'Coriolis: Empyrean Canticle 2e Edition');
-      coriolisLink.click();
+
+      console.log('DEBUG TEST-301 coriolisLink outerHTML:', coriolisLink ? coriolisLink.outerHTML : 'NULL');
+      console.log('DEBUG TEST-301 window.openGameDetails exists:', typeof window.openGameDetails);
+      console.log('DEBUG TEST-301 global.openGameDetails exists:', typeof global.openGameDetails);
+
+      const errors = [];
+      window.addEventListener('error', (e) => {
+        errors.push(e.message || e);
+      });
+
+      try {
+        coriolisLink.click();
+      } catch (err) {
+        console.log('DEBUG TEST-301 click threw error:', err.message);
+      }
+
+      console.log('DEBUG TEST-301 errors captured:', errors);
 
       const modal = document.getElementById('details-modal-overlay');
+      console.log('DEBUG TEST-301 modal active class:', modal ? modal.classList.contains('active') : 'MODAL NULL');
       expect(modal.classList.contains('active')).toBe(true);
       expect(document.getElementById('modal-game-title').textContent).toBe('Coriolis: Empyrean Canticle 2e Edition');
 

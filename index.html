@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Global Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="loading-spinner-container">
+        <div class="loading-spinner"></div>
+        <div id="loading-text" class="loading-text">Loading mechanical registry...</div>
+      </div>
+    </div>
     <div class="container">
       <!-- Header -->
       <header>
@@ -110,6 +117,36 @@
           >
             OmniRuleset Sandbox <span class="badge" style="background: var(--color-accent)">AI</span>
           </button>
+          <button
+            class="tab-btn"
+            role="tab"
+            aria-selected="false"
+            aria-controls="topology-view"
+            data-tab="topology"
+            id="tab-nav-topology"
+          >
+            Topology Graph
+          </button>
+          <button
+            class="tab-btn"
+            role="tab"
+            aria-selected="false"
+            aria-controls="diagnostics-view"
+            data-tab="diagnostics"
+            id="tab-nav-diagnostics"
+          >
+            Diagnostics
+          </button>
+          <button
+            class="tab-btn"
+            role="tab"
+            aria-selected="false"
+            aria-controls="probability-view"
+            data-tab="probability"
+            id="tab-nav-probability"
+          >
+            Dice Probability Lab
+          </button>
         </nav>
 
         <!-- 1. EXPLORER GRID VIEW -->
@@ -126,6 +163,50 @@
                     class="search-input"
                     placeholder="Search title, genre, vector..."
                   />
+                </div>
+                <div
+                  class="semantic-search-controls"
+                  style="
+                    margin-top: 0.5rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 0.5rem;
+                  "
+                >
+                  <label
+                    style="
+                      display: inline-flex;
+                      align-items: center;
+                      gap: 0.25rem;
+                      font-size: 0.85rem;
+                      color: var(--text-secondary);
+                      cursor: pointer;
+                    "
+                  >
+                    <input type="checkbox" id="semantic-search-toggle" style="cursor: pointer" />
+                    Semantic Search
+                  </label>
+                  <div
+                    id="semantic-loading-container"
+                    style="flex: 1; display: none; align-items: center; margin-left: 0.5rem"
+                  >
+                    <div
+                      style="
+                        width: 100%;
+                        height: 6px;
+                        background: rgba(255, 255, 255, 0.1);
+                        border-radius: 3px;
+                        overflow: hidden;
+                        position: relative;
+                      "
+                    >
+                      <div
+                        id="semantic-loading-bar"
+                        style="width: 0%; height: 100%; background: var(--color-accent); transition: width 0.2s ease"
+                      ></div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -192,7 +273,103 @@
                 </h2>
               </div>
               <div class="games-grid" id="games-grid">
-                <!-- Cards rendered dynamically -->
+                <!-- Shimmer skeleton loaders (6 cards) -->
+                <div class="skeleton-card">
+                  <div class="skeleton-shimmer"></div>
+                  <div style="display: flex; flex-direction: column; height: 100%">
+                    <div class="skeleton-header">
+                      <div class="skeleton-line skeleton-badge"></div>
+                      <div class="skeleton-line skeleton-year"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-title" style="margin-top: 1rem"></div>
+                    <div class="skeleton-line skeleton-genre" style="margin-top: 0.5rem"></div>
+                    <div class="skeleton-tags" style="margin-top: 1rem">
+                      <div class="skeleton-line skeleton-tag"></div>
+                      <div class="skeleton-line skeleton-tag"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-footer" style="margin-top: auto"></div>
+                  </div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton-shimmer"></div>
+                  <div style="display: flex; flex-direction: column; height: 100%">
+                    <div class="skeleton-header">
+                      <div class="skeleton-line skeleton-badge"></div>
+                      <div class="skeleton-line skeleton-year"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-title" style="margin-top: 1rem"></div>
+                    <div class="skeleton-line skeleton-genre" style="margin-top: 0.5rem"></div>
+                    <div class="skeleton-tags" style="margin-top: 1rem">
+                      <div class="skeleton-line skeleton-tag"></div>
+                      <div class="skeleton-line skeleton-tag"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-footer" style="margin-top: auto"></div>
+                  </div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton-shimmer"></div>
+                  <div style="display: flex; flex-direction: column; height: 100%">
+                    <div class="skeleton-header">
+                      <div class="skeleton-line skeleton-badge"></div>
+                      <div class="skeleton-line skeleton-year"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-title" style="margin-top: 1rem"></div>
+                    <div class="skeleton-line skeleton-genre" style="margin-top: 0.5rem"></div>
+                    <div class="skeleton-tags" style="margin-top: 1rem">
+                      <div class="skeleton-line skeleton-tag"></div>
+                      <div class="skeleton-line skeleton-tag"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-footer" style="margin-top: auto"></div>
+                  </div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton-shimmer"></div>
+                  <div style="display: flex; flex-direction: column; height: 100%">
+                    <div class="skeleton-header">
+                      <div class="skeleton-line skeleton-badge"></div>
+                      <div class="skeleton-line skeleton-year"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-title" style="margin-top: 1rem"></div>
+                    <div class="skeleton-line skeleton-genre" style="margin-top: 0.5rem"></div>
+                    <div class="skeleton-tags" style="margin-top: 1rem">
+                      <div class="skeleton-line skeleton-tag"></div>
+                      <div class="skeleton-line skeleton-tag"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-footer" style="margin-top: auto"></div>
+                  </div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton-shimmer"></div>
+                  <div style="display: flex; flex-direction: column; height: 100%">
+                    <div class="skeleton-header">
+                      <div class="skeleton-line skeleton-badge"></div>
+                      <div class="skeleton-line skeleton-year"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-title" style="margin-top: 1rem"></div>
+                    <div class="skeleton-line skeleton-genre" style="margin-top: 0.5rem"></div>
+                    <div class="skeleton-tags" style="margin-top: 1rem">
+                      <div class="skeleton-line skeleton-tag"></div>
+                      <div class="skeleton-line skeleton-tag"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-footer" style="margin-top: auto"></div>
+                  </div>
+                </div>
+                <div class="skeleton-card">
+                  <div class="skeleton-shimmer"></div>
+                  <div style="display: flex; flex-direction: column; height: 100%">
+                    <div class="skeleton-header">
+                      <div class="skeleton-line skeleton-badge"></div>
+                      <div class="skeleton-line skeleton-year"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-title" style="margin-top: 1rem"></div>
+                    <div class="skeleton-line skeleton-genre" style="margin-top: 0.5rem"></div>
+                    <div class="skeleton-tags" style="margin-top: 1rem">
+                      <div class="skeleton-line skeleton-tag"></div>
+                      <div class="skeleton-line skeleton-tag"></div>
+                    </div>
+                    <div class="skeleton-line skeleton-footer" style="margin-top: auto"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -270,38 +447,242 @@
             <div style="display: flex; flex-direction: column; gap: 2rem">
               <!-- BoardGameGeek Import Card -->
               <div class="editor-card" id="bgg-import-card">
-                <h2>Import from BoardGameGeek</h2>
-                <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem">
-                  Search for any board game on BoardGameGeek. We will fetch its metadata (title, year, genres) and map
-                  its BGG mechanics directly to our namespaced gameplay vectors to pre-fill the registry form!
-                </p>
-                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem">
-                  <input
-                    type="text"
-                    id="bgg-search-query"
-                    class="form-control"
-                    placeholder="Search board game on BGG (e.g. Scythe, Agricola)..."
-                  />
-                  <button type="button" class="btn btn-cyan" onclick="searchBGG()">Search BGG</button>
-                </div>
+                <h2>Import Hub</h2>
                 <div
-                  id="bgg-search-status"
-                  class="text-secondary"
-                  style="font-size: 0.8rem; margin-bottom: 0.5rem; display: none"
-                ></div>
-                <div
-                  id="bgg-search-results-area"
+                  class="tab-container"
                   style="
-                    max-height: 180px;
-                    overflow-y: auto;
-                    background: rgba(0, 0, 0, 0.25);
-                    border-radius: var(--radius-sm);
-                    border: 1px solid var(--border-color);
-                    display: none;
-                    padding: 0.5rem;
+                    margin-bottom: 1rem;
+                    gap: 0.5rem;
+                    justify-content: flex-start;
+                    border-bottom: 1px solid var(--border-color);
+                    padding-bottom: 0.5rem;
                   "
                 >
-                  <!-- Search results load dynamically -->
+                  <button
+                    type="button"
+                    class="tab-btn active"
+                    id="btn-import-bgg"
+                    onclick="switchImportPlatform('bgg')"
+                  >
+                    BoardGameGeek
+                  </button>
+                  <button type="button" class="tab-btn" id="btn-import-itch" onclick="switchImportPlatform('itch')">
+                    itch.io
+                  </button>
+                  <button
+                    type="button"
+                    class="tab-btn"
+                    id="btn-import-drivethru"
+                    onclick="switchImportPlatform('drivethru')"
+                  >
+                    DriveThruRPG
+                  </button>
+                  <button
+                    type="button"
+                    class="tab-btn"
+                    id="btn-import-wikipedia"
+                    onclick="switchImportPlatform('wikipedia')"
+                  >
+                    Wikipedia
+                  </button>
+                </div>
+
+                <!-- BGG Pane -->
+                <div id="import-pane-bgg" class="import-pane">
+                  <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem">
+                    Search for any board game on BoardGameGeek. We will fetch its metadata (title, year, genres) and map
+                    its BGG mechanics directly to our namespaced gameplay vectors to pre-fill the registry form!
+                  </p>
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem">
+                    <input
+                      type="text"
+                      id="bgg-search-query"
+                      class="form-control"
+                      placeholder="Search board game on BGG (e.g. Scythe, Agricola)..."
+                    />
+                    <button type="button" class="btn btn-cyan" onclick="searchBGG()">Search BGG</button>
+                  </div>
+                  <div
+                    id="bgg-search-status"
+                    class="text-secondary"
+                    style="font-size: 0.8rem; margin-bottom: 0.5rem; display: none"
+                  ></div>
+                  <div
+                    id="bgg-search-results-area"
+                    style="
+                      max-height: 180px;
+                      overflow-y: auto;
+                      background: rgba(0, 0, 0, 0.25);
+                      border-radius: var(--radius-sm);
+                      border: 1px solid var(--border-color);
+                      display: none;
+                      padding: 0.5rem;
+                    "
+                  >
+                    <!-- Search results load dynamically -->
+                  </div>
+                </div>
+
+                <!-- itch.io Pane -->
+                <div id="import-pane-itch" class="import-pane" style="display: none">
+                  <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem">
+                    Search for games on itch.io. We will fetch game details and map properties like title, year, format,
+                    tags (genres), and matching mechanics to vectors.
+                  </p>
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem">
+                    <input
+                      type="text"
+                      id="itch-search-query"
+                      class="form-control"
+                      placeholder="Search games on itch.io (e.g. Laser Kittens, Wanderhome)..."
+                    />
+                    <button type="button" class="btn btn-cyan" onclick="searchItch()">Search itch.io</button>
+                  </div>
+                  <div
+                    id="itch-search-status"
+                    class="text-secondary"
+                    style="font-size: 0.8rem; margin-bottom: 0.5rem; display: none"
+                  ></div>
+                  <div
+                    id="itch-search-results-area"
+                    style="
+                      max-height: 180px;
+                      overflow-y: auto;
+                      background: rgba(0, 0, 0, 0.25);
+                      border-radius: var(--radius-sm);
+                      border: 1px solid var(--border-color);
+                      display: none;
+                      padding: 0.5rem;
+                    "
+                  >
+                    <!-- Search results load dynamically -->
+                  </div>
+                  <!-- Fallback Container for Copy-Pasted HTML -->
+                  <div id="itch-fallback-container" style="display: none; margin-top: 0.75rem">
+                    <p class="text-secondary" style="font-size: 0.8rem; margin-bottom: 0.4rem">
+                      Fetch failed (CORS block/offline). Please copy-paste the game's page HTML source below:
+                    </p>
+                    <textarea
+                      id="itch-fallback-html"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Paste HTML source here..."
+                      style="
+                        font-family: monospace;
+                        font-size: 0.8rem;
+                        margin-bottom: 0.5rem;
+                        resize: vertical;
+                        width: 100%;
+                      "
+                    ></textarea>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      id="btn-itch-parse-fallback"
+                      onclick="parseItchHtmlFallback()"
+                    >
+                      Parse HTML
+                    </button>
+                  </div>
+                </div>
+
+                <!-- DriveThruRPG Pane -->
+                <div id="import-pane-drivethru" class="import-pane" style="display: none">
+                  <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem">
+                    Search for book/system metadata on DriveThruRPG. We will fetch metadata and map system
+                    classification, publisher, categories, and descriptors to vectors.
+                  </p>
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem">
+                    <input
+                      type="text"
+                      id="drivethru-search-query"
+                      class="form-control"
+                      placeholder="Search DriveThruRPG by title or system..."
+                    />
+                    <button type="button" class="btn btn-cyan" onclick="searchDriveThru()">Search DTRPG</button>
+                  </div>
+                  <div
+                    id="drivethru-search-status"
+                    class="text-secondary"
+                    style="font-size: 0.8rem; margin-bottom: 0.5rem; display: none"
+                  ></div>
+                  <div
+                    id="drivethru-search-results-area"
+                    style="
+                      max-height: 180px;
+                      overflow-y: auto;
+                      background: rgba(0, 0, 0, 0.25);
+                      border-radius: var(--radius-sm);
+                      border: 1px solid var(--border-color);
+                      display: none;
+                      padding: 0.5rem;
+                    "
+                  >
+                    <!-- Search results load dynamically -->
+                  </div>
+                  <!-- Fallback Container for Copy-Pasted HTML -->
+                  <div id="drivethru-fallback-container" style="display: none; margin-top: 0.75rem">
+                    <p class="text-secondary" style="font-size: 0.8rem; margin-bottom: 0.4rem">
+                      Fetch failed (CORS block/offline). Please copy-paste the game's page HTML source below:
+                    </p>
+                    <textarea
+                      id="drivethru-fallback-html"
+                      class="form-control"
+                      rows="4"
+                      placeholder="Paste HTML source here..."
+                      style="
+                        font-family: monospace;
+                        font-size: 0.8rem;
+                        margin-bottom: 0.5rem;
+                        resize: vertical;
+                        width: 100%;
+                      "
+                    ></textarea>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      id="btn-drivethru-parse-fallback"
+                      onclick="parseDtrpgHtmlFallback()"
+                    >
+                      Parse HTML
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Wikipedia Pane -->
+                <div id="import-pane-wikipedia" class="import-pane" style="display: none">
+                  <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1rem">
+                    Search Wikipedia. We will query results, parse extracts/descriptions, extract publication year,
+                    determine medium format, and map keywords to vectors.
+                  </p>
+                  <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem">
+                    <input
+                      type="text"
+                      id="wikipedia-search-query"
+                      class="form-control"
+                      placeholder="Search Wikipedia for board game/TTRPG (e.g. Dungeons & Dragons)..."
+                    />
+                    <button type="button" class="btn btn-cyan" onclick="searchWikipedia()">Search Wikipedia</button>
+                  </div>
+                  <div
+                    id="wikipedia-search-status"
+                    class="text-secondary"
+                    style="font-size: 0.8rem; margin-bottom: 0.5rem; display: none"
+                  ></div>
+                  <div
+                    id="wikipedia-search-results-area"
+                    style="
+                      max-height: 180px;
+                      overflow-y: auto;
+                      background: rgba(0, 0, 0, 0.25);
+                      border-radius: var(--radius-sm);
+                      border: 1px solid var(--border-color);
+                      display: none;
+                      padding: 0.5rem;
+                    "
+                  >
+                    <!-- Search results load dynamically -->
+                  </div>
                 </div>
               </div>
 
@@ -388,23 +769,164 @@
                   <button type="submit" class="btn" style="width: 100%; margin-top: 1rem">Add to Local Index</button>
                 </form>
               </div>
+
+              <!-- Homebrew Workspace Card -->
+              <div class="editor-card" id="homebrew-workspace-card">
+                <h2>Homebrew Workspace</h2>
+                <form id="homebrew-creator-form" onsubmit="event.preventDefault(); publishHomebrew();">
+                  <div class="form-group">
+                    <label for="homebrew-title">Creation Title</label>
+                    <input
+                      type="text"
+                      id="homebrew-title"
+                      class="form-control"
+                      placeholder="e.g. My Custom Subsystem"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="homebrew-vectors">Governed Vectors (Comma separated)</label>
+                    <input
+                      type="text"
+                      id="homebrew-vectors"
+                      class="form-control"
+                      placeholder="e.g. combat.melee.rage, magic.spell.burn"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="homebrew-description">Description</label>
+                    <textarea
+                      id="homebrew-description"
+                      class="form-control"
+                      rows="3"
+                      placeholder="Describe your homebrew mechanics..."
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div
+                    class="form-group"
+                    style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; margin-bottom: 1rem"
+                  >
+                    <input type="checkbox" id="homebrew-publish-toggle" style="width: auto; margin: 0" />
+                    <label for="homebrew-publish-toggle" style="margin: 0; cursor: pointer"
+                      >Publish to Local Registry</label
+                    >
+                  </div>
+
+                  <div style="display: flex; gap: 0.5rem">
+                    <button type="submit" class="btn" style="flex: 1">Save Creation</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearHomebrewForm()">Clear</button>
+                  </div>
+                  <div
+                    id="homebrew-autosave-status"
+                    style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; text-align: right"
+                  ></div>
+                </form>
+              </div>
             </div>
 
-            <!-- JSON Export/Download Panel -->
-            <div class="editor-card" style="display: flex; flex-direction: column; justify-content: space-between">
-              <div>
-                <h2>Export Database Registry</h2>
-                <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1.5rem">
-                  Below is the serialized JSON reflecting the in-memory master database. When you add new games, this
-                  text compiles instantly. Copy this code or download it to save changes permanently to your
-                  <code>registry.json</code>.
-                </p>
-                <pre class="export-preview" id="export-json-preview"></pre>
+            <!-- Right Column -->
+            <div style="display: flex; flex-direction: column; gap: 2rem">
+              <!-- JSON Export/Download Panel -->
+              <div class="editor-card" style="display: flex; flex-direction: column; justify-content: space-between">
+                <div>
+                  <h2>Export Database Registry</h2>
+                  <p class="text-secondary" style="font-size: 0.9rem; margin-bottom: 1.5rem">
+                    Below is the serialized JSON reflecting the in-memory master database. When you add new games, this
+                    text compiles instantly. Copy this code or download it to save changes permanently to your
+                    <code>registry.json</code>.
+                  </p>
+                  <pre class="export-preview" id="export-json-preview"></pre>
+                </div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem">
+                  <button class="btn btn-cyan" onclick="downloadUpdatedRegistry()" style="flex: 1">
+                    Download registry.json
+                  </button>
+                </div>
               </div>
-              <div style="margin-top: 1.5rem; display: flex; gap: 1rem">
-                <button class="btn btn-cyan" onclick="downloadUpdatedRegistry()" style="flex: 1">
-                  Download registry.json
-                </button>
+
+              <!-- OmniGit VCS Panel -->
+              <div class="editor-card" id="omnigit-vcs-panel">
+                <h2>OmniGit VCS</h2>
+                <div class="form-group">
+                  <label for="vcs-branch-select">Active Branch</label>
+                  <div style="display: flex; gap: 0.5rem">
+                    <select
+                      id="vcs-branch-select"
+                      class="form-control"
+                      onchange="window.omniGitVCS.checkoutBranch(this.value); renderOmniGitVCS();"
+                    ></select>
+                    <button class="btn btn-secondary" onclick="promptCreateBranch()">New Branch</button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Staged Changes</label>
+                  <div
+                    id="vcs-staged-changes-list"
+                    class="vcs-staged-list"
+                    style="
+                      max-height: 200px;
+                      overflow-y: auto;
+                      border: 1px solid var(--border-color);
+                      padding: 0.5rem;
+                      border-radius: var(--radius-sm);
+                      margin-bottom: 0.5rem;
+                      background: rgba(0, 0, 0, 0.2);
+                    "
+                  >
+                    <!-- Staged diffs go here -->
+                  </div>
+                  <div style="display: flex; gap: 0.5rem">
+                    <input type="text" id="vcs-commit-message" class="form-control" placeholder="Commit message..." />
+                    <button class="btn" onclick="commitVCSStaged()">Commit</button>
+                  </div>
+                </div>
+
+                <div
+                  class="form-group"
+                  style="border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem"
+                >
+                  <label for="vcs-merge-select">Merge Branch</label>
+                  <div style="display: flex; gap: 0.5rem">
+                    <select id="vcs-merge-select" class="form-control"></select>
+                    <button class="btn btn-cyan" onclick="mergeVCSBranch()">Merge Into Active</button>
+                  </div>
+                </div>
+
+                <div
+                  id="vcs-conflict-resolution-container"
+                  style="
+                    display: none;
+                    border: 1px solid var(--color-danger);
+                    padding: 0.75rem;
+                    border-radius: var(--radius-sm);
+                    margin-top: 1rem;
+                    background: rgba(239, 68, 68, 0.05);
+                  "
+                >
+                  <h3 style="color: var(--color-danger); font-size: 0.95rem; margin-top: 0; margin-bottom: 0.5rem">
+                    ⚠️ Resolve Merge Conflicts
+                  </h3>
+                  <div id="vcs-conflicts-list"></div>
+                  <button
+                    class="btn btn-danger"
+                    onclick="completeConflictResolution()"
+                    style="width: 100%; margin-top: 0.5rem"
+                  >
+                    Resolve & Complete Merge
+                  </button>
+                </div>
+
+                <div style="margin-top: 1.5rem">
+                  <button class="btn btn-secondary" onclick="downloadJSONDiff()" style="width: 100%">
+                    Export JSON Diff
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -454,35 +976,1167 @@
                   <h2 class="sandbox-panel-title">📜 Synthesized Ruleset</h2>
                   <button class="btn" id="sandbox-synthesize-btn" disabled>Synthesize Ruleset</button>
                 </div>
+                <!-- Sandbox Export Toolbar -->
+                <div
+                  id="sandbox-export-toolbar"
+                  style="
+                    display: none;
+                    gap: 0.5rem;
+                    margin-top: 0.5rem;
+                    margin-bottom: 0.5rem;
+                    flex-wrap: wrap;
+                    align-items: center;
+                  "
+                >
+                  <span
+                    style="
+                      font-family: var(--font-accent);
+                      font-size: 0.85rem;
+                      font-weight: bold;
+                      color: var(--text-secondary);
+                    "
+                    >Export:</span
+                  >
+                  <button
+                    class="btn btn-secondary"
+                    id="btn-sandbox-export-foundry"
+                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                  >
+                    FoundryVTT
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    id="btn-sandbox-export-roll20"
+                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                  >
+                    Roll20
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    id="btn-sandbox-export-tts"
+                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                  >
+                    TTS
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    id="btn-sandbox-export-pdf"
+                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                  >
+                    PDF
+                  </button>
+                  <button
+                    class="btn btn-secondary"
+                    id="btn-sandbox-export-md"
+                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                  >
+                    Markdown
+                  </button>
+                </div>
                 <div id="sandbox-ruleset-output" class="sandbox-ruleset-output">
                   <div class="sandbox-empty-state">
                     Select vectors and click "Synthesize Ruleset" to generate a unified rules sheet
                   </div>
                 </div>
               </div>
-            </div>
+              <!-- Right Column: Playtest / Simulation Runner tabs -->
+              <div class="sandbox-right-col">
+                <div
+                  class="glass-panel sandbox-panel sandbox-chat-panel"
+                  style="display: flex; flex-direction: column; height: 100%"
+                >
+                  <!-- WebRTC Lobby Panel -->
+                  <div
+                    class="lobby-panel"
+                    style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color)"
+                  >
+                    <div
+                      style="
+                        font-family: var(--font-accent);
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                      "
+                    >
+                      🌐 WebRTC Playtest Lobby
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem">
+                      <button class="btn" id="btn-lobby-host" style="flex: 1; padding: 0.4rem">Host Lobby</button>
+                      <button class="btn btn-secondary" id="btn-lobby-join" style="flex: 1; padding: 0.4rem">
+                        Join Lobby
+                      </button>
+                    </div>
+                    <div
+                      id="lobby-status"
+                      style="
+                        font-size: 0.8rem;
+                        color: var(--text-secondary);
+                        margin-bottom: 0.5rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                      "
+                    >
+                      <span
+                        id="lobby-status-dot"
+                        style="
+                          display: inline-block;
+                          width: 8px;
+                          height: 8px;
+                          border-radius: 50%;
+                          background: #ef4444;
+                          transition: background 0.3s;
+                        "
+                      ></span>
+                      <span id="lobby-status-text">Status: Disconnected</span>
+                    </div>
+                    <div
+                      id="lobby-roster"
+                      style="
+                        font-size: 0.8rem;
+                        color: var(--text-secondary);
+                        margin-bottom: 0.5rem;
+                        display: none;
+                        align-items: center;
+                        gap: 0.5rem;
+                      "
+                    >
+                      <span>Roster:</span>
+                      <span id="lobby-roster-list" style="color: var(--text-primary); font-weight: 600">None</span>
+                    </div>
+                    <div id="lobby-token-area" style="display: none; flex-direction: column; gap: 0.5rem">
+                      <label
+                        id="lobby-token-label"
+                        style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-secondary)"
+                      ></label>
+                      <textarea
+                        id="lobby-token-output"
+                        readonly
+                        style="
+                          font-size: 0.7rem;
+                          font-family: var(--font-mono);
+                          width: 100%;
+                          height: 50px;
+                          background: rgba(0, 0, 0, 0.3);
+                          color: var(--text-primary);
+                          border: 1px solid var(--border-color);
+                          border-radius: 4px;
+                          padding: 0.25rem;
+                          resize: none;
+                        "
+                      ></textarea>
+                      <button
+                        class="btn btn-secondary"
+                        id="btn-copy-token"
+                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem; width: 100%"
+                      >
+                        Copy Token
+                      </button>
 
-            <!-- Right Column: AI GM Playtest Chat -->
-            <div class="sandbox-right-col">
-              <div class="glass-panel sandbox-panel sandbox-chat-panel">
-                <h2 class="sandbox-panel-title">🎲 AI Game Master</h2>
-                <div id="sandbox-character-sheet" class="sandbox-character-sheet">
-                  <div class="sandbox-empty-state">Synthesize a ruleset to begin a playtest session</div>
-                </div>
-                <div id="sandbox-chat-log" class="sandbox-chat-log">
-                  <!-- Chat messages will be appended here -->
-                </div>
-                <div class="sandbox-chat-input-wrapper">
-                  <input
-                    type="text"
-                    id="sandbox-chat-input"
-                    class="search-input"
-                    placeholder="Describe your action..."
-                    disabled
-                  />
-                  <button class="btn" id="sandbox-chat-send" disabled>Send</button>
+                      <div
+                        id="lobby-input-section"
+                        style="display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.5rem"
+                      >
+                        <span
+                          id="lobby-input-prompt"
+                          style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-secondary)"
+                        ></span>
+                        <input
+                          type="text"
+                          id="lobby-token-input"
+                          class="search-input"
+                          placeholder="Paste token here..."
+                          style="font-size: 0.8rem; font-family: var(--font-mono); padding: 0.25rem 0.5rem"
+                        />
+                        <button
+                          class="btn btn-cyan"
+                          id="btn-submit-token"
+                          style="padding: 0.4rem 1rem; margin-top: 0.25rem; width: 100%"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    class="sub-tabs"
+                    style="
+                      display: flex;
+                      gap: 0.5rem;
+                      margin-bottom: 1rem;
+                      border-bottom: 1px solid var(--border-color);
+                      padding-bottom: 0.5rem;
+                    "
+                  >
+                    <button
+                      type="button"
+                      class="sub-tab-btn active"
+                      id="sub-tab-chat"
+                      style="
+                        background: transparent;
+                        border: none;
+                        color: var(--text-primary);
+                        font-family: var(--font-accent);
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        padding: 0.25rem 0.5rem;
+                        border-bottom: 2px solid var(--color-accent);
+                      "
+                    >
+                      Playtest Chat
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-tab-btn"
+                      id="sub-tab-map"
+                      style="
+                        background: transparent;
+                        border: none;
+                        color: var(--text-secondary);
+                        font-family: var(--font-accent);
+                        font-size: 0.9rem;
+                        cursor: pointer;
+                        padding: 0.25rem 0.5rem;
+                        border-bottom: 2px solid transparent;
+                      "
+                    >
+                      Battle Map
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-tab-btn"
+                      id="sub-tab-sim"
+                      style="
+                        background: transparent;
+                        border: none;
+                        color: var(--text-secondary);
+                        font-family: var(--font-accent);
+                        font-size: 0.9rem;
+                        cursor: pointer;
+                        padding: 0.25rem 0.5rem;
+                        border-bottom: 2px solid transparent;
+                      "
+                    >
+                      Sim Sandbox
+                    </button>
+                    <button
+                      type="button"
+                      class="sub-tab-btn"
+                      id="sub-tab-probability"
+                      style="
+                        background: transparent;
+                        border: none;
+                        color: var(--text-secondary);
+                        font-family: var(--font-accent);
+                        font-size: 0.9rem;
+                        cursor: pointer;
+                        padding: 0.25rem 0.5rem;
+                        border-bottom: 2px solid transparent;
+                      "
+                    >
+                      Probability Curves
+                    </button>
+                  </div>
+
+                  <!-- Sub-tab 1: Chat Container -->
+                  <div
+                    id="sandbox-chat-container"
+                    style="display: flex; flex-direction: column; flex: 1; min-height: 0"
+                  >
+                    <div id="sandbox-character-sheet" class="sandbox-character-sheet">
+                      <div class="sandbox-empty-state">Synthesize a ruleset to begin a playtest session</div>
+                    </div>
+                    <div id="sandbox-chat-log" class="sandbox-chat-log">
+                      <!-- Chat messages will be appended here -->
+                    </div>
+                    <canvas
+                      id="dice-physics-canvas"
+                      style="
+                        display: none;
+                        height: 120px;
+                        border: 1px solid var(--border-color);
+                        border-radius: var(--radius-sm);
+                        margin-bottom: 0.5rem;
+                        background: #111;
+                      "
+                    ></canvas>
+                    <div
+                      id="dice-log-panel"
+                      style="
+                        display: none;
+                        font-size: 0.8rem;
+                        margin-bottom: 0.5rem;
+                        padding: 0.5rem;
+                        border: 1px solid var(--border-color);
+                        border-radius: var(--radius-sm);
+                        background: rgba(0, 0, 0, 0.2);
+                        max-height: 80px;
+                        overflow-y: auto;
+                        font-family: var(--font-mono);
+                      "
+                    >
+                      <div style="font-weight: bold; margin-bottom: 0.25rem; color: var(--text-secondary)">
+                        🎲 Dice Log
+                      </div>
+                      <div id="dice-log-entries"></div>
+                    </div>
+                    <div class="sandbox-chat-input-wrapper">
+                      <input
+                        type="text"
+                        id="sandbox-chat-input"
+                        class="search-input"
+                        placeholder="Describe your action..."
+                        disabled
+                      />
+                      <button class="btn" id="sandbox-chat-send" disabled>Send</button>
+                    </div>
+                  </div>
+
+                  <!-- Sub-tab 3: Battle Map Container -->
+                  <div
+                    id="sandbox-map-container"
+                    style="display: none; flex-direction: column; flex: 1; min-height: 0; gap: 0.5rem"
+                  >
+                    <div
+                      class="map-controls"
+                      style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem"
+                    >
+                      <button
+                        class="btn btn-secondary"
+                        id="btn-map-zoom-in"
+                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                      >
+                        +
+                      </button>
+                      <button
+                        class="btn btn-secondary"
+                        id="btn-map-zoom-out"
+                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                      >
+                        -
+                      </button>
+                      <button
+                        class="btn btn-secondary"
+                        id="btn-map-pan-reset"
+                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+                      >
+                        Reset
+                      </button>
+                      <select
+                        id="map-tool-select"
+                        class="search-input"
+                        style="padding: 0.25rem; font-size: 0.85rem; flex: 1"
+                      >
+                        <option value="select">Select / Move Token</option>
+                        <option value="color">Color Tile</option>
+                        <option value="wall">Draw Wall / Obstacle</option>
+                        <option value="path">Draw Movement Path</option>
+                      </select>
+                      <input
+                        type="color"
+                        id="map-color-input"
+                        value="#3b82f6"
+                        style="width: 24px; height: 24px; padding: 0; border: none; border-radius: 4px; cursor: pointer"
+                      />
+                    </div>
+                    <div
+                      class="map-legend"
+                      style="
+                        font-size: 0.75rem;
+                        color: var(--text-secondary);
+                        display: flex;
+                        gap: 0.5rem;
+                        margin-bottom: 0.25rem;
+                      "
+                    >
+                      <span>🟢 Player</span>
+                      <span>🔴 Enemy</span>
+                      <span>🟫 Obstacle</span>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        position: relative;
+                        border: 1px solid var(--border-color);
+                        border-radius: var(--radius-sm);
+                        overflow: hidden;
+                        background: #111;
+                        min-height: 250px;
+                      "
+                    >
+                      <canvas
+                        id="battle-map-canvas"
+                        style="display: block; width: 100%; height: 100%; cursor: grab"
+                      ></canvas>
+                    </div>
+                  </div>
+
+                  <!-- Sub-tab 2: Sim Container -->
+                  <div
+                    id="sandbox-sim-container"
+                    style="display: none; flex-direction: column; flex: 1; min-height: 0; gap: 1rem"
+                  >
+                    <div style="display: flex; align-items: center; gap: 0.5rem">
+                      <label
+                        for="sim-round-count"
+                        style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--text-secondary)"
+                        >Rounds:</label
+                      >
+                      <select
+                        id="sim-round-count"
+                        class="search-input"
+                        style="flex: 1; font-family: var(--font-mono); padding: 0.25rem"
+                      >
+                        <option value="100">100 Rounds</option>
+                        <option value="500">500 Rounds</option>
+                        <option value="1000" selected>1,000 Rounds</option>
+                        <option value="5000">5,000 Rounds</option>
+                      </select>
+                      <button class="btn btn-cyan" id="sim-run-btn" disabled style="padding: 0.4rem 1rem">
+                        Run Simulation
+                      </button>
+                    </div>
+
+                    <div
+                      id="sim-stats-summary"
+                      class="glass-panel"
+                      style="
+                        padding: 0.75rem;
+                        border-radius: var(--radius-sm);
+                        border: 1px solid var(--border-color);
+                        background: rgba(0, 0, 0, 0.15);
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.25rem;
+                        font-size: 0.85rem;
+                        font-family: var(--font-mono);
+                      "
+                    >
+                      <div>Success Rate: <span id="sim-success-rate">--%</span></div>
+                      <div>Average Modifiers: <span id="sim-avg-modifier">--</span></div>
+                      <div>Total Actions: <span id="sim-total-actions">0</span></div>
+                    </div>
+
+                    <div style="font-family: var(--font-accent); font-size: 0.9rem; color: var(--text-primary)">
+                      d20 Roll Distribution
+                    </div>
+                    <div
+                      id="sim-roll-chart"
+                      style="
+                        height: 120px;
+                        display: flex;
+                        align-items: flex-end;
+                        justify-content: space-between;
+                        gap: 2px;
+                        padding: 10px 0;
+                        border: 1px solid var(--border-color);
+                        border-radius: var(--radius-sm);
+                        background: rgba(0, 0, 0, 0.2);
+                      "
+                    >
+                      <div class="sandbox-empty-state" style="margin: auto">No simulation data yet.</div>
+                    </div>
+
+                    <div style="font-family: var(--font-accent); font-size: 0.9rem; color: var(--text-primary)">
+                      Simulation Rounds Log
+                    </div>
+                    <div
+                      id="sim-log"
+                      style="
+                        flex: 1;
+                        overflow-y: auto;
+                        font-family: var(--font-mono);
+                        font-size: 0.75rem;
+                        line-height: 1.4;
+                        color: var(--text-secondary);
+                        background: rgba(0, 0, 0, 0.3);
+                        border: 1px solid var(--border-color);
+                        border-radius: var(--radius-sm);
+                        padding: 0.5rem;
+                        scrollbar-width: thin;
+                      "
+                    >
+                      <div class="sandbox-empty-state">Click "Run Simulation" to start.</div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-tab 4: Probability Curves Container -->
+                  <div
+                    id="sandbox-probability-container"
+                    style="display: none; flex-direction: column; flex: 1; min-height: 0; gap: 1rem"
+                  >
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem">
+                      <div style="display: flex; align-items: center; gap: 0.5rem">
+                        <label
+                          for="prob-dice-formula"
+                          style="
+                            font-size: 0.85rem;
+                            font-family: var(--font-mono);
+                            color: var(--text-secondary);
+                            width: 100px;
+                          "
+                          >Formula:</label
+                        >
+                        <input
+                          type="text"
+                          id="prob-dice-formula"
+                          class="search-input"
+                          value="3d6"
+                          style="flex: 1; font-family: var(--font-mono); padding: 0.25rem"
+                        />
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 0.5rem">
+                        <label
+                          for="prob-calc-type"
+                          style="
+                            font-size: 0.85rem;
+                            font-family: var(--font-mono);
+                            color: var(--text-secondary);
+                            width: 100px;
+                          "
+                          >Type:</label
+                        >
+                        <select
+                          id="prob-calc-type"
+                          class="search-input"
+                          style="flex: 1; font-family: var(--font-mono); padding: 0.25rem"
+                        >
+                          <option value="standard">Standard Rolls</option>
+                          <option value="exploding">Exploding Dice</option>
+                          <option value="rollkeep">Roll & Keep (highest)</option>
+                          <option value="successpool">Success Pool (>= threshold)</option>
+                        </select>
+                      </div>
+                      <div id="prob-keep-wrapper" style="display: none; align-items: center; gap: 0.5rem">
+                        <label
+                          for="prob-keep-count"
+                          style="
+                            font-size: 0.85rem;
+                            font-family: var(--font-mono);
+                            color: var(--text-secondary);
+                            width: 100px;
+                          "
+                          >Keep Highest:</label
+                        >
+                        <input
+                          type="number"
+                          id="prob-keep-count"
+                          class="search-input"
+                          value="3"
+                          min="1"
+                          max="100"
+                          style="flex: 1; font-family: var(--font-mono); padding: 0.25rem"
+                        />
+                      </div>
+                      <div id="prob-success-wrapper" style="display: none; align-items: center; gap: 0.5rem">
+                        <label
+                          for="prob-success-threshold"
+                          style="
+                            font-size: 0.85rem;
+                            font-family: var(--font-mono);
+                            color: var(--text-secondary);
+                            width: 100px;
+                          "
+                          >Threshold:</label
+                        >
+                        <input
+                          type="number"
+                          id="prob-success-threshold"
+                          class="search-input"
+                          value="5"
+                          min="1"
+                          max="100"
+                          style="flex: 1; font-family: var(--font-mono); padding: 0.25rem"
+                        />
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 0.5rem">
+                        <label
+                          for="prob-target-dc"
+                          style="
+                            font-size: 0.85rem;
+                            font-family: var(--font-mono);
+                            color: var(--text-secondary);
+                            width: 100px;
+                          "
+                          >Target DC:</label
+                        >
+                        <input
+                          type="number"
+                          id="prob-target-dc"
+                          class="search-input"
+                          value="10"
+                          min="0"
+                          max="100"
+                          style="flex: 1; font-family: var(--font-mono); padding: 0.25rem"
+                        />
+                      </div>
+                      <button class="btn btn-cyan" id="prob-calculate-btn" style="padding: 0.4rem 1rem; width: 100%">
+                        Calculate Curves
+                      </button>
+                    </div>
+
+                    <div
+                      id="prob-stats-summary"
+                      class="glass-panel"
+                      style="
+                        padding: 0.75rem;
+                        border-radius: var(--radius-sm);
+                        border: 1px solid var(--border-color);
+                        background: rgba(0, 0, 0, 0.15);
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.25rem;
+                        font-size: 0.85rem;
+                        font-family: var(--font-mono);
+                      "
+                    >
+                      <div>Mean (Expected): <span id="prob-mean">--</span></div>
+                      <div>Std Dev: <span id="prob-stddev">--</span></div>
+                      <div>P(Roll >= DC): <span id="prob-success-pct">--%</span></div>
+                    </div>
+
+                    <div
+                      style="
+                        font-family: var(--font-accent);
+                        font-size: 0.9rem;
+                        color: var(--text-primary);
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                      "
+                    >
+                      <span>Probability Graph (PDF & CDF)</span>
+                      <span
+                        id="prob-chart-tooltip"
+                        style="font-size: 0.8rem; color: var(--color-cyan); font-family: var(--font-mono)"
+                      ></span>
+                    </div>
+                    <div
+                      style="
+                        flex: 1;
+                        position: relative;
+                        border: 1px solid var(--border-color);
+                        border-radius: var(--radius-sm);
+                        overflow: hidden;
+                        background: #111;
+                        min-height: 200px;
+                      "
+                    >
+                      <canvas id="prob-chart-canvas" style="display: block; width: 100%; height: 100%"></canvas>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. TOPOLOGY GRAPH VIEW -->
+        <section id="topology-view" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-topology">
+          <div
+            class="topology-layout"
+            style="display: flex; flex-direction: column; gap: 1.5rem; height: calc(100vh - 250px); min-height: 600px"
+          >
+            <div
+              class="topology-controls-bar"
+              style="
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-md);
+                padding: 1rem;
+              "
+            >
+              <div style="flex: 1; display: flex; gap: 0.5rem; align-items: center">
+                <input
+                  type="text"
+                  id="topology-search-input"
+                  class="search-input"
+                  placeholder="Search and focus a game (e.g. Scythe, Dungeons & Dragons)..."
+                  style="width: 100%; margin: 0"
+                />
+                <button class="btn" id="topology-search-btn">Focus</button>
+              </div>
+              <div
+                class="text-secondary"
+                style="font-family: var(--font-mono); font-size: 0.85rem"
+                id="topology-nodes-count"
+              >
+                Nodes: 0 // Edges: 0
+              </div>
+            </div>
+
+            <div style="position: relative; flex: 1; min-height: 450px">
+              <canvas
+                id="topology-canvas"
+                style="
+                  width: 100%;
+                  height: 100%;
+                  display: block;
+                  background: rgba(0, 0, 0, 0.3);
+                  border-radius: var(--radius-md);
+                  border: 1px solid var(--border-color);
+                  cursor: grab;
+                "
+              ></canvas>
+
+              <!-- Tooltip: glassmorphic details card -->
+              <div
+                id="topology-tooltip"
+                class="glass-panel"
+                style="
+                  position: absolute;
+                  display: none;
+                  pointer-events: none;
+                  z-index: 100;
+                  max-width: 280px;
+                  padding: 0.75rem;
+                  border-radius: var(--radius-sm);
+                  border: 1px solid rgba(255, 255, 255, 0.15);
+                  background: rgba(15, 23, 42, 0.85);
+                  backdrop-filter: blur(8px);
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+                "
+              >
+                <div id="tooltip-content" style="color: #fff; font-family: var(--font-sans); font-size: 0.85rem"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. DEVELOPER DIAGNOSTICS PANEL -->
+        <section id="diagnostics-panel" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-diagnostics">
+          <div class="diagnostics-grid">
+            <div class="diagnostic-card">
+              <h3>Rendering Performance</h3>
+              <div class="metric-value" id="diag-fps">60 FPS</div>
+              <div id="diagnostics-fps" style="display: none"></div>
+              <p class="text-secondary">Frames Per Second (updated in real-time)</p>
+            </div>
+
+            <div class="diagnostic-card">
+              <h3>Web Worker Memory</h3>
+              <div class="metric-value" id="diag-worker-mem">-- MB</div>
+              <div id="diagnostics-memory" style="display: none"></div>
+              <p class="text-secondary">Estimated search worker heap & indexes</p>
+            </div>
+
+            <div class="diagnostic-card">
+              <h3>Database Indexing Size</h3>
+              <div class="metric-value" id="diag-db-size">15.97 MB</div>
+              <p class="text-secondary">Indexed games registry file footprint</p>
+            </div>
+
+            <div class="diagnostic-card">
+              <h3>Search Latency (Last 10)</h3>
+              <div class="latency-chart-container" id="diag-latency-chart">
+                <!-- SVG bar chart will be drawn here -->
+              </div>
+              <p class="text-secondary" style="margin-top: 0.5rem">Latency in milliseconds per search query</p>
+              <div
+                id="latency-stats"
+                style="
+                  font-family: var(--font-mono);
+                  font-size: 0.85rem;
+                  color: var(--text-secondary);
+                  margin-top: 0.5rem;
+                "
+              >
+                Last: 0ms // Avg: 0ms
+              </div>
+            </div>
+
+            <div class="diagnostic-card full-width">
+              <h3>Active Event Listeners (Leak Detector)</h3>
+              <div
+                style="
+                  margin-bottom: 0.5rem;
+                  font-family: var(--font-mono);
+                  font-size: 0.85rem;
+                  color: var(--text-secondary);
+                "
+              >
+                Total Active Event Listeners: <span id="diagnostics-listeners">0</span>
+              </div>
+              <div id="diagnostics-alerts" style="display: none"></div>
+              <div class="warning-box" id="diag-listener-warnings">
+                <div class="sandbox-empty-state" style="color: var(--color-success)">
+                  ✅ No listener leaks detected (all elements have <= 5 of the same type).
+                </div>
+              </div>
+              <p class="text-secondary" style="margin-top: 0.5rem">
+                Alerts if any element accumulates more than 5 event listeners of the same type.
+              </p>
+            </div>
+
+            <div class="diagnostic-card full-width">
+              <h3>Layout Thrashing Monitor</h3>
+              <div class="warning-box" id="diag-thrashing-warnings">
+                <div class="sandbox-empty-state" style="color: var(--color-success)">
+                  ✅ No layout thrashing or rapid resizing detected.
+                </div>
+              </div>
+              <p class="text-secondary" style="margin-top: 0.5rem">
+                Detects DOM write-then-read cycles within the same frame or rapid window resizing.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9. PROBABILITY CURVES PANEL -->
+        <section id="probability-view" class="view-panel" role="tabpanel" aria-labelledby="tab-nav-probability">
+          <div class="diagnostics-grid">
+            <!-- Controls Card -->
+            <div class="diagnostic-card" style="grid-column: span 1">
+              <h3>Probability Controls</h3>
+              <div class="control-group" style="margin-bottom: 1rem">
+                <label for="prob-roll-type" style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem"
+                  >Roll Type</label
+                >
+                <select
+                  id="prob-roll-type"
+                  class="search-input"
+                  style="
+                    width: 100%;
+                    box-sizing: border-box;
+                    background: var(--bg-card);
+                    color: var(--text-main);
+                    border: 1px solid var(--border-color);
+                    padding: 0.5rem;
+                    border-radius: var(--radius-sm);
+                  "
+                >
+                  <option value="standard">Standard Roll (Sum)</option>
+                  <option value="success">Success Pool</option>
+                  <option value="step">Step Dice Pool</option>
+                </select>
+              </div>
+
+              <!-- Standard Inputs -->
+              <div id="prob-standard-inputs" class="input-subgroup">
+                <div class="control-group" style="margin-bottom: 1rem">
+                  <label for="prob-dice-count" style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem"
+                    >Dice Count</label
+                  >
+                  <input
+                    id="prob-dice-count"
+                    type="number"
+                    class="search-input"
+                    min="1"
+                    max="20"
+                    value="3"
+                    style="
+                      width: 100%;
+                      box-sizing: border-box;
+                      background: var(--bg-card);
+                      color: var(--text-main);
+                      border: 1px solid var(--border-color);
+                      padding: 0.5rem;
+                      border-radius: var(--radius-sm);
+                    "
+                  />
+                </div>
+                <div class="control-group" style="margin-bottom: 1rem">
+                  <label for="prob-dice-sides" style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem"
+                    >Die Size (dXS)</label
+                  >
+                  <select
+                    id="prob-dice-sides"
+                    class="search-input"
+                    style="
+                      width: 100%;
+                      box-sizing: border-box;
+                      background: var(--bg-card);
+                      color: var(--text-main);
+                      border: 1px solid var(--border-color);
+                      padding: 0.5rem;
+                      border-radius: var(--radius-sm);
+                    "
+                  >
+                    <option value="4">d4</option>
+                    <option value="6" selected>d6</option>
+                    <option value="8">d8</option>
+                    <option value="10">d10</option>
+                    <option value="12">d12</option>
+                    <option value="20">d20</option>
+                    <option value="100">d100</option>
+                  </select>
+                </div>
+                <div class="control-group" style="margin-bottom: 1rem">
+                  <label for="prob-modifier" style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem"
+                    >Modifier</label
+                  >
+                  <input
+                    id="prob-modifier"
+                    type="number"
+                    class="search-input"
+                    value="0"
+                    style="
+                      width: 100%;
+                      box-sizing: border-box;
+                      background: var(--bg-card);
+                      color: var(--text-main);
+                      border: 1px solid var(--border-color);
+                      padding: 0.5rem;
+                      border-radius: var(--radius-sm);
+                    "
+                  />
+                </div>
+              </div>
+
+              <!-- Success Pool Specific Inputs -->
+              <div id="prob-success-inputs" class="input-subgroup" style="display: none">
+                <div class="control-group" style="margin-bottom: 1rem">
+                  <label for="prob-threshold" style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem"
+                    >Success Threshold</label
+                  >
+                  <input
+                    id="prob-threshold"
+                    type="number"
+                    class="search-input"
+                    min="1"
+                    max="100"
+                    value="5"
+                    style="
+                      width: 100%;
+                      box-sizing: border-box;
+                      background: var(--bg-card);
+                      color: var(--text-main);
+                      border: 1px solid var(--border-color);
+                      padding: 0.5rem;
+                      border-radius: var(--radius-sm);
+                    "
+                  />
+                </div>
+              </div>
+
+              <!-- Step Inputs -->
+              <div id="prob-step-inputs" class="input-subgroup" style="display: none">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem">
+                  <div class="control-group">
+                    <label for="prob-step-d4" style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem"
+                      >d4 count</label
+                    >
+                    <input
+                      id="prob-step-d4"
+                      type="number"
+                      class="search-input"
+                      min="0"
+                      max="10"
+                      value="1"
+                      style="
+                        width: 100%;
+                        box-sizing: border-box;
+                        background: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 0.5rem;
+                        border-radius: var(--radius-sm);
+                      "
+                    />
+                  </div>
+                  <div class="control-group">
+                    <label for="prob-step-d6" style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem"
+                      >d6 count</label
+                    >
+                    <input
+                      id="prob-step-d6"
+                      type="number"
+                      class="search-input"
+                      min="0"
+                      max="10"
+                      value="0"
+                      style="
+                        width: 100%;
+                        box-sizing: border-box;
+                        background: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 0.5rem;
+                        border-radius: var(--radius-sm);
+                      "
+                    />
+                  </div>
+                  <div class="control-group">
+                    <label for="prob-step-d8" style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem"
+                      >d8 count</label
+                    >
+                    <input
+                      id="prob-step-d8"
+                      type="number"
+                      class="search-input"
+                      min="0"
+                      max="10"
+                      value="0"
+                      style="
+                        width: 100%;
+                        box-sizing: border-box;
+                        background: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 0.5rem;
+                        border-radius: var(--radius-sm);
+                      "
+                    />
+                  </div>
+                  <div class="control-group">
+                    <label for="prob-step-d10" style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem"
+                      >d10 count</label
+                    >
+                    <input
+                      id="prob-step-d10"
+                      type="number"
+                      class="search-input"
+                      min="0"
+                      max="10"
+                      value="0"
+                      style="
+                        width: 100%;
+                        box-sizing: border-box;
+                        background: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 0.5rem;
+                        border-radius: var(--radius-sm);
+                      "
+                    />
+                  </div>
+                  <div class="control-group">
+                    <label for="prob-step-d12" style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem"
+                      >d12 count</label
+                    >
+                    <input
+                      id="prob-step-d12"
+                      type="number"
+                      class="search-input"
+                      min="0"
+                      max="10"
+                      value="0"
+                      style="
+                        width: 100%;
+                        box-sizing: border-box;
+                        background: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 0.5rem;
+                        border-radius: var(--radius-sm);
+                      "
+                    />
+                  </div>
+                  <div class="control-group">
+                    <label for="prob-step-d20" style="display: block; margin-bottom: 0.25rem; font-size: 0.8rem"
+                      >d20 count</label
+                    >
+                    <input
+                      id="prob-step-d20"
+                      type="number"
+                      class="search-input"
+                      min="0"
+                      max="10"
+                      value="0"
+                      style="
+                        width: 100%;
+                        box-sizing: border-box;
+                        background: var(--bg-card);
+                        color: var(--text-main);
+                        border: 1px solid var(--border-color);
+                        padding: 0.5rem;
+                        border-radius: var(--radius-sm);
+                      "
+                    />
+                  </div>
+                </div>
+                <div class="control-group" style="margin-bottom: 1rem">
+                  <label for="prob-step-combine" style="display: block; margin-bottom: 0.25rem; font-size: 0.9rem"
+                    >Combine Method</label
+                  >
+                  <select
+                    id="prob-step-combine"
+                    class="search-input"
+                    style="
+                      width: 100%;
+                      box-sizing: border-box;
+                      background: var(--bg-card);
+                      color: var(--text-main);
+                      border: 1px solid var(--border-color);
+                      padding: 0.5rem;
+                      border-radius: var(--radius-sm);
+                    "
+                  >
+                    <option value="sum">Sum All Dice</option>
+                    <option value="highest">Highest Single Die</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Exploding Dice Checkbox -->
+              <div class="control-group" style="margin-bottom: 1rem" id="prob-explode-wrapper">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer">
+                  <input id="prob-explode" type="checkbox" style="width: auto" />
+                  <span>Exploding Dice (on max roll)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Graph Canvas Card -->
+            <div class="diagnostic-card" style="grid-column: span 3; position: relative">
+              <h3>Probability Curves (PDF & CDF)</h3>
+              <div style="position: relative; width: 100%; height: 350px">
+                <canvas
+                  id="probability-canvas"
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: var(--radius-sm);
+                    border: 1px solid var(--border-color);
+                  "
+                ></canvas>
+                <div
+                  id="prob-tooltip"
+                  style="
+                    position: absolute;
+                    display: none;
+                    background: rgba(20, 20, 20, 0.95);
+                    border: 1px solid var(--border-color);
+                    border-radius: var(--radius-sm);
+                    padding: 0.5rem;
+                    color: #fff;
+                    font-family: var(--font-mono);
+                    font-size: 0.8rem;
+                    pointer-events: none;
+                    z-index: 10;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+                  "
+                ></div>
+              </div>
+              <p class="text-secondary" style="margin-top: 0.5rem">
+                Hover over points on the curves to view exact probability values.
+              </p>
+            </div>
+
+            <!-- Statistical Cards -->
+            <div class="diagnostic-card">
+              <h3>Expected Value (Mean)</h3>
+              <div class="metric-value" id="prob-stat-mean">0.00</div>
+              <p class="text-secondary">Average result over infinite rolls</p>
+            </div>
+            <div class="diagnostic-card">
+              <h3>Standard Deviation</h3>
+              <div class="metric-value" id="prob-stat-stddev">0.00</div>
+              <p class="text-secondary">Spread/variance from the mean</p>
+            </div>
+            <div class="diagnostic-card">
+              <h3>Result Range</h3>
+              <div class="metric-value" id="prob-stat-range">0 - 0</div>
+              <p class="text-secondary">Minimum to maximum possible outcomes</p>
             </div>
           </div>
         </section>
@@ -520,6 +2174,48 @@
           <button class="modal-close-btn" aria-label="Close modal">&times;</button>
         </div>
         <div class="modal-body">
+          <!-- Detail Modal Export Toolbar -->
+          <div
+            class="export-toolbar"
+            style="
+              display: flex;
+              gap: 0.5rem;
+              margin-bottom: 1rem;
+              padding-bottom: 0.5rem;
+              border-bottom: 1px solid var(--border-color);
+              flex-wrap: wrap;
+              align-items: center;
+            "
+          >
+            <span
+              style="
+                font-family: var(--font-accent);
+                font-size: 0.85rem;
+                font-weight: bold;
+                color: var(--text-secondary);
+              "
+              >Export:</span
+            >
+            <button
+              class="btn btn-secondary"
+              id="btn-export-foundry"
+              style="padding: 0.25rem 0.5rem; font-size: 0.8rem"
+            >
+              FoundryVTT
+            </button>
+            <button class="btn btn-secondary" id="btn-export-roll20" style="padding: 0.25rem 0.5rem; font-size: 0.8rem">
+              Roll20
+            </button>
+            <button class="btn btn-secondary" id="btn-export-tts" style="padding: 0.25rem 0.5rem; font-size: 0.8rem">
+              TTS
+            </button>
+            <button class="btn btn-secondary" id="btn-export-pdf" style="padding: 0.25rem 0.5rem; font-size: 0.8rem">
+              PDF
+            </button>
+            <button class="btn btn-secondary" id="btn-export-md" style="padding: 0.25rem 0.5rem; font-size: 0.8rem">
+              Markdown
+            </button>
+          </div>
           <section class="modal-metadata" aria-label="Game metadata">
             <div class="meta-item">
               <span class="meta-label">Publication Year</span>
@@ -565,7 +2261,10 @@
       </div>
     </div>
 
-    <!-- JavaScript application file -->
+    <!-- JavaScript application files -->
+    <script src="dist/dsl.js"></script>
+    <script src="dist/solver.js"></script>
+    <script src="dist/diagnostics.js"></script>
     <script src="dist/app.js"></script>
   </body>
 </html>

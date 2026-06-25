@@ -7,31 +7,34 @@
  * Venn comparisons, and autocomplete in the Systems Indexer application.
  */
 
-type GameRuleset = import('./types').GameRuleset;
-type GameRulesetInternal = import('./types').GameRulesetInternal;
-type DictionaryGameEntry = import('./types').DictionaryGameEntry;
-type SearchWorkerRequest = import('./types').SearchWorkerRequest;
-type SearchWorkerResponse = import('./types').SearchWorkerResponse;
-type InitRequest = import('./types').InitRequest;
-type SearchRequest = import('./types').SearchRequest;
-type AutocompleteRequest = import('./types').AutocompleteRequest;
-type CompareRequest = import('./types').CompareRequest;
-type DictionaryRequest = import('./types').DictionaryRequest;
-type AddGameRequest = import('./types').AddGameRequest;
-type AddVectorRequest = import('./types').AddVectorRequest;
-type ReadyResponse = import('./types').ReadyResponse;
-type SearchResultsResponse = import('./types').SearchResultsResponse;
-type AutocompleteResultsResponse = import('./types').AutocompleteResultsResponse;
-type AutocompleteGameResult = import('./types').AutocompleteGameResult;
-type CompareResultsResponse = import('./types').CompareResultsResponse;
-type VectorDictionaryResultsResponse = import('./types').VectorDictionaryResultsResponse;
-type DomainDictionaryResultsResponse = import('./types').DomainDictionaryResultsResponse;
-type AddGameDoneResponse = import('./types').AddGameDoneResponse;
-type ErrorResponse = import('./types').ErrorResponse;
+import type {
+  GameRuleset,
+  RegistryData,
+  GameRulesetInternal,
+  DictionaryGameEntry,
+  SearchWorkerRequest,
+  SearchWorkerResponse,
+  InitRequest,
+  SearchRequest,
+  AutocompleteRequest,
+  CompareRequest,
+  DictionaryRequest,
+  AddGameRequest,
+  AddVectorRequest,
+  ReadyResponse,
+  SearchResultsResponse,
+  AutocompleteResultsResponse,
+  AutocompleteGameResult,
+  CompareResultsResponse,
+  VectorDictionaryResultsResponse,
+  DomainDictionaryResultsResponse,
+  AddGameDoneResponse,
+  ErrorResponse,
+} from './types';
 
-// Load FlexSearch via CDN
+// Load FlexSearch locally
 // Using importScripts as standard browser Worker functionality
-importScripts('https://cdnjs.cloudflare.com/ajax/libs/flexsearch/0.7.31/flexsearch.bundle.js');
+importScripts('./flexsearch.bundle.js');
 
 const worker = self as unknown as DedicatedWorkerGlobalScope;
 
@@ -41,6 +44,8 @@ let invertedIndex: Map<string, DictionaryGameEntry[]> = new Map();
 let uniqueVectors: Set<string> = new Set();
 let isInitialized = false;
 let gamesMap: Map<string, GameRulesetInternal> = new Map();
+let activeSearchTimeout: any = null;
+let activeSearchId = 0;
 
 interface CacheEntry {
   results: GameRulesetInternal[];
@@ -65,6 +70,11 @@ function handleInitWrapper(data: any, type: string): void {
 
 // Handle messages from the main thread
 worker.onmessage = function (e: any) {
+  activeSearchId++;
+  if (activeSearchTimeout) {
+    clearTimeout(activeSearchTimeout);
+    activeSearchTimeout = null;
+  }
   const data = (e && e.data) || {};
   const type = data.type || data.action;
 
@@ -209,15 +219,23 @@ function addToIndexAndDictionary(game: GameRulesetInternal): void {
  * @param data - Configuration data
  */
 async function handleInit(data: InitRequest): Promise<void> {
-  // Support both new dbUrl parameter and old payload url/dbUrl
-  const url = data.dbUrl || (data.payload && (data.payload.dbUrl || data.payload.url)) || 'registry.json';
+  let registryData: RegistryData | undefined = data.registryData || (data.payload && data.payload.registryData);
 
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch registry from ${url}: status ${response.status}`);
+  if (!registryData) {
+    // Support both new dbUrl parameter and old payload url/dbUrl
+    const url = data.dbUrl || (data.payload && (data.payload.dbUrl || data.payload.url)) || 'registry.json';
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch registry from ${url}: status ${response.status}`);
+    }
+
+    const parsed = (await response.json()) as { ttrpg?: GameRuleset[]; board_game?: GameRuleset[] };
+    registryData = {
+      ttrpg: parsed.ttrpg || [],
+      board_game: parsed.board_game || [],
+    };
   }
-
-  const registryData = (await response.json()) as { ttrpg?: GameRuleset[]; board_game?: GameRuleset[] };
 
   // Combine TTRPGs and Board Games, identifying medium, and clean/freeze them to minimize memory
   const ttrpgs = (registryData.ttrpg || []).map((g) => cleanAndFreezeGame({ ...g, medium: 'ttrpg' }));
@@ -272,6 +290,78 @@ async function handleInit(data: InitRequest): Promise<void> {
 }
 
 /**
+ * Streams search results progressively in chunks of 200 items.
+ */
+function streamSearchResults(
+  results: GameRulesetInternal[],
+  totalCount: number,
+  latencyMs: number,
+  searchId: number
+): void {
+  const chunkSize = 200;
+  if (results.length === 0) {
+    worker.postMessage({
+      type: 'searchResults',
+      action: 'search',
+      chunkIndex: 0,
+      results: [],
+      totalCount,
+      total: totalCount,
+      isComplete: true,
+      latencyMs,
+    } as SearchResultsResponse);
+    return;
+  }
+
+  // Send first chunk immediately
+  const chunk0 = results.slice(0, chunkSize);
+  const isComplete0 = results.length <= chunkSize;
+  worker.postMessage({
+    type: 'searchResults',
+    action: 'search',
+    chunkIndex: 0,
+    results: chunk0,
+    totalCount,
+    total: totalCount,
+    isComplete: isComplete0,
+    latencyMs,
+  } as SearchResultsResponse);
+
+  if (isComplete0) {
+    return;
+  }
+
+  let chunkIndex = 1;
+  const sendNextChunk = () => {
+    if (searchId !== activeSearchId) {
+      return;
+    }
+    const start = chunkIndex * chunkSize;
+    const end = start + chunkSize;
+    const chunk = results.slice(start, end);
+    const isComplete = end >= results.length;
+
+    worker.postMessage({
+      type: 'searchResults',
+      action: 'search',
+      chunkIndex,
+      results: chunk,
+      totalCount,
+      total: totalCount,
+      isComplete,
+      latencyMs,
+    } as SearchResultsResponse);
+
+    if (!isComplete) {
+      chunkIndex++;
+      activeSearchTimeout = setTimeout(sendNextChunk, 0);
+    }
+  };
+
+  activeSearchTimeout = setTimeout(sendNextChunk, 0);
+}
+
+/**
  * Handles search requests using FlexSearch index combined with filters and sorting.
  *
  * @param data - Search parameter data
@@ -281,15 +371,16 @@ function handleSearch(data: SearchRequest): void {
     throw new Error('Worker is not initialized. Please run init action first.');
   }
 
+  activeSearchId++;
+  const searchId = activeSearchId;
+
   const t0 = performance.now();
   const filters = data.filters || data.payload || {};
-
-  // Coerce inputs to strings robustly
   const searchTerm = String(filters.searchTerm || '');
   const medium = String(filters.medium || 'all');
   const genre = String(filters.genre || 'all');
-  const minYear = filters.minYear !== undefined ? Number(filters.minYear) : 1900;
-  const maxYear = filters.maxYear !== undefined ? Number(filters.maxYear) : 2100;
+  const minYear = Number(filters.minYear !== undefined ? filters.minYear : -10000);
+  const maxYear = Number(filters.maxYear !== undefined ? filters.maxYear : 10000);
   const sort = String(filters.sort || 'title-asc');
 
   const cacheKey = JSON.stringify({
@@ -303,14 +394,7 @@ function handleSearch(data: SearchRequest): void {
   if (searchCache.has(cacheKey)) {
     const cached = searchCache.get(cacheKey)!;
     const duration = performance.now() - t0;
-    worker.postMessage({
-      type: 'searchResults',
-      action: 'search',
-      results: cached.results,
-      totalCount: cached.totalCount,
-      total: cached.total,
-      latencyMs: duration,
-    } as SearchResultsResponse);
+    streamSearchResults(cached.results, cached.totalCount, duration, searchId);
     return;
   }
 
@@ -389,14 +473,7 @@ function handleSearch(data: SearchRequest): void {
     total: results.length,
   });
 
-  worker.postMessage({
-    type: 'searchResults',
-    action: 'search',
-    results,
-    totalCount: results.length,
-    total: results.length,
-    latencyMs: duration,
-  } as SearchResultsResponse);
+  streamSearchResults(results, results.length, duration, searchId);
 }
 
 /**
@@ -639,3 +716,5 @@ if (typeof self !== 'undefined') {
   (self as any).handleSearch = handleSearch;
   (self as any).handleDictionary = handleDictionary;
 }
+
+export {};

@@ -11,4 +11,5 @@ module.exports = {
     '^\\.\\./app\\.js$': '<rootDir>/dist/app.js',
     '^\\.\\./search-worker\\.js$': '<rootDir>/dist/search-worker.js',
   },
+  testPathIgnorePatterns: ['<rootDir>/scratch/'],
 };

@@ -58,7 +58,7 @@ describe('Systems Indexer - E2E Smoke Tests', () => {
     });
 
     // 4. Load app.js code
-    require('../app.js');
+    require('../dist/app.js');
 
     // 5. Fire DOMContentLoaded to execute the app logic
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));

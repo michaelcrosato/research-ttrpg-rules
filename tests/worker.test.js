@@ -14,6 +14,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
   let originalPostMessage;
   let originalFlexSearch;
   let originalOnmessage;
+  let originalGetFlexSearchLib;
   let lastMessage;
 
   beforeAll(() => {
@@ -22,11 +23,22 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     originalPostMessage = global.postMessage;
     originalFlexSearch = global.FlexSearch;
     originalOnmessage = global.onmessage;
+    originalGetFlexSearchLib = global.getFlexSearchLib;
+    global.getFlexSearchLib = () => global.FlexSearch;
 
     // 1. Setup mock environment representing the Web Worker global scope
     global.self = global;
     global.importScripts = jest.fn();
+    let accumulatedResults = [];
     global.postMessage = jest.fn((msg) => {
+      if (msg && msg.type === 'searchResults') {
+        if (msg.chunkIndex === 0 || msg.chunkIndex === undefined) {
+          accumulatedResults = [...msg.results];
+        } else {
+          accumulatedResults.push(...msg.results);
+        }
+        msg.results = accumulatedResults;
+      }
       lastMessage = msg;
     });
 
@@ -66,12 +78,49 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     // Load and evaluate search-worker.js
     require('../dist/search-worker.js');
 
-    // Extract and evaluate LocalSearchWorker from app.js to test it
-    const appJsContent = fs.readFileSync(path.resolve(__dirname, '../dist/app.js'), 'utf8');
-    const startIdx = appJsContent.indexOf('class LocalSearchWorker');
-    const endIdx = appJsContent.indexOf('// Initialize Web Worker');
-    const classCode = 'global.LocalSearchWorker = ' + appJsContent.slice(startIdx, endIdx);
-    eval(classCode);
+    // Mock IndexedDB and fetch to prevent loadDatabase errors during app.js execution
+    const mockIDBRequest = {
+      result: {
+        transaction: () => ({
+          objectStore: () => ({
+            get: () => ({
+              set onsuccess(fn) {
+                setTimeout(fn, 0);
+              },
+            }),
+            put: () => ({
+              set onsuccess(fn) {
+                setTimeout(fn, 0);
+              },
+            }),
+            getAll: () => ({
+              set onsuccess(fn) {
+                setTimeout(fn, 0);
+              },
+              get result() {
+                return [];
+              },
+            }),
+          }),
+        }),
+        objectStoreNames: { contains: () => true },
+      },
+      set onsuccess(fn) {
+        setTimeout(fn, 0);
+      },
+    };
+    global.indexedDB = { open: jest.fn().mockReturnValue(mockIDBRequest) };
+    if (typeof window !== 'undefined') window.indexedDB = global.indexedDB;
+
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({ ttrpg: [], board_game: [] }),
+    });
+
+    // Require app.js which populates window.LocalSearchWorker
+    require('../dist/app.js');
+    global.LocalSearchWorker = window.LocalSearchWorker;
   });
 
   beforeEach(() => {
@@ -104,6 +153,11 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       delete global.onmessage;
     } else {
       global.onmessage = originalOnmessage;
+    }
+    if (originalGetFlexSearchLib === undefined) {
+      delete global.getFlexSearchLib;
+    } else {
+      global.getFlexSearchLib = originalGetFlexSearchLib;
     }
     delete global.LocalSearchWorker;
   });
@@ -761,16 +815,19 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
     const localWorker = new LocalSearchWorker();
 
-    // Initialize local worker with same registry
     let localReady = false;
+    let localError = null;
     localWorker.onmessage = (e) => {
       if (e.data.type === 'ready') {
         localReady = true;
+      } else if (e.data.type === 'error') {
+        localError = e.data.error;
       }
     };
     localWorker.postMessage({ type: 'init', dbUrl: 'registry.json' });
 
     await global.waitFor(() => {
+      expect(localError).toBeNull();
       expect(localReady).toBe(true);
     });
 

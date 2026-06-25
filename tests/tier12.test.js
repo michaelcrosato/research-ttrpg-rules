@@ -119,7 +119,7 @@ describe('Systems Indexer - Tier 1 & Tier 2 E2E Tests', () => {
     });
 
     // 5. Load application script
-    require('../app.js');
+    require('../dist/app.js');
 
     // 6. Fire DOMContentLoaded
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));

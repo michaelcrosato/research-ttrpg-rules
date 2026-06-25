@@ -10,8 +10,8 @@
     "start": "npx -y serve .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "pretest": "npm run build && node -e \"setTimeout(() => {}, 2000)\"",
-    "test": "jest --runInBand",
+    "pretest": "npm run build",
+    "test": "node tests/run-tests.js --runInBand",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

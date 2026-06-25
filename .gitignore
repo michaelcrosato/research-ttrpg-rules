@@ -3,6 +3,7 @@ node_modules/
 
 # Build output
 dist/
+dist_test/
 
 # Test coverage
 coverage/
@@ -19,6 +20,7 @@ scratch/
 
 # Agent session artifacts
 .agents/
+.agent-cleaner/
 
 # OS files
 .DS_Store

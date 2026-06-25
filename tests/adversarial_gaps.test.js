@@ -111,7 +111,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
       })
     );
 
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitFor(() => {
@@ -132,7 +132,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
       )
       .mockImplementationOnce(() => Promise.reject(new Error('Local worker fetch failure')));
 
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     // Wait to let it execute
@@ -142,7 +142,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   test('Gap 3 & 7: LocalSearchWorker postMessage error try-catch & Worker error log (lines 334-335, 378-379)', async () => {
     const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -169,7 +169,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 4 & 5: LocalSearchWorker sorting and autocomplete fallback branches (lines 134, 137-140, 167-172)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -210,7 +210,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     };
     global.Worker = jest.fn().mockImplementation(() => mockWorkerInstance);
 
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     // Wait for async init to call new Worker
@@ -223,7 +223,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 8: Autocomplete results empty display styling (lines 413-415)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -245,7 +245,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 10 & 13: Details modal dismiss by overlay click, and empty governed vectors fallback (lines 797, 1085)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -264,7 +264,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 11 & 12: window.loadMoreGames and render jobs cancellation (lines 828-829, 887-888)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -288,7 +288,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 14 & 15 & 16: Progressive batch rendering execution and Dictionary progressive rendering (lines 914, 920-945, 1013-1031, 1039-1051)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -296,7 +296,9 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
     // Mock requestAnimationFrame to run callbacks synchronously so loops execute fully
     const originalRAF = window.requestAnimationFrame;
     window.requestAnimationFrame = jest.fn().mockImplementation((cb) => {
-      cb();
+      if (cb && cb.name !== 'runDiagnosticsLoop' && cb.name !== 'updateFPS' && cb.name !== 'runTopologySimulation') {
+        cb();
+      }
       return 1;
     });
 
@@ -329,7 +331,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 17: Game details modal with description/extract display (lines 1073-1074)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -341,7 +343,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 19: Clear autocomplete when query is empty/whitespace (lines 1138-1140)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
@@ -363,7 +365,7 @@ describe('Systems Indexer - Challenger Adversarial & Coverage Gap Tests', () => 
   });
 
   test('Gap 20, 21 & 22: BGG Import details corner cases and error handling (lines 1593-1594, 1616, 1662-1663)', async () => {
-    require('../app.js');
+    require('../dist/app.js');
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));
 
     await waitForWorkerReady();
