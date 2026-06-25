@@ -72,7 +72,7 @@ describe('Systems Indexer - Hierarchical Sub-vector Explanations UI Tests', () =
     });
 
     // Load application script
-    require('../app.js');
+    require('../dist/app.js');
 
     // Fire DOMContentLoaded
     document.dispatchEvent(new window.Event('DOMContentLoaded', { bubbles: true }));

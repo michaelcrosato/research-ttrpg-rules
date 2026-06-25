@@ -168,7 +168,7 @@ window.Worker = MockWorker;
 global.Worker = MockWorker;
 
 // Load app.js
-require('../app.js');
+require('../dist/app.js');
 
 // Function to run callbacks in requestAnimationFrame
 function flushAnimationFrame() {

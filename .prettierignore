@@ -1,8 +1,10 @@
 # Don't format these
 node_modules
 dist
+dist_test
 coverage
 registry.json
 registry_names.json
 package-lock.json
 *.md
+

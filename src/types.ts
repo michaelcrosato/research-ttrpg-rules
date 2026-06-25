@@ -223,9 +223,11 @@ export interface InitRequest {
   type: 'init';
   action?: 'init';
   dbUrl?: string;
+  registryData?: RegistryData;
   payload?: {
     dbUrl?: string;
     url?: string;
+    registryData?: RegistryData;
   };
 }
 
@@ -328,6 +330,8 @@ export interface SearchResultsResponse {
   totalCount: number;
   total: number;
   latencyMs: number;
+  chunkIndex?: number;
+  isComplete?: boolean;
 }
 
 export interface AutocompleteResultsResponse {
@@ -530,4 +534,45 @@ export interface SandboxGMSession {
     roundNumber: number;
   };
   turnNumber: number;
+}
+
+export type EmbeddingsWorkerRequest =
+  | { type: 'init'; modelName: string; registryData?: any }
+  | { type: 'query'; queryText: string; topK?: number };
+
+export type EmbeddingsWorkerResponse =
+  | { type: 'ready' }
+  | { type: 'queryResults'; matches: Array<{ gameId: string; similarity: number }> }
+  | { type: 'error'; message: string };
+
+export interface DatabaseChange {
+  gameId: string;
+  action: 'add' | 'modify' | 'delete';
+  field: string;
+  oldValue: any;
+  newValue: any;
+}
+
+export interface MergeResult {
+  success: boolean;
+  conflicts: Array<{ gameId: string; field: string; sourceVal: any; targetVal: any }>;
+}
+
+export interface CommitRecord {
+  id: string;
+  parentId: string | null;
+  message: string;
+  timestamp: number;
+  changes: DatabaseChange[];
+}
+
+export interface OmniGitVCS {
+  createBranch(branchName: string): void;
+  checkoutBranch(branchName: string): void;
+  getActiveBranch(): string;
+  stageChange(change: DatabaseChange): void;
+  commitStaged(message: string): void;
+  getCommitHistory(): CommitRecord[];
+  mergeBranch(sourceBranch: string, targetBranch: string): MergeResult;
+  exportJSONDiff(): string;
 }
