@@ -1,10 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const files = [
-  path.join(__dirname, 'dist/app.js'),
-  path.join(__dirname, 'dist/search-worker.js')
-];
+const files = [path.join(__dirname, 'dist/app.js'), path.join(__dirname, 'dist/search-worker.js')];
 
 for (const file of files) {
   if (fs.existsSync(file)) {

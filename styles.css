@@ -2,55 +2,53 @@
 
 :root {
   /* Fonts */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-accent: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'Space Grotesk', Consolas, "Liberation Mono", monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-accent: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Grotesk', Consolas, 'Liberation Mono', monospace;
 
   /* Colors */
-  --bg-primary: #030712;             /* Deep rich dark gray/black background */
-  --bg-surface: #0b1120;             /* Surface cards and panels dark blue-gray */
+  --bg-primary: #030712; /* Deep rich dark gray/black background */
+  --bg-surface: #0b1120; /* Surface cards and panels dark blue-gray */
   --bg-surface-glass: rgba(15, 23, 42, 0.45); /* Translucent base for backdrop blur */
   --bg-surface-glass-hover: rgba(30, 41, 59, 0.6);
-  
+
   --text-primary: #f3f4f6;
   --text-secondary: #9ca3af;
   --text-muted: #9ca3af;
-  
+
   /* Borders */
   --border-color: rgba(255, 255, 255, 0.08);
   --border-glass: rgba(255, 255, 255, 0.08);
   --border-glass-hover: rgba(255, 255, 255, 0.16);
   --border-accent: rgba(99, 102, 241, 0.45);
-  
+
   /* Accents */
-  --color-accent: #6366f1;           /* Indigo */
+  --color-accent: #6366f1; /* Indigo */
   --color-accent-hover: #4f46e5;
   --color-accent-light: rgba(99, 102, 241, 0.1);
-  --color-ttrpg: #c084fc;            /* Soft Purple */
+  --color-ttrpg: #c084fc; /* Soft Purple */
   --color-ttrpg-gradient: linear-gradient(135deg, #a78bfa, #6366f1);
-  --color-boardgame: #22d3ee;        /* Soft Cyan */
+  --color-boardgame: #22d3ee; /* Soft Cyan */
   --color-boardgame-gradient: linear-gradient(135deg, #06b6d4, #0d9488);
-  
+
   --color-bg-pill-ttrpg: rgba(192, 132, 252, 0.15);
   --color-bg-pill-bg: rgba(34, 211, 238, 0.15);
-  
+
   --color-cyan: #06b6d4;
   --color-amber: #f59e0b;
   --color-success: #10b981;
-  
+
   /* Shadows & Glows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.15);
-  
-  --shadow-glass: 
-    0 8px 32px 0 rgba(0, 0, 0, 0.4), 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   --shadow-ttrpg-glow: 0 0 25px rgba(167, 139, 250, 0.15);
   --shadow-boardgame-glow: 0 0 25px rgba(34, 211, 238, 0.15);
   --shadow-cyan-glow: 0 0 25px rgba(34, 211, 238, 0.15);
-  
+
   /* Radii */
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -70,7 +68,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   min-height: 100vh;
-  background-image: 
+  background-image:
     radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
   background-attachment: fixed;
@@ -128,7 +126,12 @@ header {
   box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-accent);
 }
 
@@ -149,7 +152,11 @@ h1 {
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-glass);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-panel:hover {
@@ -275,9 +282,10 @@ main {
   visibility: hidden;
   pointer-events: none;
   transform: scale(0.98) translateY(6px);
-  transition: opacity 0.25s cubic-bezier(0.25, 1, 0.5, 1), 
-              transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), 
-              visibility 0.25s;
+  transition:
+    opacity 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+    visibility 0.25s;
   will-change: transform, opacity;
 }
 
@@ -804,9 +812,15 @@ main {
   border-bottom: 1px solid var(--border-color);
 }
 
-.compare-col.both h4 { color: var(--color-success); }
-.compare-col.a h4 { color: var(--color-accent); }
-.compare-col.b h4 { color: var(--color-cyan); }
+.compare-col.both h4 {
+  color: var(--color-success);
+}
+.compare-col.a h4 {
+  color: var(--color-accent);
+}
+.compare-col.b h4 {
+  color: var(--color-cyan);
+}
 
 .compare-list {
   display: flex;
@@ -1310,7 +1324,10 @@ main {
   opacity: 0;
   visibility: hidden;
   transform: translateY(4px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s;
 }
 .autocomplete-suggestions.active {
   opacity: 1;
@@ -1507,7 +1524,11 @@ main {
   border: 1px solid var(--border-glass) !important;
   border-radius: var(--radius-lg) !important;
   box-shadow: var(--shadow-glass) !important;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .stat-card:hover,
@@ -1542,7 +1563,12 @@ main {
 }
 
 /* Heading Typography Overrides (Outfit) */
-h1, h2, h3, h4, h5, h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 .compare-game-header,
 .modal-section-title,
 .dict-item-name,
@@ -1550,7 +1576,10 @@ h1, h2, h3, h4, h5, h6,
   font-family: var(--font-accent) !important;
 }
 
-.medium-badge, .badge, .subgenre-tag, .tab-btn {
+.medium-badge,
+.badge,
+.subgenre-tag,
+.tab-btn {
   font-family: var(--font-accent);
 }
 
@@ -1563,7 +1592,9 @@ h1, h2, h3, h4, h5, h6,
   left: 0;
   height: 2px;
   background: var(--color-accent);
-  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), width 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  transition:
+    transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+    width 0.25s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform, width;
 }
 
@@ -1579,7 +1610,12 @@ h1, h2, h3, h4, h5, h6,
   fill-opacity: 0.12;
   stroke-width: 2px;
   stroke-dasharray: 4px;
-  transition: fill-opacity 0.2s, stroke-width 0.2s, stroke-dasharray 0.2s, fill 0.2s, stroke 0.2s;
+  transition:
+    fill-opacity 0.2s,
+    stroke-width 0.2s,
+    stroke-dasharray 0.2s,
+    fill 0.2s,
+    stroke 0.2s;
   cursor: pointer;
 }
 .segment-a {
@@ -1772,7 +1808,9 @@ h1, h2, h3, h4, h5, h6,
   font-family: var(--font-mono);
   color: var(--text-primary);
   cursor: default;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .sandbox-vector-pill:hover {
@@ -1922,8 +1960,14 @@ h1, h2, h3, h4, h5, h6,
 }
 
 @keyframes chatMsgIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .sandbox-chat-msg.gm {
@@ -2001,4 +2045,3 @@ h1, h2, h3, h4, h5, h6,
     grid-column: span 1;
   }
 }
-

@@ -39,7 +39,7 @@ import {
   DomainDictionaryResultsResponse,
   AddGameDoneResponse,
   ErrorResponse,
-  SearchWorkerMessage
+  SearchWorkerMessage,
 } from '../src/types';
 
 describe('TypeScript Typings Coverage and Verification', () => {
@@ -75,7 +75,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       'compare',
       'dictionary',
       'addGame',
-      'addVector'
+      'addVector',
     ];
 
     // Assert that every handled request type in search-worker.js is present in the TS types union
@@ -107,7 +107,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       'compareResults',
       'dictionaryResults',
       'addGameDone',
-      'error'
+      'error',
     ];
 
     for (const responseType of sentResponseTypes) {
@@ -127,8 +127,8 @@ describe('TypeScript Typings Coverage and Verification', () => {
       dbUrl: 'registry.json',
       payload: {
         dbUrl: 'registry.json',
-        url: 'registry.json'
-      }
+        url: 'registry.json',
+      },
     };
     const searchReq: SearchRequest = {
       type: 'search',
@@ -139,8 +139,8 @@ describe('TypeScript Typings Coverage and Verification', () => {
         genre: 'Fantasy',
         minYear: 1974,
         maxYear: 2024,
-        sort: 'title-asc'
-      }
+        sort: 'title-asc',
+      },
     };
     const autocompleteReq: AutocompleteRequest = {
       type: 'autocomplete',
@@ -149,8 +149,8 @@ describe('TypeScript Typings Coverage and Verification', () => {
       autocompleteType: 'vector',
       payload: {
         query: 'combat',
-        type: 'vector'
-      }
+        type: 'vector',
+      },
     };
     const compareReq: CompareRequest = {
       type: 'compare',
@@ -159,8 +159,8 @@ describe('TypeScript Typings Coverage and Verification', () => {
       gameIdB: 'pathfinder_2009',
       payload: {
         gameIdA: 'dnd_1974',
-        gameIdB: 'pathfinder_2009'
-      }
+        gameIdB: 'pathfinder_2009',
+      },
     };
     const dictionaryReq: DictionaryRequest = {
       type: 'dictionary',
@@ -169,8 +169,8 @@ describe('TypeScript Typings Coverage and Verification', () => {
       vector: 'combat.melee',
       payload: {
         domain: 'combat',
-        vector: 'combat.melee'
-      }
+        vector: 'combat.melee',
+      },
     };
     const addGameReq: AddGameRequest = {
       type: 'addGame',
@@ -185,16 +185,16 @@ describe('TypeScript Typings Coverage and Verification', () => {
         governed_vectors: ['combat.melee'],
         vector_explanations: { 'combat.melee': 'Test explanation' },
         description: 'Test desc',
-        extract: 'Test ext'
-      }
+        extract: 'Test ext',
+      },
     };
     const addVectorReq: AddVectorRequest = {
       type: 'addVector',
       action: 'addVector',
       vector: 'combat.melee.tactical',
       payload: {
-        vector: 'combat.melee.tactical'
-      }
+        vector: 'combat.melee.tactical',
+      },
     };
 
     // Assigning to the union request types
@@ -224,8 +224,8 @@ describe('TypeScript Typings Coverage and Verification', () => {
         uniqueVectorsCount: 20,
         ttrpgCount: 5,
         boardGameCount: 5,
-        uniqueVectors: 20
-      }
+        uniqueVectors: 20,
+      },
     };
 
     const dummyGame: GameRulesetInternal = {
@@ -239,7 +239,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       vector_explanations: { 'combat.melee': 'Test explanation' },
       governed_vectors_set: new Set(['combat.melee']),
       description: 'Test desc',
-      extract: 'Test ext'
+      extract: 'Test ext',
     };
 
     const searchRes: SearchResultsResponse = {
@@ -248,7 +248,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       results: [dummyGame],
       totalCount: 1,
       total: 1,
-      latencyMs: 12.34
+      latencyMs: 12.34,
     };
 
     const autocompleteRes: AutocompleteResultsResponse = {
@@ -256,7 +256,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       action: 'autocomplete',
       suggestions: ['combat.melee'],
       results: ['combat.melee'],
-      latencyMs: 1.2
+      latencyMs: 1.2,
     };
 
     const compareRes: CompareResultsResponse = {
@@ -267,7 +267,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       shared: ['combat.melee'],
       onlyA: [],
       onlyB: [],
-      latencyMs: 0.5
+      latencyMs: 0.5,
     };
 
     const dictVectorRes: VectorDictionaryResultsResponse = {
@@ -275,7 +275,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       action: 'dictionary',
       vector: 'combat.melee',
       results: [{ game_id: 'test', title: 'Test', medium: 'ttrpg', year: 2020 }],
-      vectors: [{ game_id: 'test', title: 'Test', medium: 'ttrpg', year: 2020 }]
+      vectors: [{ game_id: 'test', title: 'Test', medium: 'ttrpg', year: 2020 }],
     };
 
     const dictDomainRes: DomainDictionaryResultsResponse = {
@@ -284,7 +284,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       domain: 'combat',
       activeDomain: 'combat',
       results: [{ vector: 'combat.melee', games: [{ game_id: 'test', title: 'Test', medium: 'ttrpg', year: 2020 }] }],
-      vectors: [{ vector: 'combat.melee', games: [{ game_id: 'test', title: 'Test', medium: 'ttrpg', year: 2020 }] }]
+      vectors: [{ vector: 'combat.melee', games: [{ game_id: 'test', title: 'Test', medium: 'ttrpg', year: 2020 }] }],
     };
 
     const addGameDoneRes: AddGameDoneResponse = {
@@ -296,18 +296,18 @@ describe('TypeScript Typings Coverage and Verification', () => {
         totalGames: 11,
         totalTtrpgs: 6,
         totalBoardgames: 5,
-        uniqueVectorsCount: 21
+        uniqueVectorsCount: 21,
       },
       stats: {
         totalGames: 11,
-        uniqueVectors: 21
-      }
+        uniqueVectors: 21,
+      },
     };
 
     const errorRes: ErrorResponse = {
       type: 'error',
       action: 'search',
-      error: 'Something went wrong'
+      error: 'Something went wrong',
     };
 
     // Assigning to union response types
@@ -334,7 +334,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       subgenres: [],
       governed_vectors: [],
       vector_explanations: {},
-      governed_vectors_set: new Set()
+      governed_vectors_set: new Set(),
     };
     const inMemoryGame: InMemoryGameRuleset = workerGame;
     expect(inMemoryGame).toBe(workerGame);
@@ -346,7 +346,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       uniqueVectorsCount: 0,
       ttrpgCount: 1,
       boardGameCount: 0,
-      uniqueVectors: 0
+      uniqueVectors: 0,
     };
     const workerStats: WorkerStats = stats;
     expect(workerStats).toBe(stats);
@@ -355,7 +355,7 @@ describe('TypeScript Typings Coverage and Verification', () => {
       game_id: 'a',
       title: 'A',
       medium: 'ttrpg',
-      year: 2000
+      year: 2000,
     };
     const dictRef: DictionaryGameRef = compactRef;
     const vecMatch: DictionaryVectorMatch = compactRef;
@@ -366,14 +366,14 @@ describe('TypeScript Typings Coverage and Verification', () => {
 
     const suggestion: CompactGameSuggestion = {
       game_id: 'a',
-      title: 'A'
+      title: 'A',
     };
     const autoResult: AutocompleteGameResult = suggestion;
     expect(autoResult).toBe(suggestion);
 
     const domainGroup: DomainVectorGroup = {
       vector: 'v',
-      games: [compactRef]
+      games: [compactRef],
     };
     const dictDomainResult: DictionaryDomainResult = domainGroup;
     const dictVecEntry: DictionaryVectorEntry = domainGroup;

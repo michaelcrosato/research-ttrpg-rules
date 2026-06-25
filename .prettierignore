@@ -1,0 +1,8 @@
+# Don't format these
+node_modules
+dist
+coverage
+registry.json
+registry_names.json
+package-lock.json
+*.md

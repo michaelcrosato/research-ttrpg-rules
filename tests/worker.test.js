@@ -1,6 +1,6 @@
 /**
  * tests/worker.test.js
- * 
+ *
  * Jest-based test suite for search-worker.js.
  * Verifies correctness, edge cases, interface contracts, and relevance sorting order.
  */
@@ -29,7 +29,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     global.postMessage = jest.fn((msg) => {
       lastMessage = msg;
     });
-    
+
     // Polyfill performance.now if needed
     if (!global.performance) {
       global.performance = require('perf_hooks').performance;
@@ -53,14 +53,14 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
           const results = [];
           const qParts = query.toLowerCase().split(/[\s.]+/);
           for (const [id, text] of this.docs.entries()) {
-            if (qParts.every(part => text.toLowerCase().includes(part))) {
+            if (qParts.every((part) => text.toLowerCase().includes(part))) {
               results.push(id);
               if (results.length >= limit) break;
             }
           }
           return results;
         }
-      }
+      },
     };
 
     // Load and evaluate search-worker.js
@@ -110,7 +110,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
   test('Worker requires initialization before actions', async () => {
     global.onmessage({ data: { type: 'search', filters: { searchTerm: 'tactical' } } });
-    
+
     // Polling wait helper replacing raw setTimeout
     await global.waitFor(() => {
       expect(lastMessage).toBeDefined();
@@ -154,7 +154,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       return Promise.resolve({
         ok: false,
         status: 404,
-        statusText: 'Not Found'
+        statusText: 'Not Found',
       });
     });
 
@@ -175,12 +175,12 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       return Promise.resolve({
         ok: true,
         status: 200,
-        json: () => Promise.resolve(JSON.parse(content))
+        json: () => Promise.resolve(JSON.parse(content)),
       });
     });
 
     global.onmessage({ data: { type: 'init', dbUrl: 'registry.json' } });
-    
+
     // Polling wait helper replacing raw setTimeout
     await global.waitFor(() => {
       expect(lastMessage).toBeDefined();
@@ -192,16 +192,18 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
   });
 
   test('search action filters and sorts results', () => {
-    global.onmessage({ data: { type: 'search', filters: { searchTerm: 'tactical', medium: 'ttrpg', sort: 'year-desc' } } });
-    
+    global.onmessage({
+      data: { type: 'search', filters: { searchTerm: 'tactical', medium: 'ttrpg', sort: 'year-desc' } },
+    });
+
     expect(lastMessage.type).toBe('searchResults');
     expect(lastMessage.results.length).toBeGreaterThan(0);
     expect(lastMessage.latencyMs).toBeLessThanOrEqual(50); // Latency goals check
-    
+
     // Verify sorting (descending order of year)
     const results = lastMessage.results;
     for (let i = 0; i < results.length - 1; i++) {
-      expect(results[i].year).toBeGreaterThanOrEqual(results[i+1].year);
+      expect(results[i].year).toBeGreaterThanOrEqual(results[i + 1].year);
     }
   });
 
@@ -210,8 +212,8 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       data: {
         type: 'compare',
         gameIdA: 'coriolis_empyrean_canticle_2e_edition_2026',
-        gameIdB: 'cyberpunk_red_2045_chronicle_book_2026'
-      }
+        gameIdB: 'cyberpunk_red_2045_chronicle_book_2026',
+      },
     });
 
     expect(lastMessage.type).toBe('compareResults');
@@ -233,13 +235,13 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
   test('addGame action dynamically appends to search index and dictionary', () => {
     const newGame = {
-      game_id: "jest_test_game",
-      title: "Jest Test Game",
+      game_id: 'jest_test_game',
+      title: 'Jest Test Game',
       year: 2026,
-      medium: "board_game",
-      primary_genre: "Strategy",
-      governed_vectors: ["custom.system.jest_vector"],
-      vector_explanations: { "custom.system.jest_vector": "Test rules" }
+      medium: 'board_game',
+      primary_genre: 'Strategy',
+      governed_vectors: ['custom.system.jest_vector'],
+      vector_explanations: { 'custom.system.jest_vector': 'Test rules' },
     };
 
     global.onmessage({ data: { type: 'addGame', game: newGame } });
@@ -251,7 +253,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
     // Verify it is searchable
     global.onmessage({ data: { type: 'search', filters: { searchTerm: 'jest_vector' } } });
-    expect(lastMessage.results.some(g => g.game_id === 'jest_test_game')).toBe(true);
+    expect(lastMessage.results.some((g) => g.game_id === 'jest_test_game')).toBe(true);
 
     // Verify dictionary is updated
     global.onmessage({ data: { type: 'dictionary', vector: 'custom.system.jest_vector' } });
@@ -269,7 +271,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
     // Check sorted alphabetically
     for (let i = 0; i < results.length - 1; i++) {
-      expect(results[i].localeCompare(results[i+1])).toBeLessThanOrEqual(0);
+      expect(results[i].localeCompare(results[i + 1])).toBeLessThanOrEqual(0);
     }
   });
 
@@ -278,7 +280,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     global.onmessage({ data: { type: 'autocomplete', query: 'cyberpunk coriolis', autocompleteType: 'game' } });
 
     expect(lastMessage.type).toBe('autocompleteResults');
-    const results = lastMessage.results.map(g => g.game_id);
+    const results = lastMessage.results.map((g) => g.game_id);
 
     // RELEVANCE EXPECTED: ['cyberpunk_red_2045_chronicle_book_2026', 'coriolis_empyrean_canticle_2e_edition_2026']
     // Now that the sorting bug is fixed, we assert the correct relevance order.
@@ -312,13 +314,13 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
     // Add game should evict cache
     const newGame = {
-      game_id: "jest_cache_evict_game",
-      title: "Jest Cache Evict Game",
+      game_id: 'jest_cache_evict_game',
+      title: 'Jest Cache Evict Game',
       year: 2026,
-      medium: "ttrpg",
-      primary_genre: "Strategy",
-      governed_vectors: ["combat.melee.tactical"],
-      vector_explanations: {}
+      medium: 'ttrpg',
+      primary_genre: 'Strategy',
+      governed_vectors: ['combat.melee.tactical'],
+      vector_explanations: {},
     };
     global.onmessage({ data: { type: 'addGame', game: newGame } });
     await global.waitFor(() => {
@@ -329,7 +331,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     global.onmessage({ data: { type: 'search', filters: { searchTerm: 'tactical', medium: 'ttrpg' } } });
     await global.waitFor(() => {
       expect(lastMessage.type).toBe('searchResults');
-      expect(lastMessage.results.some(g => g.game_id === 'jest_cache_evict_game')).toBe(true);
+      expect(lastMessage.results.some((g) => g.game_id === 'jest_cache_evict_game')).toBe(true);
     });
   });
 
@@ -346,9 +348,9 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     global.onmessage({ data: { type: 'search', filters: { genre: 'rules-lite' } } });
     await global.waitFor(() => {
       expect(lastMessage.type).toBe('searchResults');
-      lastMessage.results.forEach(g => {
+      lastMessage.results.forEach((g) => {
         const matchesPrimary = g.primary_genre && g.primary_genre.toLowerCase() === 'rules-lite';
-        const matchesSub = g.subgenres && g.subgenres.some(sub => sub.toLowerCase() === 'rules-lite');
+        const matchesSub = g.subgenres && g.subgenres.some((sub) => sub.toLowerCase() === 'rules-lite');
         expect(matchesPrimary || matchesSub).toBe(true);
       });
     });
@@ -375,7 +377,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       const results = lastMessage.results;
       for (let i = 0; i < results.length - 1; i++) {
         const ta = results[i].title || '';
-        const tb = results[i+1].title || '';
+        const tb = results[i + 1].title || '';
         expect(ta <= tb).toBe(true);
       }
     });
@@ -386,7 +388,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       const results = lastMessage.results;
       for (let i = 0; i < results.length - 1; i++) {
         const ta = results[i].title || '';
-        const tb = results[i+1].title || '';
+        const tb = results[i + 1].title || '';
         expect(ta >= tb).toBe(true);
       }
     });
@@ -396,7 +398,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     await global.waitFor(() => {
       const results = lastMessage.results;
       for (let i = 0; i < results.length - 1; i++) {
-        expect((results[i].year || 0)).toBeLessThanOrEqual(results[i+1].year || 0);
+        expect(results[i].year || 0).toBeLessThanOrEqual(results[i + 1].year || 0);
       }
     });
 
@@ -417,14 +419,18 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
   test('compare action throws error when game A or game B is not found', async () => {
     // Game A not found
-    global.onmessage({ data: { type: 'compare', gameIdA: 'invalid_game_a', gameIdB: 'cyberpunk_red_2045_chronicle_book_2026' } });
+    global.onmessage({
+      data: { type: 'compare', gameIdA: 'invalid_game_a', gameIdB: 'cyberpunk_red_2045_chronicle_book_2026' },
+    });
     await global.waitFor(() => {
       expect(lastMessage.type).toBe('error');
       expect(lastMessage.error).toContain('Game A not found');
     });
 
     // Game B not found
-    global.onmessage({ data: { type: 'compare', gameIdA: 'cyberpunk_red_2045_chronicle_book_2026', gameIdB: 'invalid_game_b' } });
+    global.onmessage({
+      data: { type: 'compare', gameIdA: 'cyberpunk_red_2045_chronicle_book_2026', gameIdB: 'invalid_game_b' },
+    });
     await global.waitFor(() => {
       expect(lastMessage.type).toBe('error');
       expect(lastMessage.error).toContain('Game B not found');
@@ -446,7 +452,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     await global.waitFor(() => {
       expect(lastMessage.type).toBe('dictionaryResults');
       expect(lastMessage.results.length).toBeGreaterThan(0);
-      lastMessage.results.forEach(item => {
+      lastMessage.results.forEach((item) => {
         expect(item.vector.startsWith('combat.')).toBe(true);
       });
     });
@@ -461,7 +467,12 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     });
 
     // Duplicate game ID
-    global.onmessage({ data: { type: 'addGame', game: { game_id: 'cyberpunk_red_2045_chronicle_book_2026', title: 'Duplicate Cyberpunk' } } });
+    global.onmessage({
+      data: {
+        type: 'addGame',
+        game: { game_id: 'cyberpunk_red_2045_chronicle_book_2026', title: 'Duplicate Cyberpunk' },
+      },
+    });
     await global.waitFor(() => {
       expect(lastMessage.type).toBe('error');
       expect(lastMessage.error).toContain('already exists');
@@ -470,10 +481,10 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
   test('addVector action dynamically registers new custom vectors', async () => {
     const newVector = 'custom.melee.cybernetic';
-    
+
     // Add custom vector
     global.onmessage({ data: { type: 'addVector', vector: newVector } });
-    
+
     // Wait for internal cache to rebuild - autocomplete can verify it
     global.onmessage({ data: { type: 'autocomplete', query: 'cybernetic', autocompleteType: 'vector' } });
     await global.waitFor(() => {
@@ -491,7 +502,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
         return Promise.resolve({
           ok: true,
           status: 200,
-          json: () => Promise.resolve(JSON.parse(content))
+          json: () => Promise.resolve(JSON.parse(content)),
         });
       });
     };
@@ -515,8 +526,8 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
     // 3. cleanAndFreezeGame with missing/undefined properties (subgenres, governed_vectors, vector_explanations, year, medium)
     const partialGame = {
-      game_id: "partial_game_id",
-      title: "Partial Game Title"
+      game_id: 'partial_game_id',
+      title: 'Partial Game Title',
       // year, medium, subgenres, governed_vectors, vector_explanations are missing
     };
     global.onmessage({ data: { type: 'addGame', game: partialGame } });
@@ -559,22 +570,22 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     const incompleteRegistry = {
       ttrpg: [
         {
-          game_id: "incomplete_ttrpg_1",
+          game_id: 'incomplete_ttrpg_1',
           // title, primary_genre, subgenres, governed_vectors, year missing
         },
         {
-          game_id: "incomplete_ttrpg_2",
-          title: "Incomplete TTRPG 2",
+          game_id: 'incomplete_ttrpg_2',
+          title: 'Incomplete TTRPG 2',
           year: 2020,
-          governed_vectors: ["combat.melee.tactical"]
-        }
-      ]
+          governed_vectors: ['combat.melee.tactical'],
+        },
+      ],
     };
     global.fetch = jest.fn().mockImplementation(() => {
       return Promise.resolve({
         ok: true,
         status: 200,
-        json: () => Promise.resolve(incompleteRegistry)
+        json: () => Promise.resolve(incompleteRegistry),
       });
     });
     lastMessage = null;
@@ -599,16 +610,16 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
     const incompleteRegistry2 = {
       board_game: [
         {
-          game_id: "incomplete_bg_1",
+          game_id: 'incomplete_bg_1',
           // title, primary_genre, subgenres, governed_vectors, year missing
-        }
-      ]
+        },
+      ],
     };
     global.fetch = jest.fn().mockImplementation(() => {
       return Promise.resolve({
         ok: true,
         status: 200,
-        json: () => Promise.resolve(incompleteRegistry2)
+        json: () => Promise.resolve(incompleteRegistry2),
       });
     });
     lastMessage = null;
@@ -630,8 +641,8 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
     // 6. addGame with missing year and medium to trigger fallbacks
     const gameMissingYearMedium = {
-      game_id: "no_year_medium",
-      title: "No Year Medium Game"
+      game_id: 'no_year_medium',
+      title: 'No Year Medium Game',
       // year and medium are missing
     };
     global.onmessage({ data: { type: 'addGame', game: gameMissingYearMedium } });
@@ -661,9 +672,9 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
         type: 'compare',
         payload: {
           gameIdA: 'coriolis_empyrean_canticle_2e_edition_2026',
-          gameIdB: 'cyberpunk_red_2045_chronicle_book_2026'
-        }
-      }
+          gameIdB: 'cyberpunk_red_2045_chronicle_book_2026',
+        },
+      },
     });
     expect(lastMessage.type).toBe('compareResults');
 
@@ -685,8 +696,8 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
 
     // 12. addGame from payload
     const gamePayload = {
-      game_id: "payload_game_id",
-      title: "Payload Game Title"
+      game_id: 'payload_game_id',
+      title: 'Payload Game Title',
     };
     global.onmessage({ data: { type: 'addGame', payload: { game: gamePayload } } });
     expect(lastMessage.type).toBe('addGameDone');
@@ -713,16 +724,16 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       expect(lastMessage.vector).toBe('combat.melee');
       const results = lastMessage.results;
       expect(results.length).toBeGreaterThan(0);
-      
+
       // Check that it merged games for 'combat.melee.tactical' and any other sub-vector
       // Verify games are unique by game_id
-      const gameIds = results.map(g => g.game_id);
+      const gameIds = results.map((g) => g.game_id);
       const uniqueGameIds = new Set(gameIds);
       expect(gameIds.length).toBe(uniqueGameIds.size);
-      
+
       // Verify results are sorted by title
       for (let i = 0; i < results.length - 1; i++) {
-        expect(results[i].title.localeCompare(results[i+1].title)).toBeLessThanOrEqual(0);
+        expect(results[i].title.localeCompare(results[i + 1].title)).toBeLessThanOrEqual(0);
       }
     });
 
@@ -744,12 +755,12 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       return Promise.resolve({
         ok: true,
         status: 200,
-        json: () => Promise.resolve(JSON.parse(content))
+        json: () => Promise.resolve(JSON.parse(content)),
       });
     });
 
     const localWorker = new LocalSearchWorker();
-    
+
     // Initialize local worker with same registry
     let localReady = false;
     localWorker.onmessage = (e) => {
@@ -758,7 +769,7 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       }
     };
     localWorker.postMessage({ type: 'init', dbUrl: 'registry.json' });
-    
+
     await global.waitFor(() => {
       expect(localReady).toBe(true);
     });
@@ -793,14 +804,13 @@ describe('Systems Indexer - search-worker.js Web Worker Tests', () => {
       expect(results.length).toBeGreaterThan(0);
 
       // Verify unique and sorted by title
-      const gameIds = results.map(g => g.game_id);
+      const gameIds = results.map((g) => g.game_id);
       const uniqueGameIds = new Set(gameIds);
       expect(gameIds.length).toBe(uniqueGameIds.size);
-      
+
       for (let i = 0; i < results.length - 1; i++) {
-        expect(results[i].title.localeCompare(results[i+1].title)).toBeLessThanOrEqual(0);
+        expect(results[i].title.localeCompare(results[i + 1].title)).toBeLessThanOrEqual(0);
       }
     });
   });
 });
-

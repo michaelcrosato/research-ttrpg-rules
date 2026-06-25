@@ -1,11 +1,6 @@
 // Systems Indexer Application Logic
 
-import type {
-  GameRuleset,
-  GameRulesetInternal,
-  RegistryData,
-  SearchFilters
-} from './types';
+import type { GameRuleset, GameRulesetInternal, RegistryData, SearchFilters } from './types';
 
 declare global {
   interface Window {
@@ -47,32 +42,32 @@ let currentDictRenderJob: number | null = null;
 
 // BGG mapping
 const bggMechanicMapping: Record<string, string> = {
-  "Worker Placement": "economy.market.worker_placement",
-  "Deck, Bag, and Pool Building": "economy.card.deck_building",
-  "Drafting": "economy.card.drafting",
-  "Card Drafting": "economy.card.drafting",
-  "Network and Route Building": "logistics.connection.route_drafting",
-  "Tile Placement": "simulation.building.tile_placement",
-  "Area Majority / Influence": "politics.factions.area_influence",
-  "Cooperative Game": "logistics.survival.cooperative",
-  "Auction/Bidding": "economy.market.auction_bidding",
-  "Dice Rolling": "combat.melee.dice_rolls",
-  "Hexagon Grid": "combat.movement.hex_grid",
-  "Trading": "economy.trading.barter",
-  "Set Collection": "logistics.connection.set_collection",
-  "Commodity Speculation": "economy.trading.speculative",
-  "Hand Management": "logistics.survival.hand_management",
-  "Campaign / Scenario / Mission Game": "character.progression.campaign_based",
-  "Grid Movement": "combat.movement.grid_based",
-  "Secret Unit Deployment": "politics.intrigue.secret_objectives",
-  "Action Queue": "economy.production.action_selection_grid",
-  "Connections": "logistics.connection.network_building"
+  'Worker Placement': 'economy.market.worker_placement',
+  'Deck, Bag, and Pool Building': 'economy.card.deck_building',
+  Drafting: 'economy.card.drafting',
+  'Card Drafting': 'economy.card.drafting',
+  'Network and Route Building': 'logistics.connection.route_drafting',
+  'Tile Placement': 'simulation.building.tile_placement',
+  'Area Majority / Influence': 'politics.factions.area_influence',
+  'Cooperative Game': 'logistics.survival.cooperative',
+  'Auction/Bidding': 'economy.market.auction_bidding',
+  'Dice Rolling': 'combat.melee.dice_rolls',
+  'Hexagon Grid': 'combat.movement.hex_grid',
+  Trading: 'economy.trading.barter',
+  'Set Collection': 'logistics.connection.set_collection',
+  'Commodity Speculation': 'economy.trading.speculative',
+  'Hand Management': 'logistics.survival.hand_management',
+  'Campaign / Scenario / Mission Game': 'character.progression.campaign_based',
+  'Grid Movement': 'combat.movement.grid_based',
+  'Secret Unit Deployment': 'politics.intrigue.secret_objectives',
+  'Action Queue': 'economy.production.action_selection_grid',
+  Connections: 'logistics.connection.network_building',
 };
 
 // Debounce function
 function debounce<T extends (...args: any[]) => void>(func: T, wait: number): (...args: Parameters<T>) => void {
   let timeout: any;
-  return function(this: any, ...args: Parameters<T>) {
+  return function (this: any, ...args: Parameters<T>) {
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(this, args), wait);
   };
@@ -115,93 +110,99 @@ class LocalSearchWorker {
       switch (type) {
         case 'init': {
           const url = data.dbUrl || 'registry.json';
-          fetch(url).then(response => response.json()).then(registryData => {
-            const ttrpgs = (registryData.ttrpg || []).map((g: any) => ({
-              ...g,
-              medium: 'ttrpg',
-              governed_vectors_set: new Set(g.governed_vectors || [])
-            }));
-            const boardGames = (registryData.board_game || []).map((g: any) => ({
-              ...g,
-              medium: 'board_game',
-              governed_vectors_set: new Set(g.governed_vectors || [])
-            }));
-            this.games = [...ttrpgs, ...boardGames];
-            
-            this.invertedIndex = new Map();
-            this.uniqueVectors = new Set();
-            this.gamesMap = new Map();
-            
-            for (const game of this.games) {
-              this.gamesMap.set(game.game_id, game);
-              if (game.governed_vectors) {
-                for (const vector of game.governed_vectors) {
-                  this.uniqueVectors.add(vector);
-                  if (!this.invertedIndex.has(vector)) {
-                    this.invertedIndex.set(vector, []);
+          fetch(url)
+            .then((response) => response.json())
+            .then((registryData) => {
+              const ttrpgs = (registryData.ttrpg || []).map((g: any) => ({
+                ...g,
+                medium: 'ttrpg',
+                governed_vectors_set: new Set(g.governed_vectors || []),
+              }));
+              const boardGames = (registryData.board_game || []).map((g: any) => ({
+                ...g,
+                medium: 'board_game',
+                governed_vectors_set: new Set(g.governed_vectors || []),
+              }));
+              this.games = [...ttrpgs, ...boardGames];
+
+              this.invertedIndex = new Map();
+              this.uniqueVectors = new Set();
+              this.gamesMap = new Map();
+
+              for (const game of this.games) {
+                this.gamesMap.set(game.game_id, game);
+                if (game.governed_vectors) {
+                  for (const vector of game.governed_vectors) {
+                    this.uniqueVectors.add(vector);
+                    if (!this.invertedIndex.has(vector)) {
+                      this.invertedIndex.set(vector, []);
+                    }
+                    this.invertedIndex.get(vector)!.push({
+                      game_id: game.game_id,
+                      title: game.title,
+                      medium: game.medium,
+                      year: game.year,
+                    });
                   }
-                  this.invertedIndex.get(vector)!.push({
-                    game_id: game.game_id,
-                    title: game.title,
-                    medium: game.medium,
-                    year: game.year
-                  });
                 }
               }
-            }
-            
-            this.rebuildVectorsCache();
-            
-            if (this.onmessage) {
-              this.onmessage({
-                data: {
-                  type: 'ready',
-                  action: 'init',
-                  success: true,
-                  stats: {
-                    totalGames: this.games.length,
-                    totalTtrpgs: ttrpgs.length,
-                    totalBoardgames: boardGames.length,
-                    uniqueVectorsCount: this.uniqueVectors.size,
-                    ttrpgCount: ttrpgs.length,
-                    boardGameCount: boardGames.length,
-                    uniqueVectors: this.uniqueVectors.size
-                  }
-                }
-              });
-            }
-          }).catch(err => {
-            if (this.onmessage) {
-              this.onmessage({ data: { type: 'error', error: err.message } });
-            }
-          });
+
+              this.rebuildVectorsCache();
+
+              if (this.onmessage) {
+                this.onmessage({
+                  data: {
+                    type: 'ready',
+                    action: 'init',
+                    success: true,
+                    stats: {
+                      totalGames: this.games.length,
+                      totalTtrpgs: ttrpgs.length,
+                      totalBoardgames: boardGames.length,
+                      uniqueVectorsCount: this.uniqueVectors.size,
+                      ttrpgCount: ttrpgs.length,
+                      boardGameCount: boardGames.length,
+                      uniqueVectors: this.uniqueVectors.size,
+                    },
+                  },
+                });
+              }
+            })
+            .catch((err) => {
+              if (this.onmessage) {
+                this.onmessage({ data: { type: 'error', error: err.message } });
+              }
+            });
           break;
         }
         case 'search': {
           const filters = data.filters || {};
-          const searchTerm = String(filters.searchTerm || '').toLowerCase().trim();
+          const searchTerm = String(filters.searchTerm || '')
+            .toLowerCase()
+            .trim();
           const medium = String(filters.medium || 'all');
           const genre = String(filters.genre || 'all');
           const minYear = filters.minYear !== undefined ? Number(filters.minYear) : 1900;
           const maxYear = filters.maxYear !== undefined ? Number(filters.maxYear) : 2100;
           const sort = String(filters.sort || 'title-asc');
-          
-          let results = this.games.filter(game => {
-            const matchesSearch = !searchTerm || 
+
+          let results = this.games.filter((game) => {
+            const matchesSearch =
+              !searchTerm ||
               game.title.toLowerCase().includes(searchTerm) ||
               (game.primary_genre && game.primary_genre.toLowerCase().includes(searchTerm)) ||
               (game.subgenres && game.subgenres.some((sub: string) => sub.toLowerCase().includes(searchTerm))) ||
-              (game.governed_vectors && game.governed_vectors.some((vec: string) => vec.toLowerCase().includes(searchTerm)));
-              
+              (game.governed_vectors &&
+                game.governed_vectors.some((vec: string) => vec.toLowerCase().includes(searchTerm)));
+
             const matchesMedium = medium === 'all' || game.medium === medium;
-            const matchesGenre = genre === 'all' || 
-                                 game.primary_genre === genre || 
-                                 (game.subgenres && game.subgenres.includes(genre));
+            const matchesGenre =
+              genre === 'all' || game.primary_genre === genre || (game.subgenres && game.subgenres.includes(genre));
             const matchesYear = game.year >= minYear && game.year <= maxYear;
-            
+
             return matchesSearch && matchesMedium && matchesGenre && matchesYear;
           });
-          
+
           results.sort((a, b) => {
             if (sort === 'title-asc') {
               return (a.title || '').localeCompare(b.title || '');
@@ -214,7 +215,7 @@ class LocalSearchWorker {
             }
             return 0;
           });
-          
+
           if (this.onmessage) {
             this.onmessage({
               data: {
@@ -223,31 +224,34 @@ class LocalSearchWorker {
                 results,
                 totalCount: results.length,
                 total: results.length,
-                latencyMs: 1
-              }
+                latencyMs: 1,
+              },
             });
           }
           break;
         }
         case 'autocomplete': {
-          const query = String(data.query || '').toLowerCase().trim();
+          const query = String(data.query || '')
+            .toLowerCase()
+            .trim();
           const autocompleteType = data.autocompleteType || 'vector';
-          
+
           let suggestions: string[] = [];
           let results: any[] = [];
           if (autocompleteType === 'vector') {
             if (query) {
-              suggestions = this.sortedUniqueVectors.filter(v => v.toLowerCase().includes(query));
+              suggestions = this.sortedUniqueVectors.filter((v) => v.toLowerCase().includes(query));
             } else {
               suggestions = this.sortedUniqueVectors;
             }
           } else {
             if (query) {
-              results = this.games.filter(g => g.title.toLowerCase().includes(query))
-                .map(g => ({ game_id: g.game_id, title: g.title }));
+              results = this.games
+                .filter((g) => g.title.toLowerCase().includes(query))
+                .map((g) => ({ game_id: g.game_id, title: g.title }));
             }
           }
-          
+
           if (this.onmessage) {
             this.onmessage({
               data: {
@@ -255,8 +259,8 @@ class LocalSearchWorker {
                 action: 'autocomplete',
                 suggestions,
                 results,
-                latencyMs: 1
-              }
+                latencyMs: 1,
+              },
             });
           }
           break;
@@ -266,14 +270,20 @@ class LocalSearchWorker {
           const gameIdB = data.gameIdB;
           const gameA = this.gamesMap.get(gameIdA);
           const gameB = this.gamesMap.get(gameIdB);
-          
+
           const setA = new Set<string>(gameA ? gameA.governed_vectors || [] : []);
           const setB = new Set<string>(gameB ? gameB.governed_vectors || [] : []);
-          
-          const shared = Array.from(setA).filter(v => setB.has(v)).sort();
-          const onlyA = Array.from(setA).filter(v => !setB.has(v)).sort();
-          const onlyB = Array.from(setB).filter(v => !setA.has(v)).sort();
-          
+
+          const shared = Array.from(setA)
+            .filter((v) => setB.has(v))
+            .sort();
+          const onlyA = Array.from(setA)
+            .filter((v) => !setB.has(v))
+            .sort();
+          const onlyB = Array.from(setB)
+            .filter((v) => !setA.has(v))
+            .sort();
+
           if (this.onmessage) {
             this.onmessage({
               data: {
@@ -284,8 +294,8 @@ class LocalSearchWorker {
                 shared,
                 onlyA,
                 onlyB,
-                latencyMs: 1
-              }
+                latencyMs: 1,
+              },
             });
           }
           break;
@@ -293,7 +303,7 @@ class LocalSearchWorker {
         case 'dictionary': {
           const domain = data.domain || 'all';
           const vector = data.vector || null;
-          
+
           if (vector) {
             const results: any[] = [];
             const seenGameIds = new Set<string>();
@@ -316,27 +326,27 @@ class LocalSearchWorker {
                   action: 'dictionary',
                   vector,
                   results,
-                  vectors: results
-                }
+                  vectors: results,
+                },
               });
             }
             return;
           }
-          
+
           let vectors: string[] = [];
           if (domain === 'all') {
             vectors = this.sortedUniqueVectors;
           } else {
             vectors = this.vectorsByDomain.get(domain) || [];
           }
-          
+
           const results = vectors
-            .filter(vec => this.uniqueVectors.has(vec))
-            .map(vec => ({
+            .filter((vec) => this.uniqueVectors.has(vec))
+            .map((vec) => ({
               vector: vec,
-              games: this.invertedIndex.get(vec) || []
+              games: this.invertedIndex.get(vec) || [],
             }));
-          
+
           if (this.onmessage) {
             this.onmessage({
               data: {
@@ -345,8 +355,8 @@ class LocalSearchWorker {
                 activeDomain: domain,
                 domain,
                 results,
-                vectors: results
-              }
+                vectors: results,
+              },
             });
           }
           break;
@@ -355,7 +365,7 @@ class LocalSearchWorker {
           const game = data.game;
           this.games.push(game);
           this.gamesMap.set(game.game_id, game);
-          
+
           if (game.governed_vectors) {
             for (const vector of game.governed_vectors) {
               this.uniqueVectors.add(vector);
@@ -366,13 +376,13 @@ class LocalSearchWorker {
                 game_id: game.game_id,
                 title: game.title,
                 medium: game.medium,
-                year: game.year
+                year: game.year,
               });
             }
           }
-          
+
           this.rebuildVectorsCache();
-          
+
           if (this.onmessage) {
             this.onmessage({
               data: {
@@ -382,15 +392,15 @@ class LocalSearchWorker {
                 game,
                 updatedStats: {
                   totalGames: this.games.length,
-                  totalTtrpgs: this.games.filter(g => g.medium === 'ttrpg').length,
-                  totalBoardgames: this.games.filter(g => g.medium === 'board_game').length,
-                  uniqueVectorsCount: this.uniqueVectors.size
+                  totalTtrpgs: this.games.filter((g) => g.medium === 'ttrpg').length,
+                  totalBoardgames: this.games.filter((g) => g.medium === 'board_game').length,
+                  uniqueVectorsCount: this.uniqueVectors.size,
                 },
                 stats: {
                   totalGames: this.games.length,
-                  uniqueVectors: this.uniqueVectors.size
-                }
-              }
+                  uniqueVectors: this.uniqueVectors.size,
+                },
+              },
             });
           }
           break;
@@ -409,8 +419,8 @@ class LocalSearchWorker {
         this.onmessage({
           data: {
             type: 'error',
-            error: err.message
-          }
+            error: err.message,
+          },
         });
       }
     }
@@ -430,14 +440,14 @@ function loadMoreGames() {
 }
 
 function openGameDetails(gameId: string) {
-  const game = allGames.find(g => g.game_id === gameId);
+  const game = allGames.find((g) => g.game_id === gameId);
   if (!game) return;
-  
+
   const modalOverlay = document.getElementById('details-modal-overlay');
   if (!modalOverlay) return;
-  
+
   setElText('modal-game-title', game.title);
-  
+
   const mediumEl = document.getElementById('modal-medium');
   if (mediumEl) {
     mediumEl.textContent = game.medium === 'ttrpg' ? 'Tabletop Roleplaying Game' : 'Board Game';
@@ -446,7 +456,7 @@ function openGameDetails(gameId: string) {
   setElText('modal-year', game.year);
   setElText('modal-primary-genre', game.primary_genre);
   setElText('modal-subgenres', game.subgenres ? game.subgenres.join(', ') : 'None');
-  
+
   // Set description text if available
   const descContainer = document.getElementById('modal-description-container');
   const descText = document.getElementById('modal-description-text');
@@ -458,49 +468,54 @@ function openGameDetails(gameId: string) {
       descContainer.style.display = 'none';
     }
   }
-  
+
   // Group vectors by domain
   const vectorsGrid = document.getElementById('modal-vectors-content');
   if (!vectorsGrid) return;
   vectorsGrid.innerHTML = '';
-  
+
   if (!game.governed_vectors || game.governed_vectors.length === 0) {
     vectorsGrid.innerHTML = '<p class="text-secondary">No governed systems indexed for this ruleset.</p>';
   } else {
     // Group vectors by first segment (e.g. combat, stealth, economy)
     const grouped: Record<string, string[]> = {};
-    game.governed_vectors.forEach(vector => {
+    game.governed_vectors.forEach((vector) => {
       const domain = vector.split('.')[0] || 'general';
       if (!grouped[domain]) grouped[domain] = [];
       grouped[domain].push(vector);
     });
-    
+
     // Sort domains keys
     const sortedDomains = Object.keys(grouped).sort();
-    
-    sortedDomains.forEach(domain => {
+
+    sortedDomains.forEach((domain) => {
       const section = document.createElement('div');
       section.className = 'modal-vector-group';
       section.style.marginBottom = '1.5rem';
-      
+
       section.innerHTML = `
         <h4 class="modal-section-title">${domain.toUpperCase()} SUBSYSTEMS</h4>
         <div class="modal-vectors-grid">
-          ${grouped[domain].sort().map(vector => {
-            const explanation = (game.vector_explanations && game.vector_explanations[vector]) || 'No detailed rule explanation recorded.';
-            return `
+          ${grouped[domain]
+            .sort()
+            .map((vector) => {
+              const explanation =
+                (game.vector_explanations && game.vector_explanations[vector]) ||
+                'No detailed rule explanation recorded.';
+              return `
               <div class="modal-vector-row">
                 <div class="modal-vector-name">${vector}</div>
                 <div class="modal-vector-rule">${explanation}</div>
               </div>
             `;
-          }).join('')}
+            })
+            .join('')}
         </div>
       `;
       vectorsGrid.appendChild(section);
     });
   }
-  
+
   modalOverlay.classList.add('active');
 }
 
@@ -508,10 +523,10 @@ function selectCompareGame(gameId: string, index: number, element: HTMLElement) 
   // Deselect previous on same column
   const container = element.parentElement;
   if (container) {
-    container.querySelectorAll('.select-game-btn').forEach(btn => btn.classList.remove('selected'));
+    container.querySelectorAll('.select-game-btn').forEach((btn) => btn.classList.remove('selected'));
   }
   element.classList.add('selected');
-  
+
   selectedCompareGames[index] = gameId;
   renderComparisonResults();
 }
@@ -519,29 +534,29 @@ function selectCompareGame(gameId: string, index: number, element: HTMLElement) 
 function highlightCompareColumn(colName: string) {
   // SVG segments & fallback circles maps
   const segmentClassMap: Record<string, string> = {
-    'a': '.venn-segment.segment-a',
-    'b': '.venn-segment.segment-b',
-    'both': '.venn-segment.segment-both'
+    a: '.venn-segment.segment-a',
+    b: '.venn-segment.segment-b',
+    both: '.venn-segment.segment-both',
   };
   const circleClassMap: Record<string, string> = {
-    'a': '.venn-circle.circle-a',
-    'b': '.venn-circle.circle-b',
-    'both': '.venn-circle-intersection'
+    a: '.venn-circle.circle-a',
+    b: '.venn-circle.circle-b',
+    both: '.venn-circle-intersection',
   };
 
   const targetSegment = document.querySelector(segmentClassMap[colName]);
   const isCurrentlyActive = targetSegment ? targetSegment.classList.contains('active') : false;
 
   // Clear active classes from all segments and fallback circles
-  Object.values(segmentClassMap).forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => el.classList.remove('active'));
+  Object.values(segmentClassMap).forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => el.classList.remove('active'));
   });
-  Object.values(circleClassMap).forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => el.classList.remove('active'));
+  Object.values(circleClassMap).forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => el.classList.remove('active'));
   });
 
   // Clear all highlights
-  ['a', 'both', 'b'].forEach(col => {
+  ['a', 'both', 'b'].forEach((col) => {
     const el = document.getElementById(`compare-col-${col}`);
     if (el) {
       el.style.border = '';
@@ -549,7 +564,7 @@ function highlightCompareColumn(colName: string) {
       el.style.background = '';
     }
   });
-  
+
   // If it was not already active, activate it
   if (!isCurrentlyActive) {
     const segment = document.querySelector(segmentClassMap[colName]);
@@ -564,7 +579,7 @@ function highlightCompareColumn(colName: string) {
       let color = 'rgba(99, 102, 241, 0.2)';
       let borderColor = 'var(--color-accent)';
       let shadow = 'var(--shadow-glow)';
-      
+
       if (colName === 'a') {
         color = 'rgba(139, 92, 246, 0.1)';
         borderColor = 'var(--color-ttrpg)';
@@ -574,11 +589,11 @@ function highlightCompareColumn(colName: string) {
         borderColor = 'var(--color-boardgame)';
         shadow = '0 0 25px rgba(6, 182, 212, 0.2)';
       }
-      
+
       target.style.background = color;
       target.style.border = `2px solid ${borderColor}`;
       target.style.boxShadow = shadow;
-      
+
       // Smooth scroll into view
       target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -594,9 +609,9 @@ function setDictDomain(domain: string) {
 function toggleEditorVectorExplanation(vector: string, isChecked: boolean) {
   const container = document.getElementById('editor-explanations-inputs');
   if (!container) return;
-  
+
   const id = `exp-row-${vector.replace(/\./g, '_')}`;
-  
+
   if (isChecked) {
     // Add text input for explanation
     const row = document.createElement('div');
@@ -612,7 +627,7 @@ function toggleEditorVectorExplanation(vector: string, isChecked: boolean) {
     const row = document.getElementById(id);
     if (row) row.remove();
   }
-  
+
   updateEditorPreviews();
 }
 
@@ -620,28 +635,28 @@ function addCustomEditorVector() {
   const input = document.getElementById('custom-vector-name') as HTMLInputElement | null;
   if (!input) return;
   const val = input.value.trim().toLowerCase();
-  
+
   if (!val) return;
-  
+
   // Validate pattern domain.subsystem.focus
   const parts = val.split('.');
   if (parts.length < 3) {
     alert('Invalid vector notation. Please use domain.subsystem.focus (e.g. combat.melee.tactical)');
     return;
   }
-  
+
   if (uniqueVectors.has(val)) {
     alert('This vector namespace already exists!');
     return;
   }
-  
+
   uniqueVectors.add(val);
   searchWorker.postMessage({ type: 'addVector', vector: val });
   input.value = '';
-  
+
   // Re-render checklist
   renderEditorVectorChecklist();
-  
+
   // Find new checkbox and check it
   const cb = document.getElementById(`check-vec-${val}`) as HTMLInputElement | null;
   if (cb) {
@@ -651,10 +666,10 @@ function addCustomEditorVector() {
 }
 
 function downloadUpdatedRegistry() {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gamesData, null, 2));
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(gamesData, null, 2));
   const downloadAnchor = document.createElement('a');
-  downloadAnchor.setAttribute("href",     dataStr);
-  downloadAnchor.setAttribute("download", "registry.json");
+  downloadAnchor.setAttribute('href', dataStr);
+  downloadAnchor.setAttribute('download', 'registry.json');
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
   downloadAnchor.remove();
@@ -664,36 +679,38 @@ async function searchBGG() {
   const queryInput = document.getElementById('bgg-search-query') as HTMLInputElement | null;
   const resultsArea = document.getElementById('bgg-search-results-area');
   const statusDiv = document.getElementById('bgg-search-status');
-  
+
   if (!queryInput || !resultsArea || !statusDiv) return;
-  
+
   const query = queryInput.value.trim();
   if (!query) {
     alert('Please enter a game name to search.');
     return;
   }
-  
+
   statusDiv.style.display = 'block';
   statusDiv.textContent = 'Searching BoardGameGeek database...';
   resultsArea.style.display = 'none';
   resultsArea.innerHTML = '';
-  
+
   try {
-    const response = await fetch(`https://boardgamegeek.com/xmlapi2/search?query=${encodeURIComponent(query)}&type=boardgame`);
+    const response = await fetch(
+      `https://boardgamegeek.com/xmlapi2/search?query=${encodeURIComponent(query)}&type=boardgame`
+    );
     if (!response.ok) throw new Error('BGG API response was not OK');
-    
+
     const xmlText = await response.text();
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-    
+
     const items = xmlDoc.getElementsByTagName('item');
     if (items.length === 0) {
       statusDiv.textContent = 'No matching board games found on BGG.';
       return;
     }
-    
+
     statusDiv.textContent = `Found ${items.length} matching board games. Select one to import:`;
-    
+
     let html = '';
     for (let i = 0; i < Math.min(items.length, 50); i++) {
       const item = items[i];
@@ -702,7 +719,7 @@ async function searchBGG() {
       const name = nameEl ? nameEl.getAttribute('value') : 'Unknown';
       const yearEl = item.getElementsByTagName('yearpublished')[0];
       const year = yearEl ? yearEl.getAttribute('value') : 'N/A';
-      
+
       html += `
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 0.4rem 0.5rem;">
           <span style="font-size: 0.9rem; color: #fff;">${name} <span style="color: var(--text-muted); font-size: 0.8rem;">(${year})</span></span>
@@ -710,10 +727,9 @@ async function searchBGG() {
         </div>
       `;
     }
-    
+
     resultsArea.innerHTML = html;
     resultsArea.style.display = 'block';
-    
   } catch (error) {
     console.error('BGG Search Error:', error);
     statusDiv.textContent = 'Error connecting to BGG API. Make sure you are online.';
@@ -723,52 +739,55 @@ async function searchBGG() {
 async function importBGGGame(bggId: string) {
   const statusDiv = document.getElementById('bgg-search-status');
   if (!statusDiv) return;
-  
+
   statusDiv.textContent = `Fetching game details (ID: ${bggId})...`;
-  
+
   try {
     const response = await fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${bggId}`);
     if (!response.ok) throw new Error('BGG Thing API response was not OK');
-    
+
     const xmlText = await response.text();
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-    
+
     const item = xmlDoc.getElementsByTagName('item')[0];
     if (!item) {
       statusDiv.textContent = 'Failed to load details for this game.';
       return;
     }
-    
+
     // Parse fields
     const nameEl = item.querySelector('name[type="primary"]') || item.querySelector('name');
     const title = nameEl ? nameEl.getAttribute('value') : 'Unknown Game';
     const yearEl = item.querySelector('yearpublished');
     const year = yearEl ? parseInt(yearEl.getAttribute('value') || '2026') || 2026 : 2026;
-    
+
     // Parse categories (for genres)
     const categoryLinks = Array.from(item.querySelectorAll('link[type="boardgamecategory"]'));
-    const categories = categoryLinks.map(l => l.getAttribute('value'));
-    
+    const categories = categoryLinks.map((l) => l.getAttribute('value'));
+
     // Set form fields
     const newGameTitleInput = document.getElementById('new-game-title') as HTMLInputElement | null;
     if (newGameTitleInput) newGameTitleInput.value = title || '';
-    
+
     const newGameYearInput = document.getElementById('new-game-year') as HTMLInputElement | null;
     if (newGameYearInput) newGameYearInput.value = String(year);
-    
+
     const newGameMediumSelect = document.getElementById('new-game-medium') as HTMLSelectElement | null;
     if (newGameMediumSelect) newGameMediumSelect.value = 'board_game';
-    
+
     // Assign primary genre and subgenres
     const newGameGenreInput = document.getElementById('new-game-genre') as HTMLInputElement | null;
     const newGameSubgenresInput = document.getElementById('new-game-subgenres') as HTMLInputElement | null;
-    
+
     if (newGameGenreInput && newGameSubgenresInput) {
       if (categories.length > 0) {
         newGameGenreInput.value = categories[0] || 'Strategy';
         if (categories.length > 1) {
-          newGameSubgenresInput.value = categories.slice(0, 3).filter((c): c is string => c !== null).join(', ');
+          newGameSubgenresInput.value = categories
+            .slice(0, 3)
+            .filter((c): c is string => c !== null)
+            .join(', ');
         } else {
           newGameSubgenresInput.value = '';
         }
@@ -777,25 +796,25 @@ async function importBGGGame(bggId: string) {
         newGameSubgenresInput.value = '';
       }
     }
-    
+
     // Clear existing checkboxes and text explanations
-    document.querySelectorAll('#editor-vectors-list input[type="checkbox"]').forEach(cb => {
+    document.querySelectorAll('#editor-vectors-list input[type="checkbox"]').forEach((cb) => {
       (cb as HTMLInputElement).checked = false;
     });
     const explanationInputs = document.getElementById('editor-explanations-inputs');
     if (explanationInputs) explanationInputs.innerHTML = '';
-    
+
     // Parse mechanics and check matching vectors
     const mechanicLinks = Array.from(item.querySelectorAll('link[type="boardgamemechanic"]'));
-    const mechanics = mechanicLinks.map(l => l.getAttribute('value'));
-    
+    const mechanics = mechanicLinks.map((l) => l.getAttribute('value'));
+
     const checkedVectors: string[] = [];
-    mechanics.forEach(mech => {
+    mechanics.forEach((mech) => {
       if (mech) {
         const mappedVector = bggMechanicMapping[mech];
         if (mappedVector) {
           checkedVectors.push(mappedVector);
-          
+
           // Find check item
           const cb = document.getElementById(`check-vec-${mappedVector}`) as HTMLInputElement | null;
           if (cb) {
@@ -805,19 +824,20 @@ async function importBGGGame(bggId: string) {
         }
       }
     });
-    
+
     // Fill textareas with pre-filled indicator
-    checkedVectors.forEach(vec => {
-      const ta = document.querySelector(`#editor-explanations-inputs textarea[data-vector="${vec}"]`) as HTMLTextAreaElement | null;
+    checkedVectors.forEach((vec) => {
+      const ta = document.querySelector(
+        `#editor-explanations-inputs textarea[data-vector="${vec}"]`
+      ) as HTMLTextAreaElement | null;
       if (ta) {
-        const origMech = Object.keys(bggMechanicMapping).find(k => bggMechanicMapping[k] === vec);
+        const origMech = Object.keys(bggMechanicMapping).find((k) => bggMechanicMapping[k] === vec);
         ta.value = `This game features the ${origMech} mechanic. Rules dictate how this works in-game.`;
       }
     });
-    
+
     statusDiv.textContent = `Successfully imported '${title}'! Form filled with mapped vectors: ${checkedVectors.join(', ')}`;
     alert(`Successfully loaded details for '${title}'. Review the populated form and explanations below!`);
-    
   } catch (error) {
     console.error('BGG Import Error:', error);
     statusDiv.textContent = 'Error importing game details.';
@@ -843,11 +863,11 @@ function initSearchWorker() {
   } else {
     searchWorker = new LocalSearchWorker() as unknown as Worker;
   }
-  
-  searchWorker.onmessage = function(e: MessageEvent) {
+
+  searchWorker.onmessage = function (e: MessageEvent) {
     const data = e.data;
     if (!data) return;
-    
+
     switch (data.type) {
       case 'ready':
         handleWorkerReady(data);
@@ -868,7 +888,7 @@ function initSearchWorker() {
         handleWorkerAddGameDone(data);
         break;
       case 'error':
-        console.error("Worker error:", data.error);
+        console.error('Worker error:', data.error);
         break;
     }
   };
@@ -886,10 +906,10 @@ function handleWorkerReady(data: any) {
 function handleWorkerSearchResults(data: any) {
   currentSearchResults = data.results;
   setElText('results-count-number', data.totalCount);
-  
+
   const grid = document.getElementById('games-grid');
   if (!grid) return;
-  
+
   const visibleGames = currentSearchResults.slice(0, visibleCount);
   progressiveRender(visibleGames, currentSearchResults.length, grid);
 }
@@ -898,23 +918,31 @@ function handleWorkerAutocompleteResults(data: any) {
   const searchInput = document.getElementById('vector-query-input') as HTMLInputElement | null;
   const suggestionsBox = document.getElementById('vector-query-suggestions');
   if (!searchInput || !suggestionsBox) return;
-  
+
   const val = searchInput.value;
   const matches = data.suggestions || [];
-  
+
   if (matches.length === 0) {
     suggestionsBox.innerHTML = '';
     suggestionsBox.style.display = 'none';
     suggestionsBox.classList.remove('active');
     return;
   }
-  
-  suggestionsBox.innerHTML = matches.slice(0, 10).map((match: string) => {
-    const idx = match.toLowerCase().indexOf(val.toLowerCase());
-    const highlighted = match.substring(0, idx) + '<strong>' + match.substring(idx, idx + val.length) + '</strong>' + match.substring(idx + val.length);
-    return `<div class="suggestion-item" data-vector="${match}">${highlighted}</div>`;
-  }).join('');
-  
+
+  suggestionsBox.innerHTML = matches
+    .slice(0, 10)
+    .map((match: string) => {
+      const idx = match.toLowerCase().indexOf(val.toLowerCase());
+      const highlighted =
+        match.substring(0, idx) +
+        '<strong>' +
+        match.substring(idx, idx + val.length) +
+        '</strong>' +
+        match.substring(idx + val.length);
+      return `<div class="suggestion-item" data-vector="${match}">${highlighted}</div>`;
+    })
+    .join('');
+
   suggestionsBox.style.display = 'block';
   suggestionsBox.classList.add('active');
 }
@@ -922,10 +950,10 @@ function handleWorkerAutocompleteResults(data: any) {
 function handleWorkerCompareResults(data: any) {
   const resultsPanel = document.getElementById('comparison-results');
   if (!resultsPanel) return;
-  
+
   const gameA = data.gameA;
   const gameB = data.gameB;
-  
+
   if (!gameA || !gameB) {
     resultsPanel.innerHTML = `
       <div class="no-results-state" style="grid-column: span 1; padding: 3rem 1.5rem;">
@@ -934,7 +962,7 @@ function handleWorkerCompareResults(data: any) {
     `;
     return;
   }
-  
+
   const shared = (data.shared || []) as string[];
   const onlyA = (data.onlyA || []) as string[];
   const onlyB = (data.onlyB || []) as string[];
@@ -957,9 +985,9 @@ function handleWorkerCompareResults(data: any) {
   let xi = 250;
   let h = 0;
 
-  let dPathA = "";
-  let dPathB = "";
-  let dPathBoth = "";
+  let dPathA = '';
+  let dPathB = '';
+  let dPathBoth = '';
 
   if (countShared === 0) {
     d = rA + rB + 30;
@@ -967,7 +995,7 @@ function handleWorkerCompareResults(data: any) {
     xB = 250 + d / 2;
     dPathA = `M ${xA - rA} 150 A ${rA} ${rA} 0 1 0 ${xA + rA} 150 A ${rA} ${rA} 0 1 0 ${xA - rA} 150`;
     dPathB = `M ${xB - rB} 150 A ${rB} ${rB} 0 1 0 ${xB + rB} 150 A ${rB} ${rB} 0 1 0 ${xB - rB} 150`;
-    dPathBoth = "";
+    dPathBoth = '';
   } else {
     const overlapRatio = countShared / Math.min(countA, countB);
     const maxD = rA + rB - 15;
@@ -1000,7 +1028,7 @@ function handleWorkerCompareResults(data: any) {
     labelXB = xB;
     labelXBoth = 250;
   }
-  
+
   resultsPanel.innerHTML = `
     <div class="comparison-header-row">
       <div class="compare-game-header">${gameA.title}</div>
@@ -1109,30 +1137,36 @@ function handleWorkerCompareResults(data: any) {
     vennSvg.addEventListener('keydown', handleVennKeyboard);
     vennSvg.addEventListener('keyup', handleVennKeyboard);
   }
-  
+
   const container = resultsPanel.querySelector('.venn-diagram-container') as HTMLElement | null;
   if (!container) return;
   const hoverCard = container.querySelector('.venn-hover-card') as HTMLElement | null;
   if (!hoverCard) return;
-  
+
   const segments: Record<string, { title: string; vectors: string[]; label: string }> = {
     'segment-a': { title: gameA.title, vectors: onlyA, label: 'Exclusive' },
     'segment-b': { title: gameB.title, vectors: onlyB, label: 'Exclusive' },
-    'segment-both': { title: 'Shared', vectors: shared, label: 'Shared' }
+    'segment-both': { title: 'Shared', vectors: shared, label: 'Shared' },
   };
-  
-  Object.keys(segments).forEach(className => {
+
+  Object.keys(segments).forEach((className) => {
     const el = container.querySelector(`.${className}`) as SVGPathElement | null;
     if (!el) return;
-    
+
     const data = segments[className];
-    
+
     el.addEventListener('mouseenter', () => {
       if (data.vectors.length === 0) {
         hoverCard.innerHTML = `<div style="font-weight: 600; color: var(--color-cyan);">${data.title}</div><div style="font-size: 0.8rem;">No vectors.</div>`;
       } else {
-        const list = data.vectors.slice(0, 3).map(v => `• ${v}`).join('<br/>');
-        const remaining = data.vectors.length > 3 ? `<br/><span style="font-style: italic; opacity: 0.8;">+${data.vectors.length - 3} more...</span>` : '';
+        const list = data.vectors
+          .slice(0, 3)
+          .map((v) => `• ${v}`)
+          .join('<br/>');
+        const remaining =
+          data.vectors.length > 3
+            ? `<br/><span style="font-style: italic; opacity: 0.8;">+${data.vectors.length - 3} more...</span>`
+            : '';
         hoverCard.innerHTML = `
           <div style="font-weight: 600; margin-bottom: 4px; color: var(--color-cyan);">${data.title} (${data.label})</div>
           <div style="font-size: 0.8rem; line-height: 1.4;">${list}${remaining}</div>
@@ -1141,7 +1175,7 @@ function handleWorkerCompareResults(data: any) {
       }
       hoverCard.style.display = 'block';
     });
-    
+
     el.addEventListener('mousemove', (e) => {
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left + 15;
@@ -1149,19 +1183,19 @@ function handleWorkerCompareResults(data: any) {
       hoverCard.style.left = `${x}px`;
       hoverCard.style.top = `${y}px`;
     });
-    
+
     el.addEventListener('mouseleave', () => {
       hoverCard.style.display = 'none';
     });
   });
-  
+
   const listA = resultsPanel.querySelector('#compare-col-a .compare-list') as HTMLElement | null;
   if (listA) {
     if (onlyA.length === 0) {
       listA.innerHTML = '<p class="text-muted">None</p>';
     } else {
       const fragment = document.createDocumentFragment();
-      onlyA.forEach(v => {
+      onlyA.forEach((v) => {
         const item = document.createElement('div');
         item.className = 'compare-vector-item';
         const exp = (gameA.vector_explanations && gameA.vector_explanations[v]) || 'No detailed rules recorded.';
@@ -1172,14 +1206,14 @@ function handleWorkerCompareResults(data: any) {
       listA.appendChild(fragment);
     }
   }
-  
+
   const listShared = resultsPanel.querySelector('#compare-col-both .compare-list') as HTMLElement | null;
   if (listShared) {
     if (shared.length === 0) {
       listShared.innerHTML = '<p class="text-muted">No shared mechanical systems.</p>';
     } else {
       const fragment = document.createDocumentFragment();
-      shared.forEach(v => {
+      shared.forEach((v) => {
         const item = document.createElement('div');
         item.className = 'compare-vector-item';
         const expA = (gameA.vector_explanations && gameA.vector_explanations[v]) || '';
@@ -1192,14 +1226,14 @@ function handleWorkerCompareResults(data: any) {
       listShared.appendChild(fragment);
     }
   }
-  
+
   const listB = resultsPanel.querySelector('#compare-col-b .compare-list') as HTMLElement | null;
   if (listB) {
     if (onlyB.length === 0) {
       listB.innerHTML = '<p class="text-muted">None</p>';
     } else {
       const fragment = document.createDocumentFragment();
-      onlyB.forEach(v => {
+      onlyB.forEach((v) => {
         const item = document.createElement('div');
         item.className = 'compare-vector-item';
         const exp = (gameB.vector_explanations && gameB.vector_explanations[v]) || 'No detailed rules recorded.';
@@ -1216,11 +1250,11 @@ function handleWorkerDictionaryResults(data: any) {
   if (data.vector) {
     const container = document.getElementById('vector-search-results');
     if (!container) return;
-    
+
     const matches = (data.results || []) as any[];
     const vectorName = data.vector as string;
     const domain = vectorName.split('.')[0] || 'general';
-    
+
     if (matches.length === 0) {
       container.innerHTML = `
         <div class="no-results-state" style="grid-column: span 1;">
@@ -1231,7 +1265,7 @@ function handleWorkerDictionaryResults(data: any) {
       `;
       return;
     }
-    
+
     container.innerHTML = `
       <div class="vector-result-group">
         <div class="vector-result-title">
@@ -1242,30 +1276,34 @@ function handleWorkerDictionaryResults(data: any) {
           Showing all rulesets that feature explicit, documented mechanics for this subsystem.
         </div>
         <div class="vector-game-list">
-          ${matches.map(game => {
-            const fullGame = allGames.find(g => g.game_id === game.game_id);
-            let rule = 'No detailed rule explanation recorded.';
-            if (fullGame && fullGame.vector_explanations) {
-              const isParentNamespace = allGames.some(g => 
-                g.vector_explanations && 
-                Object.keys(g.vector_explanations).some(k => k.startsWith(vectorName + '.'))
-              );
-              
-              if (isParentNamespace) {
-                const matchedKeys = Object.keys(fullGame.vector_explanations)
-                  .filter(k => k === vectorName || k.startsWith(vectorName + '.'))
-                  .sort();
-                if (matchedKeys.length > 0) {
-                  rule = matchedKeys.map(k => {
-                    const explanation = fullGame.vector_explanations[k];
-                    return `<strong>${k}</strong>: ${explanation}`;
-                  }).join('<br/><br/>');
+          ${matches
+            .map((game) => {
+              const fullGame = allGames.find((g) => g.game_id === game.game_id);
+              let rule = 'No detailed rule explanation recorded.';
+              if (fullGame && fullGame.vector_explanations) {
+                const isParentNamespace = allGames.some(
+                  (g) =>
+                    g.vector_explanations &&
+                    Object.keys(g.vector_explanations).some((k) => k.startsWith(vectorName + '.'))
+                );
+
+                if (isParentNamespace) {
+                  const matchedKeys = Object.keys(fullGame.vector_explanations)
+                    .filter((k) => k === vectorName || k.startsWith(vectorName + '.'))
+                    .sort();
+                  if (matchedKeys.length > 0) {
+                    rule = matchedKeys
+                      .map((k) => {
+                        const explanation = fullGame.vector_explanations[k];
+                        return `<strong>${k}</strong>: ${explanation}`;
+                      })
+                      .join('<br/><br/>');
+                  }
+                } else {
+                  rule = fullGame.vector_explanations[vectorName] || 'No detailed rule explanation recorded.';
                 }
-              } else {
-                rule = fullGame.vector_explanations[vectorName] || 'No detailed rule explanation recorded.';
               }
-            }
-            return `
+              return `
               <div class="vector-game-item">
                 <div class="vector-game-meta">
                   <a href="#" class="vector-game-title" onclick="event.preventDefault(); openGameDetails('${game.game_id}')">${game.title}</a>
@@ -1274,14 +1312,15 @@ function handleWorkerDictionaryResults(data: any) {
                 <div class="vector-rule-text">${rule}</div>
               </div>
             `;
-          }).join('')}
+            })
+            .join('')}
         </div>
       </div>
     `;
   } else {
     const container = document.getElementById('dict-results-list');
     if (!container) return;
-    
+
     const results = data.results || [];
     progressiveRenderDict(results, container);
   }
@@ -1290,32 +1329,34 @@ function handleWorkerDictionaryResults(data: any) {
 function handleWorkerAddGameDone(data: any) {
   const game = data.game;
   const medium = game.medium as 'ttrpg' | 'board_game';
-  
+
   const registryEntry = { ...game };
   delete registryEntry.medium;
   delete registryEntry.governed_vectors_set;
-  
+
   gamesData[medium].push(registryEntry);
   allGames.push(game);
-  
+
   processMetadata();
   renderDashboardStats();
   populateGenreDropdown();
   renderExplorer();
   initializeCompareTool();
   renderDictSidebar();
-  
+
   const form = document.getElementById('add-game-form') as HTMLFormElement | null;
   if (form) form.reset();
-  
+
   const explanationInputs = document.getElementById('editor-explanations-inputs');
   if (explanationInputs) explanationInputs.innerHTML = '';
-  
+
   renderEditorVectorChecklist();
-  
+
   updateEditorPreviews();
-  
-  alert(`Game '${game.title}' has been successfully indexed in memory! Use 'Export Data' to download or write back to registry.json.`);
+
+  alert(
+    `Game '${game.title}' has been successfully indexed in memory! Use 'Export Data' to download or write back to registry.json.`
+  );
 }
 
 // Current filter state for explorer
@@ -1325,7 +1366,7 @@ const filters: SearchFilters = {
   genre: 'all',
   minYear: 2000,
   maxYear: 2026,
-  sort: 'title-asc'
+  sort: 'title-asc',
 };
 
 // Initializing application
@@ -1343,35 +1384,34 @@ async function loadDatabase() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     gamesData = await response.json();
-    
+
     // Flatten list
     allGames = [
-      ...(gamesData.ttrpg || []).map(g => ({
+      ...(gamesData.ttrpg || []).map((g) => ({
         ...g,
         medium: 'ttrpg' as const,
-        governed_vectors_set: new Set(g.governed_vectors || [])
+        governed_vectors_set: new Set(g.governed_vectors || []),
       })),
-      ...(gamesData.board_game || []).map(g => ({
+      ...(gamesData.board_game || []).map((g) => ({
         ...g,
         medium: 'board_game' as const,
-        governed_vectors_set: new Set(g.governed_vectors || [])
-      }))
+        governed_vectors_set: new Set(g.governed_vectors || []),
+      })),
     ];
-    
+
     processMetadata();
     initializeFilterLimits();
     renderDashboardStats();
     populateGenreDropdown();
-    
+
     initSearchWorker();
     searchWorker.postMessage({ type: 'init', dbUrl: 'registry.json' });
-    
+
     initializeVectorSearch();
     initializeCompareTool();
     initializeDictionary();
     initializeEditor();
     initializeSandbox();
-    
   } catch (error: any) {
     console.error('Failed to load registry database:', error);
     // Fallback message in explorer UI
@@ -1392,14 +1432,14 @@ async function loadDatabase() {
 function processMetadata() {
   uniqueVectors.clear();
   uniqueGenres.clear();
-  
-  allGames.forEach(game => {
+
+  allGames.forEach((game) => {
     if (game.primary_genre) uniqueGenres.add(game.primary_genre);
     if (game.subgenres) {
-      game.subgenres.forEach(sub => uniqueGenres.add(sub));
+      game.subgenres.forEach((sub) => uniqueGenres.add(sub));
     }
     if (game.governed_vectors) {
-      game.governed_vectors.forEach(vec => uniqueVectors.add(vec));
+      game.governed_vectors.forEach((vec) => uniqueVectors.add(vec));
     }
   });
 }
@@ -1407,16 +1447,16 @@ function processMetadata() {
 // Find min/max publication years in dataset
 function initializeFilterLimits() {
   if (allGames.length === 0) return;
-  const years = allGames.map(g => g.year).filter(y => y && !isNaN(y));
+  const years = allGames.map((g) => g.year).filter((y) => y && !isNaN(y));
   const min = Math.min(...years);
   const max = Math.max(...years);
-  
+
   filters.minYear = min;
   filters.maxYear = max;
-  
+
   const minInput = document.getElementById('filter-year-min') as HTMLInputElement | null;
   const maxInput = document.getElementById('filter-year-max') as HTMLInputElement | null;
-  
+
   if (minInput) minInput.value = String(min);
   if (maxInput) maxInput.value = String(max);
 }
@@ -1433,12 +1473,12 @@ function renderDashboardStats() {
 function populateGenreDropdown() {
   const genreSelect = document.getElementById('filter-genre') as HTMLSelectElement | null;
   if (!genreSelect) return;
-  
+
   // Clear existing items except first one ("All Genres")
   genreSelect.innerHTML = '<option value="all">All Genres</option>';
-  
+
   const sortedGenres = Array.from(uniqueGenres).sort();
-  sortedGenres.forEach(genre => {
+  sortedGenres.forEach((genre) => {
     const opt = document.createElement('option');
     opt.value = genre;
     opt.textContent = genre;
@@ -1466,11 +1506,11 @@ function setupTabs() {
     if (!underline) return;
     const containerRect = container.getBoundingClientRect();
     const tabRect = activeTab.getBoundingClientRect();
-    
+
     // Calculate offsets relative to the container
     const leftOffset = tabRect.left - containerRect.left;
     const width = tabRect.width;
-    
+
     underline.style.width = `${width}px`;
     underline.style.transform = `translateX(${leftOffset}px)`;
   };
@@ -1481,28 +1521,28 @@ function setupTabs() {
     setTimeout(() => updateUnderline(activeTab), 0);
   }
 
-  tabs.forEach(tab => {
+  tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       const targetView = tab.getAttribute('data-tab');
       if (!targetView) return;
-      
+
       // Update tabs state
-      tabs.forEach(t => {
+      tabs.forEach((t) => {
         t.classList.remove('active');
         t.setAttribute('aria-selected', 'false');
       });
       tab.classList.add('active');
       tab.setAttribute('aria-selected', 'true');
-      
+
       updateUnderline(tab);
-      
+
       // Update views state
-      document.querySelectorAll('.view-panel').forEach(panel => {
+      document.querySelectorAll('.view-panel').forEach((panel) => {
         panel.classList.remove('active');
       });
       const targetPanel = document.getElementById(`${targetView}-view`);
       if (targetPanel) targetPanel.classList.add('active');
-      
+
       // Special refreshes
       if (targetView === 'compare') {
         renderComparisonResults();
@@ -1556,18 +1596,18 @@ function setupEventListeners() {
       visibleCount = 60;
       renderExplorer();
     }, 150);
-    
+
     omniSearch.addEventListener('input', (e) => {
       const target = e.target as HTMLInputElement;
       debouncedSearch(target.value);
     });
   }
-  
+
   // Medium pills
   const mediumButtons = document.querySelectorAll('.filter-pill-btn[data-medium]');
-  mediumButtons.forEach(btn => {
+  mediumButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      mediumButtons.forEach(b => b.classList.remove('active'));
+      mediumButtons.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       const med = btn.getAttribute('data-medium');
       if (med) filters.medium = med as any;
@@ -1575,7 +1615,7 @@ function setupEventListeners() {
       renderExplorer();
     });
   });
-  
+
   // Genre dropdown select
   const genreSelect = document.getElementById('filter-genre') as HTMLSelectElement | null;
   if (genreSelect) {
@@ -1586,11 +1626,11 @@ function setupEventListeners() {
       renderExplorer();
     });
   }
-  
+
   // Year ranges
   const minYear = document.getElementById('filter-year-min') as HTMLInputElement | null;
   const maxYear = document.getElementById('filter-year-max') as HTMLInputElement | null;
-  
+
   const handleYearChange = () => {
     if (minYear && maxYear) {
       filters.minYear = parseInt(minYear.value) || 1900;
@@ -1599,10 +1639,10 @@ function setupEventListeners() {
       renderExplorer();
     }
   };
-  
+
   if (minYear) minYear.addEventListener('change', handleYearChange);
   if (maxYear) maxYear.addEventListener('change', handleYearChange);
-  
+
   // Sort select
   const sortSelect = document.getElementById('filter-sort') as HTMLSelectElement | null;
   if (sortSelect) {
@@ -1613,11 +1653,11 @@ function setupEventListeners() {
       renderExplorer();
     });
   }
-  
+
   // Close details modal
   const closeModal = document.querySelector('.modal-close-btn');
   const modalOverlay = document.getElementById('details-modal-overlay');
-  
+
   if (closeModal) {
     closeModal.addEventListener('click', () => {
       if (modalOverlay) modalOverlay.classList.remove('active');
@@ -1630,7 +1670,7 @@ function setupEventListeners() {
       }
     });
   }
-  
+
   // Autocomplete suggestions event delegation
   const suggestionsBox = document.getElementById('vector-query-suggestions');
   if (suggestionsBox) {
@@ -1665,37 +1705,37 @@ function createCardDOM(game: GameRulesetInternal) {
   card.className = `game-card ${game.medium}`;
   card.setAttribute('onclick', `openGameDetails('${game.game_id}')`);
   card.addEventListener('click', () => openGameDetails(game.game_id));
-  
+
   const content = document.createElement('div');
-  
+
   const cardTop = document.createElement('div');
   cardTop.className = 'card-top';
-  
+
   const badge = document.createElement('span');
   badge.className = `medium-badge ${game.medium}-badge`;
   badge.textContent = game.medium === 'ttrpg' ? 'TTRPG' : 'Board Game';
-  
+
   const yearBadge = document.createElement('span');
   yearBadge.className = 'year-badge';
   yearBadge.textContent = String(game.year);
-  
+
   cardTop.appendChild(badge);
   cardTop.appendChild(yearBadge);
   content.appendChild(cardTop);
-  
+
   const title = document.createElement('h2');
   title.textContent = game.title;
   content.appendChild(title);
-  
+
   const genre = document.createElement('div');
   genre.className = 'primary-genre';
   genre.textContent = game.primary_genre;
   content.appendChild(genre);
-  
+
   const tags = document.createElement('div');
   tags.className = 'subgenres-tags';
   if (game.subgenres) {
-    game.subgenres.forEach(sub => {
+    game.subgenres.forEach((sub) => {
       const tag = document.createElement('span');
       tag.className = 'subgenre-tag';
       tag.textContent = sub;
@@ -1704,23 +1744,22 @@ function createCardDOM(game: GameRulesetInternal) {
   }
   content.appendChild(tags);
   card.appendChild(content);
-  
+
   const preview = document.createElement('div');
   preview.className = 'vectors-preview';
-  
+
   const span = document.createElement('span');
   span.textContent = 'Vectors:';
   preview.appendChild(span);
-  
+
   const vectorsText = game.governed_vectors ? game.governed_vectors.slice(0, 3).join(', ') : 'none';
-  const vectorsRemain = game.governed_vectors && game.governed_vectors.length > 3 
-    ? ` (+${game.governed_vectors.length - 3} more)` 
-    : '';
+  const vectorsRemain =
+    game.governed_vectors && game.governed_vectors.length > 3 ? ` (+${game.governed_vectors.length - 3} more)` : '';
   const textNode = document.createTextNode(` ${vectorsText}${vectorsRemain}`);
   preview.appendChild(textNode);
-  
+
   card.appendChild(preview);
-  
+
   return card;
 }
 
@@ -1729,9 +1768,9 @@ function progressiveRender(gamesToRender: GameRulesetInternal[], totalFilteredCo
     cancelAnimationFrame(currentRenderJob);
     currentRenderJob = null;
   }
-  
+
   gridElement.innerHTML = '';
-  
+
   if (gamesToRender.length === 0) {
     gridElement.innerHTML = `
       <div class="no-results-state">
@@ -1742,38 +1781,38 @@ function progressiveRender(gamesToRender: GameRulesetInternal[], totalFilteredCo
     `;
     return;
   }
-  
+
   let index = 0;
-  
+
   if (gamesToRender.length <= 10) {
     const fragment = document.createDocumentFragment();
     for (const game of gamesToRender) {
       fragment.appendChild(createCardDOM(game));
     }
     gridElement.appendChild(fragment);
-    
+
     if (totalFilteredCount > visibleCount) {
       appendLoadMoreButton(gridElement, totalFilteredCount);
     }
     return;
   }
-  
+
   function renderBatch() {
     const startTime = performance.now();
     const fragment = document.createDocumentFragment();
-    
+
     while (index < gamesToRender.length) {
       const game = gamesToRender[index];
       fragment.appendChild(createCardDOM(game));
       index++;
-      
+
       if (performance.now() - startTime > 3) {
         break;
       }
     }
-    
+
     gridElement.appendChild(fragment);
-    
+
     if (index < gamesToRender.length) {
       currentRenderJob = requestAnimationFrame(renderBatch);
     } else {
@@ -1783,7 +1822,7 @@ function progressiveRender(gamesToRender: GameRulesetInternal[], totalFilteredCo
       }
     }
   }
-  
+
   currentRenderJob = requestAnimationFrame(renderBatch);
 }
 
@@ -1792,30 +1831,30 @@ function progressiveRenderDict(results: any[], container: HTMLElement) {
     cancelAnimationFrame(currentDictRenderJob);
     currentDictRenderJob = null;
   }
-  
+
   container.innerHTML = '';
-  
+
   if (results.length === 0) {
     container.innerHTML = '<p class="text-secondary">No vectors recorded.</p>';
     return;
   }
-  
+
   let index = 0;
-  
+
   function createDictCardDOM(item: any) {
     const vec = item.vector;
     const matchingGames = item.games || [];
-    
+
     const card = document.createElement('div');
     card.className = 'dict-item-card';
-    
+
     const nameDiv = document.createElement('div');
     nameDiv.className = 'dict-item-name';
-    
+
     const spanName = document.createElement('span');
     spanName.textContent = vec;
     nameDiv.appendChild(spanName);
-    
+
     const spanBadge = document.createElement('span');
     spanBadge.className = 'badge';
     spanBadge.style.fontSize = '0.75rem';
@@ -1824,9 +1863,9 @@ function progressiveRenderDict(results: any[], container: HTMLElement) {
     spanBadge.style.fontWeight = '500';
     spanBadge.textContent = `Found in ${matchingGames.length} ${matchingGames.length === 1 ? 'game' : 'games'}`;
     nameDiv.appendChild(spanBadge);
-    
+
     card.appendChild(nameDiv);
-    
+
     const gamesDiv = document.createElement('div');
     gamesDiv.className = 'dict-item-games';
     matchingGames.forEach((game: any) => {
@@ -1838,10 +1877,10 @@ function progressiveRenderDict(results: any[], container: HTMLElement) {
       gamesDiv.appendChild(link);
     });
     card.appendChild(gamesDiv);
-    
+
     return card;
   }
-  
+
   if (results.length <= 10) {
     const fragment = document.createDocumentFragment();
     for (const item of results) {
@@ -1850,37 +1889,37 @@ function progressiveRenderDict(results: any[], container: HTMLElement) {
     container.appendChild(fragment);
     return;
   }
-  
+
   function renderBatch() {
     const startTime = performance.now();
     const fragment = document.createDocumentFragment();
-    
+
     while (index < results.length) {
       const item = results[index];
       fragment.appendChild(createDictCardDOM(item));
       index++;
-      
+
       if (performance.now() - startTime > 3) {
         break;
       }
     }
-    
+
     container.appendChild(fragment);
-    
+
     if (index < results.length) {
       currentDictRenderJob = requestAnimationFrame(renderBatch);
     } else {
       currentDictRenderJob = null;
     }
   }
-  
+
   currentDictRenderJob = requestAnimationFrame(renderBatch);
 }
 
 function appendLoadMoreButton(gridElement: HTMLElement, totalFilteredCount: number) {
   const container = document.createElement('div');
   container.className = 'load-more-container';
-  
+
   const button = document.createElement('button');
   button.className = 'btn-load-more';
   button.setAttribute('onclick', 'loadMoreGames()');
@@ -1888,7 +1927,7 @@ function appendLoadMoreButton(gridElement: HTMLElement, totalFilteredCount: numb
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><polyline points="6 9 12 15 18 9"></polyline></svg>
     <span>Load More (${totalFilteredCount - visibleCount} remaining)</span>
   `;
-  
+
   container.appendChild(button);
   gridElement.appendChild(container);
 }
@@ -1897,9 +1936,9 @@ function appendLoadMoreButton(gridElement: HTMLElement, totalFilteredCount: numb
 function initializeVectorSearch() {
   const searchInput = document.getElementById('vector-query-input') as HTMLInputElement | null;
   const suggestionsBox = document.getElementById('vector-query-suggestions');
-  
+
   if (!searchInput || !suggestionsBox) return;
-  
+
   const debouncedAutocomplete = debounce((val: string) => {
     if (!val.trim()) {
       suggestionsBox.innerHTML = '';
@@ -1909,12 +1948,12 @@ function initializeVectorSearch() {
     }
     searchWorker.postMessage({ type: 'autocomplete', query: val, autocompleteType: 'vector' });
   }, 150);
-  
+
   searchInput.addEventListener('input', (e) => {
     const target = e.target as HTMLInputElement;
     debouncedAutocomplete(target.value);
   });
-  
+
   document.addEventListener('click', (e) => {
     if (e.target !== searchInput && e.target !== suggestionsBox) {
       suggestionsBox.innerHTML = '';
@@ -1922,14 +1961,14 @@ function initializeVectorSearch() {
       suggestionsBox.classList.remove('active');
     }
   });
-  
+
   const searchBtn = document.getElementById('vector-search-btn');
   if (searchBtn) {
     searchBtn.addEventListener('click', () => {
       executeVectorSearch(searchInput.value.trim());
     });
   }
-  
+
   searchInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       executeVectorSearch(searchInput.value.trim());
@@ -1940,7 +1979,7 @@ function initializeVectorSearch() {
 function executeVectorSearch(vectorName: string) {
   const container = document.getElementById('vector-search-results');
   if (!container) return;
-  
+
   if (!vectorName) {
     container.innerHTML = `
       <div class="no-results-state" style="grid-column: span 1;">
@@ -1949,7 +1988,7 @@ function executeVectorSearch(vectorName: string) {
     `;
     return;
   }
-  
+
   searchWorker.postMessage({ type: 'dictionary', vector: vectorName });
 }
 
@@ -1958,17 +1997,21 @@ function initializeCompareTool() {
   const panelA = document.getElementById('compare-selector-a');
   const panelB = document.getElementById('compare-selector-b');
   if (!panelA || !panelB) return;
-  
+
   const sorted = [...allGames].sort((a, b) => a.title.localeCompare(b.title));
-  
+
   const makeSelectButtons = (index: number) => {
-    return sorted.map(game => `
+    return sorted
+      .map(
+        (game) => `
       <button class="select-game-btn" data-game-id="${game.game_id}" onclick="selectCompareGame('${game.game_id}', ${index}, this)">
         ${game.title} (${game.medium === 'ttrpg' ? 'TTRPG' : 'BG'})
       </button>
-    `).join('');
+    `
+      )
+      .join('');
   };
-  
+
   panelA.innerHTML = `<h3>Select Ruleset A</h3><div style="max-height: 350px; overflow-y: scroll; display: flex; flex-direction: column; gap: 0.25rem;">${makeSelectButtons(0)}</div>`;
   panelB.innerHTML = `<h3>Select Ruleset B</h3><div style="max-height: 350px; overflow-y: scroll; display: flex; flex-direction: column; gap: 0.25rem;">${makeSelectButtons(1)}</div>`;
 }
@@ -1976,10 +2019,10 @@ function initializeCompareTool() {
 function renderComparisonResults() {
   const resultsPanel = document.getElementById('comparison-results');
   if (!resultsPanel) return;
-  
+
   const gameIdA = selectedCompareGames[0];
   const gameIdB = selectedCompareGames[1];
-  
+
   if (!gameIdA || !gameIdB) {
     resultsPanel.innerHTML = `
       <div class="no-results-state" style="grid-column: span 1; padding: 3rem 1.5rem;">
@@ -1988,7 +2031,7 @@ function renderComparisonResults() {
     `;
     return;
   }
-  
+
   searchWorker.postMessage({ type: 'compare', gameIdA, gameIdB });
 }
 
@@ -2002,15 +2045,15 @@ function initializeDictionary() {
 function renderDictSidebar() {
   const sidebar = document.getElementById('dict-domains-sidebar');
   if (!sidebar) return;
-  
+
   const domains = new Set<string>();
-  uniqueVectors.forEach(v => {
+  uniqueVectors.forEach((v) => {
     const dom = v.split('.')[0];
     if (dom) domains.add(dom);
   });
-  
+
   const sorted = Array.from(domains).sort();
-  
+
   sidebar.innerHTML = `
     <h3>System Domains</h3>
     <div class="dict-domain-list">
@@ -2018,15 +2061,17 @@ function renderDictSidebar() {
         <span>All Domains</span>
         <span class="badge">${uniqueVectors.size}</span>
       </button>
-      ${sorted.map(dom => {
-        const count = Array.from(uniqueVectors).filter(v => v.startsWith(dom + '.')).length;
-        return `
+      ${sorted
+        .map((dom) => {
+          const count = Array.from(uniqueVectors).filter((v) => v.startsWith(dom + '.')).length;
+          return `
           <button class="dict-domain-btn ${activeDictDomain === dom ? 'active' : ''}" onclick="setDictDomain('${dom}')">
             <span style="text-transform: capitalize;">${dom}</span>
             <span class="badge">${count}</span>
           </button>
         `;
-      }).join('')}
+        })
+        .join('')}
     </div>
   `;
 }
@@ -2044,9 +2089,9 @@ function renderDictionary() {
 function initializeEditor() {
   const vecList = document.getElementById('editor-vectors-list');
   if (!vecList) return;
-  
+
   renderEditorVectorChecklist();
-  
+
   const form = document.getElementById('add-game-form') as HTMLFormElement | null;
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -2059,15 +2104,19 @@ function initializeEditor() {
 function renderEditorVectorChecklist() {
   const container = document.getElementById('editor-vectors-list');
   if (!container) return;
-  
+
   const sorted = Array.from(uniqueVectors).sort();
-  
-  container.innerHTML = sorted.map(vec => `
+
+  container.innerHTML = sorted
+    .map(
+      (vec) => `
     <div class="vector-checkbox-item">
       <input type="checkbox" id="check-vec-${vec}" value="${vec}" onchange="toggleEditorVectorExplanation('${vec}', this.checked)">
       <label for="check-vec-${vec}">${vec}</label>
     </div>
-  `).join('');
+  `
+    )
+    .join('');
 }
 
 function updateEditorPreviews() {
@@ -2082,33 +2131,41 @@ function addNewGame() {
   const mediumSelect = document.getElementById('new-game-medium') as HTMLSelectElement | null;
   const genreInput = document.getElementById('new-game-genre') as HTMLInputElement | null;
   const subgenresInput = document.getElementById('new-game-subgenres') as HTMLInputElement | null;
-  
+
   if (!titleInput || !yearInput || !mediumSelect || !genreInput || !subgenresInput) return;
-  
+
   const title = titleInput.value.trim();
   const year = parseInt(yearInput.value) || 2026;
   const medium = mediumSelect.value;
   const genre = genreInput.value.trim();
   const subgenresRaw = subgenresInput.value;
-  
-  const game_id = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/(^_|_$)/g, '');
-  
+
+  const game_id = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/(^_|_$)/g, '');
+
   const checkedVectors: string[] = [];
   const explanations: Record<string, string> = {};
-  
-  document.querySelectorAll('#editor-vectors-list input[type="checkbox"]:checked').forEach(cb => {
+
+  document.querySelectorAll('#editor-vectors-list input[type="checkbox"]:checked').forEach((cb) => {
     checkedVectors.push((cb as HTMLInputElement).value);
   });
-  
-  document.querySelectorAll('#editor-explanations-inputs textarea').forEach(ta => {
+
+  document.querySelectorAll('#editor-explanations-inputs textarea').forEach((ta) => {
     const vec = ta.getAttribute('data-vector');
     if (vec) {
       explanations[vec] = (ta as HTMLTextAreaElement).value.trim();
     }
   });
-  
-  const subgenres = subgenresRaw ? subgenresRaw.split(',').map(s => s.trim()).filter(s => s) : [];
-  
+
+  const subgenres = subgenresRaw
+    ? subgenresRaw
+        .split(',')
+        .map((s) => s.trim())
+        .filter((s) => s)
+    : [];
+
   const newGameEntry = {
     game_id,
     title,
@@ -2116,15 +2173,15 @@ function addNewGame() {
     primary_genre: genre,
     subgenres,
     governed_vectors: checkedVectors,
-    vector_explanations: explanations
+    vector_explanations: explanations,
   };
-  
-  const existing = allGames.find(g => g.game_id === game_id);
+
+  const existing = allGames.find((g) => g.game_id === game_id);
   if (existing) {
     alert(`A game with ID '${game_id}' already exists in registry!`);
     return;
   }
-  
+
   searchWorker.postMessage({ type: 'addGame', game: { ...newGameEntry, medium } });
 }
 
@@ -2211,7 +2268,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['resolution.dice_pool', 'resolution.single_die'],
     description: 'Dice pool systems fundamentally conflict with single-die resolution.',
     severity: 'critical',
-    resolution: 'Use dice pool as primary; convert single-die targets to pool difficulty thresholds.'
+    resolution: 'Use dice pool as primary; convert single-die targets to pool difficulty thresholds.',
   },
   {
     id: 'initiative-dex-vs-narrative',
@@ -2219,7 +2276,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['combat.initiative.dexterity_based', 'combat.initiative.narrative'],
     description: 'Dexterity-based initiative conflicts with narrative initiative flow.',
     severity: 'warning',
-    resolution: 'Use narrative initiative by default, with optional dexterity checks for contested moments.'
+    resolution: 'Use narrative initiative by default, with optional dexterity checks for contested moments.',
   },
   {
     id: 'hp-vs-wound-track',
@@ -2227,7 +2284,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['combat.damage.hit_points', 'combat.damage.wound_levels'],
     description: 'Hit point pools conflict with wound level tracks.',
     severity: 'critical',
-    resolution: 'Implement wound thresholds on the HP pool—crossing boundaries inflicts wound penalties.'
+    resolution: 'Implement wound thresholds on the HP pool—crossing boundaries inflicts wound penalties.',
   },
   {
     id: 'class-vs-classless',
@@ -2235,7 +2292,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['character.progression.class_based', 'character.progression.classless'],
     description: 'Class-based progression conflicts with freeform classless advancement.',
     severity: 'warning',
-    resolution: 'Offer class templates as optional starting packages that can be freely customized.'
+    resolution: 'Offer class templates as optional starting packages that can be freely customized.',
   },
   {
     id: 'turn-based-vs-realtime',
@@ -2243,7 +2300,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['combat.structure.turn_based', 'combat.structure.simultaneous'],
     description: 'Strict turn-based combat conflicts with simultaneous action declaration.',
     severity: 'critical',
-    resolution: 'Use simultaneous declaration with turn-based resolution phase.'
+    resolution: 'Use simultaneous declaration with turn-based resolution phase.',
   },
   {
     id: 'spell-slots-vs-mana',
@@ -2251,7 +2308,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['magic.resource.spell_slots', 'magic.resource.mana_pool'],
     description: 'Vancian spell slots conflict with mana pool systems.',
     severity: 'warning',
-    resolution: 'Spell slots define max power tier; mana fuels additional castings within each tier.'
+    resolution: 'Spell slots define max power tier; mana fuels additional castings within each tier.',
   },
   {
     id: 'grid-vs-theater',
@@ -2259,7 +2316,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['combat.positioning.grid_based', 'combat.positioning.theater_of_mind'],
     description: 'Grid-based tactical positioning conflicts with theater-of-mind freeform.',
     severity: 'warning',
-    resolution: 'Use zone-based positioning as middle ground: abstract areas optionally overlaying a grid.'
+    resolution: 'Use zone-based positioning as middle ground: abstract areas optionally overlaying a grid.',
   },
   {
     id: 'roll-over-vs-roll-under',
@@ -2267,7 +2324,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['resolution.roll_over', 'resolution.roll_under'],
     description: 'Roll-over systems conflict with roll-under systems.',
     severity: 'critical',
-    resolution: 'Standardize to roll-over; stat becomes the modifier added to the roll.'
+    resolution: 'Standardize to roll-over; stat becomes the modifier added to the roll.',
   },
   {
     id: 'stress-vs-hp',
@@ -2275,7 +2332,7 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['consequences.stress_track', 'combat.damage.hit_points'],
     description: 'Stress/consequence tracks conflict with raw numerical HP damage.',
     severity: 'warning',
-    resolution: 'HP damage triggers stress conditions at threshold breakpoints for dual-layer consequences.'
+    resolution: 'HP damage triggers stress conditions at threshold breakpoints for dual-layer consequences.',
   },
   {
     id: 'skill-vs-attribute-check',
@@ -2283,17 +2340,17 @@ const SANDBOX_CONFLICT_RULES: SandboxConflictRule[] = [
     vectorPatterns: ['resolution.skill_checks', 'resolution.attribute_checks'],
     description: 'Dedicated skill checks conflict with raw attribute-only checks.',
     severity: 'warning',
-    resolution: 'Attribute checks are baseline; trained skills add a proficiency bonus.'
-  }
+    resolution: 'Attribute checks are baseline; trained skills add a proficiency bonus.',
+  },
 ];
 
 function sandboxAnalyzeConflicts(selectedVectors: string[]): SandboxDetectedConflict[] {
   const detected: SandboxDetectedConflict[] = [];
   for (const rule of SANDBOX_CONFLICT_RULES) {
-    const matchedPatterns = rule.vectorPatterns.map(pattern =>
-      selectedVectors.filter(v => v === pattern || v.startsWith(pattern + '.'))
+    const matchedPatterns = rule.vectorPatterns.map((pattern) =>
+      selectedVectors.filter((v) => v === pattern || v.startsWith(pattern + '.'))
     );
-    if (matchedPatterns.every(matches => matches.length > 0)) {
+    if (matchedPatterns.every((matches) => matches.length > 0)) {
       const triggers = [...new Set(matchedPatterns.flat())];
       detected.push({ rule, triggeringVectors: triggers, resolved: false });
     }
@@ -2304,94 +2361,98 @@ function sandboxAnalyzeConflicts(selectedVectors: string[]): SandboxDetectedConf
 // --- Rules Synthesizer ---
 
 const SANDBOX_DOMAIN_TEMPLATES: Record<string, { heading: string; baseRules: string[] }> = {
-  'combat': {
+  combat: {
     heading: '⚔️ Combat System',
     baseRules: [
       'Combat encounters begin when hostilities are declared or an ambush is triggered.',
       'All combatants determine initiative to establish turn order.',
       'On each turn, a combatant may take one standard action, one move action, and one free action.',
-      'Attacks are resolved by making an attack roll against the target\'s defense value.'
-    ]
+      "Attacks are resolved by making an attack roll against the target's defense value.",
+    ],
   },
-  'resolution': {
+  resolution: {
     heading: '🎯 Resolution Mechanics',
     baseRules: [
       'When the outcome of an action is uncertain, the GM calls for a check.',
       'The player rolls the designated dice and adds relevant modifiers.',
       'The result is compared against a difficulty threshold.',
-      'Critical results trigger special narrative outcomes.'
-    ]
+      'Critical results trigger special narrative outcomes.',
+    ],
   },
-  'character': {
+  character: {
     heading: '👤 Character System',
     baseRules: [
       'Characters are defined by core attributes representing physical and mental capabilities.',
       'Skills represent trained proficiencies that modify attribute-based checks.',
       'Characters advance through experience, unlocking new abilities and stat increases.',
-      'Equipment and inventory are tracked and may provide passive bonuses.'
-    ]
+      'Equipment and inventory are tracked and may provide passive bonuses.',
+    ],
   },
-  'magic': {
+  magic: {
     heading: '✨ Magic & Powers',
     baseRules: [
       'Magical abilities draw from an energy resource that replenishes during rest.',
       'Spells have defined ranges, durations, and areas of effect.',
       'Casting requires a check against a difficulty based on spell power.',
-      'Failed castings may result in diminished effects or backlash.'
-    ]
+      'Failed castings may result in diminished effects or backlash.',
+    ],
   },
-  'social': {
+  social: {
     heading: '🗣️ Social Interaction',
     baseRules: [
       'Social encounters use opposed checks between participants.',
       'NPCs have disposition levels that shift based on interaction outcomes.',
-      'Persuasion, deception, and intimidation each have distinct mechanical paths.'
-    ]
+      'Persuasion, deception, and intimidation each have distinct mechanical paths.',
+    ],
   },
-  'exploration': {
+  exploration: {
     heading: '🗺️ Exploration & Navigation',
     baseRules: [
       'Travel is measured in watches (4-hour blocks) for overland movement.',
       'Environmental hazards require appropriate skill checks.',
-      'Resource tracking (rations, light, supplies) affects party endurance.'
-    ]
+      'Resource tracking (rations, light, supplies) affects party endurance.',
+    ],
   },
-  'consequences': {
+  consequences: {
     heading: '💔 Consequences & Conditions',
     baseRules: [
       'Damage and adverse effects impose conditions that modify capabilities.',
       'Conditions range from minor (fatigued) to severe (dying).',
-      'Recovery requires rest, medical attention, or magical healing.'
-    ]
+      'Recovery requires rest, medical attention, or magical healing.',
+    ],
   },
-  'economy': {
+  economy: {
     heading: '💰 Economy & Resources',
     baseRules: [
       'Resource management governs economic flow and player choices.',
       'Trading, bidding, and market dynamics create strategic decisions.',
-      'Production chains and worker assignment drive engine-building gameplay.'
-    ]
+      'Production chains and worker assignment drive engine-building gameplay.',
+    ],
   },
-  'logistics': {
+  logistics: {
     heading: '📦 Logistics & Planning',
     baseRules: [
       'Strategic planning and resource allocation determine long-term success.',
       'Supply chain management and hand optimization are key mechanics.',
-      'Network connections and set completion drive scoring and progression.'
-    ]
+      'Network connections and set completion drive scoring and progression.',
+    ],
   },
-  'crafting': {
+  crafting: {
     heading: '🔨 Crafting & Creation',
     baseRules: [
       'Crafting requires materials, tools, and proficiency.',
       'Quality tiers (common, fine, masterwork) affect item statistics.',
-      'Failed checks may waste materials or produce flawed items.'
-    ]
-  }
+      'Failed checks may waste materials or produce flawed items.',
+    ],
+  },
 };
 
 function sandboxVectorToLabel(vector: string): string {
-  return vector.split('.').map(p => p.replace(/_/g, ' ')).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' → ');
+  return vector
+    .split('.')
+    .map((p) => p.replace(/_/g, ' '))
+    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+    .join(' → ');
 }
 
 function sandboxSynthesizeRuleset(
@@ -2427,9 +2488,7 @@ function sandboxSynthesizeRuleset(
       }
     }
 
-    const domainConflicts = conflicts.filter(c =>
-      c.triggeringVectors.some(tv => tv.split('.')[0] === domain)
-    );
+    const domainConflicts = conflicts.filter((c) => c.triggeringVectors.some((tv) => tv.split('.')[0] === domain));
     if (domainConflicts.length > 0) {
       rules.push('');
       rules.push('─── Conflict Reconciliation ───');
@@ -2442,9 +2501,11 @@ function sandboxSynthesizeRuleset(
     sections.push({ heading, domain, rules });
   }
 
-  const resolutionNotes = conflicts.map(c => `✅ [${c.rule.category}]: ${c.rule.resolution}`);
+  const resolutionNotes = conflicts.map((c) => `✅ [${c.rule.category}]: ${c.rule.resolution}`);
 
-  const domainNames = Object.keys(domainGroups).slice(0, 3).map(d => d.charAt(0).toUpperCase() + d.slice(1));
+  const domainNames = Object.keys(domainGroups)
+    .slice(0, 3)
+    .map((d) => d.charAt(0).toUpperCase() + d.slice(1));
   const title = `OmniRuleset: ${domainNames.join(' + ')}${Object.keys(domainGroups).length > 3 ? ' + more' : ''} (${vectors.length} vectors)`;
 
   const characterTemplate = sandboxGenerateCharacter(domainGroups);
@@ -2454,20 +2515,27 @@ function sandboxSynthesizeRuleset(
 
 function sandboxGenerateCharacter(domainGroups: Record<string, string[]>): SandboxCharacterTemplate {
   const stats: Record<string, number> = {
-    'STR': 10, 'DEX': 10, 'CON': 10, 'INT': 10, 'WIS': 10, 'CHA': 10
+    STR: 10,
+    DEX: 10,
+    CON: 10,
+    INT: 10,
+    WIS: 10,
+    CHA: 10,
   };
   const skills: string[] = [];
   const abilities: string[] = [];
-  const inventory: string[] = ['Traveler\'s Pack', 'Waterskin', '50 ft. Rope'];
+  const inventory: string[] = ["Traveler's Pack", 'Waterskin', '50 ft. Rope'];
 
   if (domainGroups['combat']) {
-    stats['STR'] = 14; stats['CON'] = 12;
+    stats['STR'] = 14;
+    stats['CON'] = 12;
     skills.push('Athletics', 'Weapon Handling');
     abilities.push('Basic Attack', 'Defensive Stance');
     inventory.push('Short Sword', 'Leather Armor', 'Shield');
   }
   if (domainGroups['magic']) {
-    stats['INT'] = 14; stats['WIS'] = 12;
+    stats['INT'] = 14;
+    stats['WIS'] = 12;
     skills.push('Arcana', 'Spellcraft');
     abilities.push('Cantrip: Light', 'Spell: Magic Missile');
     inventory.push('Spellbook', 'Component Pouch');
@@ -2486,16 +2554,20 @@ function sandboxGenerateCharacter(domainGroups: Record<string, string[]>): Sandb
   if (domainGroups['crafting']) {
     skills.push('Crafting', 'Appraisal');
     abilities.push('Basic Crafting');
-    inventory.push('Artisan\'s Tools');
+    inventory.push("Artisan's Tools");
   }
 
   const maxHP = 8 + (stats['CON'] - 10);
   return {
-    name: 'Unnamed Adventurer', level: 1,
-    hitPoints: maxHP, maxHitPoints: maxHP,
-    stats, skills: skills.length > 0 ? skills : ['General Knowledge'],
+    name: 'Unnamed Adventurer',
+    level: 1,
+    hitPoints: maxHP,
+    maxHitPoints: maxHP,
+    stats,
+    skills: skills.length > 0 ? skills : ['General Knowledge'],
     abilities: abilities.length > 0 ? abilities : ['Improvise'],
-    inventory, conditions: []
+    inventory,
+    conditions: [],
   };
 }
 
@@ -2504,15 +2576,21 @@ function sandboxRenderRulesetHTML(ruleset: SandboxSynthesizedRuleset): string {
   for (const section of ruleset.sections) {
     html += `<h4>${section.heading}</h4><ul>`;
     for (const rule of section.rules) {
-      if (rule === '') { html += '</ul><ul>'; }
-      else if (rule.startsWith('───')) { html += `</ul><p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-amber); margin: 0.5rem 0 0.25rem;">${rule}</p><ul>`; }
-      else { html += `<li>${rule}</li>`; }
+      if (rule === '') {
+        html += '</ul><ul>';
+      } else if (rule.startsWith('───')) {
+        html += `</ul><p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-amber); margin: 0.5rem 0 0.25rem;">${rule}</p><ul>`;
+      } else {
+        html += `<li>${rule}</li>`;
+      }
     }
     html += '</ul>';
   }
   if (ruleset.resolutionNotes.length > 0) {
     html += '<h4>📝 Resolution Summary</h4><ul>';
-    for (const note of ruleset.resolutionNotes) { html += `<li>${note}</li>`; }
+    for (const note of ruleset.resolutionNotes) {
+      html += `<li>${note}</li>`;
+    }
     html += '</ul>';
   }
   return html;
@@ -2522,27 +2600,37 @@ function sandboxRenderRulesetHTML(ruleset: SandboxSynthesizedRuleset): string {
 
 const SANDBOX_OPENING_SCENES = [
   {
-    scene: 'You awaken in a dimly lit tavern cellar. The air is thick with dust and distant clinking glasses echo from above. A locked door stands before you, and something scrapes against stone in the shadows.',
-    enemies: [{ name: 'Giant Rat', hp: 6, maxHp: 6, attack: 3, defense: 8, alive: true }]
+    scene:
+      'You awaken in a dimly lit tavern cellar. The air is thick with dust and distant clinking glasses echo from above. A locked door stands before you, and something scrapes against stone in the shadows.',
+    enemies: [{ name: 'Giant Rat', hp: 6, maxHp: 6, attack: 3, defense: 8, alive: true }],
   },
   {
-    scene: 'The ancient forest path narrows until the canopy blocks out all sunlight. Strange markings glow faintly on the trees. Ahead, a clearing reveals a crumbling stone altar—and the figures surrounding it don\'t look friendly.',
+    scene:
+      "The ancient forest path narrows until the canopy blocks out all sunlight. Strange markings glow faintly on the trees. Ahead, a clearing reveals a crumbling stone altar—and the figures surrounding it don't look friendly.",
     enemies: [
       { name: 'Forest Bandit', hp: 12, maxHp: 12, attack: 5, defense: 11, alive: true },
-      { name: 'Bandit Archer', hp: 8, maxHp: 8, attack: 6, defense: 10, alive: true }
-    ]
+      { name: 'Bandit Archer', hp: 8, maxHp: 8, attack: 6, defense: 10, alive: true },
+    ],
   },
   {
-    scene: 'The merchant caravan has stopped at a crossroads. To the north, smoke rises from a burning village. To the east, the trade road continues safely. The caravan master looks at you: "We need someone to scout ahead."',
-    enemies: []
+    scene:
+      'The merchant caravan has stopped at a crossroads. To the north, smoke rises from a burning village. To the east, the trade road continues safely. The caravan master looks at you: "We need someone to scout ahead."',
+    enemies: [],
   },
   {
-    scene: 'Deep within the Crystalline Caverns, your torchlight catches prismatic reflections off every surface. The map leads to a sealed chamber ahead—but the ground trembles as something massive shifts in the darkness below.',
-    enemies: [{ name: 'Cave Spider Queen', hp: 20, maxHp: 20, attack: 7, defense: 12, alive: true }]
-  }
+    scene:
+      'Deep within the Crystalline Caverns, your torchlight catches prismatic reflections off every surface. The map leads to a sealed chamber ahead—but the ground trembles as something massive shifts in the darkness below.',
+    enemies: [{ name: 'Cave Spider Queen', hp: 20, maxHp: 20, attack: 7, defense: 12, alive: true }],
+  },
 ];
 
-function sandboxRollDice(notation: string): { dice: string; rolls: number[]; total: number; modifier: number; finalResult: number } {
+function sandboxRollDice(notation: string): {
+  dice: string;
+  rolls: number[];
+  total: number;
+  modifier: number;
+  finalResult: number;
+} {
   const match = notation.match(/^(\d+)d(\d+)([+-]\d+)?$/);
   const count = match ? parseInt(match[1], 10) : 1;
   const sides = match ? parseInt(match[2], 10) : 20;
@@ -2554,7 +2642,7 @@ function sandboxRollDice(notation: string): { dice: string; rolls: number[]; tot
 }
 
 function sandboxFormatRollHTML(roll: { dice: string; rolls: number[]; modifier: number; finalResult: number }): string {
-  const rollsStr = roll.rolls.map(r => `<span class="dice-roll">${r}</span>`).join(' + ');
+  const rollsStr = roll.rolls.map((r) => `<span class="dice-roll">${r}</span>`).join(' + ');
   const modStr = roll.modifier !== 0 ? ` ${roll.modifier > 0 ? '+' : ''}${roll.modifier}` : '';
   return `🎲 ${roll.dice}: ${rollsStr}${modStr} = <strong>${roll.finalResult}</strong>`;
 }
@@ -2577,8 +2665,14 @@ function sandboxClassifyAction(input: string): string {
 
 function sandboxGetRelevantStat(actionType: string, stats: Record<string, number>): { name: string; value: number } {
   const mapping: Record<string, string> = {
-    'attack': 'STR', 'defend': 'DEX', 'cast': 'INT', 'explore': 'WIS',
-    'social': 'CHA', 'skill': 'DEX', 'rest': 'CON', 'unknown': 'WIS'
+    attack: 'STR',
+    defend: 'DEX',
+    cast: 'INT',
+    explore: 'WIS',
+    social: 'CHA',
+    skill: 'DEX',
+    rest: 'CON',
+    unknown: 'WIS',
   };
   const statName = mapping[actionType] || 'WIS';
   return { name: statName, value: stats[statName] || 10 };
@@ -2588,11 +2682,22 @@ function sandboxCreateSession(ruleset: SandboxSynthesizedRuleset): SandboxGMSess
   const sceneData = SANDBOX_OPENING_SCENES[Math.floor(Math.random() * SANDBOX_OPENING_SCENES.length)];
   const session: SandboxGMSession = {
     ruleset,
-    character: { ...ruleset.characterTemplate, stats: { ...ruleset.characterTemplate.stats }, skills: [...ruleset.characterTemplate.skills], abilities: [...ruleset.characterTemplate.abilities], inventory: [...ruleset.characterTemplate.inventory], conditions: [] },
+    character: {
+      ...ruleset.characterTemplate,
+      stats: { ...ruleset.characterTemplate.stats },
+      skills: [...ruleset.characterTemplate.skills],
+      abilities: [...ruleset.characterTemplate.abilities],
+      inventory: [...ruleset.characterTemplate.inventory],
+      conditions: [],
+    },
     chatLog: [],
     currentScene: sceneData.scene,
-    encounterState: { inCombat: sceneData.enemies.length > 0, enemies: sceneData.enemies.map(e => ({ ...e })), roundNumber: 1 },
-    turnNumber: 0
+    encounterState: {
+      inCombat: sceneData.enemies.length > 0,
+      enemies: sceneData.enemies.map((e) => ({ ...e })),
+      roundNumber: 1,
+    },
+    turnNumber: 0,
   };
 
   sandboxAddMsg(session, 'system', '⚡ OmniRuleset Playtest Session Initialized');
@@ -2600,7 +2705,7 @@ function sandboxCreateSession(ruleset: SandboxSynthesizedRuleset): SandboxGMSess
   sandboxAddMsg(session, 'gm', sceneData.scene);
 
   if (session.encounterState.inCombat) {
-    const list = session.encounterState.enemies.map(e => e.name).join(', ');
+    const list = session.encounterState.enemies.map((e) => e.name).join(', ');
     sandboxAddMsg(session, 'system', `⚔️ Combat Engaged! Enemies: ${list}`);
     sandboxAddMsg(session, 'gm', 'Roll for initiative! What do you do?');
   } else {
@@ -2610,7 +2715,11 @@ function sandboxCreateSession(ruleset: SandboxSynthesizedRuleset): SandboxGMSess
   return session;
 }
 
-function sandboxAddMsg(session: SandboxGMSession, role: 'gm' | 'player' | 'system', content: string): SandboxChatMessage {
+function sandboxAddMsg(
+  session: SandboxGMSession,
+  role: 'gm' | 'player' | 'system',
+  content: string
+): SandboxChatMessage {
   const msg: SandboxChatMessage = { role, content, timestamp: Date.now() };
   session.chatLog.push(msg);
   return msg;
@@ -2627,15 +2736,35 @@ function sandboxProcessAction(session: SandboxGMSession, playerInput: string): S
   const mod = sandboxStatMod(stat.value);
 
   switch (actionType) {
-    case 'attack': newMsgs.push(...sandboxHandleAttack(session, mod, stat.name)); break;
-    case 'defend': newMsgs.push(...sandboxHandleDefend(session, mod, stat.name)); break;
-    case 'cast': newMsgs.push(...sandboxHandleCast(session, mod, stat.name)); break;
-    case 'explore': newMsgs.push(...sandboxHandleExplore(session, mod, stat.name)); break;
-    case 'social': newMsgs.push(...sandboxHandleSocial(session, mod, stat.name)); break;
-    case 'skill': newMsgs.push(...sandboxHandleSkill(session, mod, stat.name, playerInput)); break;
-    case 'rest': newMsgs.push(...sandboxHandleRest(session)); break;
+    case 'attack':
+      newMsgs.push(...sandboxHandleAttack(session, mod, stat.name));
+      break;
+    case 'defend':
+      newMsgs.push(...sandboxHandleDefend(session, mod, stat.name));
+      break;
+    case 'cast':
+      newMsgs.push(...sandboxHandleCast(session, mod, stat.name));
+      break;
+    case 'explore':
+      newMsgs.push(...sandboxHandleExplore(session, mod, stat.name));
+      break;
+    case 'social':
+      newMsgs.push(...sandboxHandleSocial(session, mod, stat.name));
+      break;
+    case 'skill':
+      newMsgs.push(...sandboxHandleSkill(session, mod, stat.name, playerInput));
+      break;
+    case 'rest':
+      newMsgs.push(...sandboxHandleRest(session));
+      break;
     default:
-      newMsgs.push(sandboxAddMsg(session, 'gm', 'You consider your options. Try: attack, cast a spell, explore, talk, use a skill, or rest.'));
+      newMsgs.push(
+        sandboxAddMsg(
+          session,
+          'gm',
+          'You consider your options. Try: attack, cast a spell, explore, talk, use a skill, or rest.'
+        )
+      );
       break;
   }
 
@@ -2644,10 +2773,12 @@ function sandboxProcessAction(session: SandboxGMSession, playerInput: string): S
     newMsgs.push(sandboxAddMsg(session, 'system', '💀 Your character has fallen! Session Over.'));
   }
 
-  if (session.encounterState.inCombat && session.encounterState.enemies.every(e => !e.alive)) {
+  if (session.encounterState.inCombat && session.encounterState.enemies.every((e) => !e.alive)) {
     session.encounterState.inCombat = false;
     newMsgs.push(sandboxAddMsg(session, 'system', '🏆 All enemies defeated! Combat ended.'));
-    newMsgs.push(sandboxAddMsg(session, 'gm', 'The dust settles. You catch your breath. What would you like to do next?'));
+    newMsgs.push(
+      sandboxAddMsg(session, 'gm', 'The dust settles. You catch your breath. What would you like to do next?')
+    );
   }
 
   return newMsgs;
@@ -2659,9 +2790,9 @@ function sandboxHandleAttack(session: SandboxGMSession, mod: number, statName: s
   const total = roll.finalResult + mod;
   msgs.push(sandboxAddMsg(session, 'system', `${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`));
 
-  const aliveEnemies = session.encounterState.enemies.filter(e => e.alive);
+  const aliveEnemies = session.encounterState.enemies.filter((e) => e.alive);
   if (aliveEnemies.length === 0) {
-    msgs.push(sandboxAddMsg(session, 'gm', 'There\'s nothing to attack right now. Perhaps explore your surroundings?'));
+    msgs.push(sandboxAddMsg(session, 'gm', "There's nothing to attack right now. Perhaps explore your surroundings?"));
     return msgs;
   }
   const target = aliveEnemies[0];
@@ -2671,13 +2802,32 @@ function sandboxHandleAttack(session: SandboxGMSession, mod: number, statName: s
     target.hp -= damage;
     msgs.push(sandboxAddMsg(session, 'system', `💥 Damage: ${sandboxFormatRollHTML(dmg)} + ${mod} = ${damage}`));
     if (target.hp <= 0) {
-      target.hp = 0; target.alive = false;
-      msgs.push(sandboxAddMsg(session, 'gm', `Your strike lands true! The ${target.name} crumbles, defeated. (${damage} damage)`));
+      target.hp = 0;
+      target.alive = false;
+      msgs.push(
+        sandboxAddMsg(
+          session,
+          'gm',
+          `Your strike lands true! The ${target.name} crumbles, defeated. (${damage} damage)`
+        )
+      );
     } else {
-      msgs.push(sandboxAddMsg(session, 'gm', `A solid hit against the ${target.name}! (${damage} damage, ${target.hp}/${target.maxHp} HP remaining)`));
+      msgs.push(
+        sandboxAddMsg(
+          session,
+          'gm',
+          `A solid hit against the ${target.name}! (${damage} damage, ${target.hp}/${target.maxHp} HP remaining)`
+        )
+      );
     }
   } else {
-    msgs.push(sandboxAddMsg(session, 'gm', `Your attack swings wide of the ${target.name}! (Needed ${target.defense}, rolled ${total})`));
+    msgs.push(
+      sandboxAddMsg(
+        session,
+        'gm',
+        `Your attack swings wide of the ${target.name}! (Needed ${target.defense}, rolled ${total})`
+      )
+    );
   }
   msgs.push(...sandboxEnemyTurn(session));
   return msgs;
@@ -2687,9 +2837,13 @@ function sandboxHandleDefend(session: SandboxGMSession, mod: number, statName: s
   const msgs: SandboxChatMessage[] = [];
   const roll = sandboxRollDice('1d20');
   const total = roll.finalResult + mod;
-  msgs.push(sandboxAddMsg(session, 'system', `🛡️ Defense: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`));
+  msgs.push(
+    sandboxAddMsg(session, 'system', `🛡️ Defense: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`)
+  );
   if (total >= 15) {
-    msgs.push(sandboxAddMsg(session, 'gm', 'You brace expertly, raising your defenses. +2 on next defensive reaction.'));
+    msgs.push(
+      sandboxAddMsg(session, 'gm', 'You brace expertly, raising your defenses. +2 on next defensive reaction.')
+    );
     session.character.conditions.push('Defending (+2)');
   } else {
     msgs.push(sandboxAddMsg(session, 'gm', 'You take a defensive posture but feel uncertain of your footing.'));
@@ -2700,24 +2854,53 @@ function sandboxHandleDefend(session: SandboxGMSession, mod: number, statName: s
 
 function sandboxHandleCast(session: SandboxGMSession, mod: number, statName: string): SandboxChatMessage[] {
   const msgs: SandboxChatMessage[] = [];
-  const hasSpells = session.character.abilities.some(a => /spell|cantrip/i.test(a));
+  const hasSpells = session.character.abilities.some((a) => /spell|cantrip/i.test(a));
   if (!hasSpells) {
-    msgs.push(sandboxAddMsg(session, 'gm', 'You try to channel magic, but have no spells prepared. Learn magic through advancement.'));
+    msgs.push(
+      sandboxAddMsg(
+        session,
+        'gm',
+        'You try to channel magic, but have no spells prepared. Learn magic through advancement.'
+      )
+    );
     return msgs;
   }
   const roll = sandboxRollDice('1d20');
   const total = roll.finalResult + mod;
-  msgs.push(sandboxAddMsg(session, 'system', `✨ Spellcasting: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`));
+  msgs.push(
+    sandboxAddMsg(
+      session,
+      'system',
+      `✨ Spellcasting: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`
+    )
+  );
   if (total >= 12) {
     const dmg = sandboxRollDice('2d6');
     const damage = Math.max(dmg.finalResult + mod, 1);
     msgs.push(sandboxAddMsg(session, 'system', `🌟 Spell damage: ${sandboxFormatRollHTML(dmg)} + ${mod} = ${damage}`));
-    const alive = session.encounterState.enemies.filter(e => e.alive);
+    const alive = session.encounterState.enemies.filter((e) => e.alive);
     if (alive.length > 0) {
       const target = alive[0];
       target.hp -= damage;
-      if (target.hp <= 0) { target.hp = 0; target.alive = false; msgs.push(sandboxAddMsg(session, 'gm', `Arcane energy engulfs the ${target.name}! It dissolves into motes of light. (${damage} magical damage)`)); }
-      else { msgs.push(sandboxAddMsg(session, 'gm', `Your spell strikes the ${target.name}! (${damage} damage, ${target.hp}/${target.maxHp} HP remaining)`)); }
+      if (target.hp <= 0) {
+        target.hp = 0;
+        target.alive = false;
+        msgs.push(
+          sandboxAddMsg(
+            session,
+            'gm',
+            `Arcane energy engulfs the ${target.name}! It dissolves into motes of light. (${damage} magical damage)`
+          )
+        );
+      } else {
+        msgs.push(
+          sandboxAddMsg(
+            session,
+            'gm',
+            `Your spell strikes the ${target.name}! (${damage} damage, ${target.hp}/${target.maxHp} HP remaining)`
+          )
+        );
+      }
     } else {
       msgs.push(sandboxAddMsg(session, 'gm', 'Your spell illuminates the area brilliantly. No targets nearby.'));
     }
@@ -2732,14 +2915,34 @@ function sandboxHandleExplore(session: SandboxGMSession, mod: number, statName: 
   const msgs: SandboxChatMessage[] = [];
   const roll = sandboxRollDice('1d20');
   const total = roll.finalResult + mod;
-  msgs.push(sandboxAddMsg(session, 'system', `🔍 Perception: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`));
+  msgs.push(
+    sandboxAddMsg(session, 'system', `🔍 Perception: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`)
+  );
   if (total >= 18) {
-    msgs.push(sandboxAddMsg(session, 'gm', 'Excellent perception! You find a hidden compartment with a healing potion and 15 gold pieces. Fresh tracks lead deeper.'));
+    msgs.push(
+      sandboxAddMsg(
+        session,
+        'gm',
+        'Excellent perception! You find a hidden compartment with a healing potion and 15 gold pieces. Fresh tracks lead deeper.'
+      )
+    );
     session.character.inventory.push('Healing Potion');
   } else if (total >= 12) {
-    msgs.push(sandboxAddMsg(session, 'gm', 'You notice worn markings on the walls and a faint draft indicating a passage nearby.'));
+    msgs.push(
+      sandboxAddMsg(
+        session,
+        'gm',
+        'You notice worn markings on the walls and a faint draft indicating a passage nearby.'
+      )
+    );
   } else {
-    msgs.push(sandboxAddMsg(session, 'gm', 'Nothing immediately catches your eye. The area seems unremarkable, but something feels off...'));
+    msgs.push(
+      sandboxAddMsg(
+        session,
+        'gm',
+        'Nothing immediately catches your eye. The area seems unremarkable, but something feels off...'
+      )
+    );
   }
   return msgs;
 }
@@ -2748,10 +2951,18 @@ function sandboxHandleSocial(session: SandboxGMSession, mod: number, statName: s
   const msgs: SandboxChatMessage[] = [];
   const roll = sandboxRollDice('1d20');
   const total = roll.finalResult + mod;
-  msgs.push(sandboxAddMsg(session, 'system', `🗣️ Charisma: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`));
-  const alive = session.encounterState.enemies.filter(e => e.alive);
+  msgs.push(
+    sandboxAddMsg(session, 'system', `🗣️ Charisma: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`)
+  );
+  const alive = session.encounterState.enemies.filter((e) => e.alive);
   if (total >= 20 && alive.length > 0) {
-    msgs.push(sandboxAddMsg(session, 'gm', `Your words carry undeniable authority. The ${alive[0].name} hesitates and lowers its guard. Combat paused.`));
+    msgs.push(
+      sandboxAddMsg(
+        session,
+        'gm',
+        `Your words carry undeniable authority. The ${alive[0].name} hesitates and lowers its guard. Combat paused.`
+      )
+    );
     session.encounterState.inCombat = false;
   } else if (total >= 13) {
     msgs.push(sandboxAddMsg(session, 'gm', 'Your words have some effect. An opening for further negotiation appears.'));
@@ -2762,7 +2973,12 @@ function sandboxHandleSocial(session: SandboxGMSession, mod: number, statName: s
   return msgs;
 }
 
-function sandboxHandleSkill(session: SandboxGMSession, mod: number, statName: string, input: string): SandboxChatMessage[] {
+function sandboxHandleSkill(
+  session: SandboxGMSession,
+  mod: number,
+  statName: string,
+  input: string
+): SandboxChatMessage[] {
   const msgs: SandboxChatMessage[] = [];
   const lower = input.toLowerCase();
   let skillName = 'Skill Check';
@@ -2774,12 +2990,27 @@ function sandboxHandleSkill(session: SandboxGMSession, mod: number, statName: st
 
   const roll = sandboxRollDice('1d20');
   const total = roll.finalResult + mod;
-  msgs.push(sandboxAddMsg(session, 'system', `🎯 ${skillName}: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`));
+  msgs.push(
+    sandboxAddMsg(
+      session,
+      'system',
+      `🎯 ${skillName}: ${sandboxFormatRollHTML(roll)} + ${mod} (${statName}) = ${total}`
+    )
+  );
 
   if (skillName === 'Medicine' && total >= 12) {
-    const heal = Math.min(sandboxRollDice('1d6').finalResult, session.character.maxHitPoints - session.character.hitPoints);
+    const heal = Math.min(
+      sandboxRollDice('1d6').finalResult,
+      session.character.maxHitPoints - session.character.hitPoints
+    );
     session.character.hitPoints += heal;
-    msgs.push(sandboxAddMsg(session, 'gm', `You tend your wounds, recovering ${heal} HP. (HP: ${session.character.hitPoints}/${session.character.maxHitPoints})`));
+    msgs.push(
+      sandboxAddMsg(
+        session,
+        'gm',
+        `You tend your wounds, recovering ${heal} HP. (HP: ${session.character.hitPoints}/${session.character.maxHitPoints})`
+      )
+    );
   } else if (total >= 15) {
     msgs.push(sandboxAddMsg(session, 'gm', `Impressive! Your ${skillName.toLowerCase()} succeeds beautifully.`));
   } else if (total >= 10) {
@@ -2793,21 +3024,30 @@ function sandboxHandleSkill(session: SandboxGMSession, mod: number, statName: st
 function sandboxHandleRest(session: SandboxGMSession): SandboxChatMessage[] {
   const msgs: SandboxChatMessage[] = [];
   if (session.encounterState.inCombat) {
-    msgs.push(sandboxAddMsg(session, 'gm', 'You can\'t rest during combat! Deal with the threat first.'));
+    msgs.push(sandboxAddMsg(session, 'gm', "You can't rest during combat! Deal with the threat first."));
     msgs.push(...sandboxEnemyTurn(session));
     return msgs;
   }
-  const heal = Math.min(sandboxRollDice('1d8').finalResult, session.character.maxHitPoints - session.character.hitPoints);
+  const heal = Math.min(
+    sandboxRollDice('1d8').finalResult,
+    session.character.maxHitPoints - session.character.hitPoints
+  );
   session.character.hitPoints += heal;
   session.character.conditions = [];
   msgs.push(sandboxAddMsg(session, 'system', `💤 Rest: Recovered ${heal} HP`));
-  msgs.push(sandboxAddMsg(session, 'gm', `You rest and recuperate. (HP: ${session.character.hitPoints}/${session.character.maxHitPoints}). Conditions cleared.`));
+  msgs.push(
+    sandboxAddMsg(
+      session,
+      'gm',
+      `You rest and recuperate. (HP: ${session.character.hitPoints}/${session.character.maxHitPoints}). Conditions cleared.`
+    )
+  );
   return msgs;
 }
 
 function sandboxEnemyTurn(session: SandboxGMSession): SandboxChatMessage[] {
   const msgs: SandboxChatMessage[] = [];
-  const alive = session.encounterState.enemies.filter(e => e.alive);
+  const alive = session.encounterState.enemies.filter((e) => e.alive);
   if (!session.encounterState.inCombat || alive.length === 0) return msgs;
 
   for (const enemy of alive) {
@@ -2822,10 +3062,24 @@ function sandboxEnemyTurn(session: SandboxGMSession): SandboxChatMessage[] {
     if (attackTotal >= effectiveDef) {
       const damage = Math.max(sandboxRollDice('1d6').finalResult, 1);
       session.character.hitPoints -= damage;
-      msgs.push(sandboxAddMsg(session, 'system', `⚠️ ${enemy.name} attacks! Roll ${attackTotal} vs Defense ${effectiveDef} — HIT!`));
-      msgs.push(sandboxAddMsg(session, 'gm', `The ${enemy.name} strikes you for ${damage} damage! (HP: ${session.character.hitPoints}/${session.character.maxHitPoints})`));
+      msgs.push(
+        sandboxAddMsg(
+          session,
+          'system',
+          `⚠️ ${enemy.name} attacks! Roll ${attackTotal} vs Defense ${effectiveDef} — HIT!`
+        )
+      );
+      msgs.push(
+        sandboxAddMsg(
+          session,
+          'gm',
+          `The ${enemy.name} strikes you for ${damage} damage! (HP: ${session.character.hitPoints}/${session.character.maxHitPoints})`
+        )
+      );
     } else {
-      msgs.push(sandboxAddMsg(session, 'system', `🛡️ ${enemy.name}: Roll ${attackTotal} vs Defense ${effectiveDef} — MISS!`));
+      msgs.push(
+        sandboxAddMsg(session, 'system', `🛡️ ${enemy.name}: Roll ${attackTotal} vs Defense ${effectiveDef} — MISS!`)
+      );
       msgs.push(sandboxAddMsg(session, 'gm', `The ${enemy.name} lunges but you evade the blow!`));
     }
   }
@@ -2837,7 +3091,12 @@ function sandboxRenderCharacterHTML(char: SandboxCharacterTemplate): string {
   let html = '';
   html += `<div class="char-stat"><span class="char-stat-label">Name</span><span class="char-stat-value">${char.name}</span></div>`;
   html += `<div class="char-stat"><span class="char-stat-label">Level</span><span class="char-stat-value">${char.level}</span></div>`;
-  const hpColor = char.hitPoints <= char.maxHitPoints * 0.3 ? '#ef4444' : char.hitPoints <= char.maxHitPoints * 0.6 ? '#f59e0b' : '#10b981';
+  const hpColor =
+    char.hitPoints <= char.maxHitPoints * 0.3
+      ? '#ef4444'
+      : char.hitPoints <= char.maxHitPoints * 0.6
+        ? '#f59e0b'
+        : '#10b981';
   html += `<div class="char-stat"><span class="char-stat-label">HP</span><span class="char-stat-value" style="color: ${hpColor};">${char.hitPoints}/${char.maxHitPoints}</span></div>`;
   for (const [stat, value] of Object.entries(char.stats)) {
     const mod = sandboxStatMod(value);
@@ -2871,7 +3130,9 @@ function initializeSandbox(): void {
     }
     const lower = query.toLowerCase();
     const sortedVectors = Array.from(uniqueVectors).sort();
-    const matches = sortedVectors.filter(v => v.toLowerCase().includes(lower) && !sandboxSelectedVectors.includes(v)).slice(0, 15);
+    const matches = sortedVectors
+      .filter((v) => v.toLowerCase().includes(lower) && !sandboxSelectedVectors.includes(v))
+      .slice(0, 15);
 
     if (matches.length === 0) {
       suggestionsContainer.innerHTML = '';
@@ -2879,12 +3140,12 @@ function initializeSandbox(): void {
       return;
     }
 
-    suggestionsContainer.innerHTML = matches.map(v =>
-      `<div class="suggestion-item" data-vector="${v}">${v}</div>`
-    ).join('');
+    suggestionsContainer.innerHTML = matches
+      .map((v) => `<div class="suggestion-item" data-vector="${v}">${v}</div>`)
+      .join('');
     suggestionsContainer.style.display = 'block';
 
-    suggestionsContainer.querySelectorAll('.suggestion-item').forEach(item => {
+    suggestionsContainer.querySelectorAll('.suggestion-item').forEach((item) => {
       item.addEventListener('click', () => {
         const vec = item.getAttribute('data-vector');
         if (vec && !sandboxSelectedVectors.includes(vec)) {
@@ -2977,15 +3238,18 @@ function sandboxRenderSelectedVectors(): void {
     container.innerHTML = '';
     return;
   }
-  container.innerHTML = sandboxSelectedVectors.map(v =>
-    `<span class="sandbox-vector-pill">${v}<span class="remove-vector" data-vector="${v}">&times;</span></span>`
-  ).join('');
+  container.innerHTML = sandboxSelectedVectors
+    .map(
+      (v) =>
+        `<span class="sandbox-vector-pill">${v}<span class="remove-vector" data-vector="${v}">&times;</span></span>`
+    )
+    .join('');
 
-  container.querySelectorAll('.remove-vector').forEach(btn => {
+  container.querySelectorAll('.remove-vector').forEach((btn) => {
     btn.addEventListener('click', () => {
       const vec = btn.getAttribute('data-vector');
       if (vec) {
-        sandboxSelectedVectors = sandboxSelectedVectors.filter(v => v !== vec);
+        sandboxSelectedVectors = sandboxSelectedVectors.filter((v) => v !== vec);
         sandboxRenderSelectedVectors();
         sandboxRunConflictAnalysis();
         sandboxUpdateSynthesizeBtn();
@@ -3006,13 +3270,15 @@ function sandboxRunConflictAnalysis(): void {
   const conflicts = sandboxAnalyzeConflicts(sandboxSelectedVectors);
 
   if (conflicts.length === 0) {
-    container.innerHTML = '<div class="sandbox-empty-state" style="color: var(--color-success);">✅ No mechanical conflicts detected. Clear for synthesis!</div>';
+    container.innerHTML =
+      '<div class="sandbox-empty-state" style="color: var(--color-success);">✅ No mechanical conflicts detected. Clear for synthesis!</div>';
     return;
   }
 
-  container.innerHTML = conflicts.map(c => {
-    const icon = c.rule.severity === 'critical' ? '🔴' : '🟡';
-    return `
+  container.innerHTML = conflicts
+    .map((c) => {
+      const icon = c.rule.severity === 'critical' ? '🔴' : '🟡';
+      return `
       <div class="sandbox-conflict-card">
         <div class="sandbox-conflict-title">${icon} ${c.rule.category}</div>
         <div>${c.rule.description}</div>
@@ -3024,7 +3290,8 @@ function sandboxRunConflictAnalysis(): void {
         </div>
       </div>
     `;
-  }).join('');
+    })
+    .join('');
 }
 
 function sandboxUpdateSynthesizeBtn(): void {
@@ -3038,9 +3305,9 @@ function sandboxRenderChatLog(): void {
   const chatLog = document.getElementById('sandbox-chat-log');
   if (!chatLog || !sandboxSession) return;
 
-  chatLog.innerHTML = sandboxSession.chatLog.map(msg =>
-    `<div class="sandbox-chat-msg ${msg.role}">${msg.content}</div>`
-  ).join('');
+  chatLog.innerHTML = sandboxSession.chatLog
+    .map((msg) => `<div class="sandbox-chat-msg ${msg.role}">${msg.content}</div>`)
+    .join('');
   chatLog.scrollTop = chatLog.scrollHeight;
 }
 

@@ -27,31 +27,31 @@ describe('OmniRuleset Sandbox Module', () => {
         category: 'Resolution Mechanic',
         vectorPatterns: ['resolution.dice_pool', 'resolution.single_die'],
         severity: 'critical',
-        resolution: 'Use dice pool as primary'
+        resolution: 'Use dice pool as primary',
       },
       {
         id: 'hp-vs-wound-track',
         category: 'Damage System',
         vectorPatterns: ['combat.damage.hit_points', 'combat.damage.wound_levels'],
         severity: 'critical',
-        resolution: 'Implement wound thresholds'
+        resolution: 'Implement wound thresholds',
       },
       {
         id: 'class-vs-classless',
         category: 'Character Architecture',
         vectorPatterns: ['character.progression.class_based', 'character.progression.classless'],
         severity: 'warning',
-        resolution: 'Offer class templates as optional'
-      }
+        resolution: 'Offer class templates as optional',
+      },
     ];
 
     function analyzeConflicts(selectedVectors) {
       const detected = [];
       for (const rule of CONFLICT_RULES) {
-        const matchedPatterns = rule.vectorPatterns.map(pattern =>
-          selectedVectors.filter(v => v === pattern || v.startsWith(pattern + '.'))
+        const matchedPatterns = rule.vectorPatterns.map((pattern) =>
+          selectedVectors.filter((v) => v === pattern || v.startsWith(pattern + '.'))
         );
-        if (matchedPatterns.every(matches => matches.length > 0)) {
+        if (matchedPatterns.every((matches) => matches.length > 0)) {
           const triggers = [...new Set(matchedPatterns.flat())];
           detected.push({ rule, triggeringVectors: triggers, resolved: false });
         }
@@ -75,12 +75,14 @@ describe('OmniRuleset Sandbox Module', () => {
 
     test('detects multiple conflicts when several incompatible pairs present', () => {
       const vectors = [
-        'resolution.dice_pool', 'resolution.single_die',
-        'combat.damage.hit_points', 'combat.damage.wound_levels'
+        'resolution.dice_pool',
+        'resolution.single_die',
+        'combat.damage.hit_points',
+        'combat.damage.wound_levels',
       ];
       const conflicts = analyzeConflicts(vectors);
       expect(conflicts).toHaveLength(2);
-      const categories = conflicts.map(c => c.rule.category);
+      const categories = conflicts.map((c) => c.rule.category);
       expect(categories).toContain('Resolution Mechanic');
       expect(categories).toContain('Damage System');
     });
@@ -218,16 +220,18 @@ describe('OmniRuleset Sandbox Module', () => {
       const stats = { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10 };
       const skills = [];
       const abilities = [];
-      const inventory = ['Traveler\'s Pack', 'Waterskin', '50 ft. Rope'];
+      const inventory = ["Traveler's Pack", 'Waterskin', '50 ft. Rope'];
 
       if (domainGroups.combat) {
-        stats.STR = 14; stats.CON = 12;
+        stats.STR = 14;
+        stats.CON = 12;
         skills.push('Athletics', 'Weapon Handling');
         abilities.push('Basic Attack', 'Defensive Stance');
         inventory.push('Short Sword', 'Leather Armor', 'Shield');
       }
       if (domainGroups.magic) {
-        stats.INT = 14; stats.WIS = 12;
+        stats.INT = 14;
+        stats.WIS = 12;
         skills.push('Arcana', 'Spellcraft');
         abilities.push('Cantrip: Light', 'Spell: Magic Missile');
       }
@@ -238,11 +242,15 @@ describe('OmniRuleset Sandbox Module', () => {
 
       const maxHP = 8 + (stats.CON - 10);
       return {
-        name: 'Unnamed Adventurer', level: 1,
-        hitPoints: maxHP, maxHitPoints: maxHP,
-        stats, skills: skills.length > 0 ? skills : ['General Knowledge'],
+        name: 'Unnamed Adventurer',
+        level: 1,
+        hitPoints: maxHP,
+        maxHitPoints: maxHP,
+        stats,
+        skills: skills.length > 0 ? skills : ['General Knowledge'],
         abilities: abilities.length > 0 ? abilities : ['Improvise'],
-        inventory, conditions: []
+        inventory,
+        conditions: [],
       };
     }
 
@@ -271,7 +279,7 @@ describe('OmniRuleset Sandbox Module', () => {
       const char = generateCharacter({
         combat: ['combat.melee'],
         magic: ['magic.arcane'],
-        social: ['social.persuasion']
+        social: ['social.persuasion'],
       });
       expect(char.stats.STR).toBe(14);
       expect(char.stats.INT).toBe(14);
@@ -305,7 +313,11 @@ describe('OmniRuleset Sandbox Module', () => {
 
     test('vectorToLabel converts dots to arrows and underscores to spaces', () => {
       function vectorToLabel(vector) {
-        return vector.split('.').map(p => p.replace(/_/g, ' ')).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' → ');
+        return vector
+          .split('.')
+          .map((p) => p.replace(/_/g, ' '))
+          .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+          .join(' → ');
       }
 
       expect(vectorToLabel('combat.melee.tactical')).toBe('Combat → Melee → Tactical');

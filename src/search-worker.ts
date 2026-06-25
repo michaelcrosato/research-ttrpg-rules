@@ -2,8 +2,8 @@
 
 /**
  * search-worker.ts
- * 
- * Web Worker implementation for indexing, omni-search, vector dictionary lookup, 
+ *
+ * Web Worker implementation for indexing, omni-search, vector dictionary lookup,
  * Venn comparisons, and autocomplete in the Systems Indexer application.
  */
 
@@ -58,13 +58,13 @@ function handleInitWrapper(data: any, type: string): void {
     worker.postMessage({
       type: 'error',
       action: type,
-      error: error instanceof Error ? error.message : String(error)
+      error: error instanceof Error ? error.message : String(error),
     } as ErrorResponse);
   });
 }
 
 // Handle messages from the main thread
-worker.onmessage = function(e: any) {
+worker.onmessage = function (e: any) {
   const data = (e && e.data) || {};
   const type = data.type || data.action;
 
@@ -95,14 +95,14 @@ worker.onmessage = function(e: any) {
         worker.postMessage({
           type: 'error',
           action: type as string,
-          error: `Unknown type: ${type}`
+          error: `Unknown type: ${type}`,
         } as ErrorResponse);
     }
   } catch (error: any) {
     worker.postMessage({
       type: 'error',
       action: type as string,
-      error: error instanceof Error ? error.message : String(error)
+      error: error instanceof Error ? error.message : String(error),
     } as ErrorResponse);
   }
 };
@@ -120,9 +120,9 @@ function rebuildVectorsCache(): void {
       allNamespaces.add(current);
     }
   }
-  
+
   sortedUniqueVectors = Array.from(allNamespaces).sort((a, b) => a.localeCompare(b));
-  
+
   vectorsByDomain.clear();
   for (const vector of sortedUniqueVectors) {
     const domain = vector.split('.')[0] || 'general';
@@ -136,7 +136,7 @@ function rebuildVectorsCache(): void {
 /**
  * Cleans, optimizes, and freezes a game object to minimize memory overhead
  * and pre-calculate helper structures like Sets.
- * 
+ *
  * @param game - Raw game object
  * @returns Cleaned and frozen game object
  */
@@ -152,21 +152,21 @@ function cleanAndFreezeGame(game: any): GameRulesetInternal {
     vector_explanations: game.vector_explanations || {},
     description: game.description || '',
     extract: game.extract || '',
-    governed_vectors_set: new Set(game.governed_vectors || [])
+    governed_vectors_set: new Set(game.governed_vectors || []),
   };
-  
+
   // Freeze to minimize memory overhead in V8
   Object.freeze(clean.subgenres);
   Object.freeze(clean.governed_vectors);
   Object.freeze(clean.vector_explanations);
   Object.freeze(clean);
-  
+
   return clean;
 }
 
 /**
  * Adds a single game to both the FlexSearch index and the inverted index dictionary.
- * 
+ *
  * @param game - Game data object
  */
 function addToIndexAndDictionary(game: GameRulesetInternal): void {
@@ -176,12 +176,12 @@ function addToIndexAndDictionary(game: GameRulesetInternal): void {
   const subgenresStr = (game.subgenres || []).join(' ');
   const vectorsStr = (game.governed_vectors || []).join(' ');
   const searchContent = `${title} ${primaryGenre} ${subgenresStr} ${vectorsStr}`;
-  
+
   // Add to FlexSearch Index
   if (index) {
     index.add(game.game_id, searchContent);
   }
-  
+
   // Update inverted index for O(1) lookups and uniqueVectors Set
   if (game.governed_vectors) {
     for (const vector of game.governed_vectors) {
@@ -191,13 +191,13 @@ function addToIndexAndDictionary(game: GameRulesetInternal): void {
         list = [];
         invertedIndex.set(vector, list);
       }
-      
+
       // O(1) dictionary lookups require mapping vector -> Array<{ game_id, title }>
       list.push({
         game_id: game.game_id,
         title: game.title,
         medium: game.medium as 'ttrpg' | 'board_game',
-        year: game.year
+        year: game.year,
       });
     }
   }
@@ -205,56 +205,56 @@ function addToIndexAndDictionary(game: GameRulesetInternal): void {
 
 /**
  * Initializes the database, fetches registry.json, builds indices.
- * 
+ *
  * @param data - Configuration data
  */
 async function handleInit(data: InitRequest): Promise<void> {
   // Support both new dbUrl parameter and old payload url/dbUrl
   const url = data.dbUrl || (data.payload && (data.payload.dbUrl || data.payload.url)) || 'registry.json';
-  
+
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch registry from ${url}: status ${response.status}`);
   }
-  
+
   const registryData = (await response.json()) as { ttrpg?: GameRuleset[]; board_game?: GameRuleset[] };
-  
+
   // Combine TTRPGs and Board Games, identifying medium, and clean/freeze them to minimize memory
-  const ttrpgs = (registryData.ttrpg || []).map(g => cleanAndFreezeGame({ ...g, medium: 'ttrpg' }));
-  const boardGames = (registryData.board_game || []).map(g => cleanAndFreezeGame({ ...g, medium: 'board_game' }));
+  const ttrpgs = (registryData.ttrpg || []).map((g) => cleanAndFreezeGame({ ...g, medium: 'ttrpg' }));
+  const boardGames = (registryData.board_game || []).map((g) => cleanAndFreezeGame({ ...g, medium: 'board_game' }));
   games = [...ttrpgs, ...boardGames];
-  
-  // Build a concatenated single-field FlexSearch.Index for fast omni-search, 
+
+  // Build a concatenated single-field FlexSearch.Index for fast omni-search,
   // utilizing split regex /[\s.]+/ for namespaced vectors.
   // Configure suggest: true to support prefix matching and fuzzy search (edit distance up to 2).
   index = new worker.FlexSearch.Index({
-    tokenize: "forward",
+    tokenize: 'forward',
     split: /[\s.]+/,
-    suggest: true
+    suggest: true,
   });
-  
+
   // Reset state
   invertedIndex = new Map();
   uniqueVectors = new Set();
   gamesMap = new Map();
   searchCache.clear();
-  
+
   // Populate indices
   for (const game of games) {
     gamesMap.set(game.game_id, game);
     addToIndexAndDictionary(game);
   }
-  
+
   // Build pre-sorted vectors cache
   rebuildVectorsCache();
-  
+
   isInitialized = true;
-  
+
   const totalGames = games.length;
   const totalTtrpgs = ttrpgs.length;
   const totalBoardgames = boardGames.length;
   const uniqueVectorsCount = uniqueVectors.size;
-  
+
   worker.postMessage({
     type: 'ready',
     action: 'init',
@@ -266,24 +266,24 @@ async function handleInit(data: InitRequest): Promise<void> {
       uniqueVectorsCount,
       ttrpgCount: totalTtrpgs,
       boardGameCount: totalBoardgames,
-      uniqueVectors: uniqueVectorsCount
-    }
+      uniqueVectors: uniqueVectorsCount,
+    },
   } as ReadyResponse);
 }
 
 /**
  * Handles search requests using FlexSearch index combined with filters and sorting.
- * 
+ *
  * @param data - Search parameter data
  */
 function handleSearch(data: SearchRequest): void {
   if (!isInitialized) {
     throw new Error('Worker is not initialized. Please run init action first.');
   }
-  
+
   const t0 = performance.now();
   const filters = data.filters || data.payload || {};
-  
+
   // Coerce inputs to strings robustly
   const searchTerm = String(filters.searchTerm || '');
   const medium = String(filters.medium || 'all');
@@ -298,7 +298,7 @@ function handleSearch(data: SearchRequest): void {
     genre,
     minYear,
     maxYear,
-    sort
+    sort,
   });
   if (searchCache.has(cacheKey)) {
     const cached = searchCache.get(cacheKey)!;
@@ -309,70 +309,68 @@ function handleSearch(data: SearchRequest): void {
       results: cached.results,
       totalCount: cached.totalCount,
       total: cached.total,
-      latencyMs: duration
+      latencyMs: duration,
     } as SearchResultsResponse);
     return;
   }
-  
+
   let matchedIds: (string | number)[] | null = null;
   const trimmedSearch = searchTerm.trim().toLowerCase();
-  
+
   if (trimmedSearch) {
     // Make sure to specify a high limit (e.g., limit: 10000) and suggest: true for fuzzy search.
     if (index) {
       matchedIds = index.search(trimmedSearch, { limit: 10000, suggest: true });
     }
   }
-  
+
   let results: GameRulesetInternal[] = [];
   if (matchedIds !== null) {
     // Relevance sorting fix: preserve the sorting order returned by FlexSearch's search()
-    results = matchedIds
-      .map(id => gamesMap.get(String(id)))
-      .filter((g): g is GameRulesetInternal => !!g);
+    results = matchedIds.map((id) => gamesMap.get(String(id))).filter((g): g is GameRulesetInternal => !!g);
   } else {
     results = [...games];
   }
-  
+
   // Apply additional filters
-  results = results.filter(game => {
+  results = results.filter((game) => {
     // Medium filter
     const m = game.medium ? String(game.medium).toLowerCase() : '';
     if (medium !== 'all' && m !== medium.toLowerCase()) {
       return false;
     }
-    
+
     // Genre filter
     if (genre !== 'all') {
       const targetGenre = genre.toLowerCase();
       const matchesPrimary = game.primary_genre && String(game.primary_genre).toLowerCase() === targetGenre;
-      const matchesSub = game.subgenres && game.subgenres.some(sub => String(sub).toLowerCase() === targetGenre);
+      const matchesSub = game.subgenres && game.subgenres.some((sub) => String(sub).toLowerCase() === targetGenre);
       if (!matchesPrimary && !matchesSub) {
         return false;
       }
     }
-    
+
     // Year filter
     const y = Number(game.year);
     if (y < minYear || y > maxYear) {
       return false;
     }
-    
+
     return true;
   });
-  
+
   // Apply sorting
   results.sort((a, b) => {
     switch (sort) {
       case 'title-asc': {
         const ta = a.title || '';
         const tb = b.title || '';
-        return ta < tb ? -1 : (ta > tb ? 1 : 0);
+        return ta < tb ? -1 : ta > tb ? 1 : 0;
       }
       case 'title-desc': {
         const ta = a.title || '';
         const tb = b.title || '';
-        return tb < ta ? -1 : (tb > ta ? 1 : 0);
+        return tb < ta ? -1 : tb > ta ? 1 : 0;
       }
       case 'year-asc':
         return (a.year || 0) - (b.year || 0);
@@ -382,48 +380,50 @@ function handleSearch(data: SearchRequest): void {
         return 0; // Preserves the relative order (relevance order from FlexSearch!)
     }
   });
-  
+
   const duration = performance.now() - t0;
 
   searchCache.set(cacheKey, {
     results,
     totalCount: results.length,
-    total: results.length
+    total: results.length,
   });
-  
+
   worker.postMessage({
     type: 'searchResults',
     action: 'search',
     results,
     totalCount: results.length,
     total: results.length,
-    latencyMs: duration
+    latencyMs: duration,
   } as SearchResultsResponse);
 }
 
 /**
  * Handles autocomplete requests for vector queries or general search autocomplete.
- * 
+ *
  * @param data - Autocomplete parameter data
  */
 function handleAutocomplete(data: AutocompleteRequest): void {
   if (!isInitialized) {
     throw new Error('Worker is not initialized. Please run init action first.');
   }
-  
+
   const t0 = performance.now();
   const query = data.query !== undefined ? data.query : (data.payload && data.payload.query) || '';
   const autocompleteType = data.autocompleteType || (data.payload && data.payload.type) || 'vector';
-  
-  const q = String(query || '').trim().toLowerCase();
-  
+
+  const q = String(query || '')
+    .trim()
+    .toLowerCase();
+
   let suggestions: string[] = [];
   let results: string[] | AutocompleteGameResult[] = [];
-  
+
   if (autocompleteType === 'vector') {
     if (q) {
       // Use pre-sorted unique vectors to avoid sorting on every request!
-      suggestions = sortedUniqueVectors.filter(v => v.toLowerCase().includes(q));
+      suggestions = sortedUniqueVectors.filter((v) => v.toLowerCase().includes(q));
     } else {
       suggestions = sortedUniqueVectors;
     }
@@ -437,61 +437,61 @@ function handleAutocomplete(data: AutocompleteRequest): void {
       }
       // Relevance sorting fix: preserve FlexSearch's relevance order using map/find
       results = matchedIds
-        .map(id => gamesMap.get(String(id)))
+        .map((id) => gamesMap.get(String(id)))
         .filter((g): g is GameRulesetInternal => !!g)
-        .map(game => ({ game_id: game.game_id, title: game.title }));
+        .map((game) => ({ game_id: game.game_id, title: game.title }));
     }
   }
-  
+
   const duration = performance.now() - t0;
-  
+
   worker.postMessage({
     type: 'autocompleteResults',
     action: 'autocomplete',
     suggestions,
     results,
-    latencyMs: duration
+    latencyMs: duration,
   } as AutocompleteResultsResponse);
 }
 
 /**
  * Handles comparing two games using native JS Set operations for Venn comparisons.
- * 
+ *
  * @param data - Compare parameter data
  */
 function handleCompare(data: CompareRequest): void {
   if (!isInitialized) {
     throw new Error('Worker is not initialized. Please run init action first.');
   }
-  
+
   const t0 = performance.now();
   const gameIdA = data.gameIdA || (data.payload && data.payload.gameIdA);
   const gameIdB = data.gameIdB || (data.payload && data.payload.gameIdB);
-  
+
   if (!gameIdA || !gameIdB) {
     throw new Error('Game IDs gameIdA and gameIdB are required for comparison.');
   }
 
-  const gameA = games.find(g => g.game_id === gameIdA);
-  const gameB = games.find(g => g.game_id === gameIdB);
-  
+  const gameA = games.find((g) => g.game_id === gameIdA);
+  const gameB = games.find((g) => g.game_id === gameIdB);
+
   if (!gameA) {
     throw new Error(`Game A not found with ID: ${gameIdA}`);
   }
   if (!gameB) {
     throw new Error(`Game B not found with ID: ${gameIdB}`);
   }
-  
+
   // Implement pre-calculated Set lookups for optimized Venn comparisons (shared, only A, only B) in under 100μs.
   const setA = gameA.governed_vectors_set;
   const setB = gameB.governed_vectors_set;
-  
-  const shared = gameA.governed_vectors.filter(v => setB.has(v)).sort();
-  const onlyA = gameA.governed_vectors.filter(v => !setB.has(v)).sort();
-  const onlyB = gameB.governed_vectors.filter(v => !setA.has(v)).sort();
-  
+
+  const shared = gameA.governed_vectors.filter((v) => setB.has(v)).sort();
+  const onlyA = gameA.governed_vectors.filter((v) => !setB.has(v)).sort();
+  const onlyB = gameB.governed_vectors.filter((v) => !setA.has(v)).sort();
+
   const duration = performance.now() - t0;
-  
+
   worker.postMessage({
     type: 'compareResults',
     action: 'compare',
@@ -500,24 +500,24 @@ function handleCompare(data: CompareRequest): void {
     shared,
     onlyA,
     onlyB,
-    latencyMs: duration
+    latencyMs: duration,
   } as CompareResultsResponse);
 }
 
 /**
  * Handles dictionary requests utilizing the precomputed inverted index.
  * Enables O(1) dictionary lookups.
- * 
+ *
  * @param data - Dictionary parameter data
  */
 function handleDictionary(data: DictionaryRequest): void {
   if (!isInitialized) {
     throw new Error('Worker is not initialized. Please run init action first.');
   }
-  
+
   const domain = data.domain || (data.payload && data.payload.domain) || 'all';
   const vector = data.vector || (data.payload && data.payload.vector) || null;
-  
+
   if (vector) {
     // Search through all keys in invertedIndex for hierarchical matching
     const results: DictionaryGameEntry[] = [];
@@ -539,11 +539,11 @@ function handleDictionary(data: DictionaryRequest): void {
       action: 'dictionary',
       vector,
       results,
-      vectors: results
+      vectors: results,
     } as VectorDictionaryResultsResponse);
     return;
   }
-  
+
   // Get pre-grouped vectors list for domain in O(1)
   let vectors: string[] = [];
   if (domain === 'all') {
@@ -551,58 +551,58 @@ function handleDictionary(data: DictionaryRequest): void {
   } else {
     vectors = vectorsByDomain.get(domain) || [];
   }
-  
+
   const results = vectors
-    .filter(vec => uniqueVectors.has(vec))
-    .map(vec => ({
+    .filter((vec) => uniqueVectors.has(vec))
+    .map((vec) => ({
       vector: vec,
-      games: invertedIndex.get(vec) || []
+      games: invertedIndex.get(vec) || [],
     }));
-  
+
   worker.postMessage({
     type: 'dictionaryResults',
     action: 'dictionary',
     activeDomain: domain,
     domain,
     results,
-    vectors: results
+    vectors: results,
   } as DomainDictionaryResultsResponse);
 }
 
 /**
  * Dynamically adds a new game to the local memory database and indexes it.
- * 
+ *
  * @param data - AddGame parameter data
  */
 function handleAddGame(data: AddGameRequest): void {
   if (!isInitialized) {
     throw new Error('Worker is not initialized. Please run init action first.');
   }
-  
+
   const game = data.game || (data.payload && data.payload.game);
   if (!game || !game.game_id || !game.title) {
     throw new Error('Invalid game data provided for addGame action.');
   }
-  
-  const exists = games.some(g => g.game_id === game.game_id);
+
+  const exists = games.some((g) => g.game_id === game.game_id);
   if (exists) {
     throw new Error(`Game with ID '${game.game_id}' already exists.`);
   }
-  
+
   const cleaned = cleanAndFreezeGame(game);
   games.push(cleaned);
   gamesMap.set(cleaned.game_id, cleaned);
   addToIndexAndDictionary(cleaned);
   searchCache.clear();
-  
+
   // Rebuild the cached vectors structures
   rebuildVectorsCache();
-  
+
   const totalGames = games.length;
-  const totalTtrpgs = games.filter(g => g.medium === 'ttrpg').length;
-  const totalBoardgames = games.filter(g => g.medium === 'board_game').length;
+  const totalTtrpgs = games.filter((g) => g.medium === 'ttrpg').length;
+  const totalBoardgames = games.filter((g) => g.medium === 'board_game').length;
   const uniqueVectorsCount = uniqueVectors.size;
-  
+
   worker.postMessage({
     type: 'addGameDone',
     action: 'addGame',
@@ -612,18 +612,18 @@ function handleAddGame(data: AddGameRequest): void {
       totalGames,
       totalTtrpgs,
       totalBoardgames,
-      uniqueVectorsCount
+      uniqueVectorsCount,
     },
     stats: {
       totalGames,
-      uniqueVectors: uniqueVectorsCount
-    }
+      uniqueVectors: uniqueVectorsCount,
+    },
   } as AddGameDoneResponse);
 }
 
 /**
  * Dynamically adds a new custom vector to the uniqueVectors Set.
- * 
+ *
  * @param data - AddVector parameter data
  */
 function handleAddVector(data: AddVectorRequest): void {
