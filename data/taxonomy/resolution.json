@@ -1,0 +1,115 @@
+{
+  "domain": "resolution",
+  "description": "The core action-resolution engine of a game: the randomizer or judgment procedure that decides whether attempts succeed, how outcomes are graded and modified, and the currencies and target numbers that shape those decisions.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "core_mechanic": {
+      "description": "The fundamental procedure — dice, cards, tokens, or judgment — used to resolve uncertain actions.",
+      "focuses": {
+        "d20_vs_dc": "Roll a twenty-sided die, add modifiers, and compare against a difficulty class or armor class set by the task or target (D&D 5e, Pathfinder).",
+        "dice_pool_successes": "Roll a pool of dice sized by traits and count every die at or above a threshold as a success, with more successes meaning a better result (Shadowrun, Vampire: the Masquerade).",
+        "pbta_2d6_tiers": "Roll 2d6 plus a stat and read three fixed bands: 6 or less misses with consequences, 7-9 succeeds with complications, 10+ succeeds cleanly (Apocalypse World and Powered by the Apocalypse games).",
+        "2d6_plus_skill": "Roll 2d6, add skill and characteristic modifiers, and meet a standard target number, classically 8+ (Traveller).",
+        "roll_under_percentile": "Roll d100 and succeed by rolling at or under a percentile skill rating (Call of Cthulhu, Warhammer Fantasy Roleplay, RuneQuest).",
+        "roll_under_attribute": "Roll a die or dice and succeed by rolling under a raw attribute score (The Black Hack, GURPS-style 3d6 under skill).",
+        "blackjack_roll_under_high": "Roll under your rating but as high as possible, so the best results land just below the cap and beat lower successful rolls (Pendragon, Unknown Armies).",
+        "opposed_rolls": "Both sides of a contest roll and compare results directly, with the higher (or better-margin) roll winning the exchange.",
+        "card_draw": "Actions resolve by drawing or playing cards from a standard or custom deck instead of rolling dice (Castle Falkenstein, Savage Worlds initiative).",
+        "tarot_draw": "A tarot or bespoke oracle deck is drawn and interpreted to resolve actions or steer fate, with card meaning shaping the outcome (Everway's Fortune Deck, Invisible Sun's sooth deck).",
+        "jenga_tower": "Players pull blocks from a physical tower to succeed at actions; toppling the tower triggers the character's doom (Dread).",
+        "diceless_bidding": "Conflicts resolve by secretly or openly bidding from finite resource pools, with the higher committed bid prevailing (Amber Diceless Roleplaying).",
+        "diceless_gm_fiat": "Outcomes are adjudicated by the GM comparing stated approaches, character capabilities, and fictional positioning with no randomizer at all (Amber outside auctions, freeform play).",
+        "rock_paper_scissors": "Contests resolve with rock-paper-scissors throws, sometimes modified by traits or retests (Mind's Eye Theatre LARPs).",
+        "single_d6_tables": "A single d6 is rolled and cross-referenced on a fixed outcome table or matrix, common in minimalist designs and classic board games.",
+        "step_dice": "Traits are rated as die sizes (d4 up to d12), and improving a trait steps the die up; you roll your trait die against a target (Savage Worlds, Earthdawn).",
+        "roll_and_keep": "Roll a number of dice, then keep only a subset (usually your best) and sum those for the result (Legend of the Five Rings).",
+        "wager_dice": "Players stake dice or raise the difficulty before rolling to buy bigger effects at the risk of harder failure (7th Sea raises).",
+        "d100_criticals": "A percentile engine where special results — doubles, 01, 00, or extreme margins — trigger critical successes, fumbles, or chart-based effects (Warhammer Fantasy Roleplay 4e doubles, Rolemaster crit tables).",
+        "dice_ladder": "Numeric results translate onto a named ladder of quality tiers, so play talks in adjectives like Fair, Good, and Great rather than raw numbers (Fate's adjective ladder).",
+        "fate_fudge_dice": "Roll four six-sided dice marked plus, minus, and blank, sum the symbols from -4 to +4, and add a skill to place the result on a ladder (Fate, Fudge).",
+        "symbol_dice": "Custom dice carry narrative symbols — successes, advantages, threats, triumphs — that are cancelled and read in combination rather than summed (Genesys, FFG Star Wars).",
+        "chit_pull": "Tokens or chits drawn blind from a bag or cup determine activation, events, or outcomes (classic hex-and-counter wargames, bag-builders like Orléans).",
+        "dice_placement": "Dice are rolled and then allocated as workers or actions, with the face value gating what each die can do (Kingsburg, Alien Frontiers).",
+        "dice_drafting": "Players take turns picking dice from a shared rolled pool, so resolution power flows through the draft rather than personal rolls (Sagrada, Grand Austria Hotel).",
+        "exploding_dice": "Dice that roll their maximum value are rerolled and added, letting results open-end upward without limit (Savage Worlds aces, Shadowrun's rule of six).",
+        "push_your_luck": "Keep rolling or drawing to accumulate a better result, risking a bust condition that forfeits some or all of the gains (Can't Stop, The Quacks of Quedlinburg).",
+        "highest_die_pool": "Roll a pool of d6s and read only the single highest die against fixed bands, with multiple sixes upgrading to a critical (Blades in the Dark and Forged in the Dark games).",
+        "dice_matching_sets": "Roll a pool and read matched sets, where the set's width and height determine speed and quality of the outcome (the One Roll Engine: Godlike, Wild Talents).",
+        "coin_toss_pool": "Flip a pool of coins and count heads as successes against a difficulty (Prince Valiant)."
+      }
+    },
+    "degrees": {
+      "description": "How outcomes are graded beyond binary pass/fail, from partial successes to catastrophic fumbles.",
+      "focuses": {
+        "success_with_cost": "A roll can succeed while attaching a concrete cost, condition, or complication the player must accept (Mouse Guard twists, 'yes, but' resolution).",
+        "degrees_of_success": "Results are read in named grades — such as critical success, success, failure, critical failure — each with distinct mechanical effects (Pathfinder 2e's four degrees, WFRP success levels).",
+        "margin_of_success": "The numeric difference between roll and target scales the outcome continuously, with bigger margins meaning stronger effects (GURPS margin of success).",
+        "partial_success": "A middle result band succeeds at the goal but with reduced effect, a hard bargain, or a complication attached (the 7-9 band in PbtA games).",
+        "critical_success": "An extreme roll (natural 20, doubles, matching maximums) produces an exceptional result beyond a normal success.",
+        "critical_failure": "An extreme low roll (natural 1, 00) produces a failure notably worse than normal, often with immediate mechanical fallout.",
+        "fumble_tables": "Botched rolls send you to a random table that dictates exactly how the failure goes wrong (DCC fumble tables, Rolemaster fumble charts).",
+        "fail_forward": "Failure never stalls play; a missed roll always moves the story by introducing a new problem, cost, or revelation instead of a dead end (Ironsworn's Pay the Price, GUMSHOE design philosophy).",
+        "raises": "Beating the target by fixed increments grants stacked bonus effects, one per increment (Savage Worlds raises every 4 over the TN).",
+        "critical_confirmation": "A potential critical must be confirmed by a second roll before its enhanced effect applies (Pathfinder 1e crit confirmation).",
+        "dual_axis_outcomes": "Success/failure and positive/negative side effects are read on independent axes of the same roll, so you can fail with advantage or succeed with threat (Genesys success versus advantage)."
+      }
+    },
+    "modifiers": {
+      "description": "How circumstances, fiction, and assistance mathematically shift rolls before or after they are made.",
+      "focuses": {
+        "advantage_disadvantage": "Favorable or unfavorable circumstances have you roll twice and keep the better or worse die instead of applying numeric modifiers (D&D 5e advantage).",
+        "situational_modifiers": "The GM applies itemized plus/minus adjustments for cover, lighting, tools, time pressure, and similar circumstances (GURPS, d20 circumstance bonuses).",
+        "aspect_invocation": "Players spend a resource to invoke a relevant descriptive aspect for a bonus or reroll, and the GM compels aspects to complicate life (Fate aspects).",
+        "tag_based": "Short descriptive tags on characters, gear, and scenes grant bonus dice or modifiers whenever a tag plausibly applies (City of Mist tags, 13th Age backgrounds).",
+        "positioning_effect": "Before the roll, the table sets position (how risky) and effect (how much can be accomplished), which frames both stakes and payout (Blades in the Dark).",
+        "help_dice": "Assisting characters add dice or bonuses to the acting character's roll, usually at some cost or shared risk to the helper (Blades in the Dark assists, 2d20 teamwork).",
+        "boost_setback_dice": "Circumstances add whole positive or negative dice to the pool rather than flat numbers, keeping modifiers physical and composable (Genesys boost and setback dice).",
+        "condition_penalties": "Ongoing states like wounds, fatigue, or hunger impose standing penalties on rolls until the condition is cleared (World of Darkness health levels, Forbidden Lands conditions).",
+        "scale_modifiers": "Large mismatches in size, mass, or power band shift dice, damage, or difficulty categorically rather than incrementally (vehicle silhouettes in FFG Star Wars, scale in Godlike).",
+        "effort_spend": "Players spend points from their own stat pools to lower a task's difficulty before rolling, converting reserves into reliability (Cypher System Effort).",
+        "escalation_die": "A shared die ticks upward each round of a conflict, adding a growing bonus that pushes fights toward conclusion (13th Age escalation die)."
+      }
+    },
+    "metacurrency": {
+      "description": "Spendable meta-level currencies that let players and GMs bend rolls, buy rerolls, and trade narrative control.",
+      "focuses": {
+        "bennies": "Players earn tokens for good play and spend them for rerolls, soaking damage, or recovering, refreshed each session (Savage Worlds bennies).",
+        "fate_points": "A refreshing pool spent to invoke aspects, declare story details, or resist compels, forming the game's core economy of narrative control (Fate points).",
+        "inspiration": "A binary boon awarded for roleplaying traits, spent for advantage on one roll (D&D 5e Inspiration).",
+        "hero_points": "A small pool of points spent for rerolls, extra actions, or cheating death, awarded for heroism or milestones (Pathfinder 2e hero points, Mutants & Masterminds).",
+        "momentum": "Excess successes bank into a shared team pool that any player can spend to boost later actions (2d20 system: Star Trek Adventures, Conan).",
+        "threat_pool": "The GM accumulates a visible pool — fed by player shortcuts or complications — and spends it to empower opposition or trigger setbacks (2d20 Threat, Marvel Heroic's doom pool).",
+        "xp_on_miss": "Failed rolls directly award advancement, making misses a long-term investment (Dungeon World marking XP on a 6-).",
+        "devils_bargain": "Before rolling, a player may accept a guaranteed complication in exchange for a bonus die (Blades in the Dark's Devil's Bargain).",
+        "plot_points": "A currency spent to activate assets, create story facts, or step up dice, flowing between players and GM as complications are embraced (Cortex Prime plot points).",
+        "willpower_spend": "Characters spend from a willpower trait for automatic successes, rerolls, or to resist compulsion, recovering it through rest or roleplay (Vampire: the Masquerade).",
+        "shared_pool_flow": "A fixed set of tokens flows between a player-side and GM-side pool as it is spent, so every player boost eventually arms the opposition (Genesys story points).",
+        "gm_intrusions": "The GM injects a complication into a scene and compensates the affected player with metacurrency or XP, which the player may refuse at a price (Cypher System GM intrusions)."
+      }
+    },
+    "target_numbers": {
+      "description": "How the number-to-beat is set, contested, scaled, and accumulated across rolls.",
+      "focuses": {
+        "static_dc": "Difficulties are fixed numbers drawn from a standard table (easy 10, hard 20), known or estimated before the roll (D&D difficulty classes).",
+        "variable_tn": "The target number itself shifts with task difficulty or conditions rather than modifying the roll, so harder tasks raise the bar directly (Earthdawn step tables, L5R TNs).",
+        "contested_tn": "The target is generated by the opposition — their roll, or a passive value derived from their stats — so difficulty tracks the opponent (opposed checks, D&D passive Perception).",
+        "clock_progress": "Long or layered obstacles are drawn as segmented clocks that fill with successes and empty or advance with setbacks, resolving when full (Blades in the Dark clocks).",
+        "success_thresholds": "Pool systems set difficulty as the number of successes required, not a per-die target, so hard tasks demand multiple hits (Shadowrun thresholds).",
+        "extended_tests": "A task requires accumulating successes or margin across a series of rolls within limited attempts or time, letting effort build up or run out (Shadowrun extended tests).",
+        "player_facing_rolls": "Only players roll; NPCs and hazards are expressed purely as difficulties or reactive effects, keeping all randomness on the player side (Cypher System, Ironsworn).",
+        "group_checks": "The whole party rolls and the group succeeds if a set fraction of members pass, averaging out individual weakness (D&D 5e group checks).",
+        "tiered_difficulty_scale": "Difficulty is set on a small abstract scale that converts to a target number by formula, so the table reasons in tiers rather than raw numbers (Cypher System's difficulty 1-10 times three)."
+      }
+    },
+    "luck": {
+      "description": "Explicit luck ratings and fortune resources that cushion, redirect, or gamble with fate.",
+      "focuses": {
+        "luck_stat": "Characters have a rated luck score that is itself rolled or drawn against when chance, not skill, decides an outcome (Call of Cthulhu Luck, DCC Luck).",
+        "reroll_resources": "A small renewable stock of points is spent to reroll failed dice, refreshing on a fixed schedule such as daily or per session (WFRP Fortune points).",
+        "luck_rolls": "The GM calls for a roll against luck to settle circumstantial questions — who the monster attacks, whether a taxi is passing — outside any skill's purview (Call of Cthulhu luck rolls).",
+        "luck_burn": "Luck can be permanently spent down to boost rolls in an emergency, trading long-term fortune for immediate survival (DCC luck burn, Call of Cthulhu 7e spending Luck).",
+        "death_defiance_points": "A tiny stock of destiny points can be burned only to escape certain death or maiming, permanently reducing the character's reserve of fate (WFRP Fate points, Dark Heresy)."
+      }
+    }
+  }
+}

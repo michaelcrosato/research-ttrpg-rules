@@ -15,6 +15,13 @@ tsc_output.txt
 # Database build state
 state.json
 
+# Generated, runtime-unused flat index (rebuilt by `npm run data:merge`).
+# Tracked history churned on every catalog change; treat like build output.
+registry_names.json
+
+# Generated taxonomy vector list (rebuilt by `npm run data:taxonomy`)
+data/taxonomy_vectors.txt
+
 # Scratch/debug scripts
 scratch/
 

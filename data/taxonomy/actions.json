@@ -1,0 +1,81 @@
+{
+  "domain": "actions",
+  "description": "How players get to act: worker placement, action selection, action points, programmed moves, and the timing structures around turns.",
+  "applies_to": ["board_game", "ttrpg"],
+  "subsystems": {
+    "placement": {
+      "description": "Claiming actions by physically placing limited worker pieces on spaces.",
+      "focuses": {
+        "worker_placement": "Players take turns placing a limited supply of workers on action spaces to perform those actions (as in Agricola or Lords of Waterdeep).",
+        "blocked_spaces": "An occupied action space is unavailable to later workers, making every placement both an action and a denial (as in Agricola).",
+        "worker_retrieval_timing": "Workers stay out after placement, and choosing when to spend a turn recalling them is itself a strategic decision (as in Tzolk'in or The Manhattan Project).",
+        "escalating_placement_cost": "Placing costs progressively more the later or more crowded the placement is (rising corn costs for extra workers in Tzolk'in).",
+        "worker_types_upgrades": "Workers come in different types or strengths with different placement rights, and can be upgraded during play (the grande worker in Viticulture).",
+        "worker_bumping": "A placed worker can displace one already on the space, usually compensating or relocating the victim (knight displacement in Lancaster).",
+        "dice_workers": "Rolled dice serve as the workers, with pip values constraining where they may be placed or how well they perform (as in Alien Frontiers or The Voyages of Marco Polo).",
+        "accumulating_action_spaces": "Untaken spaces accumulate goods each round, growing more tempting until someone finally claims the pile (accumulation spaces in Agricola).",
+        "worker_feeding_upkeep": "Workers must periodically be fed or paid, taxing expansion and punishing overextension (harvests in Agricola).",
+        "staged_placement_resolution": "All workers are placed first and then spaces resolve in a fixed order, separating commitment from payoff (the road in Caylus).",
+        "player_built_action_spaces": "Players construct new action spaces that all players may use, often paying the builder for the privilege (buildings in Caylus or Lords of Waterdeep).",
+        "placement_on_opponent_boards": "Workers may be placed on components owned by opponents, benefiting placer and owner in different ways (placing in rivals' villages in Keyflower).",
+        "worker_pool_growth": "Players can expand their worker supply during play, and timing that growth against its cost is a defining decision (family growth in Agricola)."
+      }
+    },
+    "selection": {
+      "description": "Choosing actions from menus, pools, roles, and wheels.",
+      "focuses": {
+        "role_selection": "Each player picks a role that grants a phase or action to everyone, with a privilege reserved for the chooser (as in Puerto Rico or Citadels).",
+        "action_drafting": "Players pick actions from a shared limited pool that depletes as picks are made, so options vanish over the round (strategy cards in Twilight Imperium).",
+        "rondel_selection": "Actions sit on a wheel and a player's token moves a limited number of steps around it, paying extra to reach farther actions (as in Imperial or Antike).",
+        "action_retrieval_mancala": "Action markers are picked up and sown across a track mancala-style, with the landing spot determining the action taken (as in Trajan or Five Tribes).",
+        "follow_actions": "When one player takes an action, others may follow with a weaker version of it, keeping everyone involved off-turn (as in Glory to Rome or Eminent Domain).",
+        "simultaneous_selection": "All players secretly choose their action and reveal at once, with outcomes shaped by the mix chosen (as in Libertalia or Race for the Galaxy).",
+        "action_cards_hand": "A hand of cards defines which actions are available, and playing a card both acts and depletes the hand until it is recovered (as in Concordia).",
+        "dice_action_pools": "Dice are rolled to form the round's menu of available actions, with the results constraining what anyone can do (as in Grand Austria Hotel).",
+        "stale_action_bonuses": "Actions left unchosen accumulate bonuses over time, sweetening neglected options until someone takes them (doubloons on roles in Puerto Rico, card strength in Ark Nova).",
+        "exhaust_and_refresh_actions": "A player's own action options are spent when used and only return after a rest or refresh step, forcing pacing decisions (card play and rests in Gloomhaven).",
+        "asymmetric_action_menus": "Each player or faction has a structurally different set of available actions, so the same turn works differently in every seat (as in Root)."
+      }
+    },
+    "points": {
+      "description": "Budgeting how much can be done per turn through points, slots, and limits.",
+      "focuses": {
+        "action_point_allowance": "Each turn grants a budget of action points to spend freely across a menu of costed actions (as in Tikal or Pandemic).",
+        "variable_action_counts": "The number of actions a player gets per turn varies with faction, board state, or upgrades rather than being fixed (civil actions under different governments in Through the Ages).",
+        "exhaustion_limits": "Pieces or cards exhaust when used and cannot act again until readied, limiting activations per round (tapping in Magic: The Gathering).",
+        "free_actions": "Certain minor actions cost no points or slots and can be taken alongside normal actions (free object interactions in D&D 5e).",
+        "action_point_carryover": "Unspent action points can be saved for future turns, letting players bank tempo (as in Torres).",
+        "split_action_ownership": "Each player controls only a subset of the action types while all pieces are shared, forcing wordless coordination (as in Magic Maze).",
+        "structured_action_types": "A turn provides distinct slots for different categories of action rather than interchangeable points (action, bonus action, and movement in D&D 5e; top and bottom row actions in Scythe)."
+      }
+    },
+    "programming": {
+      "description": "Committing to sequences of actions before they resolve.",
+      "focuses": {
+        "simultaneous_programming": "All players secretly plan a sequence of actions, then everyone's programs execute together (as in RoboRally).",
+        "movement_programming": "Movement specifically is plotted in advance with cards or dials, and pieces execute the plotted course even when circumstances have changed (as in RoboRally or Colt Express).",
+        "queued_execution": "Declared actions enter a queue and resolve later in a fixed order, so plans must survive everything that resolves before them (order execution in Wallenstein).",
+        "hidden_orders": "Order tokens are placed face down on the board and revealed for resolution, concealing intent until the moment of commitment (as in A Game of Thrones: The Board Game).",
+        "program_disruption": "Board effects or other players can shift, rotate, or damage a plotted program between planning and execution (robot pushing in RoboRally, tunnels in Colt Express).",
+        "command_line_upgrades": "A player's program persists between rounds and is modified incrementally rather than rebuilt, becoming a growing machine (the command line in Mechs vs. Minions).",
+        "order_conflict_resolution": "Simultaneously revealed orders interact by supporting, cutting, or cancelling one another, with a resolution procedure deciding outcomes (as in Diplomacy).",
+        "solo_automa_scripts": "A scripted deck or flowchart drives a non-player opponent's actions, simulating an adversary through programmed priorities (the Automa in Wingspan or Scythe)."
+      }
+    },
+    "timing": {
+      "description": "When actions happen: turn order, interrupts, clocks, and round structure.",
+      "focuses": {
+        "time_track_turns": "Turn order follows a time track where the player furthest behind acts next, so cheap actions buy extra turns (as in Thebes, Patchwork, or Glen More).",
+        "interrupt_actions": "Players can act outside their turn in response to triggers, inserting effects into others' actions (instants in Magic: The Gathering, opportunity attacks in D&D).",
+        "delayed_effects": "Some actions resolve one or more turns after being taken, rewarding anticipation over reaction (slow powers in Spirit Island).",
+        "real_time_actions": "Players act simultaneously against a clock rather than in turns, making speed itself a resource (as in Galaxy Trucker or Space Alert).",
+        "turn_order_selection": "Players choose their position in the next round's turn order as an in-game decision with attached costs or perks (the wake-up track in Viticulture).",
+        "pass_and_out": "Passing removes a player from the rest of the round, so staying in longer trades exposure for opportunity (as in Ra or 18xx stock rounds).",
+        "simultaneous_turns": "All players take their turns at the same time with little or no interaction locking, compressing play time (roll-and-writes like Cartographers, the ages of 7 Wonders).",
+        "time_as_resource": "Time itself is spent as a cost, with actions consuming time units that age workers or advance a personal clock (as in Village).",
+        "initiative_order": "Acting order within a round is derived from rolled or computed initiative values rather than seating (initiative in D&D).",
+        "round_phase_structure": "Each round follows a fixed sequence of named phases that gate which actions can occur when (the phase sequence in Twilight Imperium, work and harvest in Agricola)."
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "domain": "deduction",
+  "description": "Rules governing hidden truth: secret roles, bluffing, logical inference, and the flow of concealed information.",
+  "applies_to": ["board_game"],
+  "subsystems": {
+    "hidden_roles": {
+      "description": "Secret identities and allegiances assigned to players.",
+      "focuses": {
+        "secret_identities": "Players are secretly dealt roles or team allegiances that shape their goals while others must figure them out (The Resistance, Werewolf).",
+        "traitor_mechanics": "A hidden traitor works against the group from within, sabotaging while avoiding exposure (Shadows over Camelot, Dead of Winter's betrayer).",
+        "role_powers_night_actions": "Roles confer secret abilities used during hidden phases such as night (the Seer in Werewolf, night abilities in Blood on the Clocktower).",
+        "role_reveal_timing": "Rules govern when identities become public: on death, on accusation, at game end, or never (role cards flipped on execution in Werewolf variants).",
+        "hidden_role_distribution": "Not every role is dealt into play, so which ones are actually present is itself uncertain (the three center cards in One Night Ultimate Werewolf).",
+        "mid_game_allegiance_change": "Players can switch teams during play through conversion, recruitment, or sleeper triggers (the sleeper-agent phase in Battlestar Galactica).",
+        "self_role_uncertainty": "A player may not reliably know their own role or may lose track of it (the Drunk in Blood on the Clocktower, swapped masks in Mascarade).",
+        "role_swapping": "Actions exchange roles between players or with hidden pools, scrambling who is what (the Troublemaker in One Night Ultimate Werewolf).",
+        "independent_agenda_roles": "Some roles belong to no team and pursue private win conditions, distorting both sides' reads (the Tanner in Werewolf variants).",
+        "dead_player_participation": "Eliminated players retain limited participation such as a final vote or whispered information rather than leaving the game (ghost votes in Blood on the Clocktower)."
+      }
+    },
+    "bluffing": {
+      "description": "Making, selling, and challenging claims that may be false.",
+      "focuses": {
+        "bluff_claims": "Players openly claim capabilities or holdings that may be false, gaining the benefit unless contested (role claims in Coup).",
+        "challenge_calls": "A stated claim can be formally challenged, with heavy stakes falling on whichever side is wrong (challenges in Coup).",
+        "misdirection_actions": "Players take deliberately suboptimal or misleading actions to disguise their role, position, or intent (a hidden traitor conspicuously helping the team to preserve cover).",
+        "goods_declaration_inspection": "Players declare hidden goods and an authority may pay to inspect, with penalties for whichever party lied or guessed wrong (Sheriff of Nottingham).",
+        "hidden_pool_bid_bluffing": "Players bid on the combined contents of everyone's concealed pools, mixing probability with bravado (Liar's Dice).",
+        "face_down_commitment_bluffs": "Players commit pieces or cards face down, staking value on whether others believe the implied claim (the roses and skulls of Skull).",
+        "decoys_and_ambushes": "Hidden pieces may be traps or worthless decoys, punishing opponents who engage the wrong target (Stratego's bombs, face-down ambushes in Android: Netrunner).",
+        "sanctioned_lying_scope": "Rules define exactly what players may lie about versus what must be answered truthfully (Blood on the Clocktower permits lying about nearly everything, while other games make stated deals binding)."
+      }
+    },
+    "inference": {
+      "description": "Reasoning from clues and evidence toward hidden truths.",
+      "focuses": {
+        "elimination_grids": "Players cross off possibilities from a finite matrix until only the truth remains (the suspect, weapon, and room grid of Clue).",
+        "question_asking": "Structured queries extract yes/no or categorical information from other players or the system (Guess Who?).",
+        "coordinate_deduction": "Hidden positions on a grid are located by probing coordinates and interpreting hits and misses (Battleship, Captain Sonar).",
+        "code_breaking": "A hidden code or rule is deduced through repeated guesses scored with structured feedback (Mastermind, Turing Machine).",
+        "distributed_clue_triangulation": "Each player holds one piece of the puzzle, and the solution emerges by triangulating across everyone's constraints (Cryptid).",
+        "experiment_hypothesis_testing": "Players spend actions running tests whose results confirm or eliminate hypotheses (mixing ingredients in Alchemists).",
+        "action_trail_inference": "Hidden information leaks through the visible actions a player is forced to take (deducing Mr. X's position from the transport tickets he spends in Scotland Yard).",
+        "associative_clue_interpretation": "Clues are indirect associations that must be interpreted rather than logically decoded (one-word clues in Codenames, vision cards in Mysterium).",
+        "negative_inference": "What was not said, clued, or done carries information as strong as what was (reading which of your cards were pointedly not clued in Hanabi).",
+        "alibi_timeline_reconstruction": "Players reconstruct a sequence of past events from fragmentary testimony and evidence (case timelines in Detective: A Modern Crime Board Game, mystery TTRPG scenarios)."
+      }
+    },
+    "information": {
+      "description": "How hidden information is structured, revealed, and paid for.",
+      "focuses": {
+        "asymmetric_knowledge": "Different players see systematically different slices of the game state, and play revolves around exploiting or bridging that gap (the GM-player split in TTRPGs).",
+        "one_vs_many_hidden": "A single concealed player is hunted by a team that must pool observations to corner them (Scotland Yard, Fury of Dracula).",
+        "clue_revelation_pacing": "Information is released on a designed schedule that controls the tension curve (one vision card per round in Mysterium, timed hint systems in escape-room games).",
+        "triggered_forced_reveals": "Specific actions or states compel a hidden player to disclose information (crossing a searcher's line of sight in Specter Ops).",
+        "sealed_solution_setup": "The truth is fixed secretly at setup, often sealed away unseen by anyone, and the game is the race to reconstruct it (the solution envelope in Clue).",
+        "paid_information_actions": "Gaining information costs actions, resources, or position, making knowledge an economy (scan actions in The Search for Planet X).",
+        "fog_of_war_units": "Units' identities or strengths stay hidden from opponents until contact forces a reveal (Stratego, block wargames like Hammer of the Scots).",
+        "verifiable_secret_logs": "A hidden player keeps a written record of secret moves that can be audited later for honesty (Mr. X's travel log in Scotland Yard).",
+        "moderator_or_app_referee": "A neutral moderator or companion app tracks hidden state and adjudicates secretly (the Werewolf moderator, the Alchemists app).",
+        "accusation_endgame": "The game climaxes in a formal accusation or final guess, with wrong answers costly or eliminating (final accusations in Clue)."
+      }
+    }
+  }
+}

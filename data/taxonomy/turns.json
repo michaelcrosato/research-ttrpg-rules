@@ -1,0 +1,61 @@
+{
+  "domain": "turns",
+  "description": "Rules governing the sequence of play: who acts when, simultaneous action, round structure, and deviations from the normal turn rhythm.",
+  "applies_to": ["board_game", "ttrpg"],
+  "subsystems": {
+    "order": {
+      "description": "Determining the sequence in which players and units act.",
+      "focuses": {
+        "fixed_clockwise": "Play proceeds in a fixed seating direction that never changes (the default clockwise order of most classic games).",
+        "rotating_start_player": "A start-player marker passes each round so the first-turn advantage circulates around the table (the rotating first-player token common to euros).",
+        "bid_for_turn_order": "Players spend resources in an auction for position in the coming round's order (bidding for turn order in Five Tribes).",
+        "last_becomes_first": "The trailing or last-placed player is granted the next first turn, coupling order to standings (Power Grid re-sorting player order so the weakest position acts first in key phases).",
+        "turn_order_by_track_position": "Whoever is furthest behind on a time or position track acts next, possibly several times in a row (Tokaido, Glen More).",
+        "snake_order": "Order reverses on alternate passes so the end seats get consecutive picks (Catan's 1-2-3-3-2-1 settlement draft, snake drafts).",
+        "turn_order_selection_track": "Players claim next round's turn positions as an in-game choice with attached tradeoffs (the wake-up chart in Viticulture).",
+        "rolled_initiative": "Randomized rolls at the start of a round or encounter set the acting order (initiative rolls in D&D).",
+        "stat_based_initiative": "A printed speed or skill statistic dictates activation order (pilot skill in X-Wing).",
+        "card_determined_initiative": "Cards played or drawn each round carry initiative values that set the order (the initiative numbers on chosen ability cards in Gloomhaven).",
+        "alternating_unit_activation": "Instead of full player turns, sides alternate activating one unit or group at a time (Undaunted: Normandy, Star Wars: Legion).",
+        "priority_windows": "A formal priority structure lets every player respond before an effect resolves, creating nested chains of responses (the stack and priority in Magic: The Gathering)."
+      }
+    },
+    "simultaneity": {
+      "description": "Actions taken at the same time rather than in sequence.",
+      "focuses": {
+        "simultaneous_reveal": "Players secretly commit choices and reveal them all at once (card picks in Libertalia).",
+        "simultaneous_order_adjudication": "Rules adjudicate conflicts among simultaneously revealed orders, such as bounces and standoffs (Diplomacy's movement adjudication).",
+        "real_time_frenzy": "There are no turns; everyone acts at once in real time (grabbing components in Galaxy Trucker, Dutch Blitz).",
+        "sand_timer_pressure": "Physical timers bound decision windows, forcing action under pressure (the sand timers of Kitchen Rush, which double as workers).",
+        "soundtrack_timed_phases": "An audio track or app clock drives the schedule of events in real time (the mission soundtracks of Space Alert).",
+        "speed_reaction_grabs": "The fastest player to react or grab claims the reward (snatching the totem in Jungle Speed, ringing the bell in Halli Galli).",
+        "shared_stimulus_parallel_play": "All players respond simultaneously and independently to the same public draw or roll (everyone using the same flipped cards in Welcome To, roll-and-writes)."
+      }
+    },
+    "phases": {
+      "description": "The internal structure of rounds and larger cycles.",
+      "focuses": {
+        "structured_round_phases": "Each round follows a fixed sequence of named phases, such as income, actions, and combat (the phase sequences of most euros and wargames).",
+        "upkeep_maintenance_phase": "A mandatory maintenance step forces recurring costs or resets before play continues (feeding workers at Agricola's harvests, the untap and upkeep steps of Magic: The Gathering).",
+        "cleanup_reset": "An end-of-round step refreshes markets, readies exhausted pieces, and passes markers to prepare the next round (the cleanup phases of most engine games).",
+        "role_selected_phases": "Which phases occur each round is determined by players choosing roles, and everyone shares the chosen phase (role selection in Puerto Rico, strategy cards in Twilight Imperium).",
+        "seasonal_cycle_structure": "Rounds are grouped into larger cycles such as seasons or years that carry their own special steps (the year structure of Viticulture, Agricola's periodic harvests).",
+        "day_night_alternation": "Play alternates between phases with fundamentally different rules and permissions (the day and night cycle of Werewolf).",
+        "planning_then_execution_split": "A round separates a planning phase, where actions are committed, from an execution phase where they resolve (Space Alert's real-time planning and step-by-step resolution).",
+        "fixed_round_count_structure": "The game lasts a predetermined number of rounds or eras known from the start, framing all planning (the three ages of 7 Wonders)."
+      }
+    },
+    "variance": {
+      "description": "Deviations from the standard one-turn-each rhythm.",
+      "focuses": {
+        "extra_turns": "Effects grant additional turns beyond the normal rotation (rolling doubles in Monopoly, take-another-turn cards).",
+        "skipped_turns": "Players can lose turns entirely through penalties or conditions (lose-a-turn spaces, stun conditions in TTRPGs).",
+        "variable_turn_length": "The cost of chosen actions determines how soon you act again, so turns differ in effective size (time-track games like Thebes and Patchwork).",
+        "pass_and_stay_out": "Passing removes a player from the rest of the round, making the timing of the pass itself strategic (passing in Terra Mystica).",
+        "out_of_turn_reactions": "Abilities trigger during other players' turns as interrupts or responses (reactions and opportunity attacks in D&D).",
+        "turn_delay_holding": "Players may voluntarily postpone their turn to act at a chosen later moment (delaying and readying actions in Pathfinder initiative).",
+        "asymmetric_activation_frequency": "Different sides act at different rates, such as one player taking a turn after each opposing hero (overlord activations in one-vs-many dungeon crawlers)."
+      }
+    }
+  }
+}

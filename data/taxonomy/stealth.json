@@ -1,0 +1,87 @@
+{
+  "domain": "stealth",
+  "description": "Avoiding notice: sneaking, hiding, disguise, infiltration of secure places, and the detection systems that oppose them.",
+  "applies_to": ["ttrpg"],
+  "subsystems": {
+    "action": {
+      "description": "Discrete stealth actions a character can take in play.",
+      "focuses": {
+        "hide": "A discrete hide action: roll stealth against observers or a target number to become unseen, holding the hidden state until it is broken (D&D 5e Hide).",
+        "distraction": "Deliberately drawing attention elsewhere — thrown stones, staged noises, an accomplice's diversion — to open observation gaps to slip through.",
+        "silent_takedown": "Rules for neutralizing an unaware target quietly and instantly, often automatic or heavily favored from surprise, provided no alarm is raised.",
+        "sleight_of_hand": "Palming, planting, and pickpocketing under observation, resolved as a stealth-family check opposed by the mark's awareness."
+      }
+    },
+    "concealment": {
+      "description": "Hiding identity, intent, or contraband rather than the body itself.",
+      "focuses": {
+        "disguise": "Impersonating another person or role through costume and manner; checks oppose scrutiny, with effectiveness degrading under close interaction.",
+        "forgery": "Fabricating false documents, seals, or credentials, with quality fixed at creation time and tested whenever inspected.",
+        "blending_crowds": "Using crowds as mobile cover — checks to melt into a throng, break line of sight, and emerge somewhere unexpected.",
+        "camouflage": "Static concealment through terrain, coloration, or ghillie work, granting bonuses to stay unseen while motionless or in matching cover.",
+        "cover_identity": "Maintaining a long-term false identity with its own paper trail and relationships, where exposure risk accumulates the longer the deception runs (Night's Black Agents cover identities).",
+        "smuggling": "Sneaking contraband past inspections using hidden compartments, bluffed declarations, and calculated inspection risks (Sheriff of Nottingham)."
+      }
+    },
+    "detection": {
+      "description": "The systems by which hidden things are noticed, hunted, and exposed.",
+      "focuses": {
+        "alertness_clocks": "Rising suspicion is tracked on a progress clock; noisy or sloppy actions tick it forward, and a filled clock means discovery or alarm (Blades in the Dark).",
+        "evade_action": "A dedicated evade action to break contact once spotted, re-entering hiding or slipping observation with a successful check.",
+        "hunt_for_ring": "Seekers hunt a hidden traveler across the map, playing search assets to narrow the trail while the hidden player logs secret movement (Hunt for the Ring-style hidden-movement pursuit).",
+        "noise_rolls": "Noisy actions trigger noise rolls that may attract wandering enemies or alert nearby guards (OSR dungeon procedures, Nemesis noise placement).",
+        "passive_perception": "Observers carry a static perception score that stealth results are compared against, so sneaks can be detected without anyone rolling (D&D 5e).",
+        "sensors": "Electronic detection — cameras, motion sensors, tripwires — with device-specific ranges and defeat methods distinct from living observers.",
+        "shadow_move": "A dedicated move or ability for shadowing and sneaking, resolved as a single roll whose outcome tiers set how unseen you remain (PbtA-style playbook moves).",
+        "noise_radius": "Actions carry noise values that propagate over a set radius or number of rooms, alerting anything within earshot regardless of sight lines.",
+        "guard_patrol_ai": "Guards follow scripted patrol routes and behavior rules that players can learn and exploit for timing windows (Burgle Bros.-style guard movement).",
+        "alarm_states": "The opposition escalates through discrete alert levels — unaware, suspicious, searching, alarmed — each changing enemy behavior and the stakes of mistakes.",
+        "perception_vs_stealth_opposed": "Detection is an opposed roll of the sneak's stealth against each observer's perception, made at every point of exposure (the traditional-RPG default).",
+        "group_stealth_checks": "Procedures for whole parties sneaking together: group checks where half must succeed, or the clumsiest member setting the result (D&D 5e group checks).",
+        "last_known_position": "Once contact breaks, searchers act on the sneak's last known position rather than their true location, formalizing the blind spot that makes escapes possible."
+      }
+    },
+    "hacking": {
+      "description": "Digital intrusion into networks and systems.",
+      "focuses": {
+        "matrix_host": "Intrusion targets a host — a virtual site with a security rating, internal architecture, and escalating overwatch as the hacker operates inside it (Shadowrun's Matrix).",
+        "netrunning": "A parallel virtual-reality subsystem where the hacker jacks in and runs a network architecture in cyberspace turns interleaved with the meatspace scene (Cyberpunk RED).",
+        "ice_countermeasures": "Hostile intrusion countermeasures defend systems — programs that trace, damage gear, or injure the hacker directly (Shadowrun and Cyberpunk ICE, Android: Netrunner).",
+        "hacking_minigame": "Intrusion runs as a self-contained minigame with node maps, program loadouts, and its own turn economy nested inside the main game.",
+        "trace_countdown": "Every intrusion starts a trace timer or accumulating overwatch score; crossing the threshold means the hacker's location is burned and countermeasures dispatched.",
+        "social_engineering": "Bypassing security through its people — phishing, pretexting, tailgating — resolved with deception checks against procedure rather than firewalls."
+      }
+    },
+    "infiltration": {
+      "description": "Getting into and out of guarded places, and the planning around it.",
+      "focuses": {
+        "flashback": "Rather than planning in advance, players declare preparations retroactively through flashback scenes paid for with a meta-currency (Blades in the Dark).",
+        "physical": "Classic bodily infiltration of a guarded site — climbing, lockpicking, timing patrols — resolved obstacle by obstacle.",
+        "heist_planning": "A structured planning phase before the job: assigning roles, gathering intel, and choosing an approach, with the plan's quality feeding execution.",
+        "loadout_declaration": "Characters declare a load level instead of an itemized inventory, revealing specific gear from that allowance when needed mid-job (Blades in the Dark load).",
+        "security_layers": "Sites are built as concentric security layers — perimeter, interior, vault — each with its own obstacles and escalating consequences for noise.",
+        "engagement_roll": "A single roll rating the plan and intel determines the position the crew starts the job in, skipping straight past the approach (Blades in the Dark).",
+        "insertion_extraction": "Explicit rules for getting in and getting out — entry vectors, extraction windows, and go-loud contingencies bookending the infiltration."
+      }
+    },
+    "pursuit": {
+      "description": "Following, fleeing, and shaking off pursuers.",
+      "focuses": {
+        "chase_rules": "Foot-chase procedures — opposed athletics over rounds, gap trackers, and obstacle complications — until escape or capture (Call of Cthulhu 7e chases).",
+        "tailing": "Following a target unseen through streets or crowds, with periodic checks against the mark's awareness and handoffs between followers (Night's Black Agents surveillance).",
+        "evasion": "Structured rules for shaking pursuit — doubling back, splitting up, going to ground — typically opposed by pursuer tracking or navigation rolls.",
+        "counter_surveillance": "Detecting and flushing watchers: dry-cleaning runs, choke points, and opposed checks to spot a tail without letting it know it has been spotted.",
+        "hidden_movement": "One side records its movement secretly on a private map while seekers deduce the path from clues that surface (Scotland Yard, Fury of Dracula, Specter Ops)."
+      }
+    },
+    "vision": {
+      "description": "Sight, light, and the sensory limits that stealth exploits.",
+      "focuses": {
+        "light_levels": "Illumination tiers — bright, dim, dark — set concealment and perception modifiers, making light sources tactical objects (D&D 5e light rules).",
+        "darkvision_senses": "Special senses such as darkvision, thermal vision, or blindsight ignore particular concealment types and redefine what counts as hidden.",
+        "vision_cones": "Observers see only within defined arcs or cones relative to their facing, so staying behind a guard means staying unseen (Specter Ops, stealth skirmish games).",
+        "fog_of_war": "Forces are concealed until they enter enemy line of sight or contact, via hidden setup, dummy tokens, or blocks (Stratego, block wargames)."
+      }
+    }
+  }
+}

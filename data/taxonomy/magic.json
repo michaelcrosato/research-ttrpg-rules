@@ -1,0 +1,97 @@
+{
+  "domain": "magic",
+  "description": "Rules governing supernatural power: how spells and powers are acquired, cast, fueled, and organized, what casting risks, and how divine and psychic power differ from arcane practice.",
+  "applies_to": ["ttrpg"],
+  "subsystems": {
+    "casting": {
+      "description": "How spells or powers are activated, fueled, and constrained during play.",
+      "focuses": {
+        "spell_slots": "Casters prepare or know spells and expend limited per-rest slots by level to cast them (D&D-style Vancian casting).",
+        "mana_points": "Casting spends a numeric energy pool; bigger effects cost more points, and the pool recovers with rest or time (spell points, RuneQuest magic points).",
+        "freeform_improvised": "Casters describe any effect within their power's theme and the system prices or adjudicates it on the fly rather than using a fixed spell list (Mage: the Ascension, Ars Magica spontaneous magic).",
+        "verbal_somatic_components": "Spells require spoken words, gestures, or material components, so binding, gagging, or disarming a caster can prevent casting (D&D components).",
+        "skill_roll_casting": "Casting is a skill test that can fail, with the roll's quality shaping the spell's strength or side effects (WFRP Channelling, Shadowrun Spellcasting).",
+        "ritual_casting": "Lengthy ceremonies with extra time, participants, or ingredients cast spells beyond normal combat magic or without spending scarce resources (D&D 5e rituals, Call of Cthulhu rites).",
+        "at_will_cantrips": "Minor spells can be cast without limit or cost, giving casters a magical baseline that never runs dry (D&D 5e cantrips).",
+        "fire_and_forget_memorization": "Each cast spell vanishes from the caster's memory and must be re-memorized from a book during rest (AD&D Vancian memorization).",
+        "life_force_casting": "Spells are fueled by the caster's own hit points, blood, or vitality, making every casting a wound (Shadowrun blood magic, cast-from-hit-points traditions in OSR play).",
+        "attribute_burn_casting": "Casters may burn attribute points — temporarily or permanently — to empower a casting beyond its normal limits (DCC spellburn).",
+        "recharge_powers": "Powers become unavailable after use and return on a die roll, timer, or scene boundary rather than from a spent pool (recharge abilities in D&D 4e/5e-style design).",
+        "concentration_limits": "Sustained spells occupy the caster's concentration, capping how many can run at once and ending when concentration breaks (D&D 5e concentration).",
+        "counterspelling": "Casters can react to enemy casting with an opposed check or resource spend to weaken or negate the incoming spell (D&D counterspell, Ars Magica certamen-style duels).",
+        "overchannel_push": "A caster may deliberately exceed safe casting limits for extra power, accepting increased risk of harm or mishap (overchannelling in WFRP, pushing rolls in Forbidden Lands magic).",
+        "group_cooperative_casting": "Multiple casters link their efforts to reach magnitudes none could achieve alone, pooling dice, points, or checks (Ars Magica's Wizard's Communion, Mage group rituals)."
+      }
+    },
+    "acquisition": {
+      "description": "How characters gain, learn, and expand magical capability.",
+      "focuses": {
+        "spellbook_study": "New spells are learned by studying, copying, and transcribing them from books and scrolls, making libraries treasure (D&D wizards, Ars Magica lab texts).",
+        "pact_granted": "Power flows from a bargain with a patron entity whose favor, terms, and agenda bind the caster (D&D warlocks, Sorcerer demons).",
+        "bloodline_innate": "Magic is inherited or inborn, surfacing as natural talent that is trained rather than studied (D&D sorcerers, Earthdawn adepts).",
+        "school_specialization": "Casters commit to a school, tradition, or college that grants depth in one style while restricting or penalizing others (AD&D specialist wizards, WFRP colleges of magic).",
+        "spell_research": "Casters invent new spells or variants through downtime research with time, money, and risk of failure (OSR spell research, Ars Magica lab work).",
+        "level_up_spell_picks": "New spells arrive automatically as a class feature of gaining levels, chosen from a class list without in-fiction study (D&D sorcerer spell picks).",
+        "found_grimoires": "Spells enter play as loot — captured grimoires, scrolls, and enemy spellbooks that must be deciphered before use (OSR play, MÖRK BORG scrolls).",
+        "mentor_apprenticeship": "Magic is taught person-to-person by a master whose availability, price, and secrets gate what can be learned (Ars Magica apprenticeships, wuxia master-student traditions).",
+        "cult_initiation": "Deeper magic is unlocked by initiation through the ranks of a mystery cult or secret society, tying power to membership and duty (RuneQuest rune cults).",
+        "xp_spell_purchase": "Spells and powers are bought directly with earned experience or karma like any other advancement (Shadowrun, World of Darkness disciplines)."
+      }
+    },
+    "risk": {
+      "description": "The dangers, costs, and corrupting consequences of wielding magic.",
+      "focuses": {
+        "corruption": "Using magic gradually taints body or soul, accumulating a corruption score that brings mutations, moral decay, or damnation (WFRP Chaos corruption, Shadow of the Demon Lord).",
+        "mishap_tables": "Failed or botched castings roll on tables of misfires, from embarrassing quirks to catastrophic disasters (DCC spell misfires, WFRP miscasts).",
+        "backlash_damage": "Casting inflicts direct harm — fatigue, stun, or wounds — on the caster, scaled to the spell's power (Shadowrun drain, Earthdawn backlash).",
+        "paradox": "Magic that violates consensual reality or is witnessed by unbelievers rebounds on the caster as reality pushes back (Mage: the Ascension Paradox).",
+        "doom_accumulation": "Each casting or overreach feeds a rising doom pool or track whose eventual discharge empowers dire consequences (sorcery adding to the GM's Doom in Conan 2d20).",
+        "sanity_cost": "Learning or casting spells erodes the caster's sanity, pricing magic in madness (Call of Cthulhu spell costs).",
+        "wild_magic_surges": "Casting can trigger random uncontrolled magical effects unrelated to the intended spell (D&D wild magic surges).",
+        "unwanted_attention": "Magic use draws the notice of spirits, demons, or watchful powers, accumulating supernatural attention with consequences (KULT, Unknown Armies-style occult exposure).",
+        "burnout_permanent_loss": "Overreaching can permanently scar or destroy magical capacity, reducing or removing the gift itself (burnout in Shadowrun adept lore, Fading Suns theurgy loss).",
+        "magic_addiction": "Casting is psychologically or physically addictive, requiring checks to resist overuse and escalating dependency (Shadowrun focus addiction, sorcery addiction in dark fantasy designs).",
+        "taboo_restrictions": "Power is bound to personal taboos, geasa, or bans whose violation strips or weakens the magic (geasa in Celtic-flavored games, fae bans)."
+      }
+    },
+    "structure": {
+      "description": "How magic itself is organized, taxonomized, and made lawful within the setting's rules.",
+      "focuses": {
+        "schools_of_magic": "Spells are classified into schools or spheres — evocation, necromancy, illusion — that structure specialization, resistance, and access (D&D schools, Mage spheres).",
+        "spell_levels": "Spells are ranked in numbered tiers of power that gate who can cast them and what they cost (D&D spell levels 1-9).",
+        "words_of_power": "Magic is assembled from a limited vocabulary of potent words combined at need, trading fixed spells for a generative grammar (Pathfinder's Words of Power, true-speech traditions).",
+        "sympathetic_links": "Magic targeting someone at a distance requires a sympathetic connection — hair, blood, a true likeness — whose quality scales the effect (Ars Magica arcane connections, Unknown Armies).",
+        "true_names": "Knowing a being's true name grants coercive power over it, making names guarded secrets and summoning currency (classic demonology, Earthsea-derived designs like Invisible Sun).",
+        "technique_form_combos": "Every spell is built by pairing a verb-like technique with a noun-like form, so a small grid of elements yields the whole of magic (Ars Magica's Creo Ignem grid).",
+        "power_sites_auras": "Magical strength varies by location: auras, ley lines, and nodes amplify, dampen, or warp casting (Ars Magica auras, Mage nodes).",
+        "belief_paradigms": "What magic can do is defined by the practitioner's paradigm or tradition, so different cultures' magic follows genuinely different rules (Mage: the Ascension paradigms).",
+        "runes_glyphs": "Magic is encoded in physical runes, glyphs, or inscriptions that store effects in objects and places until triggered (RuneQuest runes, WFRP runesmiths).",
+        "spell_lists_by_class": "Access to spells is partitioned into class- or tradition-specific lists, so who you are determines what magic you may ever touch (D&D arcane versus divine lists).",
+        "enchantment_item_crafting": "Permanent magic is invested into items through lengthy crafting processes with material, time, and essence costs (Ars Magica lab enchantment, D&D magic item creation)."
+      }
+    },
+    "divine": {
+      "description": "Magic granted by gods and spirits, priced in faith, service, and obedience.",
+      "focuses": {
+        "favor_economy": "Divine power is a currency of favor earned through sacrifice, worship, and service, and spent to work the god's magic (RuneQuest Rune Points, piety pools in Mythras).",
+        "domain_powers": "A deity's portfolio dictates the themes of magic granted, so priests of war, sea, and harvest wield visibly different powers (D&D cleric domains).",
+        "miracles": "Beyond rote prayers, the truly faithful can petition for open-ended miracles adjudicated by the GM and priced in devotion (Godbound words, In Nomine interventions).",
+        "faith_tests": "Working divine power requires testing the character's faith, with doubt or sin weakening the roll (Deadlands blessed, Dogs in the Vineyard-style conviction).",
+        "divine_intervention_pleas": "In extremity a worshipper may plead for direct intervention on a long-odds roll, often at permanent cost (RuneQuest divine intervention, DCC clerics burning Luck).",
+        "sin_and_atonement": "Violating the deity's code strips powers until formal penance or atonement restores standing (D&D paladin oaths, Pendragon religious virtues).",
+        "spirit_bargaining": "Powers are obtained case by case by negotiating with individual spirits, each with its own price and personality (Shadowrun conjuring, Werewolf spirit gifts)."
+      }
+    },
+    "psionics": {
+      "description": "Powers of the mind, typically point-fueled, discipline-structured, and taxing to the wielder.",
+      "focuses": {
+        "power_points": "Psychic abilities draw on a personal reservoir of power points spent per manifestation and recovered with rest (D&D 3.5 psionics, Traveller psionic strength).",
+        "discipline_trees": "Powers are organized into disciplines — telepathy, psychokinesis, clairsentience — advanced as separate trees or skill tracks (AD&D psionic disciplines, Babylon 5-style telepathy tiers).",
+        "psychic_strain": "Manifesting powers inflicts fatigue, stress, or nonlethal harm on the psion, throttling consecutive use even when points remain (strain and feedback mechanics across psi-focused designs).",
+        "wild_talents": "Rare untrained individuals manifest a single random psychic knack outside any formal discipline (AD&D 2e wild talents, Dark Sun).",
+        "psychic_duels": "Mind-to-mind conflict is its own opposed subsystem with attack and defense modes distinct from physical combat (AD&D psychic contest modes, telepathic combat in Traveller-adjacent play).",
+        "power_augmentation": "A manifested power's range, damage, or targets scale with extra points spent at casting time, letting one power flex across levels (D&D 3.5 psionic augmentation)."
+      }
+    }
+  }
+}

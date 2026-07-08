@@ -1,0 +1,70 @@
+{
+  "domain": "narrative",
+  "description": "Rules governing who tells the story and how: narrative authority, story structure, creative prompts, collaborative worldbuilding, and tone.",
+  "applies_to": ["ttrpg"],
+  "subsystems": {
+    "authority": {
+      "description": "Mechanics distributing the right to narrate, frame, and decide story truth.",
+      "focuses": {
+        "shared_narration": "Narrative control is distributed among all players, who take turns or share the right to describe outcomes and world details rather than deferring to a single GM.",
+        "gm_less_rotation": "There is no permanent GM; facilitation duties rotate among players by scene, act, or trigger (Fiasco, Microscope, The Quiet Year).",
+        "scene_framing_rights": "The right to open a scene — choosing its location, participants, and stakes — is an explicit, allocated power (Primetime Adventures scene framing).",
+        "fail_forward": "Failed rolls never stall the story; they move it somewhere worse or more complicated instead of producing a simple 'nothing happens'.",
+        "success_at_cost_narration": "Marginal results grant success with a narrated cost or complication attached, making mixed outcomes a codified narrative tier (PbtA 7-9 results).",
+        "fact_declaration": "Players can spend a resource to declare new story facts — an old contact, a convenient detail — that become true on the spot (Fate point declarations).",
+        "narration_rights_bidding": "Players bid or spend currency to seize control of narration or contest another's contribution (Universalis coins).",
+        "final_authority_veto": "A designated veto or redirect power lets the table reject a narration and demand another approach (Archipelago's 'Try another way' ritual phrases).",
+        "gm_agenda_principles": "The GM's narration is bound by written agendas and principles that constrain what they say and why (Apocalypse World's agenda, principles, and moves).",
+        "paint_the_scene_delegation": "The facilitator formally hands descriptive questions to players — 'what does it look like when...' — making them co-authors of texture and detail (Agon's paint-the-scene prompts)."
+      }
+    },
+    "structure": {
+      "description": "Mechanics shaping story pacing: acts, scenes, and time jumps.",
+      "focuses": {
+        "three_act_pacing": "Play is divided into formal acts with distinct rules or expectations per act, driving a setup-confrontation-resolution arc (Fiasco's two acts plus Tilt, My Life with Master's endgame).",
+        "montage_scenes": "Compressed montage rules resolve stretches of activity — training, travel, research — as one framed sequence with brief contributions from each player.",
+        "flashbacks": "Play can jump backward in time to establish preparation or history, often at a resource cost, with the flashback's outcome bearing on the present (Blades in the Dark flashbacks).",
+        "epilogues": "The rules mandate closing epilogue scenes where each player narrates their character's fate after the main action ends.",
+        "act_breaks": "Codified breaks between acts trigger bookkeeping, escalation, or refreshed resources, marking structural seams in the session.",
+        "scene_economy_limits": "Each player or the table gets a fixed budget of scenes per act, making scene selection itself a strategic, story-shaping choice (Fiasco's scene count).",
+        "interlude_scenes": "Quiet character-focused interludes are a distinct scene type with their own rewards, deliberately alternating with high-tension play (The One Ring fellowship phases).",
+        "cliffhangers": "Sessions or episodes are structured to end on codified cliffhangers, with mechanical rewards or carryover for leaving matters unresolved.",
+        "endgame_triggers": "The story enters a defined final phase when a trigger condition is met, switching to endgame rules until conclusion (Ten Candles' last candle, My Life with Master's endgame threshold)."
+      }
+    },
+    "prompts": {
+      "description": "Mechanics that generate story content from random or structured stimuli.",
+      "focuses": {
+        "oracle_tables": "Yes/no and inspiration tables answer questions about the world when no GM decides, letting dice adjudicate the unknown (Ironsworn's Ask the Oracle, Mythic GM Emulator).",
+        "story_cubes": "Rolled picture dice or drawn image tokens supply symbols that players must weave into the unfolding narrative (Rory's Story Cubes).",
+        "random_plot_twists": "A random table or deck injects plot twists that override current expectations and force the story onto a new course.",
+        "mad_libs_prompts": "Fill-in-the-blank sentence templates prompt players to complete structured statements that become story truth (Fiasco playset elements, The Quiet Year project prompts).",
+        "tarot_card_prompts": "Tarot or purpose-built divinatory cards are drawn and interpreted to seed scenes, characters, or fates (Nova's tarot spreads, Carved from Brindlewood mysteries).",
+        "leading_questions": "The rules pose pointed questions to specific players — 'who here has wronged you?' — whose answers immediately bind as fiction (PbtA playbook questions, The King is Dead-style prompts)."
+      }
+    },
+    "worldbuilding": {
+      "description": "Mechanics for collaboratively creating settings, histories, and communities.",
+      "focuses": {
+        "collaborative_map_creation": "The table draws and annotates a shared map during play, with additions following formal turns or prompts (The Quiet Year's map, Beyond the Wall village creation).",
+        "community_creation": "The group builds its home community — its resources, troubles, and notables — through a structured procedure before or during play (Stonetop's steading, Forbidden Lands strongholds).",
+        "setting_questions": "Setup poses structured questions about the setting whose answers customize the world before play begins.",
+        "microscope_history": "Players build a setting's history nonlinearly, nesting periods, events, and scenes anywhere on the timeline without ownership of any part (Microscope).",
+        "setting_truths_selection": "The table selects among pre-written alternative 'truths' for major setting questions, assembling a canonical world from options (Ironsworn's Your Truths).",
+        "pantheon_creation": "Players collaboratively author the setting's gods or great powers, whose established portfolios then constrain and color play (Dawn of Worlds-style god-building).",
+        "collaborative_npc_creation": "Recurring NPCs are created or elaborated jointly by the table, with players adding traits, wants, and secrets that become canon."
+      }
+    },
+    "tone": {
+      "description": "Mechanics enforcing genre feel, mood, and register.",
+      "focuses": {
+        "genre_emulation_rules": "The system codifies its genre's logic — what kinds of events can happen, who can die, how stories must arc — so play reproduces the source fiction's conventions.",
+        "pulp_conventions": "Rules enforce pulp tropes: cliffhanger escapes, mook-sweeping heroes, and villains who monologue rather than execute (Spirit of the Century, Feng Shui).",
+        "comedy_mechanics": "Humor is mechanically rewarded or generated — bonuses for jokes, tables of absurd mishaps, or rules that engineer farce (Paranoia's clone deaths, Fiasco's disasters).",
+        "horror_atmosphere_rules": "Procedures deliberately manufacture dread at the table — dimmed lights, whispered narration, forbidden dice — beyond what any stat tracks (Ten Candles' darkness rituals, Dread's tower table presence).",
+        "tone_dials": "The table explicitly sets dials for grit, lethality, or darkness that change which rules modules apply (Forged in the Dark hack dials, gritty realism variants).",
+        "trope_invocation": "Players spend resources to invoke named genre tropes as one-shot effects, bending events to formula because the genre demands it."
+      }
+    }
+  }
+}

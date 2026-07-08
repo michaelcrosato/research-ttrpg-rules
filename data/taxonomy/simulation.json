@@ -1,0 +1,156 @@
+{
+  "domain": "simulation",
+  "description": "Rules that model a living world or system: nature, settlements, factions, mysteries, magic, and technology evolving through their own procedures.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "agriculture": {
+      "description": "Rules for growing, raising, and extracting renewable produce from land and livestock.",
+      "focuses": {
+        "animal_breeding": "Livestock kept in pairs reproduce at fixed intervals, rewarding players who husband breeding stock instead of eating it (as in Agricola's harvest-time breeding).",
+        "farming": "Fields are plowed, sown with crops, and harvested over successive rounds or seasons, converting labor and time into food or goods.",
+        "fishing": "Players harvest fish from ponds, rivers, or coastal waters as a renewable food or trade resource, often via dedicated action spaces or gear (as in Nusfjord).",
+        "harvest_cycles": "Play is punctuated by periodic harvest phases in which fields yield their crops and long-term investments pay out, creating deadline rhythms (as in Agricola).",
+        "ore_ruby_mining": "Players dig mines and extract ore and rubies as escalating mineral resources, with rubies acting as wild or premium goods (as in Caverna).",
+        "plantation_farming": "Plantation tiles produce colonial goods only when staffed with workers, tying production to labor allocation (as in Puerto Rico).",
+        "wine_making": "Grapes are planted, harvested, crushed into wine, and aged over successive years, with value increasing as vintages mature (as in Viticulture)."
+      }
+    },
+    "astral": {
+      "description": "Rules for otherworldly planes overlapping the physical world and travel between them.",
+      "focuses": {
+        "planar_travel": "Characters cross into other planes or spirit worlds that operate under their own physical and magical laws, with rules for entry, travel, and return.",
+        "projection": "A character's consciousness leaves the body to travel an overlapping astral plane, acting there while the vulnerable physical body stays behind (as in Shadowrun)."
+      }
+    },
+    "astronomy": {
+      "description": "Rules modeling stars, planets, and celestial motion as content or timing mechanisms.",
+      "focuses": {
+        "celestial_events": "Eclipses, comets, conjunctions, or other celestial phenomena occur on a schedule or by chance and impose mechanical effects while active.",
+        "orbital_tracks": "Planets or other bodies advance along orbital tracks during play, so distances, alignments, and opportunities shift over time (as in SETI: Search for Extraterrestrial Intelligence).",
+        "sector_generation": "Procedures and tables generate star sectors, systems, worlds, and their tags or hazards to seed a sandbox space campaign (as in Stars Without Number or Traveller)."
+      }
+    },
+    "building": {
+      "description": "Rules for constructing, placing, and developing structures, settlements, and spatial layouts.",
+      "focuses": {
+        "aquarium_placement": "Players build an aquarium by placing fish and exhibit pieces under compatibility and capacity constraints, scoring for well-arranged tanks.",
+        "cave_digging": "Players excavate cave tiles to open new chambers that can then be furnished or put to use, expanding their play area underground (as in Caverna).",
+        "city_buildings": "Players erect buildings in a growing city, each granting ongoing abilities, income, or scoring based on its type and placement (as in Suburbia).",
+        "enclosure_tile_placement": "Players place enclosure tiles or pens that must be bounded or fenced to hold animals, scoring for filled enclosures (as in New York Zoo).",
+        "fencing": "Players build fences to partition open land into pastures whose size limits how many animals they can hold (as in Agricola).",
+        "hex_habitat_placement": "Players place hexagonal habitat tiles to grow contiguous terrain areas that attract or score wildlife (as in Cascadia).",
+        "kingdom_turns": "Ruling a domain is resolved through a structured kingdom turn of collecting resources, resolving events, and taking leadership actions, abstracting months of governance (as in Pathfinder: Kingmaker or ACKS).",
+        "pattern_line_filling": "Drafted pieces fill fixed pattern lines that transfer to a scoring wall only when complete, with overflow penalized (as in Azul).",
+        "polyomino_puzzle": "Players fit polyomino shapes into a personal grid, balancing coverage, adjacency bonuses, and wasted space (as in A Feast for Odin).",
+        "polyomino_quilt": "Players purchase fabric polyominoes with a time-and-button economy and stitch them into a quilt grid, minimizing gaps (as in Patchwork).",
+        "room_renovation": "Players renovate or repurpose the rooms of a building, converting spaces to new functions that grant abilities or points.",
+        "settlement_management": "Players found and develop settlements with tracked attributes, structures, and problems that grow or decay between adventures (as in Pathfinder: Kingmaker's settlements or ACKS domains).",
+        "stronghold_construction": "Characters plan and pay for fortresses or home bases room by room, gaining facilities and followers as construction completes (as in ACKS or Forbidden Lands).",
+        "temple_tracks": "Players advance markers up temple or favor tracks, gaining escalating rewards and endgame standing for devotion (as in Tzolk'in).",
+        "tile_activation": "Placing a tile activates it along with other tiles in its row, district, or adjacency group, chaining production effects (as in The Castles of Burgundy or Quadropolis).",
+        "tile_placement_combos": "Tiles score or produce based on synergy with neighboring tiles, so placement order and adjacency drive combo-building.",
+        "tile_placement_forests_rivers": "Tiles must be placed so forest, river, or field edges match neighboring terrain, growing connected natural features (as in Kingdomino).",
+        "tile_placement_roads_cities": "Tiles extend roads and cities that score when completed, with placement legality set by matching edges (as in Carcassonne)."
+      }
+    },
+    "environment": {
+      "description": "Rules by which the world itself acts: weather, climate, disasters, global parameters, and ambient events.",
+      "focuses": {
+        "agenda_deck": "A deck of agenda or doom cards advances the opposition on a timer, escalating the situation regardless of player success (as in Arkham Horror: The Card Game).",
+        "alien_evolution": "An alien organism or species develops new traits or grows stronger as play progresses, changing what players must survive (as in Nemesis's intruder development).",
+        "blight_spread": "Environmental corruption spreads across the map in cascades, permanently degrading regions unless contained (as in Spirit Island's blight).",
+        "chaos_bag": "Random tokens drawn from a bag modify tests with scenario-tuned outcomes, letting the environment's volatility be adjusted (as in Arkham Horror: The Card Game).",
+        "city_events": "Random urban event cards or tables inject fires, festivals, crimes, and politics into a city as it is visited or as rounds pass.",
+        "city_panic": "A city-wide panic or alarm level rises as threats go unchecked, imposing escalating penalties or loss conditions.",
+        "day_night_cycle": "Play alternates between day and night phases with different rules, threats, or available actions (as in Robinson Crusoe's night phase).",
+        "defcon_status": "A global tension track moves toward catastrophe as players act aggressively, constraining play and threatening instant loss at the extreme (as in Twilight Struggle's DEFCON).",
+        "disease_outbreak": "Diseases seed the map and spread in chain-reaction outbreaks when local concentrations exceed thresholds (as in Pandemic).",
+        "glaciation_adaptation": "Advancing ice or climate shift eliminates portions of the map, forcing species or populations to adapt or die (as in Dominant Species).",
+        "map_drawing": "The map itself is drawn or annotated during play, with additions permanently shaping later options (as in The Quiet Year or Cartographers).",
+        "milestones_awards": "Players claim milestones or fund awards for reaching board-state achievements first, converting development leads into points (as in Terraforming Mars).",
+        "natural_disasters": "Earthquakes, floods, eruptions, or wildfires strike as events that reshape the map and demand immediate response.",
+        "ocean_tiles": "Placing ocean tiles raises a global water parameter and grants placement bonuses, gating other developments (as in Terraforming Mars).",
+        "oxygen_level": "A shared oxygen or atmosphere parameter rises through player actions, unlocking effects and pushing the game toward its end state (as in Terraforming Mars).",
+        "peat_harvest": "Players cut peat from moorland tiles, clearing land for use while stockpiling fuel (as in Agricola: Farmers of the Moor or Fields of Arle).",
+        "presence_tracks": "Players uncover slots on personal presence tracks to grow both their on-map reach and their per-turn capacity (as in Spirit Island).",
+        "psychic_maelstrom": "An ambient psychic force pervades the setting, and characters can open their minds to it for insight at personal risk (as in Apocalypse World).",
+        "road_events": "Traveling between locations triggers narrative event cards with choices and consequences (as in Gloomhaven's road events).",
+        "seasons_calendar": "The campaign tracks a calendar whose passage through seasons changes available activities, travel, and hazards (as in Pendragon's yearly structure).",
+        "seasons_events": "Event cards or tables keyed to the current season fire as the year advances, flavoring each period differently.",
+        "storm_movement": "A storm or hazard system moves across the board, shifting terrain and punishing players caught in its path (as in Forbidden Desert).",
+        "temperature": "A shared temperature parameter rises step by step through player actions, granting bonuses at thresholds and gating the endgame (as in Terraforming Mars).",
+        "temperature_exposure": "Extreme heat or cold inflicts damage, conditions, or checks on characters lacking protection, making climate itself a hazard.",
+        "terraforming": "Players transform a hostile world toward habitability by raising global parameters, with progress tracked and rewarded (as in Terraforming Mars).",
+        "terraforming_gaia": "Players pay to convert planets of foreign types into ones they can settle, with cost scaling by ecological distance (as in Gaia Project).",
+        "weather_delve": "Weather is generated for each delve or expedition day, imposing conditions on that outing's tests and pacing.",
+        "weather_effects": "Current weather imposes mechanical modifiers on visibility, movement, and morale for affected activities.",
+        "weather_generation": "Procedures or dice generate each day's weather from season and region, producing an evolving forecast the group must plan around (as in Forbidden Lands or The One Ring)."
+      }
+    },
+    "faction": {
+      "description": "Rules by which organized groups pursue agendas, contest territory, and change the world offscreen.",
+      "focuses": {
+        "adversaries": "A codified adversary opponent with its own escalation rules and selectable difficulty levels drives the opposition (as in Spirit Island's adversaries).",
+        "faction_clocks": "Offscreen factions pursue goals via progress clocks the GM advances, so the world moves whether or not players engage (as in Blades in the Dark).",
+        "faction_turns": "At set intervals the GM runs a faction turn in which each faction rolls or spends assets to advance its agenda (as in Stars Without Number).",
+        "fronts_threats": "Threats are organized into fronts with countdown portents that escalate to catastrophe unless players intervene (as in Dungeon World).",
+        "turf_war": "Rival organizations contest control of territory claim by claim, with holdings granting income and status (as in Blades in the Dark)."
+      }
+    },
+    "investigation": {
+      "description": "Rules for uncovering hidden truths through clues, deduction, and structured mysteries.",
+      "focuses": {
+        "clue_chains": "Each discovered clue points to a further scene, location, or witness, so the mystery is traversed as a linked trail.",
+        "clue_deduction": "Players cross-eliminate possibilities from gathered information to deduce a hidden solution (as in Clue or Sleuth).",
+        "clue_spending": "Collected clue tokens or points are spent as currency to advance the investigation or purchase revelations (as in Arkham Horror: The Card Game).",
+        "clues": "Clue tokens seeded at locations are gathered through investigation tests and measure progress toward solving the scenario.",
+        "forensics": "Specialized examination of physical evidence such as autopsies, ballistics, and documents yields facts unavailable to casual inspection.",
+        "gumshoe_auto_clues": "Core clues are found automatically by anyone with the right investigative ability, while limited pool spends buy extra benefits, guaranteeing the mystery never stalls (as in GUMSHOE games like Trail of Cthulhu).",
+        "mystery_structure": "The scenario defines a hidden truth and distributes redundant clues across nodes so multiple paths reach the solution (as in three-clue-rule mystery design).",
+        "newspaper_clues": "In-fiction newspapers and printed handouts embed clues players must notice and interpret themselves (as in Sherlock Holmes Consulting Detective).",
+        "paragraph_book_crawl": "Players look up numbered paragraphs in a book keyed to locations or choices, revealing narration and branching outcomes (as in Tales of the Arabian Nights or Sherlock Holmes Consulting Detective).",
+        "spy_grid_deduction": "Players deduce the identity or position of hidden agents on a grid from accumulating partial information (as in hidden-identity deduction games like Inkognito)."
+      }
+    },
+    "magic": {
+      "description": "Rules governing supernatural power: how it is acquired, cast, fueled, and what it costs.",
+      "focuses": {
+        "adept_paradox": "Reality resists overt supernatural acts, accumulating paradox that backlashes against the practitioner, especially before witnesses (as in Mage: The Ascension).",
+        "drain": "Casting inflicts drain the caster must resist or soak, converting magical exertion into fatigue or injury (as in Shadowrun).",
+        "elemental_ka": "Magic is powered by ratings in elemental life-forces the character embodies and channels (as in Nephilim's elemental Ka).",
+        "mana_source": "Casters draw mana from a shared, refreshing source whose available colors or values vary turn to turn, making magic partly opportunistic (as in Mage Knight's Source dice).",
+        "noun_verb_formulaic": "Spells are composed by pairing a verb-like technique with a noun-like form, so effects derive from combinable ratings (as in Ars Magica's Techniques and Forms).",
+        "practical_magic": "Small utilitarian magics such as mending, finding, and warding are handled with light rules distinct from formal high sorcery, keeping everyday wonder cheap.",
+        "psionics": "Mental powers such as telepathy and telekinesis form a separate discipline system, typically fueled by a psychic point pool rather than spells.",
+        "ritual_casting": "Powerful effects are cast as lengthy rituals requiring time, components, assistants, or circles rather than combat-speed actions.",
+        "rune_spells": "Spells are tied to runes or divine glyphs the caster has mastered, with power drawn from an associated cult or cosmic force (as in RuneQuest's Rune magic).",
+        "sorcery_tax": "Sorcery levies a lasting toll such as permanent attribute loss, corruption, or debt, so each casting is a strategic sacrifice rather than a renewable expense.",
+        "spell_memorization": "Casters memorize specific spells into limited mental slots and forget them when cast, requiring rest and study to re-prepare (Vancian casting, as in AD&D).",
+        "spell_research": "Casters invent or reverse-engineer new spells through research, experimentation, and expenditure, expanding the game's spell list over time.",
+        "spell_slots": "Casting expends limited per-rest slots by spell level, with higher slots powering bigger effects (as in D&D 5e).",
+        "spell_stamina_cost": "Spells are paid for from the same stamina or health pool used for physical exertion, so casting directly erodes survivability.",
+        "spirit_magic": "Common spells are learned from spirits or shamanic tradition and fueled by personal magic points, forming everyday magic beside deeper practices (as in RuneQuest).",
+        "summoning_spirits": "Casters summon and bind spirits or elementals that perform services, with rules for negotiation, control, and the price of failure (as in Shadowrun's conjuring).",
+        "wild_magic": "Magic can surge out of control, triggering random effect tables when cast recklessly or unluckily (as in D&D's wild magic surges)."
+      }
+    },
+    "technology": {
+      "description": "Rules for machines, augmentation, research, and the advancement of technical capability.",
+      "focuses": {
+        "cybernetics": "Characters install cybernetic implants that grant abilities and stat boosts, limited by capacity, surgery risk, and cost (as in Cyberpunk or Shadowrun).",
+        "cyberwear_humanity": "Each implant erodes a humanity or essence score, trading power for a slide toward psychological or spiritual loss (as in Cyberpunk's Humanity or Shadowrun's Essence).",
+        "cyphers_limit": "Potent one-use devices are found frequently but can only be safely carried in limited numbers, forcing use-it-or-lose-it decisions (as in Numenera's cyphers).",
+        "gadgeteering": "Inventors improvise or design gadgets on the fly through build rolls and resource costs, with reliability as the tradeoff for speed.",
+        "matrix_hacking": "Hacking is a distinct subsystem where operators navigate networks, defeat countermeasures, and manipulate systems in accelerated time (as in Shadowrun's Matrix).",
+        "mech_customization": "Players assemble and refit mechs from frames, weapons, and systems within tonnage or point budgets (as in Lancer or BattleTech).",
+        "mercenaries": "Players hire mercenary units or specialists as expendable assets that fight or work until paid off, lost, or dismissed.",
+        "research_board": "Players advance markers on a shared research board whose tracks unlock capabilities for those who invest (as in Beyond the Sun).",
+        "research_trees": "Technologies form branching prerequisite trees, so early picks open some paths and lock out others (civilization-style tech trees, as in Through the Ages).",
+        "science_tokens": "Players accumulate science symbols or tokens whose sets and combinations convert into advances or points (as in 7 Wonders).",
+        "ship_customization": "Players outfit a vessel from modular components such as engines, weapons, and holds, trading cost, capacity, and performance (as in Galaxy Trucker or Xia: Legends of a Drift System).",
+        "starship_modification": "An existing campaign starship is modified over time with fittings and upgrades installed, swapped, and maintained (as in Stars Without Number or Star Wars: Edge of the Empire).",
+        "tech_levels": "Equipment and societies are rated by technology level, gating what can be bought, built, or understood in each place (as in Traveller's TL ratings)."
+      }
+    }
+  }
+}

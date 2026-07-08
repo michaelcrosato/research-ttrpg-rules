@@ -327,8 +327,9 @@ class TFIDFEngine {
       const subgenres = game.subgenres ? game.subgenres.join(' ') : '';
       const vectorKeys = game.governed_vectors ? game.governed_vectors.join(' ') : '';
       const explanations = game.vector_explanations ? Object.values(game.vector_explanations).join(' ') : '';
+      const v2meta = `${(game.designers || []).join(' ')} ${game.publisher || ''} ${game.family || ''} ${game.resolution_core || ''}`;
 
-      const combinedText = `${titleRep} ${desc} ${subgenres} ${vectorKeys} ${explanations}`;
+      const combinedText = `${titleRep} ${desc} ${subgenres} ${vectorKeys} ${explanations} ${v2meta}`;
       const tokens = this.tokenize(combinedText);
 
       const uniqueTerms = new Set(tokens);
@@ -837,6 +838,82 @@ function loadMoreGames() {
   renderExplorer();
 }
 
+const CRUNCH_LABELS = ['', 'Ultralight', 'Light', 'Medium', 'Heavy', 'Very Heavy'];
+
+/**
+ * Canonical taxonomy bundle (data/taxonomy.json), loaded lazily and
+ * best-effort. When present, the Vector Dictionary and Vector Search panels
+ * show canonical definitions alongside per-game implementations.
+ */
+let taxonomyBundle: { vectors?: Record<string, { definition: string }> } | null = null;
+let taxonomyLoadStarted = false;
+
+function loadTaxonomyBundle(): void {
+  if (taxonomyLoadStarted) return;
+  taxonomyLoadStarted = true;
+  try {
+    fetch('./data/taxonomy.json')
+      .then((res) => (res && res.ok ? res.json() : null))
+      .then((doc) => {
+        if (doc && doc.vectors) taxonomyBundle = doc;
+      })
+      .catch(() => {
+        /* taxonomy is optional — definitions simply don't render */
+      });
+  } catch {
+    /* fetch unavailable (tests/offline) — ignore */
+  }
+}
+
+function taxonomyDefinition(vector: string): string | null {
+  const entry = taxonomyBundle && taxonomyBundle.vectors ? taxonomyBundle.vectors[vector] : null;
+  return entry && entry.definition ? entry.definition : null;
+}
+
+/**
+ * Renders the schema-v2 metadata strip (provenance badge, designers, publisher,
+ * resolution core, crunch, player count, playtime) inside the details modal.
+ * The strip is created dynamically so older layouts keep working untouched.
+ */
+function renderV2MetaStrip(game: GameRuleset) {
+  const titleEl = document.getElementById('modal-game-title');
+  if (!titleEl || !titleEl.parentElement) return;
+
+  let strip = document.getElementById('modal-v2-meta');
+  if (!strip) {
+    strip = document.createElement('div');
+    strip.id = 'modal-v2-meta';
+    strip.className = 'modal-v2-meta';
+    titleEl.insertAdjacentElement('afterend', strip);
+  }
+
+  const esc = (s: string) =>
+    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  const chips: string[] = [];
+  if (game.provenance === 'curated') {
+    chips.push('<span class="meta-chip provenance-curated" title="Researched, fact-checked entry">✓ Curated</span>');
+  } else if (game.provenance === 'generated') {
+    chips.push(
+      '<span class="meta-chip provenance-generated" title="Legacy synthetic entry — mechanics data is unverified">⚠ Unverified</span>'
+    );
+  }
+  if (game.designers && game.designers.length)
+    chips.push(`<span class="meta-chip">🖋 ${esc(game.designers.join(', '))}</span>`);
+  if (game.publisher) chips.push(`<span class="meta-chip">🏛 ${esc(game.publisher)}</span>`);
+  if (game.resolution_core) chips.push(`<span class="meta-chip">🎲 ${esc(game.resolution_core)}</span>`);
+  if (game.crunch && CRUNCH_LABELS[game.crunch])
+    chips.push(`<span class="meta-chip">⚖ Crunch: ${CRUNCH_LABELS[game.crunch]}</span>`);
+  if (game.family) chips.push(`<span class="meta-chip">🧬 ${esc(game.family)}</span>`);
+  if (game.player_count)
+    chips.push(`<span class="meta-chip">👥 ${game.player_count.min}–${game.player_count.max} players</span>`);
+  if (game.playtime_minutes)
+    chips.push(`<span class="meta-chip">⏱ ${game.playtime_minutes.min}–${game.playtime_minutes.max} min</span>`);
+
+  strip.innerHTML = chips.join('');
+  strip.style.display = chips.length ? 'flex' : 'none';
+}
+
 function openGameDetails(gameId: string) {
   const game = allGames.find((g) => g.game_id === gameId);
   if (!game) return;
@@ -855,6 +932,9 @@ function openGameDetails(gameId: string) {
   setElText('modal-year', game.year);
   setElText('modal-primary-genre', game.primary_genre);
   setElText('modal-subgenres', game.subgenres ? game.subgenres.join(', ') : 'None');
+
+  // Schema v2 metadata strip (provenance, designers, publisher, resolution core, ...)
+  renderV2MetaStrip(game);
 
   // Set description text if available
   const descContainer = document.getElementById('modal-description-container');
@@ -2398,7 +2478,11 @@ function handleWorkerDictionaryResults(data: any) {
           <span class="vector-domain-badge">${domain.toUpperCase()} DOMAIN</span>
         </div>
         <div class="vector-result-desc">
-          Showing all rulesets that feature explicit, documented mechanics for this subsystem.
+          ${
+            taxonomyDefinition(vectorName)
+              ? `<span class="vector-canonical-def">${taxonomyDefinition(vectorName)}</span><br/>`
+              : ''
+          }Showing all rulesets that feature explicit, documented mechanics for this subsystem.
         </div>
         <div class="vector-game-list">
           ${matches
@@ -2586,7 +2670,6 @@ async function loadDatabase() {
     try {
       db = await openDatabase();
       cachedGames = (await getCachedGames(db)).filter((g) => g && g.game_id && g.medium);
-      console.log('LOAD_DATABASE_DIAG: db=' + !!db + ' cachedGames.length=' + cachedGames.length);
     } catch (e) {
       console.warn('IndexedDB cache load failed, falling back to fetch:', e);
     }
@@ -2647,6 +2730,7 @@ async function loadDatabase() {
     initializeEditor();
     initializeSandbox();
     initializeProbabilityPanel();
+    hideLoadingOverlay();
   } catch (error: any) {
     console.error('Failed to load registry database:', error);
     // Fallback message in explorer UI
@@ -2660,7 +2744,18 @@ async function loadDatabase() {
         </div>
       `;
     }
+    hideLoadingOverlay();
   }
+}
+
+/**
+ * Dismisses the full-screen boot overlay. The overlay markup ships in
+ * index.html with z-index 9999; without this call the app stays covered
+ * after the database loads (or fails), so both boot paths invoke it.
+ */
+function hideLoadingOverlay(): void {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.classList.add('hidden');
 }
 
 // Extract genres and vectors
@@ -2702,6 +2797,11 @@ function renderDashboardStats() {
   setElText('stat-total-ttrpgs', gamesData.ttrpg.length);
   setElText('stat-total-boardgames', gamesData.board_game.length);
   setElText('stat-total-vectors', uniqueVectors.size);
+
+  // Optional curated-entry counter (schema v2) — element may not exist in
+  // older layouts, in which case setElText is a no-op.
+  const curatedCount = allGames.filter((g) => g.provenance === 'curated').length;
+  setElText('stat-total-curated', curatedCount);
 }
 
 // Populate genre filter selector
@@ -2782,6 +2882,7 @@ function setupTabs() {
       if (targetView === 'compare') {
         renderComparisonResults();
       } else if (targetView === 'dictionary') {
+        loadTaxonomyBundle();
         renderDictionary();
       } else if (targetView === 'editor') {
         updateEditorPreviews();
@@ -3023,6 +3124,7 @@ function createCardDOM(game: GameRulesetInternal) {
       <div>
         <div class="card-top">
           <span class="medium-badge ${game.medium}-badge">${badgeText}</span>
+          ${game.provenance === 'curated' ? '<span class="curated-badge" title="Researched, fact-checked entry">✓ Curated</span>' : ''}
           <span class="year-badge">${game.year}</span>
         </div>
         <h2>${escapeHTML(game.title)}</h2>
@@ -3141,6 +3243,14 @@ function progressiveRenderDict(results: any[], container: HTMLElement) {
 
     card.appendChild(nameDiv);
 
+    const canonicalDef = taxonomyDefinition(vec);
+    if (canonicalDef) {
+      const defDiv = document.createElement('div');
+      defDiv.className = 'dict-item-definition';
+      defDiv.textContent = canonicalDef;
+      card.appendChild(defDiv);
+    }
+
     const gamesDiv = document.createElement('div');
     gamesDiv.className = 'dict-item-games';
     matchingGames.forEach((game: any) => {
@@ -3225,6 +3335,7 @@ function initializeVectorSearch() {
   }, 150);
 
   searchInput.addEventListener('input', (e) => {
+    loadTaxonomyBundle();
     const target = e.target as HTMLInputElement;
     debouncedAutocomplete(target.value);
   });

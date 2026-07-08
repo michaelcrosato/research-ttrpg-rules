@@ -1,0 +1,87 @@
+{
+  "domain": "spatial",
+  "description": "Rules governing physical space on the table: controlling regions, placing pieces and tiles, moving across maps, building networks, and measuring geometry.",
+  "applies_to": ["board_game", "ttrpg"],
+  "subsystems": {
+    "area": {
+      "description": "How players contest, claim, and control regions of a shared map.",
+      "focuses": {
+        "area_control_majority": "Players compete to have the most presence in a region, with control or rewards going to whoever holds the plurality of pieces there (as in El Grande).",
+        "area_influence_spread": "Placed pieces project influence into neighboring spaces, so a single placement affects an area larger than the space it occupies (e.g., trees casting shadows onto adjacent spaces in Photosynthesis).",
+        "influence_threshold_control": "A region is controlled only when a player's influence meets a defined threshold, often measured against rivals' totals, and control flips as influence shifts (country control in Twilight Struggle).",
+        "region_scoring": "Bounded map regions are evaluated when a scoring event occurs and award points to their controllers or contributors (Carcassonne's farms, El Grande's scoring rounds).",
+        "dudes_on_a_map": "Players recruit and maneuver units across a shared map, using position and force to seize territory and fight rivals (Risk, Kemet).",
+        "area_enclosure": "Players score or capture by fully surrounding spaces or enemy pieces with their own (Go, Through the Desert).",
+        "area_denial_blocking": "Pieces are placed primarily to make spaces unusable to opponents rather than to gain direct value for the placer (corner-blocking in Blokus).",
+        "zones_of_control": "Units exert control over adjacent spaces, restricting or halting enemy movement that enters them (classic hex-and-counter wargame ZOCs).",
+        "land_grab_expansion": "Players race to claim unowned territory before rivals do, with early expansion shaping long-term position (the opening settlement of Catan, 4X expansion phases).",
+        "shrinking_map": "The playable area contracts during the game, forcing pieces into escalating conflict (the sinking island of Survive: Escape from Atlantis!).",
+        "king_of_the_hill_objectives": "Designated high-value locations grant repeated rewards to whoever currently holds them, focusing conflict on those points (objective hexes in wargames, king-of-the-hill scenarios)."
+      }
+    },
+    "placement": {
+      "description": "Constraints and rewards that govern where pieces and tiles may be put.",
+      "focuses": {
+        "tile_laying_matching": "Players add tiles to a growing shared layout where edges or features must match what they touch (Carcassonne).",
+        "polyomino_fitting": "Irregularly shaped pieces must be fitted into a limited grid, rewarding efficient packing (Patchwork).",
+        "pattern_building": "Pieces are arranged to reproduce target patterns or configurations that convert into points or effects (Azul, Sagrada).",
+        "adjacency_bonuses": "A placement's value depends on what it ends up next to, rewarding synergistic neighborhoods (building adjacencies in Suburbia).",
+        "terrain_placement_restrictions": "Legal placement is constrained by terrain types or mandatory adjacency to existing pieces (Kingdom Builder's terrain cards).",
+        "tile_rotation_orientation": "The orientation of a placed piece matters mechanically, changing its connections or facing (the path tiles of Tsuro).",
+        "overbuilding": "New pieces may be placed on top of existing ones, replacing or upgrading what was there (building onto higher levels in Taluva).",
+        "personal_map_building": "Each player develops a private spatial layout that is scored independently of everyone else's (Isle of Skye).",
+        "feature_completion": "Enclosing or finishing a spatial feature triggers immediate effects or scoring (completing cities and roads in Carcassonne).",
+        "starting_position_drafting": "Initial placements are chosen in a structured draft that shapes the whole game (Catan's snake-order settlement draft, Terra Mystica's starting dwellings).",
+        "grid_coverage_bonuses": "Rewards accrue for completely filling rows, columns, or regions of a personal grid (filling park areas in Barenpark)."
+      }
+    },
+    "movement": {
+      "description": "How pieces travel across boards, maps, and tracks.",
+      "focuses": {
+        "grid_movement": "Pieces move space by space across a regular grid of squares or hexes, with distances counted in spaces (tactical TTRPG battle maps, chess).",
+        "point_to_point": "Movement follows lines connecting discrete locations rather than a uniform grid (Pandemic's city network, War of the Ring).",
+        "roll_and_move": "A random roll or spin determines how far a piece moves (Backgammon, Monopoly).",
+        "area_movement": "Pieces move between large irregular regions whose borders define adjacency (Risk, Diplomacy).",
+        "hidden_movement": "One or more pieces move secretly, with position recorded privately rather than shown on the board (Scotland Yard, Fury of Dracula).",
+        "movement_point_allowances": "Each move spends from a budget of movement points, with different spaces costing different amounts (hex-and-counter wargames, movement speeds in D&D).",
+        "programmed_movement": "Players plan a sequence of movement instructions in advance, then execute them in order even when circumstances have changed (RoboRally).",
+        "card_driven_movement": "Movement distance or destination is dictated by cards played from hand (Flamme Rouge, Thunder Alley).",
+        "fixed_pattern_movement": "Each piece type moves in a specific geometric pattern (chess knights, the shifting move cards of Onitama).",
+        "carrier_stack_movement": "Pieces can stack and carry one another, moving as a single unit (camels stacking in Camel Up).",
+        "terrain_movement_modifiers": "Terrain types alter movement cost or possibility, such as roads, rough ground, or impassable barriers (wargame terrain charts, difficult terrain in D&D).",
+        "forced_displacement": "Effects push, pull, or otherwise relocate pieces without their controller's consent (shoves and knockbacks in tactical TTRPGs, pushing lines of marbles in Abalone).",
+        "exploration_tile_reveal": "The map is built or revealed as pieces move into unexplored space (the growing house of Betrayal at House on the Hill, dungeon-crawl tile reveals)."
+      }
+    },
+    "network": {
+      "description": "Building and exploiting connections between locations.",
+      "focuses": {
+        "route_building": "Players claim individual links between adjacent locations, assembling them into personal routes (Ticket to Ride).",
+        "network_connections": "Value flows from the overall reach and connectivity of a player's network rather than from single links (Power Grid, Brass).",
+        "pick_up_and_deliver": "Players collect goods at one location and transport them to another for rewards (Merchant of Venus, Firefly: The Game).",
+        "connection_goals": "Players hold specific location pairs they must connect for points or penalties (Ticket to Ride's destination tickets, TransAmerica).",
+        "route_drawing": "Connections are drawn directly onto the map with crayon or pen rather than built from components (Empire Builder's crayon rails, route-drawing roll-and-writes).",
+        "supply_line_tracing": "The legality or strength of actions depends on tracing an unbroken connection back to a source (wargame supply rules).",
+        "connection_sharing_rules": "Rules define whether multiple players can use or occupy the same link or node, and at what cost (double routes in Ticket to Ride, shared city slots in Power Grid)."
+      }
+    },
+    "geometry": {
+      "description": "Measuring space: distance, visibility, orientation, and physical constraints.",
+      "focuses": {
+        "line_of_sight": "Whether one piece can see or target another is determined by tracing sightlines past obstacles (tactical wargames, D&D combat).",
+        "range_measurement": "Distances to targets are counted in spaces or discrete range bands to determine what is reachable (spell ranges in D&D, range bands in X-Wing).",
+        "free_measurement_wargame": "Movement and range are measured with real rulers on an open table rather than a grid (Warhammer 40,000).",
+        "stacking_limits": "Rules cap how many pieces may occupy a single space (hex-and-counter stacking rules).",
+        "chokepoints": "Narrow passages concentrate movement and make small areas disproportionately valuable to hold (bridges and passes on wargame maps, dungeon corridors).",
+        "facing_arcs": "A piece's orientation defines arcs for attacking, seeing, or defending (firing arcs in X-Wing, facing and flanking in tactical RPGs).",
+        "elevation_advantage": "Height differences confer mechanical advantages or block movement and sight (hills in wargames, tower levels in Santorini).",
+        "area_of_effect_templates": "Effects cover geometric shapes such as blasts, cones, and lines applied to the board (fireball areas in D&D, blast templates in miniatures games).",
+        "cover_and_obstruction": "Intervening terrain grants defensive benefits or partial protection to targets behind it (cover saves in miniatures games, half cover in D&D).",
+        "base_contact_engagement": "Physical base-to-base contact defines melee engagement and locking rules (close combat in Warhammer).",
+        "proximity_auras": "Pieces emit continuous effects within a fixed radius, affecting everything nearby (commander auras in miniatures games, paladin auras in D&D).",
+        "adjacency_definitions": "Rules specify exactly what counts as adjacent, including diagonal treatment and edge cases (D&D's alternating diagonal cost, orthogonal-only movement games).",
+        "scatter_deviation": "Imprecise effects deviate randomly in direction or distance from their intended point (scatter dice in miniatures wargames)."
+      }
+    }
+  }
+}

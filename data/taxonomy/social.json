@@ -1,0 +1,107 @@
+{
+  "domain": "social",
+  "description": "Rules for interpersonal interaction: persuading, deceiving, intimidating, and bonding with characters and players, plus structured social conflict, reputation, and table-level negotiation.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "deception": {
+      "description": "Mechanics for lying, hidden identities, and detecting or punishing falsehood.",
+      "focuses": {
+        "assassin_card": "A hidden adversary role gets a single targeted kill or accusation that can overturn an apparent victory at the end of play (the Assassin naming Merlin in The Resistance: Avalon).",
+        "card_elimination": "Being caught out or losing challenges forces a player to flip or discard role and influence cards, eliminating their position piece by piece (as in Coup).",
+        "card_voting_traps": "Players vote or choose with face-down cards where certain options are traps that backfire, mislead, or expose the chooser when revealed.",
+        "insight": "A read-the-person check opposed by deception senses lies, concealed emotions, or ulterior motives (D&D Insight versus Deception).",
+        "intercept_tokens": "Players spend limited tokens to intercept, inspect, or block another player's hidden message or secret action before it resolves.",
+        "hidden_roles": "Each player is secretly dealt a role or allegiance and must pursue its agenda while concealing it from the table (Werewolf, Secret Hitler, Battlestar Galactica).",
+        "disguise_rules": "Characters adopt disguises with an explicit quality rating or opposed check that determines when and how the false face is penetrated.",
+        "misinformation_planting": "Dedicated actions seed false information into rumor networks, records, or enemy intelligence so opponents act on bad data.",
+        "bluff_challenges": "Any claim can be challenged; the challenger or the liar pays a codified penalty depending on whether the claim was true (Coup challenges, Liar's Dice calls)."
+      }
+    },
+    "influence": {
+      "description": "Mechanics for emotional leverage, personal history, and ongoing sway over others.",
+      "focuses": {
+        "aftermath_table": "At the story's end each player rolls on an outcome table whose result dictates how well or how catastrophically their character's fate lands (Fiasco's Aftermath).",
+        "bonds_connections": "Characters record explicit bonds with specific people that grant dice, XP, or aid when the relationship is engaged in play (Dungeon World bonds, Ironsworn connections).",
+        "cover_identities": "Characters maintain false identities with their own ratings that provide social access until burned or blown (Night's Black Agents covers).",
+        "hx_history": "Each character keeps a numeric history score with every other PC that modifies rolls to help or read them and resets for XP at a threshold (Apocalypse World's Hx).",
+        "passions": "Codified loves, loyalties, and hatreds are rated as stats that can be invoked for inspired bonuses but risk despair or compulsion when tested and failed (Pendragon passions).",
+        "planetary_consensus": "Swaying an entire population or world is resolved as a trackable consensus value shifted through arguments, media campaigns, or missions rather than a single roll.",
+        "tilt_table": "Midway through play a random table injects an escalating complication that reshapes the back half of the story (Fiasco's Tilt).",
+        "tokens_exchange": "Players physically hand tokens to one another to mark promises, concessions, or emotional beats, later spending them for mechanical leverage (Hillfolk drama tokens).",
+        "weird_traits": "Strange or idiosyncratic descriptive traits color social interaction, granting bonuses or complications whenever their oddity becomes relevant (Over the Edge-style traits).",
+        "strings_leverage": "Players hold rated 'strings' of emotional leverage on specific characters and spend them to tempt, command, or penalize the target (Monsterhearts Strings).",
+        "favor_debts": "Favors owed are tracked as explicit debts that can be called in for aid or forgiveness of obligations, functioning as a social currency.",
+        "reaction_rolls": "An NPC's opening disposition toward the party is set by a random reaction roll modified by charisma or circumstances (classic D&D 2d6 reaction table)."
+      }
+    },
+    "intimidation": {
+      "description": "Mechanics for coercing compliance through fear, threat, and displays of power.",
+      "focuses": {
+        "position_effect": "Intimidation attempts are framed through fictional position and expected effect before the roll, scaling both the outcome and the blowback (as in Blades in the Dark).",
+        "coercion_threats": "Credible threats extract compliance mechanically, but coerced targets get codified resentment, betrayal chances, or later reprisals.",
+        "displays_of_force": "Brandishing weapons, showing scars, or demonstrating power grants concrete bonuses to cow an audience before any violence occurs.",
+        "surrender_demands": "Rules let a dominant side demand surrender or rout, testing enemy resolve against fear to end a conflict without further fighting."
+      }
+    },
+    "persuasion": {
+      "description": "Mechanics for convincing, arguing, and communicating under constraint.",
+      "focuses": {
+        "abstract_clues": "A clue-giver may communicate only through abstract or ambiguous artifacts — images, sounds, arrangements — that others must interpret to reach the truth (Mysterium's visions, Dixit).",
+        "coded_clues": "A speaker gives tightly constrained coded hints, such as one word plus a number, to steer teammates toward correct targets while dodging forbidden ones (Codenames).",
+        "duel_of_wits": "Formal debate is fought like combat: sides state terms, secretly script verbal maneuvers in volleys, and wear down a body of argument, with the winner's concessions scaled to their losses (Burning Wheel's Duel of Wits).",
+        "position_effect": "Persuasion attempts are framed by position (risk) and effect (potential sway) before rolling, letting the fiction cap how far words can move someone (as in Blades in the Dark).",
+        "sojourn": "A structured move for spending time in a community to gather aid, with the roll's hits determining which boons — provisions, healing, information — the settlement provides (Ironsworn's Sojourn).",
+        "word_associations": "Players convey hidden targets through single-word associations that teammates must decode, with duplicated or illegal words canceled (Just One, Codenames).",
+        "attitude_steps": "NPC attitude sits on a ladder (hostile, unfriendly, indifferent, friendly, helpful) and successful appeals shift it a limited number of steps per scene (Pathfinder Diplomacy).",
+        "oratory_speeches": "Addressing a crowd is its own resolved action, swaying groups en masse with rhetoric rather than persuading individuals one by one.",
+        "fast_talk": "A quick, glib pitch can win momentary compliance that collapses once the target has time to think it over (Call of Cthulhu's Fast Talk)."
+      }
+    },
+    "structure": {
+      "description": "Frameworks that give social conflict the shape of combat: tracks, turns, and defenses.",
+      "focuses": {
+        "social_combat_tracks": "Extended social conflicts are fought across a track or grid of progress toward capitulation, with maneuvers advancing or reversing the marker (Exalted social influence, A Song of Ice and Fire RPG intrigues).",
+        "debate_duels": "A formal debate is played as a structured mini-game of arguments, rebuttals, and audience judgment distinct from ordinary skill checks.",
+        "verbal_initiative": "Social confrontations use an initiative order for who speaks and acts, making timing and interruption part of the contest.",
+        "social_hit_points": "Characters have a pool of composure, resolve, or willpower that social attacks deplete; emptying it forces concession or breakdown.",
+        "social_defenses": "Characters have passive social defense ratings that arguments must beat, and can raise them by invoking intimacies or virtues (Exalted's Resolve and Guile).",
+        "argument_stakes": "Before a social conflict, both sides state binding stakes — what each will do if they lose — so outcomes are enforceable rather than advisory."
+      }
+    },
+    "relationships": {
+      "description": "Mechanics that rate and evolve ongoing personal ties between characters.",
+      "focuses": {
+        "bond_mechanics": "Bonds between characters are created, tested, and broken through explicit procedures, with mechanical weight attached to forging or forsaking them (Ironsworn bonds).",
+        "relationship_maps": "Play begins by drawing a web of relationships among characters and NPCs, and that map drives scene setup and conflict (Fiasco's setup, Smallville's pathways).",
+        "romance_rules": "Courtship and romance follow dedicated procedures — approach, affection thresholds, and consequences — rather than generic social checks (Pendragon romance, Thirsty Sword Lesbians).",
+        "loyalty_scores": "Followers and allies carry a loyalty rating that is tested under stress or temptation to see whether they hold firm or defect.",
+        "rivalry_grudges": "Rivalries and grudges are recorded as rated relationships that grant bonuses or compulsions when acting against the rival.",
+        "relationship_dice": "Relationship ratings are rolled directly into a character's dice pool, so who you are dealing with matters as much as what you are doing (Smallville relationships).",
+        "intimacy_moves": "Special moves or effects trigger when characters share intimacy, encoding vulnerability and closeness into the rules (Apocalypse World sex moves)."
+      }
+    },
+    "reputation": {
+      "description": "Mechanics tracking how communities and institutions regard a character or player.",
+      "focuses": {
+        "faction_standing": "A character's standing with each faction is tracked separately, gating access, prices, and aid group by group.",
+        "honor_scores": "A rated honor stat rises and falls with conduct against a code, with thresholds granting respect or triggering disgrace (Pendragon Honor, Legend of the Five Rings).",
+        "infamy": "Notoriety for villainy or crime is tracked as its own score that attracts bounty hunters, fear, and criminal opportunity (Skull & Shackles infamy, wanted levels).",
+        "status_by_class": "Social station or caste is a rated trait that dictates how institutions treat a character and what conduct is expected of them (Burning Wheel resources and station, L5R Status).",
+        "fame_renown": "General celebrity accrues as a renown score that makes a character recognized, opening doors and making anonymity impossible.",
+        "gossip_rumors": "Deeds spread through a codified rumor system with lag and distortion, so reputation follows what people believe happened rather than what did.",
+        "prestige_titles": "Earned titles and ranks confer standing plus concrete privileges, and can be stripped for transgressions."
+      }
+    },
+    "negotiation_bg": {
+      "description": "Table-level negotiation between players: deals, alliances, and their enforceability.",
+      "focuses": {
+        "trade_negotiation": "Players haggle freely over exchanges of resources, cards, or services, with the deal's terms set by open bargaining rather than fixed prices (Catan trades, Sidereal Confluence's open trading phase).",
+        "table_talk_binding_deals": "The rules declare certain spoken agreements mechanically binding and enforce them, distinguishing enforceable pacts from cheap talk.",
+        "alliance_promises": "Players may invite or join alliances for specific conflicts, sharing in victory or spoils according to codified alliance rules (Cosmic Encounter allies).",
+        "bribery_side_payments": "Rules explicitly permit paying other players resources or favors to influence their votes, moves, or abstentions.",
+        "non_binding_pacts": "All deals are permitted but none are enforced, making betrayal a legal and central strategic weapon (Diplomacy's negotiations).",
+        "joint_victory_deals": "Players can negotiate shared or joint victories, trading sole triumph for cooperative security (Cosmic Encounter shared wins)."
+      }
+    }
+  }
+}

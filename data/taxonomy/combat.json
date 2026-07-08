@@ -1,0 +1,233 @@
+{
+  "domain": "combat",
+  "description": "How violence is initiated, resolved, and survived: attack and defense resolution, positioning, wounds and recovery, and the action structures that pace a fight.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "action_economy": {
+      "description": "How many things a combatant may do per turn and what structure governs spending them.",
+      "focuses": {
+        "action_point_pools": "Each activation grants a budget of action points spent freely across movement, attacks, and abilities, letting combatants trade mobility for offense (Zombicide's per-survivor actions, classic tactical RPGs).",
+        "multiple_action_penalty": "Combatants may attempt several actions or attacks per round, but each additional one takes a cumulative penalty, making restraint a tactical choice (Savage Worlds multi-action penalty, Pathfinder 2e's multiple attack penalty).",
+        "three_action_system": "Every turn grants exactly three interchangeable actions, with strikes, strides, and spell components all drawing from the same three (Pathfinder 2e).",
+        "minor_major_actions": "Turns are divided into typed action slots — a major/standard action plus move and minor actions — each fillable only by actions of its type (D&D 4e standard/move/minor).",
+        "reactions_opportunity": "Combatants hold limited reactions that interrupt other turns, most classically opportunity attacks against enemies leaving reach (D&D 5e reactions, Lancer overwatch).",
+        "held_actions": "A combatant can delay or ready an action against a declared trigger, resolving it later in the round the moment the trigger occurs.",
+        "full_round_actions": "The most powerful or complex options consume a combatant's entire turn, trading all other activity for one big effect (D&D 3.5 full-round actions)."
+      }
+    },
+    "cyberware": {
+      "description": "Combat effects of implanted augmentations.",
+      "focuses": {
+        "initiative_boost": "Implanted reflex hardware adds initiative dice or extra actions, letting augmented characters act earlier and more often than unaugmented ones (Shadowrun wired reflexes, Cyberpunk's Kerenzikov)."
+      }
+    },
+    "damage": {
+      "description": "How harm is quantified, inflicted, and represented once an attack succeeds.",
+      "focuses": {
+        "armor_ablation": "Armor carries a numeric rating that degrades as it absorbs hits, protecting less with each wound it stops until repaired (Cyberpunk 2020 SP ablation).",
+        "automatic_hit": "Certain attacks skip the to-hit roll entirely and simply deal their effect, shifting play toward mitigation and resource trade-offs (magic-missile-style powers, scripted enemy attacks in many co-op board games).",
+        "contamination_cards": "Taking harm or infection shuffles contamination cards into a player's deck or pool, clogging future draws and threatening worse outcomes when revealed or scanned (Nemesis).",
+        "critical_injury": "Exceptional hits inflict rolled critical injuries with specific persistent effects that accumulate independently of ordinary damage (FFG Star Wars / Genesys critical injury table).",
+        "critical_wounds": "Damage taken past a wound threshold becomes critical wounds — severe results threatening maiming or death rather than merely depleting a track (WFRP 4e critical wounds, Dark Heresy critical damage).",
+        "die_by_class": "Weapon damage is set by the wielder's class or archetype rather than the weapon itself, so a fighter hits harder with anything at hand (an OSR-descended option in several retroclones).",
+        "heat_buildup": "Attacks and systems generate heat on the acting unit; accumulated heat imposes penalties, forced shutdowns, or internal damage until vented (BattleTech, Lancer).",
+        "injury_tables": "Serious hits trigger rolls on injury tables that specify concrete harms — broken limbs, bleeding, maiming — layered on top of or instead of numeric damage (WFRP critical charts, Twilight: 2000).",
+        "modifier_deck": "Attack results are modified by flipping cards from a personal modifier deck instead of rolling dice, with curses and blessings tuning the deck over a campaign (Gloomhaven).",
+        "physical_wounds": "Physical damage fills its own wound track separate from stun or mental harm, with the interplay between tracks deciding unconsciousness versus death (Shadowrun's physical and stun monitors).",
+        "ravage": "Enemy forces damage a region and its defenders in a scheduled ravage step that players see coming and race to prevent or blunt (Spirit Island).",
+        "status_spectrums": "Harm lands as named statuses with tier ratings along descriptive spectrums (e.g. burned-3) rather than hit points, with high tiers taking characters out (City of Mist).",
+        "structure_damage": "Beneath the hit-point pool lies a structure or hull track; emptying HP damages structure and forces checks for catastrophic results like destroyed limbs or reactor breaches (Lancer, BattleTech internal structure).",
+        "tracks_aspects": "Damage marks stress boxes and, when soaked, becomes consequence aspects — narrative facts like 'Broken Arm' that opponents can invoke against you (Fate).",
+        "wound_cards": "Wounds are dealt as cards drawn from a wound deck, each carrying its own penalty, story detail, and recovery condition (Nemesis serious wounds, Sword & Sorcery).",
+        "wound_track": "Damage fills a graduated track of health levels whose lower rungs impose worsening penalties on all actions (World of Darkness health levels)."
+      }
+    },
+    "defense": {
+      "description": "How combatants avoid, absorb, or cancel incoming attacks.",
+      "focuses": {
+        "ambush_cards": "Defenders may reveal hidden ambush cards when attacked, cancelling or punishing the assault before it resolves (Root).",
+        "block_phase": "Combat includes a discrete block step in which defenders declare or allocate blocking values against incoming attacks before damage is assigned (Mage Knight).",
+        "combat_cards": "Defense comes from playing combat cards out of a hand to modify, cancel, or redirect attacks, making card management part of survival (Blood Rage battle cards).",
+        "defend_cards": "Dedicated defend or guard cards grant their block value only when played that turn, forcing a constant trade-off between defending and attacking (deckbuilders in the Slay the Spire mold, Undaunted).",
+        "dodge_pool": "Defenders roll or allocate a dedicated dodge pool against each incoming attack, actively opposing strikes rather than relying on a static defense score (Shadowrun defense tests, older World of Darkness dodge splits).",
+        "electronic_warfare": "Protection comes from jamming, spoofing, and sensor denial — electronic warfare actions degrade enemy targeting instead of stopping hits with armor (BattleTech ECM, Lancer e-war).",
+        "fortress_siege": "Defense is structured around fortifications: walls, gates, and towers grant positional advantages that attackers must breach or scale across successive siege rounds (Stronghold)."
+      }
+    },
+    "firearm": {
+      "description": "Resource handling for individual firearms.",
+      "focuses": {
+        "ammo": "Shots expend tracked ammunition, forcing reload actions and making ammo a tactical and logistical resource (round-by-round counts or usage-die abstractions)."
+      }
+    },
+    "firearms": {
+      "description": "Resolution properties specific to gunfire.",
+      "focuses": {
+        "lethality_rating": "High-powered weapons carry a lethality percentage; on a hit the attacker rolls it, and success kills the target outright instead of rolling damage (Delta Green)."
+      }
+    },
+    "initiative": {
+      "description": "How the order of acting in combat is determined.",
+      "focuses": {
+        "alternating": "Sides alternate activating one unit or character at a time, so no faction resolves its whole force before the other responds (Malifaux, Lancer).",
+        "card_speed": "Each round players commit ability or action cards whose printed initiative number sets the acting order (Gloomhaven).",
+        "conflict_card": "A revealed conflict card frames each round's battle — its stakes and rewards — and combatants commit forces to it in turn (Dune: Imperium).",
+        "dexterity_based": "Turn order is rolled or ranked from a Dexterity-style quickness attribute, fastest acting first (D&D-family initiative).",
+        "initiative_momentum": "Initiative is held rather than rerolled: the side that wins an exchange keeps or seizes the tempo, acting first until momentum shifts (dueling systems like The Riddle of Steel).",
+        "narrative_flow": "There is no initiative mechanic; the conversation of play decides who acts, with the GM cutting between characters as the fiction demands (PbtA games).",
+        "passes": "Fast combatants receive multiple initiative passes, acting two or more times per round while slower ones act once (Shadowrun).",
+        "perception_based": "Turn order derives from awareness or alertness rather than raw speed, so noticing the fight start first matters most.",
+        "token_bag_draw": "Activation tokens for each side go into an opaque bag and are drawn one at a time, making turn order random and suspenseful every round (Bolt Action order dice).",
+        "weapon_speed": "Weapon speed factors adjust when a combatant acts, letting daggers strike before greatswords regardless of the wielder's quickness (AD&D weapon speed, HackMaster)."
+      }
+    },
+    "maneuvers": {
+      "description": "Special combat moves beyond the basic attack.",
+      "focuses": {
+        "grappling": "Dedicated rules for grabbing and wrestling: opposed checks to seize, contested states like grabbed or pinned, and options to throw, restrain, or escape.",
+        "disarm": "A maneuver to strike or twist a weapon out of an enemy's grip, typically an opposed roll that trades damage for the tactical swing of an unarmed foe.",
+        "shove_trip": "Maneuvers that displace or topple rather than damage — pushing enemies out of position or knocking them prone to set up allies (D&D 5e shove, Pathfinder 2e trip).",
+        "called_shots": "Attackers may target a specific body part or component at a to-hit penalty, trading accuracy for effects like blinding, crippling, or bypassing armor.",
+        "combat_stunts": "Improvised flashy maneuvers adjudicated by a general stunt mechanic that converts risk or surplus successes into bonus effects (Exalted stunts, AGE system stunt points).",
+        "martial_techniques": "Learnable named techniques expand a fighter's move list, each with prerequisites and specific effects (D&D 4e martial exploits, Pathfinder 2e feat chains).",
+        "stances": "Fighters adopt mutually exclusive stances that reshape their options — aggressive, defensive, or stylistic modes switched as an action (Legend of the Five Rings stances, D&D 4e stances).",
+        "charge": "A combined move-and-attack maneuver granting bonuses and drawbacks for closing at speed, usually with straight-line and minimum-distance requirements (D&D 3.5 charge, mounted lance rules)."
+      }
+    },
+    "melee": {
+      "description": "Resolution of close-quarters fighting.",
+      "focuses": {
+        "action_points": "Melee runs on an action-point budget where each swing, step, and guard spends from the same per-turn pool, letting fighters choose a few big efforts or many small ones.",
+        "attack_points": "Fighters distribute a pool of attack points among their strikes in an exchange, splitting force across multiple blows or stacking it into one heavy hit.",
+        "battle_action": "A whole fight, or a major chunk of it, resolves through one declared battle action or move, compressing blow-by-blow detail into a single decisive roll (Ironsworn's Battle move).",
+        "battle_card_tactics": "Both sides secretly choose battle cards whose tactics — strength bonuses, casualties, retreats — resolve simultaneously on reveal (Kemet, A Game of Thrones: The Board Game house cards).",
+        "battle_wheels": "Combatants secretly rotate a wheel or dial to select their maneuver for the exchange, with simultaneous reveal determining clashes and counters (dial-selection duel games).",
+        "cypher_combat": "Combat under the Cypher System: players make all rolls against tiered difficulty targets, spending Effort from stat pools to lower them, while foes are flat difficulty ratings (Numenera, The Strange).",
+        "delve_hazards": "Fights inside delves interleave monsters with environmental hazard draws, treating the dungeon itself as a combatant (encounter-and-hazard decks in dungeon-crawl board games).",
+        "dice_pools": "Attacks roll a pool of dice built from attribute plus skill and count successes against a threshold, with more successes meaning cleaner or harder hits (Shadowrun, World of Darkness).",
+        "dice_rolls": "Classic single-roll attack resolution: one die plus modifiers against a defense target number, hit or miss (the d20 attack roll and kin).",
+        "fight_action": "Melee is one entry on a fixed action menu — declare the fight action, roll the governing skill, apply weapon damage (Year Zero Engine games like Forbidden Lands).",
+        "fight_scripting": "Both fighters secretly script their next several actions — strike, feint, block — then reveal and cross-reference them exchange by exchange (Burning Wheel's Fight!).",
+        "fluid_conflict": "Melee flows without a fixed turn structure; position, advantage, and narration shift continuously, with mechanics invoked only at decisive beats.",
+        "hit_locations": "Each melee hit strikes a rolled or chosen body location with its own armor and consequences (RuneQuest).",
+        "jenga_tower_pull": "Physical dexterity replaces dice: risky combat actions require pulls from a tumbling block tower, and toppling it means catastrophe (Dread).",
+        "military_comparison": "Battles resolve by directly comparing the military strength totals on each side, higher value winning with little or no randomness (a staple of area-control and 4X board games).",
+        "military_tug_of_war": "Combat pushes a shared marker along a tug-of-war track; committing forces shifts it toward your end, and reaching an end wins the struggle (Watergate, Twilight Struggle-style tracks).",
+        "momentum_based": "Successful strikes generate momentum points that fuel extra damage, effects, and follow-ups, rewarding sustained pressure (2d20 games like Conan).",
+        "moves": "Melee resolves through narrative moves with fixed outcome bands on hit, partial, and miss — trade harm, seize position — rather than attack-versus-defense math (PbtA's Hack and Slash).",
+        "narrative": "Melee is adjudicated through fictional positioning and stakes-setting, with no tactical subsystem — just consequential storytelling punctuated by rolls.",
+        "nightmare_checks": "Fighting horrors demands nightmare or terror checks alongside attacks, with failures feeding fear, madness, or the enemy's power (horror RPGs and dungeon-horror board games).",
+        "percentage_opposed": "Attacker and defender both roll percentile skills and compare success levels to decide who lands the blow (RuneQuest and Mythras opposed rolls).",
+        "power_dial": "Each combatant secretly dials in how much stored power to spend on the fight; reveals decide it, so bidding high wins but bluffing low saves resources (Scythe).",
+        "power_tags": "Melee effectiveness comes from invoking thematic power tags on your character, each relevant tag adding to the roll (City of Mist).",
+        "sandworms_double_rewards": "A conflict twist in which summoned sandworms double the victor's spoils, raising the stakes of committing to that round's battle (Dune: Imperium – Uprising).",
+        "scuffling": "Close combat uses the Scuffling ability: spend points from a limited pool to boost a simple die roll, modeling investigators' finite fighting reserves (GUMSHOE).",
+        "shock_damage": "Attacks deal shock — temporary, fast-healing trauma tracked separately from killing damage — so fights can end in knockouts rather than corpses (the One Roll Engine's Shock and Killing split).",
+        "speciation_survival": "Conflict is evolutionary: species compete through adaptation and extinction eliminations rather than exchanged blows (Dominant Species).",
+        "strike_ranks": "Actions in a round resolve in strike-rank order computed from size, dexterity, and weapon length, so reach and speed dictate tempo (RuneQuest).",
+        "tactical": "Melee emphasizes grid positioning, forced movement, and ability synergy — combat as a tactical puzzle (D&D 4e, Gloomhaven).",
+        "tactical_mecha": "Giant-machine close combat on a tactical map, where chassis, heat, and hardpoints shape melee options (Lancer, BattleTech physical attacks).",
+        "troops_deployed": "Melee strength is a function of the troop units each side has in the contested area, with casualties removing units and eroding future strength (Kemet, Inis).",
+        "unarmed": "Distinct rules for fists, holds, and brawling, typically with their own skill, damage type, and knockout-oriented outcomes.",
+        "weapon_expeditions": "Martial power is assembled off-screen by sending expeditions to recover weapons and relics, which are then committed when forces finally clash."
+      }
+    },
+    "morale": {
+      "description": "Whether combatants keep fighting, break, or yield.",
+      "focuses": {
+        "morale_checks": "NPCs and units test morale when bloodied, outnumbered, or leaderless; failure means faltering, retreating, or refusing to fight on (OSR morale scores, wargame morale tests).",
+        "rout_flee": "Broken combatants rout under forced-flight rules governing where they run, whether they rally, and what free hits pursuers get (wargame rout moves).",
+        "surrender": "Explicit rules for yielding: when enemies offer or accept surrender, and what mechanical weight captives, parley, and terms carry.",
+        "fear_and_terror": "Frightening foes force fear tests before or during combat, with failure imposing penalties, paralysis, or flight regardless of wounds taken (WFRP fear and terror ratings)."
+      }
+    },
+    "movement": {
+      "description": "How combatants move about the battlefield.",
+      "focuses": {
+        "dahan_counterattack": "Native defenders strike back after being attacked in their lands, converting enemy aggression into automatic counter-damage that players can position around (Spirit Island's Dahan).",
+        "grid_based": "Combat movement is counted in squares on a grid, with speeds, difficult terrain, and adjacency all measured in grid steps (D&D 3.5–5e battlemaps).",
+        "hex_grid": "Movement uses a hexagonal grid, eliminating diagonal distortion and smoothing range and facing math (BattleTech, GURPS tactical combat)."
+      }
+    },
+    "positioning": {
+      "description": "How space, terrain, and relative location are represented and exploited.",
+      "focuses": {
+        "zones_abstract": "The battlefield divides into abstract zones rather than measured spaces — you are in a zone, adjacent to one, or far away, and movement is zone to zone (Fate).",
+        "square_grid": "Combat plays out on a square grid where reach, areas of effect, and positioning are counted in squares (D&D battlemap play).",
+        "hex_grid": "The battlefield is a hex map, giving uniform adjacency for facing, arcs, and true distances (BattleTech, Gloomhaven).",
+        "theater_of_mind": "No map at all: positions live in shared imagination and GM adjudication, with mechanics tolerant of fuzzy geometry (D&D 5e theater of the mind).",
+        "cover_system": "Formal cover states — half or full, soft or hard — grant defense bonuses or attack penalties, making terrain occupation a core tactic (D&D 5e cover, XCOM-style skirmish games).",
+        "flanking": "Attacking from opposite sides or behind grants bonuses, encouraging pincer positioning and punishing isolated defenders (Pathfinder flanking, many miniatures games).",
+        "elevation": "Height matters: high ground grants attack or range advantages and can block or enable line of sight (Heroscape, Lancer).",
+        "line_of_sight": "Attacks require a traceable sight line checked against blocking terrain, from corner-to-corner tracing to true model's-eye view (miniatures wargames, Gloomhaven).",
+        "facing": "Units have a facing, so attacks from flank or rear arcs gain bonuses and defenses like shields apply only frontally (BattleTech firing arcs, rank-and-flank wargames).",
+        "dudes_on_a_map": "Skirmish combat emerges from area-control positioning: armies of pieces occupy regions and battles trigger where they collide (Risk lineage, Kemet, Blood Rage)."
+      }
+    },
+    "ranged": {
+      "description": "Resolution of attacks made at a distance.",
+      "focuses": {
+        "fight_action": "Shooting is a declared action from a fixed menu, resolved with one skill roll and weapon damage (Year Zero Engine ranged attacks).",
+        "friday_night_firefight": "A gritty, lethal gunfight procedure emphasizing autofire, armor penetration, and fast death — realism over heroics (Cyberpunk 2020's Friday Night Firefight).",
+        "momentum_based": "Ranged attacks generate and spend momentum for extra effects like burst control, called shots, and re-aims (2d20 system games).",
+        "narrative": "Gunplay resolved through fiction and stakes, with position and cover treated as narrative facts rather than numeric modifiers.",
+        "range_and_cover": "A scripted positioning duel where both sides maneuver to close, hold, or withdraw, success granting shots and cover advantages (Burning Wheel's Range and Cover).",
+        "range_brackets": "Distances fall into brackets — short, medium, long, extreme — each with its own modifier or difficulty step instead of per-meter math (Traveller, FFG Star Wars range bands).",
+        "recoil_compensation": "Automatic fire builds recoil penalties that strength, bracing, and gear offset, making weapon configuration matter for sustained fire (Shadowrun).",
+        "sensor_range": "Targets must be detected on sensors before they can be engaged, making detection envelopes and lock-ons the real battlefield (space and mecha combat systems).",
+        "siege_phase": "Ranged bombardment resolves in a dedicated siege step where artillery and engines fire before or apart from ordinary combat (wargames and area-control titles with siege rounds).",
+        "tactical": "Ranged combat on a tactical map where line of sight, cover, and flanking determine shot quality (D&D 4e, Infinity).",
+        "tactical_shooting": "A detailed shooting procedure modeling aim actions, fire modes, and shot placement step by step (Twilight: 2000, Phoenix Command)."
+      }
+    },
+    "restoration": {
+      "description": "How combatants recover resources and health between and after fights.",
+      "focuses": {
+        "long_rest": "An extended rest, typically overnight, restores most or all hit points and expended abilities, gating full recovery behind downtime (D&D 5e).",
+        "short_rest": "A brief mid-adventure pause lets characters spend limited resources such as hit dice or encounter powers to partially recover between fights (D&D 4e/5e)."
+      }
+    },
+    "scale": {
+      "description": "Combat conducted above the individual scale: armies, fleets, sieges, and giant machines.",
+      "focuses": {
+        "mass_combat": "Armies fight as units with their own stats, morale, and commander rolls, resolving battles of hundreds without individual attacks (D&D's War Machine, Kingmaker-style mass combat).",
+        "unit_formations": "Troops fight in formations whose shape and depth carry mechanical weight — shield walls, phalanxes, ranks and files (rank-and-flank wargames like Warhammer Fantasy Battles).",
+        "siege_warfare": "Dedicated rules for besieging strongholds: siege engines, wall breaches, supply attrition, and assault timing.",
+        "naval_broadsides": "Ship-of-the-line combat built on maneuvering for broadsides, the weather gauge, and raking fire (age-of-sail wargames).",
+        "aerial_dogfighting": "Air-to-air combat as a maneuver duel — altitude, tailing position, and energy management decide who gets the shot (Wings of Glory, Crimson Skies).",
+        "mecha_scale": "Combat at giant-robot scale, with conversion rules between mech-scale and personal-scale weapons and armor (BattleTech, Lancer)."
+      }
+    },
+    "space": {
+      "description": "Resolution of battles between spacecraft and fleets.",
+      "focuses": {
+        "battle_resolution": "Fleet engagements resolve through a structured battle procedure — rounds of dice per ship class with casualties assigned by their owner — abstracting maneuver away (Twilight Imperium space combat).",
+        "fleet_formations": "How a fleet is composed and arranged grants combat effects: capital ships screened by escorts, formations trading firepower for protection."
+      }
+    },
+    "status": {
+      "description": "Temporary conditions and ongoing effects applied to combatants.",
+      "focuses": {
+        "conditions_tracking": "A standardized list of conditions — prone, stunned, frightened — with precise rules text, applied and removed by attacks and abilities (D&D 5e, Pathfinder 2e conditions).",
+        "knockback": "Hits physically displace targets, slamming them into walls, hazards, or off ledges for additional effect (Lancer knockback, HeroClix).",
+        "stun_daze": "Effects that deny actions — stunned, dazed, slowed — trading raw damage for action-economy denial (Pathfinder 2e stunned value, D&D 4e daze).",
+        "bleeding": "Wounds inflict ongoing bleed damage each round until staunched, turning untreated injuries into a ticking clock (Pathfinder 2e persistent damage).",
+        "poison_tracking": "Poisons run on their own procedure of onset times, staged effects, and repeated saves rather than instant damage (Pathfinder 2e poison stages)."
+      }
+    },
+    "wounds": {
+      "description": "The underlying model of injury: what damage does to a body and how it is represented.",
+      "focuses": {
+        "hit_points": "Harm depletes a numeric hit-point pool with no mechanical effect until it empties — damage as attrition rather than injury (D&D and most of its descendants).",
+        "wound_levels": "Characters have a short ladder of discrete wound states rather than a large pool, each absorbed hit stepping them toward incapacitation (Savage Worlds wounds).",
+        "injury_tables": "The wound model itself is table-driven: rather than tracking points, each serious hit rolls on a chart whose entries are the character's actual wounds (Rolemaster criticals and other old-school crit charts).",
+        "death_spiral": "Injuries impose penalties that make further injuries likelier, so the wounded slide toward defeat — an accepted or deliberate design of grim realism (World of Darkness wound penalties).",
+        "lingering_injuries": "Serious harm leaves persistent injuries that outlast the fight and demand downtime, treatment, or permanent adaptation (Blades in the Dark harm, D&D 5e's optional lingering injuries).",
+        "massive_damage": "A single hit past a threshold triggers special rules — instant-death saves or trauma — regardless of hit points remaining (D&D 3.5 massive damage).",
+        "armor_as_soak": "Armor subtracts from incoming damage rather than making the wearer harder to hit, turning wounds into bruises (RuneQuest armor points, Shadowrun soak).",
+        "ablative_armor": "Armor acts as an expendable buffer pool depleted before flesh, restored by repair rather than healing (shield and armor pools in sci-fi and mecha games).",
+        "hit_locations": "Damage and armor are tracked per body location, each with its own points and specific consequences when disabled (RuneQuest limb hit points)."
+      }
+    }
+  }
+}

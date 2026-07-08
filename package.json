@@ -5,14 +5,18 @@
   "main": "app.js",
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc && node strip-exports.js",
+    "build": "npm run clean && npm run data:taxonomy && tsc && node strip-exports.js",
     "build:watch": "tsc -w",
     "start": "npx -y serve .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "pretest": "npm run build",
     "test": "node tests/run-tests.js --runInBand",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "data:taxonomy": "node scripts/build_taxonomy.js",
+    "data:validate": "node scripts/validate_registry.js",
+    "data:stats": "node scripts/stats.js",
+    "data:merge": "node scripts/merge_curated.js"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",

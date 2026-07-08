@@ -1,0 +1,105 @@
+{
+  "domain": "politics",
+  "description": "Rules for power among groups: factions and their machinery, governance, diplomacy, elections, intrigue, and the politics surrounding war.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "corporation": {
+      "description": "Mechanics for corporate power blocs acting as political entities.",
+      "focuses": {
+        "extraterritoriality": "Megacorporations hold sovereign legal status, so corporate ground sits outside national law and jurisdiction itself becomes a play space (Shadowrun's extraterritorial corps).",
+        "corporate_espionage": "Dedicated actions steal rival corporations' research, plans, or personnel, with exposure carrying legal or market consequences.",
+        "hostile_takeovers": "Corporations can be attacked through stock, debt, or board manipulation, absorbing a rival's assets without firing a shot.",
+        "shareholder_votes": "Control of a company follows shareholding, and players vote their shares to direct its actions or install leadership (Imperial's bond control, business-game boardrooms)."
+      }
+    },
+    "diplomacy": {
+      "description": "Mechanics for formal relations and negotiation between polities.",
+      "focuses": {
+        "political_track": "A shared track records swings of political alignment or momentum between blocs, with markers triggering effects as they pass thresholds.",
+        "envoys_emissaries": "Named envoy pieces or characters must physically travel to conduct diplomacy, making access to courts a resource and a risk.",
+        "summit_congresses": "Periodic summits convene all parties to legislate binding resolutions on the whole table (Twilight Imperium's agenda phase, Diplomacy press conferences).",
+        "vassalage_tribute": "Weaker polities can formally submit as vassals, exchanging tribute and obedience for protection under codified terms."
+      }
+    },
+    "factions": {
+      "description": "Mechanics for organized power groups: their assets, agendas, asymmetry, and standing.",
+      "focuses": {
+        "animal_species_asymmetry": "Each faction is a different creature species whose rules, win conditions, and action menus diverge radically (Root's warring woodland factions).",
+        "asymmetrical_abilities": "Factions play by materially different rules — unique abilities, economies, and action sets — inside one shared system (Root, COIN-series insurgents versus governments).",
+        "bonds": "Formal bond ratings tie characters or groups to factions and are tested or spent to call on that faction's resources and aid.",
+        "cabal_influence": "A hidden cabal accumulates influence markers over institutions, quietly bending those institutions' behavior to its agenda (Illuminati).",
+        "cabal_tribunal": "A secret society judges its own members through internal tribunals whose verdicts impose sanction, demotion, or death.",
+        "circles": "A social-network stat is rolled to locate the right contact within one's circles, with failure conjuring an enmity-laden acquaintance instead (Burning Wheel's Circles).",
+        "coalition_loyalty": "Multi-party coalitions track member loyalty, and shifting fortunes can flip partners between cooperation and defection.",
+        "contempt_tokens": "Players accrue contempt markers when wronged or when begging indulgence, holding them as licensed grudges that color later dealings.",
+        "duet_map_majority": "In a two-player duel, both sides compete for majority control of map regions, scoring dominance region by region.",
+        "eyrie_decree": "A faction is bound to a growing programmed decree of mandatory actions each turn, and failing to execute them all triggers internal collapse (Root's Eyrie Dynasties).",
+        "faction_turn": "Off-screen factions take their own structured turns between sessions or rounds, spending assets and pursuing goals so the world moves without the players (Stars Without Number's faction turn).",
+        "influence_placement": "Players place influence markers into regions, courts, or institutions, building presence that later converts into control or votes (El Grande, Twilight Struggle).",
+        "influence_tracks": "Each faction's sway over a body or region is a numbered track, with thresholds granting privileges or triggering events.",
+        "marquise_industrial_engine": "One faction plays as an infrastructure engine, spreading buildings whose network fuels its expanding action economy (Root's Marquise de Cat).",
+        "meeple_majority": "Area control is scored by counting each player's figures in a region, with majorities taking the region's rewards (El Grande).",
+        "popularity_multiplier": "A faction's score or income is multiplied by its current popularity rating, making public favor a scaling amplifier of everything it does.",
+        "realignment_coups": "Entrenched influence can be attacked directly through realignment rolls or coups that risk escalating global tension (Twilight Struggle).",
+        "servility_authority": "A codified hierarchy obliges subordinate factions or characters to obey an authority, with servility tracked and tested when orders cut against self-interest.",
+        "status": "Standing with each faction is a signed rating shifted by deeds, determining whether it treats you as enemy, neutral, or ally (Blades in the Dark's -3 to +3 faction status).",
+        "tier": "Factions are ranked in tiers of raw power that set the scale of their assets and the quality of aid or opposition they can field (Blades in the Dark's Tier).",
+        "tribe_abilities": "Tribes or clans confer distinct abilities and obligations on their members, making tribal affiliation a mechanical identity.",
+        "vagabond_quest": "A lone-operative faction advances by completing quests and managing relationships with every side instead of holding territory (Root's Vagabond).",
+        "woodland_alliance_sympathy": "An insurgent faction spreads sympathy tokens that score when enemies move against it and can erupt into open revolt (Root's Woodland Alliance).",
+        "faction_clocks": "Each faction pursues its goals on progress clocks the GM advances over time, so rival projects mature whether or not players interfere (Blades in the Dark faction clocks).",
+        "front_countdown": "Threat groups are organized as fronts with countdown tracks of grim portents that fire in sequence unless disrupted (Apocalypse World and Dungeon World fronts).",
+        "patron_mechanics": "A patron faction or benefactor supplies missions, resources, and protection in exchange for service, with the relationship itself rated and testable (Traveller patrons, Warhammer 40k Inquisitors)."
+      }
+    },
+    "intrigue": {
+      "description": "Mechanics for plots, spies, and covert political action.",
+      "focuses": {
+        "card_ops_event": "Dual-use cards are spent either for operations points or for their scripted political event, and playing an enemy-aligned card may trigger its event anyway (Twilight Struggle).",
+        "conspiramid": "The opposition is mapped as a pyramid of nodes from street assets up to the mastermind, and investigation climbs it level by level (Night's Black Agents' Conspyramid).",
+        "displacement_actions": "Actions push rival agents, markers, or courtiers out of a position and seize their place, rather than merely adding presence alongside them.",
+        "espionage": "Dedicated spy actions gather intelligence on rivals' hidden assets, plans, or hands before committing to action.",
+        "intrigue_cards": "Hidden scheme cards are collected and sprung for betrayals, plots, and one-shot political strikes at decisive moments.",
+        "military_events": "Event cards force wars, uprisings, or military commitments, injecting armed conflict into an otherwise political sequence (Twilight Struggle's wars).",
+        "resistance_cells": "Underground networks are built as concealed cells that activate for operations and can be rooted out by sweeps (COIN-series guerrillas).",
+        "robber": "A neutral bandit piece is moved by players to blockade a region's production and enable theft, making denial itself a political weapon (Catan's robber).",
+        "secret_objectives": "Players hold hidden objective cards that score for covert conditions, keeping true agendas uncertain until revealed (Twilight Imperium's secret objectives).",
+        "spies_on_cards": "Spy tokens are placed directly onto cards or orders to peek at, expose, or contest them before they resolve.",
+        "blackmail_leverage": "Compromising secrets are acquired as concrete leverage assets that can be spent to compel a target or sold to their enemies.",
+        "assassination_plots": "Killing a political figure is a structured plot with preparation stages, discovery risks, and succession fallout rather than a single attack roll."
+      }
+    },
+    "governance": {
+      "description": "Mechanics for ruling: domains, laws, councils, and the burdens of the throne.",
+      "focuses": {
+        "kingdom_management": "Players govern a realm through recurring stat blocks and phases — economy, stability, expansion — resolved at kingdom scale (Pathfinder Kingmaker's kingdom rules).",
+        "domain_actions": "Rulers spend limited domain-level actions each season on decrees, construction, and campaigns, with their holdings acting like a character (Birthright, ACKS domains).",
+        "succession_crisis": "A ruler's death or removal triggers codified succession procedures where claims, heirs, and backers contend for the seat.",
+        "council_votes": "Decisions pass through a council whose members vote, with players lobbying, buying, or coercing the swing seats.",
+        "laws_edicts": "Rulers enact laws and edicts with concrete mechanical effects on the populace, and unpopular decrees carry costs (Kingmaker edicts).",
+        "taxation_levies": "Rulers set tax and levy rates that trade income and troops against unrest and loyalty.",
+        "public_unrest": "Popular discontent accumulates as an unrest score that triggers protests, riots, or rebellion at thresholds."
+      }
+    },
+    "elections": {
+      "description": "Mechanics for contested votes and the machinery of winning them.",
+      "focuses": {
+        "voting_blocs": "The electorate is divided into blocs with distinct interests, each courted or captured as a unit (Die Macher's voter groups, The Republic of Rome's factions).",
+        "campaign_promises": "Candidates make explicit promises to win support, and the rules track whether breaking them later costs standing or triggers penalties.",
+        "rigging_fraud": "Elections can be stolen through codified fraud actions — stuffing ballots, suppressing voters — that risk scandal if exposed.",
+        "secret_ballots": "Votes are cast simultaneously and hidden, so declared support and actual votes can diverge until the reveal.",
+        "candidate_nomination": "Who stands for office is itself a contested step, with nomination procedures gating which names ever reach the ballot."
+      }
+    },
+    "warfare_politics": {
+      "description": "Mechanics for the political envelope around war: declaring it, justifying it, ending it.",
+      "focuses": {
+        "war_declarations": "Formal declarations of war are a distinct game action with prerequisites and consequences, separating lawful war from surprise aggression.",
+        "treaties_truces": "Peace terms are recorded as treaties or truces with mechanical enforcement, and breaking them carries codified penalties.",
+        "casus_belli": "A justification for war must be acquired or manufactured before attacking, and fighting without one costs legitimacy or standing.",
+        "war_reparations": "Defeated parties owe codified reparations — territory, resources, or tribute — set by the terms of their surrender.",
+        "proxy_wars": "Powers fight through sponsored third parties, funding and arming clients to contest regions without open war between principals (Twilight Struggle's superpower dynamic)."
+      }
+    }
+  }
+}

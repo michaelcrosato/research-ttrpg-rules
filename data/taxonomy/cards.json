@@ -1,0 +1,92 @@
+{
+  "domain": "cards",
+  "description": "Mechanics built on cards and decks: constructing them, drafting them, holding them, playing them in patterns, collecting them, and manipulating their order.",
+  "applies_to": ["board_game", "ttrpg"],
+  "subsystems": {
+    "deckbuilding": {
+      "description": "Growing and curating a personal deck or bag during play.",
+      "focuses": {
+        "starter_deck_upgrades": "Everyone begins with the same weak starter deck and buys better cards into it, gradually replacing filler with strategy (as in Dominion).",
+        "deck_thinning": "Removing weak cards from your deck is as valuable as adding strong ones, concentrating the deck's quality (trashing via Chapel in Dominion).",
+        "market_row_purchase": "New cards are bought from a shared face-up row that refills as cards leave it, making the buy menu unpredictable (as in Ascension or Star Realms).",
+        "fixed_supply_piles": "Cards are purchased from fixed, known supply piles chosen at setup, so every buy option is visible all game (kingdom piles in Dominion).",
+        "deck_as_life": "The deck doubles as a life total or unit roster, and losing or milling cards is taking damage (decking in Magic: The Gathering, casualties in Undaunted: Normandy).",
+        "bag_building": "The deck-building loop uses tokens drawn from a bag instead of shuffled cards, with the same curation of a random container (as in Orléans or The Quacks of Quedlinburg).",
+        "deck_cycling_tempo": "Players plan around when their deck will reshuffle, timing purchases and plays so key cards return at the right moment (hand cycling in Great Western Trail).",
+        "hybrid_deckbuilding": "Deck-building fuels another system such as movement or worker placement, with card play driving board actions (as in Clank! or Dune: Imperium).",
+        "card_crafting_upgrades": "Individual cards are physically and permanently upgraded during play, growing stronger while staying in the deck (card crafting in Mystic Vale).",
+        "no_shuffle_discard_order": "Discards are never shuffled; the deck is turned back over in discard order, making play order a form of deck programming (as in Aeon's End).",
+        "asymmetric_starting_decks": "Players begin with different starting decks or setups, giving each seat a distinct deck-building trajectory (mage decks in Aeon's End)."
+      }
+    },
+    "drafting": {
+      "description": "Distributing cards among players through structured picking.",
+      "focuses": {
+        "pick_and_pass_draft": "Players keep one card from a hand and pass the rest around the table until the packs are exhausted (as in 7 Wonders or Sushi Go!).",
+        "open_display_draft": "Players pick from a shared face-up display with full information about what taking a card leaves behind (the bird tray in Wingspan).",
+        "snake_draft": "Draft order reverses on each pass (1-2-3-3-2-1) so end-seat picks come in pairs, balancing positional advantage (as in fantasy sports drafts and many setup drafts).",
+        "pick_position_tradeoff": "Choosing a better item costs position, pushing you later in the next selection order (tile selection in Kingdomino).",
+        "booster_pack_draft": "Cards are drafted from sealed randomized packs, so evaluation happens against an unknown card pool (booster draft in Magic: The Gathering).",
+        "take_all_of_type_draft": "Taking one item from a display forces you to take all items of that type there, making quantity and waste part of the pick (factory drafting in Azul).",
+        "sliding_cost_display": "Cards slide along a display and become cheaper or richer the longer they remain, pricing popularity automatically (declining races in Small World, spice-laden cards in Century: Spice Road).",
+        "constrained_selection_draft": "Only a limited window of upcoming items may be chosen, typically the next few in a line, so selection is a constrained lookahead (the three-patch rule in Patchwork)."
+      }
+    },
+    "hand": {
+      "description": "Holding, valuing, and spending the cards in your hand.",
+      "focuses": {
+        "hand_management": "Winning play comes from sequencing and husbanding a hand of cards, deciding what to play, hold, and discard when (as in Lost Cities).",
+        "hand_limits": "A maximum hand size forces discards or blocks draws when exceeded (the seven-card robber limit in Catan).",
+        "multi_use_cards": "Each card in hand can be played in several distinct capacities, and every use forgoes the others (as in Glory to Rome or Race for the Galaxy).",
+        "card_as_currency": "Cards themselves are the money: costs are paid by discarding other cards from hand (as in San Juan or Race for the Galaxy).",
+        "discard_costs": "Effects or actions require discarding cards as an activation cost distinct from normal play, so hand size is fuel as well as options (discarding a card for the space race in Twilight Struggle).",
+        "forced_play_order": "Cards must be played in the order drawn or held, with no rearranging, so managing intake order is the game (bean planting in Bohnanza).",
+        "hand_replenishment": "Hands refill by fixed draws, refill-to-a-limit, or by spending actions on drawing, making replenishment itself a tactical choice (drawing train cards in Ticket to Ride).",
+        "hidden_hand_information": "Hands are private information, enabling bluffing, deduction, and surprise (as in poker or Tichu).",
+        "card_passing": "Players pass cards directly to opponents or partners, transferring both value and information (passing in Hearts and Tichu).",
+        "inverted_hand_visibility": "Players see everyone's cards except their own, inverting the normal flow of information (as in Hanabi)."
+      }
+    },
+    "play_patterns": {
+      "description": "Structured ways cards are played to the table: tricks, ladders, melds, and tableaus.",
+      "focuses": {
+        "trick_taking": "Players each contribute one card to a trick and the best card wins it, under constraints of suit and rank (as in Hearts or The Crew).",
+        "ladder_climbing_shedding": "Players must beat the previous play with a higher card or combination or else pass, racing to shed their whole hand (as in Tichu or The Great Dalmuti).",
+        "melding_sets": "Cards are laid down in valid groups or runs, converting a raw hand into scored structures (as in Rummy or Mahjong).",
+        "tableau_placement_cards": "Cards are played into a personal spread whose contents persist and define your abilities and scoring (as in Race for the Galaxy or Terraforming Mars).",
+        "trump_suits": "A designated suit outranks all others for the duration of a hand or round (as in Euchre or Wizard).",
+        "must_follow_suit": "Players must play the led suit when able, turning hand composition into a constraint system (as in Bridge or The Crew).",
+        "trick_bidding": "Players predict how many tricks they will win and score for accuracy rather than volume (as in Wizard or Skull King).",
+        "card_tucking": "Cards are tucked under other cards, hiding their face value but contributing to counts or engines (tucking in Wingspan and Innovation).",
+        "card_splaying": "The orientation or offset of stacked cards changes which icons are visible and active (splaying in Innovation).",
+        "spatial_card_layouts": "Cards are placed into a spatial arrangement where adjacency and overlap determine scoring (as in Sprawlopolis or Honshu)."
+      }
+    },
+    "collection": {
+      "description": "Gathering cards into sets, contracts, and majorities for value.",
+      "focuses": {
+        "set_collection": "Players gather matching or complementary cards and score for completed groupings (as in Ticket to Ride).",
+        "contract_fulfillment": "Specific demanded combinations must be assembled and turned in for rewards (destination tickets in Ticket to Ride, orders in Century: Golem Edition).",
+        "collection_majorities": "Holding the most of a category at scoring time beats mere accumulation (building types in Alhambra).",
+        "nonlinear_set_scoring": "Set value grows nonlinearly with size, so one large set is worth far more than several small ones (the 1-3-6-10 scoring in Coloretto).",
+        "negative_collection": "Some cards are worth negative points, and play revolves around avoiding or dumping them (bull heads in 6 nimmt!, hearts in Hearts).",
+        "collection_discounts": "Collected cards grant permanent discounts or powers during play, not just endgame points (gem bonuses in Splendor).",
+        "set_liquidation": "Collected sets are sold during play at rates that reward larger or better-timed sales (selling goods in Jaipur, harvesting beans in Bohnanza)."
+      }
+    },
+    "deck_manipulation": {
+      "description": "Controlling the order, composition, and flow of decks during play.",
+      "focuses": {
+        "scrying_reordering": "Players peek at and reorder the top cards of a deck, converting uncertainty into planning (scry in Magic: The Gathering).",
+        "seeded_shuffles": "Specific cards are deliberately shuffled into particular sections of the deck, guaranteeing paced arrival (epidemic seeding in Pandemic).",
+        "event_deck_escalation": "The event deck intensifies over time, often by reshuffling the discard on top so recent threats recur (the infection deck in Pandemic).",
+        "deck_stacking_setup": "Decks are assembled or ordered by design at setup for a scenario or difficulty level (encounter deck assembly in Arkham Horror: The Card Game).",
+        "deck_searching_tutors": "Effects let players search the deck for a chosen card, trading tempo for certainty (tutors in Magic: The Gathering).",
+        "deck_flipping_push_luck": "Cards are revealed one at a time from the deck and players choose when to stop, banking gains before a bust (as in Port Royal or Incan Gold).",
+        "deck_milling": "Cards are removed from the top of a deck to a discard or removed pile as an attack or cost, draining that deck's future (milling in Magic: The Gathering).",
+        "multiple_deck_sources": "Players draw from several distinct decks with different content profiles, choosing risk and reward by source (door and treasure decks in Munchkin).",
+        "discard_pile_retrieval": "The discard pile is open for pickup or retrieval, making what you throw away both information and ammunition for others (drawing from the discard in Rummy and Canasta)."
+      }
+    }
+  }
+}

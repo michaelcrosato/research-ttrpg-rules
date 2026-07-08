@@ -43,6 +43,35 @@ export interface GameRuleset {
 
   /** Introductory extract text fetched for the game. */
   extract?: string;
+
+  /**
+   * Data lineage flag (schema v2). "curated" entries are researched and
+   * fact-checked; "generated" entries carry legacy synthetic mechanics data
+   * that should be treated as unverified; "imported" entries came from an
+   * external connector.
+   */
+  provenance?: 'curated' | 'generated' | 'imported';
+
+  /** Lead designer name(s) (schema v2). */
+  designers?: string[];
+
+  /** Original or current publisher (schema v2). */
+  publisher?: string;
+
+  /** One-line summary of the core resolution engine (schema v2). */
+  resolution_core?: string;
+
+  /** Rules weight from 1 (ultralight) to 5 (very heavy) (schema v2). */
+  crunch?: number;
+
+  /** Design lineage such as "pbta", "d20", "forged_in_the_dark" (schema v2). */
+  family?: string;
+
+  /** Recommended player count range (schema v2). */
+  player_count?: { min: number; max: number };
+
+  /** Typical playtime range in minutes (schema v2). */
+  playtime_minutes?: { min: number; max: number };
 }
 
 /**

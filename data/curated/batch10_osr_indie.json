@@ -1,0 +1,872 @@
+[
+  {
+    "game_id": "mork_borg_2020",
+    "title": "Mörk Borg",
+    "year": 2020,
+    "medium": "ttrpg",
+    "primary_genre": "Fantasy",
+    "subgenres": [
+      "Horror",
+      "Adventure"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Pelle Nilsson",
+      "Johan Nohr"
+    ],
+    "publisher": "Free League Publishing",
+    "resolution_core": "d20 + ability vs DR (usually 12); players make every roll",
+    "crunch": 2,
+    "family": "osr",
+    "player_count": {
+      "min": 2,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 60,
+      "max": 240
+    },
+    "governed_vectors": [
+      "resolution.core_mechanic.d20_vs_dc",
+      "character.attributes.rolled_stats",
+      "character.character_creation.class_based",
+      "character.character_creation.random_backgrounds",
+      "resolution.luck.reroll_resources",
+      "meta.structure_tools.countdown_timers",
+      "narrative.structure.endgame_triggers",
+      "magic.acquisition.found_grimoires",
+      "magic.casting.skill_roll_casting",
+      "magic.risk.mishap_tables",
+      "meta.player_facing.player_facing_rolls",
+      "resolution.degrees.critical_success",
+      "resolution.degrees.critical_failure",
+      "combat.wounds.hit_points",
+      "character.lifecycle.death_and_dying",
+      "combat.wounds.armor_as_soak",
+      "equipment.gear.armor_types",
+      "combat.morale.morale_checks",
+      "turns.order.rolled_initiative"
+    ],
+    "vector_explanations": {
+      "resolution.core_mechanic.d20_vs_dc": "Every test is d20 plus one of four abilities (Agility, Presence, Strength, Toughness) against a Difficulty Rating, with DR12 as the assumed default and DR10-18 for easier or harder tasks.",
+      "character.attributes.rolled_stats": "The four abilities are rolled on 3d6 and converted to modifiers from -3 to +3, so scvm start wildly uneven and usually pathetic.",
+      "character.character_creation.class_based": "Optional classes like Fanged Deserter, Gutterborn Scum, Esoteric Hermit, Wretched Royalty and Heretical Priest replace default dice with class-specific ability rolls, origins and special powers.",
+      "character.character_creation.random_backgrounds": "Classless scvm are assembled from stacked random tables — Terrible Traits, Broken Bodies and Bad Habits — plus rolled silver, weapons and gear tables.",
+      "resolution.luck.reroll_resources": "Omens (d2 for classless scvm, larger dice for some classes) are spent to reroll a die, deal maximum damage, reduce damage taken, lower a test's DR by 4, or neutralize a crit or fumble; they refresh after rest.",
+      "meta.structure_tools.countdown_timers": "The Calendar of Nechrubel is a doom countdown: each dawn the GM rolls a die and on a 1 rolls d66 on the Psalms of the Nameless Scribe, inflicting a new world-scarring Misery.",
+      "narrative.structure.endgame_triggers": "When the seventh Misery (Psalm 7:7) comes to pass, the world is extinguished, the game formally ends, and the book instructs you to burn it.",
+      "magic.acquisition.found_grimoires": "Powers are learned from unclean and sacred scrolls found as loot; you can only use powers written on scrolls you physically carry.",
+      "magic.casting.skill_roll_casting": "Using a scroll is a Presence + d20 test versus DR12, and you can attempt powers only d4 + Presence times per day; failure leaves you dizzy and unable to cast, taking d2 damage.",
+      "magic.risk.mishap_tables": "A natural 1 on a power test triggers an Arcane Catastrophe rolled on its own table, spawning results like backfiring magic, demonic attention, or bodily ruin.",
+      "meta.player_facing.player_facing_rolls": "Monsters never roll dice: players roll Strength or Presence to attack and Agility to defend, so all combat randomness sits on the players' side of the screen.",
+      "resolution.degrees.critical_success": "A natural 20 on an attack deals double damage and degrades the target's armor by one tier; on a defense roll the defender may immediately counterattack.",
+      "resolution.degrees.critical_failure": "A natural 1 fumbles: attacking, your weapon breaks or is lost; defending, you take double damage and your own armor drops a tier.",
+      "combat.wounds.hit_points": "Hit points are Toughness plus a small class die (often d8 or less), a thin attrition buffer that keeps most scvm one bad roll from the Broken table.",
+      "character.lifecycle.death_and_dying": "At 0 HP you roll d4 on the Broken table: unconscious for d4 rounds, a severed limb or lost eye with bleeding, or simply dead — hesitation and death sit on the same chart.",
+      "combat.wounds.armor_as_soak": "Armor subtracts a rolled die from incoming damage — light -d2, medium -d4, heavy -d6 — rather than making you harder to hit.",
+      "equipment.gear.armor_types": "Armor comes in tiers 1-3 with explicit tradeoffs: medium armor imposes DR +2 on Agility tests and heavy armor DR +4, and crits knock armor down a tier until repaired.",
+      "combat.morale.morale_checks": "Enemies with a Morale score test 2d6 when half their group falls or their leader dies; exceeding Morale means they flee or surrender per the GM's roll.",
+      "turns.order.rolled_initiative": "A d6 decides who acts first each fight (1-3 enemies, 4-6 the party), with optional individual order from d6 + Agility."
+    }
+  },
+  {
+    "game_id": "into_the_odd_2015",
+    "title": "Into the Odd",
+    "year": 2015,
+    "medium": "ttrpg",
+    "primary_genre": "Adventure",
+    "subgenres": [
+      "Steampunk",
+      "Horror"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Chris McDowall"
+    ],
+    "publisher": "Lost Pages",
+    "resolution_core": "d20 roll-under ability save; attacks hit automatically",
+    "crunch": 1,
+    "family": "osr",
+    "player_count": {
+      "min": 2,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 60,
+      "max": 180
+    },
+    "governed_vectors": [
+      "character.attributes.rolled_stats",
+      "resolution.core_mechanic.roll_under_attribute",
+      "combat.damage.automatic_hit",
+      "combat.wounds.hit_points",
+      "combat.damage.critical_injury",
+      "combat.wounds.armor_as_soak",
+      "equipment.economy_of_gear.starting_packages",
+      "equipment.gear.artifact_rules",
+      "combat.morale.morale_checks",
+      "campaign.progression.milestone_advancement",
+      "downtime.activities.business_management",
+      "character.lifecycle.death_and_dying",
+      "combat.restoration.short_rest"
+    ],
+    "vector_explanations": {
+      "character.attributes.rolled_stats": "Characters roll 3d6 in order for Strength, Dexterity and Willpower plus d6 Hit Points; there are no classes, skills or bonuses beyond these numbers.",
+      "resolution.core_mechanic.roll_under_attribute": "There are no task rolls, only saves: roll d20 equal to or under the relevant ability score to avoid a danger you willingly faced.",
+      "combat.damage.automatic_hit": "Attacks never miss — you simply roll your weapon's damage die (d6 melee sidearm, d8 rifle, etc.) — shifting decisions from to-hit odds to positioning and whether to fight at all.",
+      "combat.wounds.hit_points": "HP is 'Hit Protection', a d6-sized buffer representing poise and luck; damage beyond it spills directly into Strength loss.",
+      "combat.damage.critical_injury": "When damage reduces Strength you save against the new score or suffer Critical Damage, leaving you out of action and dying within the hour without treatment.",
+      "combat.wounds.armor_as_soak": "Armour rated 1-3 subtracts flat points from every incoming damage roll instead of altering any to-hit chance.",
+      "equipment.economy_of_gear.starting_packages": "Starting gear is not shopped for: you cross-reference your highest ability score with your rolled HP on the starter package table, receiving a full loadout that may include weapons, oddities or an Arcanum.",
+      "equipment.gear.artifact_rules": "Arcana are unique reality-bending machines with individually written powers, some demanding costs or saves; hunting them is the campaign's stated engine.",
+      "combat.morale.morale_checks": "NPC groups make a WIL save to avoid fleeing when their leader dies or half their number falls, so most fights end before extermination.",
+      "campaign.progression.milestone_advancement": "Advancement is tied to surviving play, not XP: completing your first Expedition makes you Professional, with further ranks up to Master arriving after set numbers of expeditions and seasons, each granting HP rerolls and ability improvements.",
+      "downtime.activities.business_management": "Established characters can found an Enterprise, investing money and rolling periodically for returns, growth and complications between expeditions.",
+      "character.lifecycle.death_and_dying": "Strength 0 means death outright; Critical Damage leaves you helpless and expiring in an hour unless an ally stabilizes you, making rescue a tactical priority.",
+      "combat.restoration.short_rest": "A few minutes' rest and a swig of water restores all lost Hit Protection, while lost ability scores need a week of proper care."
+    }
+  },
+  {
+    "game_id": "electric_bastionland_2020",
+    "title": "Electric Bastionland",
+    "year": 2020,
+    "medium": "ttrpg",
+    "primary_genre": "Adventure",
+    "subgenres": [
+      "Steampunk",
+      "Urban Fantasy"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Chris McDowall"
+    ],
+    "publisher": "Bastionland Press",
+    "resolution_core": "d20 roll-under ability save; attacks auto-hit with Impaired/Enhanced damage dice",
+    "crunch": 1,
+    "family": "osr",
+    "player_count": {
+      "min": 2,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 180
+    },
+    "governed_vectors": [
+      "character.character_creation.random_background",
+      "narrative.prompts.leading_questions",
+      "character.progression.no_leveling",
+      "resolution.core_mechanic.roll_under_attribute",
+      "combat.damage.automatic_hit",
+      "combat.wounds.hit_points",
+      "combat.damage.critical_injury",
+      "combat.wounds.armor_as_soak",
+      "resolution.modifiers.situational_modifiers",
+      "combat.scale.mass_combat",
+      "character.lifecycle.death_and_dying",
+      "combat.restoration.short_rest",
+      "equipment.economy_of_gear.starting_packages"
+    ],
+    "vector_explanations": {
+      "character.character_creation.random_background": "Your rolled starting money and Hit Protection index one of over a hundred two-page Failed Careers — from Bee Fanatic to Poltergeist Hunter — each granting oddball gear and a former life the game just ejected you from.",
+      "narrative.prompts.leading_questions": "Every Failed Career spread poses direct questions ('Why does the mob want you dead?') whose answers immediately become true and hook the group to its shared creditor.",
+      "character.progression.no_leveling": "There are no levels, XP or advances: the party collectively owes £10,000 to a debtor established at creation, and progress means treasure recovered against that debt, better gear and richer contacts.",
+      "resolution.core_mechanic.roll_under_attribute": "All uncertainty is settled by saves — d20 rolled equal to or under STR, DEX or CHA — with no attack rolls, skill lists or difficulty modifiers.",
+      "combat.damage.automatic_hit": "Attacks always connect and go straight to damage dice, so avoiding a fight, gaining position or attacking from safety is the real tactical layer.",
+      "combat.wounds.hit_points": "Hit Protection is a small pool of composure and luck; damage that exceeds it carves into Strength and threatens Critical Damage.",
+      "combat.damage.critical_injury": "Once Strength is damaged you must pass a STR save or take Critical Damage: you are out of the fight and will die unless treated, and STR 0 is death outright.",
+      "combat.wounds.armor_as_soak": "Armour 1-3 (capped) subtracts from each damage roll; there is no evasion math, only mitigation.",
+      "resolution.modifiers.situational_modifiers": "Circumstance changes the die, not the roll: attacks made through cover or while vulnerable are Impaired (roll d4 damage) while unopposed or devastating attacks are Enhanced (roll d12).",
+      "combat.scale.mass_combat": "Detachments represent squads or mobs: individuals attacking a detachment are Impaired, detachments attacking individuals are Enhanced with blast effects, letting street riots use the same auto-hit engine.",
+      "character.lifecycle.death_and_dying": "Critical Damage leaves you dying without prompt treatment, ability loss lingers, and Strength 0 kills — the book is explicit that treasure hunts should threaten exactly this.",
+      "combat.restoration.short_rest": "A moment of rest and a drink restores all Hit Protection, keeping the pace brisk between scrapes while ability damage heals far more slowly.",
+      "equipment.economy_of_gear.starting_packages": "Each Failed Career hands you its own itemized starting equipment — often strange tools, a signature weapon, or a companion creature — with no shopping phase."
+    }
+  },
+  {
+    "game_id": "cairn_2020",
+    "title": "Cairn",
+    "year": 2020,
+    "medium": "ttrpg",
+    "primary_genre": "Fantasy",
+    "subgenres": [
+      "Adventure",
+      "Horror"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Yochai Gal"
+    ],
+    "publisher": "Yochai Gal (self-published)",
+    "resolution_core": "d20 roll-under ability save; attacks auto-hit",
+    "crunch": 1,
+    "family": "osr",
+    "player_count": {
+      "min": 2,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 60,
+      "max": 180
+    },
+    "governed_vectors": [
+      "character.attributes.rolled_stats",
+      "character.character_creation.random_backgrounds",
+      "resolution.core_mechanic.roll_under_attribute",
+      "combat.damage.automatic_hit",
+      "combat.wounds.armor_as_soak",
+      "combat.damage.critical_injury",
+      "combat.wounds.hit_points",
+      "logistics.encumbrance.slot_based_inventory",
+      "logistics.survival.rations",
+      "magic.acquisition.found_grimoires",
+      "equipment.durability.charge_depletion",
+      "exploration.procedures.reaction_rolls",
+      "combat.morale.morale_checks",
+      "character.progression.no_leveling",
+      "combat.restoration.short_rest",
+      "character.lifecycle.death_and_dying"
+    ],
+    "vector_explanations": {
+      "character.attributes.rolled_stats": "Characters roll 3d6 for Strength, Dexterity and Willpower plus 1d6 Hit Protection, with an optional single swap between two abilities.",
+      "character.character_creation.random_backgrounds": "Identity is stacked from random tables — name, background, physique, skin, hair, face, speech, clothing, virtue, vice, reputation and misfortune — plus rolled starting gear, spellbook or armor.",
+      "resolution.core_mechanic.roll_under_attribute": "Saves are the only roll: d20 equal to or under the relevant ability avoids danger, and anything without meaningful risk simply happens.",
+      "combat.damage.automatic_hit": "Attacks skip the to-hit roll entirely and go straight to the weapon die (d6 one-handed, d8 two-handed, d10 heavy), so combat is fast and genuinely dangerous.",
+      "combat.wounds.armor_as_soak": "Armor and shields add Armor points (max 3) that subtract from every incoming damage roll rather than granting evasion.",
+      "combat.damage.critical_injury": "Damage beyond HP reduces Strength and forces a STR save; failure is Critical Damage, leaving the character incapacitated and dead in an hour without aid.",
+      "combat.wounds.hit_points": "Hit Protection measures composure and luck, not meat; it fully returns with brief rest, while true harm is tracked as ability damage.",
+      "logistics.encumbrance.slot_based_inventory": "Everything you carry fills one of 10 visible inventory slots (bulky items take two), and a filled inventory drops you to 0 HP — capacity is the survival math.",
+      "logistics.survival.rations": "Going without food, water or sleep makes you Deprived: you cannot recover HP or abilities, and extended deprivation adds Fatigue that eats inventory slots.",
+      "magic.acquisition.found_grimoires": "There are no spell lists by class: anyone can cast from a spellbook found in the world, each book holding a single spell and occupying an inventory slot.",
+      "equipment.durability.charge_depletion": "Relics hold a set number of charges (often d4-scale) with individually written recharge conditions, so magical gear is a managed resource rather than a passive bonus.",
+      "exploration.procedures.reaction_rolls": "When an NPC's disposition is unclear the Warden rolls 2d6 on a reaction table from hostile to helpful, so encounters are not fights by default.",
+      "combat.morale.morale_checks": "Enemies must pass a WIL save to avoid fleeing when their leader is slain or half their group has fallen; loners flee when their morale breaks.",
+      "character.progression.no_leveling": "Cairn is explicitly classless and level-less: growth is diegetic, coming from relics recovered, scars survived, spellbooks claimed and allies made rather than any XP track.",
+      "combat.restoration.short_rest": "A few moments of rest and a swig of water restores all lost HP, though resting is impossible while Deprived or in danger.",
+      "character.lifecycle.death_and_dying": "Strength 0 is death; Critical Damage means you are down, unable to act, and will die within the hour unless companions stabilize you."
+    }
+  },
+  {
+    "game_id": "knave_2018",
+    "title": "Knave",
+    "year": 2018,
+    "medium": "ttrpg",
+    "primary_genre": "Fantasy",
+    "subgenres": [
+      "Adventure"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Ben Milton"
+    ],
+    "publisher": "Questing Beast Games",
+    "resolution_core": "d20 + ability bonus vs DC, or vs an opponent's static defense (bonus + 10)",
+    "crunch": 1,
+    "family": "osr",
+    "player_count": {
+      "min": 2,
+      "max": 8
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 240
+    },
+    "governed_vectors": [
+      "character.attributes.rolled_stats",
+      "resolution.core_mechanic.d20_vs_dc",
+      "resolution.core_mechanic.opposed_rolls",
+      "logistics.encumbrance.slot_based_inventory",
+      "character.character_creation.random_backgrounds",
+      "magic.acquisition.found_grimoires",
+      "equipment.gear.armor_types",
+      "equipment.durability.item_wear",
+      "resolution.degrees.critical_failure",
+      "character.progression.experience_points",
+      "exploration.procedures.reaction_rolls",
+      "combat.morale.morale_checks",
+      "downtime.activities.retainer_recruitment",
+      "combat.melee.dice_rolls"
+    ],
+    "vector_explanations": {
+      "character.attributes.rolled_stats": "For each of the six abilities you roll 3d6 and take the lowest die as your bonus, with defense always equal to bonus + 10 — a deliberately flat, swingy start.",
+      "resolution.core_mechanic.d20_vs_dc": "Any check is d20 plus the relevant ability bonus against a Difficulty Class the GM sets, using the same six abilities for every task in the game.",
+      "resolution.core_mechanic.opposed_rolls": "Contests skip double-rolling: the active character rolls d20 + bonus against the opponent's matching defense (their bonus + 10), so only one side ever touches dice.",
+      "logistics.encumbrance.slot_based_inventory": "Item slots equal 10 + Constitution bonus and every item fills at least one, making Constitution the literal size of your rucksack and treasure haul.",
+      "character.character_creation.random_backgrounds": "Knaves are fleshed out on stacked d20 tables — physique, face, speech, virtue, vice, background and misfortune — producing a distinct scoundrel in a couple of minutes.",
+      "magic.acquisition.found_grimoires": "Magic lives in spellbooks: each holds exactly one spell, takes an inventory slot, and can be cast once per day, so a wizard is just whoever carries the most books.",
+      "equipment.gear.armor_types": "Armor pieces from gambeson to full plate each grant listed armor defense and quality values, trading protection against cost and inventory slots.",
+      "equipment.durability.item_wear": "Every item has a Quality rating: weapons lose a point of Quality on fumbled attacks and armor loses Quality when absorbing critical hits, breaking entirely at 0.",
+      "resolution.degrees.critical_failure": "A natural 1 in combat is a fumble with concrete teeth — your weapon takes Quality damage — making crit results matter beyond a miss.",
+      "character.progression.experience_points": "Advancement uses flat XP thresholds; at each new level a knave raises three different abilities by one point each and gains another hit die, staying classless throughout.",
+      "exploration.procedures.reaction_rolls": "When it is unclear how NPCs respond, a 2d6 reaction roll modified by Charisma sets their disposition, making Charisma the negotiator's stat.",
+      "combat.morale.morale_checks": "Monsters have a morale score checked on 2d6 when their leader falls or half the group is down; failure routs them, keeping fights short.",
+      "downtime.activities.retainer_recruitment": "Charisma bonus caps how many hirelings a knave can retain, and hirelings check morale when endangered or mistreated, so leadership is a stat-driven resource.",
+      "combat.melee.dice_rolls": "Attacks are a single d20 + Strength (melee) or Dexterity (ranged) against the target's armor defense — classic one-roll hit-or-miss resolution."
+    }
+  },
+  {
+    "game_id": "troika_2019",
+    "title": "Troika!",
+    "year": 2019,
+    "medium": "ttrpg",
+    "primary_genre": "Science-Fantasy",
+    "subgenres": [
+      "Adventure"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Daniel Sell"
+    ],
+    "publisher": "Melsonian Arts Council",
+    "resolution_core": "Roll under Skill total on 2d6; opposed tests are 2d6 + Skill, high roll wins",
+    "crunch": 2,
+    "family": "osr",
+    "player_count": {
+      "min": 2,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 180
+    },
+    "governed_vectors": [
+      "character.character_creation.random_background",
+      "character.attributes.rolled_stats",
+      "resolution.core_mechanic.2d6_plus_skill",
+      "resolution.core_mechanic.opposed_rolls",
+      "resolution.luck.luck_stat",
+      "combat.initiative.token_bag_draw",
+      "magic.casting.life_force_casting",
+      "magic.risk.mishap_tables",
+      "equipment.gear.weapon_properties_tags",
+      "combat.wounds.armor_as_soak",
+      "logistics.survival.rations",
+      "logistics.encumbrance.slot_based_inventory",
+      "character.skills.skill_ranks",
+      "combat.wounds.hit_points",
+      "character.lifecycle.death_and_dying"
+    ],
+    "vector_explanations": {
+      "character.character_creation.random_background": "A single d66 roll assigns one of 36 baroque Backgrounds — Befouler of Ponds, Claviger, Sorcerer of the Academy of Doors — each bundling Advanced Skills, possessions and spells.",
+      "character.attributes.rolled_stats": "Base numbers are rolled: Skill 1d3+3, Stamina 2d6+12 and Luck 1d6+6, after which your Background layers its specifics on top.",
+      "resolution.core_mechanic.2d6_plus_skill": "Unopposed tests are Roll Under: 2d6 equal to or below Skill plus the relevant Advanced Skill succeeds, with double 6 always failing and double 1 always succeeding.",
+      "resolution.core_mechanic.opposed_rolls": "Contests are Roll Versus: both sides roll 2d6 + Skill + Advanced Skill and the higher total wins the exchange, with ties meaning a standoff.",
+      "resolution.luck.luck_stat": "When pure chance decides, you Test Luck by rolling 2d6 equal to or under your current Luck — and every test reduces Luck by 1 until you rest, so fortune is a depleting stat.",
+      "combat.initiative.token_bag_draw": "Initiative uses a bag: each PC adds two tokens, enemies add per their entries, plus one end-of-round token; tokens are drawn one at a time, so turn order is uncertain and rounds can end abruptly.",
+      "magic.casting.life_force_casting": "Every spell costs Stamina — the same pool as your health — so a wizard literally spends their life to hurl Fireballs or whisper Sneezes.",
+      "magic.risk.mishap_tables": "Rolling a double 6 while casting triggers the Oops! table, whose d66 mishaps range from embarrassing leaks of magic to catastrophic self-destruction.",
+      "equipment.gear.weapon_properties_tags": "Every weapon has its own row on the Damage Table — a sword and a modest club deal differently graded harm on the same d6 — with notes like ignoring armour for some arms.",
+      "combat.wounds.armor_as_soak": "Armour steps the damage roll down by its rating (light 1, modest 2, heavy 3) before consulting the weapon's damage row, blunting rather than deflecting blows.",
+      "logistics.survival.rations": "Provisions are itemized six at a time and each one eaten during a rest restores 1d6 Stamina, making lunch a healing resource worth fighting over.",
+      "logistics.encumbrance.slot_based_inventory": "Possessions live on a numbered inventory list with a hard cap around a dozen items, oversized gear filling multiple lines, so what you carry is always explicit.",
+      "character.skills.skill_ranks": "Advanced Skills are numeric ranks added to base Skill for matching tests, and they improve through use during downtime rather than through purchased levels.",
+      "combat.wounds.hit_points": "Stamina doubles as your health pool, absorbing weapon damage after armour; it recovers through Provisions, spells and proper sleep.",
+      "character.lifecycle.death_and_dying": "There are no death saves: a character reduced to 0 Stamina is dead, which makes Provisions, healing spells and retreat genuinely strategic."
+    }
+  },
+  {
+    "game_id": "heart_the_city_beneath_2020",
+    "title": "Heart: The City Beneath",
+    "year": 2020,
+    "medium": "ttrpg",
+    "primary_genre": "Horror",
+    "subgenres": [
+      "Fantasy",
+      "Narrative"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Grant Howitt",
+      "Christopher Taylor"
+    ],
+    "publisher": "Rowan, Rook and Decard",
+    "resolution_core": "d10 pool (base + skill + domain + mastery), take highest: 8-9 success, 6-7 success at cost, 10 critical",
+    "crunch": 2,
+    "family": "resistance",
+    "player_count": {
+      "min": 3,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 240
+    },
+    "governed_vectors": [
+      "resolution.core_mechanic.highest_die_pool",
+      "resolution.degrees.success_with_cost",
+      "resolution.degrees.critical_success",
+      "resolution.modifiers.situational_modifiers",
+      "mental.stress.stress_track",
+      "combat.wounds.lingering_injuries",
+      "character.character_creation.class_based",
+      "character.progression.zenith_abilities",
+      "campaign.progression.story_xp_triggers",
+      "meta.table.player_flags",
+      "exploration.wilderness.depthcrawl",
+      "resolution.target_numbers.clock_progress",
+      "mental.stress.sanctuary_recovery",
+      "equipment.gear.weapon_properties_tags",
+      "economy.trading.barter"
+    ],
+    "vector_explanations": {
+      "resolution.core_mechanic.highest_die_pool": "You roll a pool of d10s — one base, plus one each for a relevant skill, a known domain, and mastery or help — and read only the highest die against fixed outcome bands.",
+      "resolution.degrees.success_with_cost": "A highest die of 6-7 succeeds at a cost: you get what you wanted but the GM inflicts stress against one of your resistances, so most delving progress is paid for in wear.",
+      "resolution.degrees.critical_success": "A 10 is a critical success that amplifies the outcome — and on attacks it doubles the stress you inflict on the adversary's resistance.",
+      "resolution.modifiers.situational_modifiers": "Difficulty removes dice instead of shifting targets: Risky actions discard your highest die and Dangerous actions discard your two highest before reading the result.",
+      "mental.stress.stress_track": "Failed or costly rolls inflict rolled stress (d4 up to d12 by severity) against five resistances — Blood, Echo, Fortune, Mind and Supplies — tracking wounds, weirdness, luck, sanity and gear together.",
+      "combat.wounds.lingering_injuries": "Whenever you take stress the GM rolls a d12; at or under your total stress you suffer fallout — concrete minor or major consequences like broken limbs, haunting echoes or ruined supplies that persist and clear stress.",
+      "character.character_creation.class_based": "You pick a class such as Cleaver, Deadwalker, Deep Apostle, Junk Mage or Vermissian Knight and a calling, which together fix your core abilities, resistances and advancement menu.",
+      "character.progression.zenith_abilities": "Each calling culminates in Zenith abilities — apocalyptic final powers like dragging a god down with you — that resolve the character's story and remove them from play in a blaze of consequence.",
+      "campaign.progression.story_xp_triggers": "Advancement runs on beats: you pick minor and major beats from your calling (story events, not kill counts) and gain new abilities when they come true in play.",
+      "meta.table.player_flags": "Because chosen beats are visible goals like 'suffer Blood fallout' or 'find a lost settlement', they double as flags that explicitly direct the GM to aim upcoming content at each character.",
+      "exploration.wilderness.depthcrawl": "Delves are tracked by depth, not geography: the City Beneath descends through tiers from the surface city down to the Heart Itself, with stress dice and strangeness escalating each tier.",
+      "resolution.target_numbers.clock_progress": "Delves and adversaries carry resistance ratings that function as tracks: successful Delve or Kill rolls remove points equal to your stress dice until the obstacle is cleared.",
+      "mental.stress.sanctuary_recovery": "Stress is primarily removed at haunts — landmark refuges like bars, shrines and doctors — where you roll the haunt's die to clear stress, making safe places mapped, scarce resources.",
+      "equipment.gear.weapon_properties_tags": "Equipment carries tags like Brutal, Bloodbound, Ranged and Degenerating that modify stress dice and impose conditions, rather than flat damage numbers.",
+      "economy.trading.barter": "Below the surface there is no standard coin: value moves as Resources — scavenged items with die ratings and domain tags — which are bartered, consumed and burned at haunts."
+    }
+  },
+  {
+    "game_id": "spire_the_city_must_fall_2018",
+    "title": "Spire: The City Must Fall",
+    "year": 2018,
+    "medium": "ttrpg",
+    "primary_genre": "Fantasy",
+    "subgenres": [
+      "Urban Fantasy",
+      "Narrative"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Grant Howitt",
+      "Christopher Taylor"
+    ],
+    "publisher": "Rowan, Rook and Decard",
+    "resolution_core": "d10 pool (base + skill + domain + mastery), take highest: 8-9 success, 6-7 success at cost, 10 critical, 1 crit fail",
+    "crunch": 2,
+    "family": "resistance",
+    "player_count": {
+      "min": 3,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 240
+    },
+    "governed_vectors": [
+      "resolution.core_mechanic.highest_die_pool",
+      "resolution.degrees.success_with_cost",
+      "resolution.degrees.critical_success",
+      "resolution.degrees.critical_failure",
+      "mental.stress.stress_track",
+      "combat.wounds.lingering_injuries",
+      "social.influence.cover_identities",
+      "economy.barter.abstract_wealth",
+      "social.reputation.fame_renown",
+      "character.character_creation.class_based",
+      "campaign.progression.milestone_advancement",
+      "downtime.recovery.stress_relief_vice",
+      "equipment.gear.weapon_properties_tags",
+      "resolution.modifiers.situational_modifiers"
+    ],
+    "vector_explanations": {
+      "resolution.core_mechanic.highest_die_pool": "Actions roll a d10 pool — one die base, plus dice for an applicable skill, domain and mastery — keeping only the highest die against fixed bands from critical failure to critical success.",
+      "resolution.degrees.success_with_cost": "The 6-7 band succeeds with a sting: the GM applies stress to one of your resistances, so revolutionary work steadily grinds the conspirators down.",
+      "resolution.degrees.critical_success": "A 10 achieves more than intended, and on violent actions doubles the stress inflicted — the system's reward for gambling on thin pools.",
+      "resolution.degrees.critical_failure": "A highest die of 1 is a critical failure that makes the situation actively worse than a mere miss, feeding the spiral of a cell operating past its limits.",
+      "mental.stress.stress_track": "Stress accumulates against five resistances — Blood, Mind, Silver, Shadow and Reputation — so a drow revolutionary can be broke, exposed and disgraced as easily as wounded.",
+      "combat.wounds.lingering_injuries": "After taking stress the GM rolls a d10 against your total; rolling at or under triggers minor, moderate or severe fallout — arrests, addictions, wounds and blown safehouses that persist beyond the scene.",
+      "social.influence.cover_identities": "The Shadow resistance explicitly tracks your secrecy as a member of the Ministry: Shadow stress and fallout represent your revolutionary cover fraying until the aelfir authorities close in.",
+      "economy.barter.abstract_wealth": "Money is abstracted into the Silver resistance — financial setbacks are stress marked against it and Silver fallout means debts, destitution or seized assets rather than counted coins.",
+      "social.reputation.fame_renown": "Reputation is itself a resistance: standing among the drow community absorbs stress from public failures, and its fallout brands you a liability to the cause.",
+      "character.character_creation.class_based": "You choose a durance-shaped class — Azurite, Carrion-Priest, Firebrand, Idol, Lajhan, Masked, Midwife, Vermissian Sage and more — that fixes your abilities, refresh and advancement lists.",
+      "campaign.progression.milestone_advancement": "There are no XP totals: you pick low, medium or high advances from your class list when you complete missions or meaningfully change the world in the fiction.",
+      "downtime.recovery.stress_relief_vice": "Each class has a personal refresh condition — the Idol performs, the Firebrand stokes insurrection — and acting on it is the codified way to strip accumulated stress.",
+      "equipment.gear.weapon_properties_tags": "Weapons and gear are defined by tags such as Accurate, Brutal, Concealable and Dangerous that alter dice and consequences instead of raw damage values.",
+      "resolution.modifiers.situational_modifiers": "Difficult circumstances remove your highest dice from the pool (one for Risky, two for Dangerous), so conditions bite hardest exactly when pools are small."
+    }
+  },
+  {
+    "game_id": "wanderhome_2021",
+    "title": "Wanderhome",
+    "year": 2021,
+    "medium": "ttrpg",
+    "primary_genre": "Narrative",
+    "subgenres": [
+      "Fantasy"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Jay Dragon"
+    ],
+    "publisher": "Possum Creek Games",
+    "resolution_core": "Diceless token economy: humble trait acts earn tokens, spent for decisive acts",
+    "crunch": 1,
+    "family": "belonging_outside_belonging",
+    "player_count": {
+      "min": 2,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 180
+    },
+    "governed_vectors": [
+      "character.character_creation.playbook_based",
+      "character.identity.playbook_moves",
+      "social.influence.tokens_exchange",
+      "narrative.authority.shared_narration",
+      "narrative.authority.gm_less_rotation",
+      "narrative.prompts.leading_questions",
+      "narrative.worldbuilding.setting_questions",
+      "turns.phases.seasonal_cycle_structure",
+      "downtime.activities.festivals_holidays",
+      "narrative.prompts.mad_libs_prompts",
+      "character.character_creation.questionnaire",
+      "narrative.worldbuilding.collaborative_npc_creation"
+    ],
+    "vector_explanations": {
+      "character.character_creation.playbook_based": "Each traveler picks a distinct kith playbook — The Teacher, The Peddler, The Veteran, The Witch and others — bundling traits, questions and aesthetic pick-lists no one else at the table shares.",
+      "character.identity.playbook_moves": "Playbooks list things your kith 'can always' do without cost alongside trait-specific acts, so capability is written directly into who the character is.",
+      "social.influence.tokens_exchange": "The engine is a token economy: performing your traits' humble, vulnerable acts (giving something away, asking for help) earns tokens, which are spent to do the demanding, decisive things on your spend lists.",
+      "narrative.authority.shared_narration": "Nobody owns the world: all players jointly describe places, weather, denizens and consequences, with the token economy rather than a referee gating dramatic swings.",
+      "narrative.authority.gm_less_rotation": "The game explicitly supports GM-less play as a default mode, distributing facilitation across the table, with an optional single-guide variant for groups that want one.",
+      "narrative.prompts.leading_questions": "Playbooks and places constantly pose pointed questions — what you miss, what you carry, what this month means to you — whose answers immediately bind as fiction.",
+      "narrative.worldbuilding.setting_questions": "Every place the troupe visits is built from two or three natures (Glade, Market, Graveyard and more), each supplying structured questions and detail lists that customize the world on arrival.",
+      "turns.phases.seasonal_cycle_structure": "Play is paced by an explicit calendar of seasons and named months, each month carrying its own tone and prompts that color the journey.",
+      "downtime.activities.festivals_holidays": "Seasons only turn when the troupe celebrates a holiday: the table invents the festival, performs its rituals in fiction, and answers its questions before the year moves on.",
+      "narrative.prompts.mad_libs_prompts": "Kith and places are composed from curated pick-lists — choose an animal, select traits from menus, pick look-and-feel fragments — assembling character and setting from structured phrase choices.",
+      "character.character_creation.questionnaire": "Creation is a guided sequence of in-fiction questions about who you are, why you travel and what you carry, including prompts about your fellow travelers that seed the troupe's bonds.",
+      "narrative.worldbuilding.collaborative_npc_creation": "The folks met on the road are created jointly in play: natures supply resident prompts and any player can introduce a denizen with wants and troubles that become canon."
+    }
+  },
+  {
+    "game_id": "thousand_year_old_vampire_2019",
+    "title": "Thousand Year Old Vampire",
+    "year": 2019,
+    "medium": "ttrpg",
+    "primary_genre": "Horror",
+    "subgenres": [
+      "Narrative",
+      "Historical"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Tim Hutchings"
+    ],
+    "publisher": "Tim Hutchings (self-published)",
+    "resolution_core": "Solo journaling: d10 - d6 walks the numbered prompt list; answers are recorded as Experiences",
+    "crunch": 1,
+    "player_count": {
+      "min": 1,
+      "max": 1
+    },
+    "playtime_minutes": {
+      "min": 60,
+      "max": 180
+    },
+    "governed_vectors": [
+      "narrative.prompts.oracle_tables",
+      "narrative.prompts.leading_questions",
+      "mental.conditions.amnesia_fugues",
+      "character.progression.journey_log",
+      "character.skills.freeform_skills",
+      "economy.barter.abstract_wealth",
+      "character.lifecycle.aging",
+      "narrative.structure.endgame_triggers",
+      "character.identity.bonds_relationships",
+      "character.character_creation.questionnaire",
+      "character.progression.permanent_scars",
+      "campaign.continuity.world_timeline_advancement"
+    ],
+    "vector_explanations": {
+      "narrative.prompts.oracle_tables": "Play navigates a numbered list of prompts by rolling d10 minus d6 and moving that many entries; revisiting a prompt drops you to its 'a' and 'b' sub-entries, so no two unlives take the same path.",
+      "narrative.prompts.leading_questions": "Each prompt is a pointed question — who hunts you, what have you become, what did you do to survive — answered in writing as a new Experience that becomes canon.",
+      "mental.conditions.amnesia_fugues": "Memory loss is the core economy: you have exactly five Memories of three Experiences each, and when they overflow you must permanently strike a Memory out, forgetting whole centuries.",
+      "character.progression.journey_log": "A Diary Resource can store excess Memories outside your five slots — but if the Diary is lost or destroyed by a prompt, everything written in it is gone forever.",
+      "character.skills.freeform_skills": "Skills are freeform phrases like 'Skulking' or 'Courtly Manners' gained from prompts and checked off when used; a checked Skill is spent until a prompt lets you recover it.",
+      "economy.barter.abstract_wealth": "Resources are abstract assets — a fortune, a crypt, a loyal ship — gained and lost wholesale by prompt instruction rather than tracked as currency.",
+      "character.lifecycle.aging": "Time lurches forward across prompts by years and decades, and mortal Characters must be struck out as they age and die while the vampire persists.",
+      "narrative.structure.endgame_triggers": "The game defines its endings: specific prompts can destroy the vampire outright, and the final prompt regions resolve what remains of you, closing the journal.",
+      "character.identity.bonds_relationships": "Characters — named mortals and immortals — are required mechanical objects: prompts create, entangle and kill them, and Experiences are anchored to them.",
+      "character.character_creation.questionnaire": "Setup is a guided questionnaire: you invent a mortal life, at least three Characters, several Skills and Resources, then write Experiences binding them into starting Memories before the first prompt.",
+      "character.progression.permanent_scars": "Marks are permanent physical signs of vampirism — a reflectionless mirror, an unhealing wound — accumulated through prompts and carried on the body forever.",
+      "campaign.continuity.world_timeline_advancement": "The world moves by procedure: each prompt advances history, so empires fall, technologies arrive and mortal generations turn over between entries whether or not the vampire acts."
+    }
+  },
+  {
+    "game_id": "lasers_and_feelings_2013",
+    "title": "Lasers & Feelings",
+    "year": 2013,
+    "medium": "ttrpg",
+    "primary_genre": "Sci-Fi",
+    "subgenres": [
+      "Adventure",
+      "Narrative"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "John Harper"
+    ],
+    "publisher": "One Seven Design",
+    "resolution_core": "1-3d6 vs your single Number (2-5): roll under for Lasers tasks, over for Feelings",
+    "crunch": 1,
+    "player_count": {
+      "min": 3,
+      "max": 7
+    },
+    "playtime_minutes": {
+      "min": 60,
+      "max": 180
+    },
+    "governed_vectors": [
+      "resolution.core_mechanic.dice_pool_successes",
+      "resolution.core_mechanic.roll_under_attribute",
+      "resolution.target_numbers.variable_tn",
+      "resolution.degrees.degrees_of_success",
+      "resolution.degrees.partial_success",
+      "resolution.degrees.critical_success",
+      "character.character_creation.tags_traits",
+      "character.identity.values_drives",
+      "meta.player_facing.player_facing_rolls",
+      "resolution.modifiers.situational_modifiers",
+      "narrative.prompts.oracle_tables",
+      "vehicles.operation.vehicle_stats_blocks"
+    ],
+    "vector_explanations": {
+      "resolution.core_mechanic.dice_pool_successes": "You roll 1d6, adding a die if you are prepared and another if you are an expert, and count how many dice beat your Number — zero to three successes map to fixed outcome bands.",
+      "resolution.core_mechanic.roll_under_attribute": "The famous twist: dice must roll under your Number for Lasers tasks (science, precision, cool logic) and over it for Feelings tasks (passion, intuition, seduction), inverting per approach.",
+      "resolution.target_numbers.variable_tn": "The target is personal, not situational: your single stat from 2 to 5 is simultaneously the bar for both task types, so picking 4 makes you great at Feelings and shaky at Lasers.",
+      "resolution.degrees.degrees_of_success": "Outcomes are read in named grades — 0 successes fails with GM escalation, 1 barely manages, 2 does it well, 3 is a critical with a bonus effect.",
+      "resolution.degrees.partial_success": "One success is the explicit middle band: you accomplish the task but the GM inflicts a complication, harm or cost as the price of scraping by.",
+      "resolution.degrees.critical_success": "If any die lands exactly on your Number you get Laser Feelings — a special insight letting you ask the GM a question and get an honest answer, with advantage if you act on it.",
+      "character.character_creation.tags_traits": "Characters are two picked descriptors — a style (Alien, Android, Dangerous, Hot-Shot, Intrepid, Savvy) and a role (Doctor, Envoy, Engineer, Explorer, Soldier, Scientist) — plus a name, nothing more.",
+      "character.identity.values_drives": "Every character chooses a goal from a printed list (Become Captain, Meet Sexy Aliens, Prove Yourself and more) that states what they pursue during the adventure.",
+      "meta.player_facing.player_facing_rolls": "All dice sit with the players: threats are framed so the crew rolls to act or avoid danger while the GM adjudicates outcomes without rolling.",
+      "resolution.modifiers.situational_modifiers": "Circumstance changes the pool size, not the target: being prepared grants +1d and being an expert grants +1d, capping at three dice.",
+      "narrative.prompts.oracle_tables": "The GM builds the session by rolling on the Space Adventure tables — a random threat, what it wants, its target and a complication — generating the scenario in under a minute.",
+      "vehicles.operation.vehicle_stats_blocks": "The ship (the Raptor) is statted by group choice: the crew picks two strengths like fast, nimble, well-armed or cloaking device, and one problem like 'fuel hog' or 'grim reputation' that haunts the voyage."
+    }
+  },
+  {
+    "game_id": "tales_from_the_loop_2017",
+    "title": "Tales from the Loop",
+    "year": 2017,
+    "medium": "ttrpg",
+    "primary_genre": "Sci-Fi",
+    "subgenres": [
+      "Mystery",
+      "Adventure"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Nils Hintze"
+    ],
+    "publisher": "Free League Publishing",
+    "resolution_core": "Year Zero d6 pool (attribute + skill + gear); each 6 is a success",
+    "crunch": 2,
+    "family": "year_zero",
+    "player_count": {
+      "min": 3,
+      "max": 6
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 240
+    },
+    "governed_vectors": [
+      "character.character_creation.class_based",
+      "character.attributes.point_buy",
+      "character.skills.attribute_skill_pairing",
+      "resolution.core_mechanic.dice_pool_successes",
+      "luck.mitigation.luck_points_currency",
+      "resolution.modifiers.condition_penalties",
+      "character.lifecycle.death_and_dying",
+      "downtime.recovery.condition_recovery",
+      "character.identity.values_drives",
+      "character.identity.flaws_drawbacks",
+      "resolution.modifiers.help_dice",
+      "character.progression.experience_points",
+      "narrative.structure.act_breaks",
+      "narrative.structure.interlude_scenes"
+    ],
+    "vector_explanations": {
+      "character.character_creation.class_based": "Kids are built from Types — Bookworm, Computer Geek, Hick, Jock, Popular Kid, Rocker, Troublemaker, Weirdo — each packaging key skills, iconic items and example Problems and Prides.",
+      "character.attributes.point_buy": "Attribute points equal your Kid's age (10 to 15) distributed across Body, Tech, Heart and Mind, so older Kids are more capable but hold less Luck.",
+      "character.skills.attribute_skill_pairing": "Twelve skills sit three under each attribute — like Sneak under Body or Calculate under Tech — and your dice pool is always the attribute plus the paired skill.",
+      "resolution.core_mechanic.dice_pool_successes": "You roll a d6 pool of attribute + skill (+ item bonus) and every 6 is a success; most Trouble needs one, harder feats demand two or three.",
+      "luck.mitigation.luck_points_currency": "Luck Points equal 15 minus age and are spent one at a time to reroll failed dice, refreshing every session — the game's mechanical case that younger Kids are luckier.",
+      "resolution.modifiers.condition_penalties": "The Conditions Upset, Scared, Exhausted and Injured each impose a standing -1 die on all rolls while marked, stacking as the Mystery grinds the Kids down.",
+      "character.lifecycle.death_and_dying": "The rules state flatly that Kids cannot die: the worst outcome is being Broken, which sidelines a Kid until someone cares for them rather than killing them.",
+      "downtime.recovery.condition_recovery": "Conditions heal through specified remedies — chiefly spending a scene of comfort with your Anchor, the adult or friend written on your sheet who calms you down.",
+      "character.identity.values_drives": "Every Kid records a Drive explaining why they run toward danger, and a Pride which can be checked once per Mystery to gain an automatic success when it is truly at stake.",
+      "character.identity.flaws_drawbacks": "Every Kid must define a Problem — divorcing parents, a bully, unrequited love — that anchors their Everyday Life scenes and gives the GM licence to complicate the Mystery.",
+      "resolution.modifiers.help_dice": "Friends who plausibly assist add +1 die each to the acting Kid's pool, encouraging the gang to face Trouble together rather than alone.",
+      "character.progression.experience_points": "At session end each player answers the XP questions (Did you overcome Trouble? Did your Problem affect play?) gaining a point per yes, and spends 5 XP to raise a skill one level.",
+      "narrative.structure.act_breaks": "Mysteries follow a codified phase structure — introducing the Kids and their everyday lives, introducing the Mystery, solving it, the Showdown, and the closing Change phase.",
+      "narrative.structure.interlude_scenes": "Everyday Life scenes at school and home are a distinct scene type deliberately alternated with Mystery scenes, where Problems flare and Anchors mend Conditions."
+    }
+  },
+  {
+    "game_id": "kids_on_bikes_2018",
+    "title": "Kids on Bikes",
+    "year": 2018,
+    "medium": "ttrpg",
+    "primary_genre": "Adventure",
+    "subgenres": [
+      "Mystery",
+      "Horror"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Jonathan Gilmour",
+      "Doug Levandowski"
+    ],
+    "publisher": "Hunters Entertainment",
+    "resolution_core": "Stat die (d4-d20) + modifiers vs difficulty; maximum rolls explode",
+    "crunch": 2,
+    "player_count": {
+      "min": 3,
+      "max": 7
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 240
+    },
+    "governed_vectors": [
+      "resolution.core_mechanic.step_dice",
+      "resolution.core_mechanic.exploding_dice",
+      "resolution.core_mechanic.opposed_rolls",
+      "resolution.metacurrency.bennies",
+      "character.character_creation.class_based",
+      "character.identity.flaws_drawbacks",
+      "character.progression.perks",
+      "character.character_creation.questionnaire",
+      "narrative.worldbuilding.setting_questions",
+      "actions.points.split_action_ownership",
+      "magic.psionics.power_points",
+      "character.lifecycle.death_and_dying"
+    ],
+    "vector_explanations": {
+      "resolution.core_mechanic.step_dice": "The six stats — Brains, Brawn, Fight, Flight, Charm and Grit — are each assigned one die from d4 to d20, and checks roll that stat's die against the GM's difficulty number.",
+      "resolution.core_mechanic.exploding_dice": "Rolling a die's maximum value explodes: roll again and add, without limit, so even a d4 Brawn kid can occasionally lift the impossible.",
+      "resolution.core_mechanic.opposed_rolls": "Contests between characters are settled by both sides rolling their relevant stat dice and comparing totals, with the higher result winning the exchange.",
+      "resolution.metacurrency.bennies": "Failing a roll earns an Adversity Token; tokens are spent one-for-+1 to boost rolls after seeing the result, so failure now literally banks success later.",
+      "character.character_creation.class_based": "Characters start from Tropes — like the Brilliant Mathlete, Loner Weirdo or Washed-Up Athlete — which preassign the stat dice array and suggest strengths and flaws.",
+      "character.identity.flaws_drawbacks": "Every character takes defined Flaws from their Trope or the list, giving the GM levers for complications and grounding each kid or adult in believable weakness.",
+      "character.progression.perks": "Strengths are picked from a menu with concrete mechanical effects — such as Tough letting you shrug harm or Unassuming making adults overlook you — differentiating characters beyond stat dice.",
+      "character.character_creation.questionnaire": "Creation ends with guided questions answered with the other players about fears, motivations and shared history, wiring the group together before the mystery starts.",
+      "narrative.worldbuilding.setting_questions": "The table collaboratively builds the small town at session start, answering structured questions about its era, name, landmarks, and local legends that become play material.",
+      "actions.points.split_action_ownership": "The Powered Character is collectively owned: each player holds one of its Aspects, and whoever holds the Aspect the situation invokes decides how the Powered Character acts.",
+      "magic.psionics.power_points": "The Powered Character fuels abilities with Psychic Energy Tokens, a depleting pool spent per use, so its reality-warping help is rationed rather than on tap.",
+      "character.lifecycle.death_and_dying": "Player characters can only die when the stakes were made explicit and the player has bought in; otherwise defeat means injury, capture or complication."
+    }
+  },
+  {
+    "game_id": "fiasco_2009",
+    "title": "Fiasco",
+    "year": 2009,
+    "medium": "ttrpg",
+    "primary_genre": "Narrative",
+    "subgenres": [
+      "Modern",
+      "Party"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Jason Morningstar"
+    ],
+    "publisher": "Bully Pulpit Games",
+    "resolution_core": "GM-less scene economy; a shared d6 pool seeds the Setup and drives the Tilt and Aftermath tables",
+    "crunch": 1,
+    "player_count": {
+      "min": 3,
+      "max": 5
+    },
+    "playtime_minutes": {
+      "min": 90,
+      "max": 180
+    },
+    "governed_vectors": [
+      "character.character_creation.relationship_setup",
+      "character.identity.bonds_relationships",
+      "narrative.prompts.mad_libs_prompts",
+      "narrative.authority.scene_framing_rights",
+      "narrative.authority.shared_narration",
+      "narrative.authority.gm_less_rotation",
+      "social.influence.tilt_table",
+      "social.influence.aftermath_table",
+      "narrative.structure.act_breaks",
+      "narrative.structure.scene_economy_limits",
+      "narrative.structure.epilogues",
+      "social.influence.tokens_exchange"
+    ],
+    "vector_explanations": {
+      "character.character_creation.relationship_setup": "The Setup rolls a big central pool of d6s and players take turns claiming dice whose values buy Relationship categories and details from the playset, until every adjacent pair shares a defined relationship.",
+      "character.identity.bonds_relationships": "Characters have no stats at all: each one exists purely as the web of relationships, Needs, Locations and Objects attached between neighbors at the table.",
+      "narrative.prompts.mad_libs_prompts": "Playsets are books of fill-in tables — Relationships, Needs ('to get even... with the sheriff'), Locations and Objects — whose category-plus-element structure composes the story's fuses.",
+      "narrative.authority.scene_framing_rights": "On your turn you either Establish (frame your own scene's place, people and stakes) or Resolve (the others frame it and you decide the outcome), making framing an explicitly allocated power.",
+      "narrative.authority.shared_narration": "Whichever half you keep, the table owns the other: when you Establish, the group hands you a light or dark die mid-scene to dictate whether things go well or badly for you.",
+      "narrative.authority.gm_less_rotation": "There is no GM at all; play rotates around the table scene by scene with the dice economy and playset tables doing the referee's job.",
+      "social.influence.tilt_table": "At the midpoint the players with the highest light and dark totals each pick from the Tilt table — rolled elements like 'a stupid plan, executed to perfection' — injecting escalation into Act Two.",
+      "social.influence.aftermath_table": "When the dice run out each player rolls their hoarded dice, subtracts the smaller color from the larger, and reads their fate on the Aftermath table from 'zero: the worst thing in the universe' upward.",
+      "narrative.structure.act_breaks": "Play is fixed at two acts with the Tilt between them; in Act One scene dice are given away while in Act Two you keep what you earn, structurally darkening the back half.",
+      "narrative.structure.scene_economy_limits": "The scene budget is hard-coded: the central pool holds four dice per player and each scene consumes exactly one, giving every player four scenes across the two acts.",
+      "narrative.structure.epilogues": "The Aftermath is narrated as a mandated closing montage, spent die by die in short bursts that show exactly how each character's fiasco lands.",
+      "social.influence.tokens_exchange": "The light and dark dice function as handed tokens: in Act One the die from your scene must be given to another player, and every die held at the end weighs your Aftermath total."
+    }
+  },
+  {
+    "game_id": "microscope_2011",
+    "title": "Microscope",
+    "year": 2011,
+    "medium": "ttrpg",
+    "primary_genre": "Narrative",
+    "subgenres": [
+      "Historical"
+    ],
+    "provenance": "curated",
+    "designers": [
+      "Ben Robbins"
+    ],
+    "publisher": "Lame Mage Productions",
+    "resolution_core": "Diceless structured turn-taking; declared Periods, Events and Scenes are canon",
+    "crunch": 1,
+    "player_count": {
+      "min": 2,
+      "max": 5
+    },
+    "playtime_minutes": {
+      "min": 120,
+      "max": 240
+    },
+    "governed_vectors": [
+      "narrative.worldbuilding.microscope_history",
+      "meta.safety.content_calibration",
+      "narrative.authority.gm_less_rotation",
+      "narrative.authority.fact_declaration",
+      "narrative.authority.scene_framing_rights",
+      "narrative.prompts.leading_questions",
+      "narrative.tone.tone_dials",
+      "meta.table.spotlight_rotation",
+      "turns.order.fixed_clockwise",
+      "narrative.authority.shared_narration",
+      "narrative.worldbuilding.collaborative_npc_creation",
+      "turns.phases.structured_round_phases"
+    ],
+    "vector_explanations": {
+      "narrative.worldbuilding.microscope_history": "The game is the trope-naming original: players build a history fractally, nesting Periods, Events and Scenes anywhere between the agreed bookend Periods, with no one owning any part of the timeline.",
+      "meta.safety.content_calibration": "Before play the table builds the Palette — a yes column of elements allowed even if unexpected and a no column of banned material — that binds all later contributions.",
+      "narrative.authority.gm_less_rotation": "There is no GM: facilitation rotates through the Lens role each round, and the rules explicitly forbid collaborative brainstorming during a turn — the current player alone decides.",
+      "narrative.authority.fact_declaration": "Whatever a player creates on their turn is immediately true; other players may not veto or contradict it, only build around it with their own additions within the Palette.",
+      "narrative.authority.scene_framing_rights": "Whoever creates a Scene sets its Question, place and required characters, then chooses to dictate the answer outright or play the Scene out to discover it.",
+      "narrative.prompts.leading_questions": "Every played Scene must open with a stated Question — 'why did the colony burn its own fleet?' — and the Scene ends the moment play answers it.",
+      "narrative.tone.tone_dials": "Every Period and Event is explicitly declared Light or Dark when created, a mandatory tone marker that shapes how the history reads at a glance.",
+      "meta.table.spotlight_rotation": "The Lens rotates each round: that player declares the Focus everyone's contributions must involve, guaranteeing each person periodically steers the history's attention.",
+      "turns.order.fixed_clockwise": "Within a round play passes in fixed seating order, each player making exactly one move — a new Period, Event or Scene — before the Lens closes the round.",
+      "narrative.authority.shared_narration": "Authority over the world is fully distributed: any player may nest new Periods or Events anywhere in the timeline on their turn, so the setting has no single author.",
+      "narrative.worldbuilding.collaborative_npc_creation": "In played Scenes the group divides up whatever characters the moment requires, inventing them on the spot, with required characters assignable by the scene's creator.",
+      "turns.phases.structured_round_phases": "Rounds have a fixed procedure: the Lens declares a Focus, players each take a turn (the Lens takes two, first and last), then a Legacy phase revisits an enduring element before the Lens passes on."
+    }
+  }
+]

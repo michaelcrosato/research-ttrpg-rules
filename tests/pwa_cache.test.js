@@ -319,7 +319,7 @@ describe('Service Worker (sw.js) Stale-While-Revalidate', () => {
     expect(mockEvent.waitUntil).toHaveBeenCalled();
 
     await new Promise((resolve) => setTimeout(resolve, 10));
-    expect(mockCaches.open).toHaveBeenCalledWith('systems-registry-v1');
+    expect(mockCaches.open).toHaveBeenCalledWith('systems-registry-v2');
     expect(mockCache.addAll).toHaveBeenCalled();
   });
 

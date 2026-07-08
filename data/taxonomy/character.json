@@ -1,0 +1,137 @@
+{
+  "domain": "character",
+  "description": "Rules for who a character is and how they change: creation procedures, advancement and scoring engines, attribute and skill architecture, identity mechanics, and the arc from birth to retirement or death.",
+  "applies_to": ["ttrpg"],
+  "subsystems": {
+    "character_creation": {
+      "description": "Procedures for building a character before play begins.",
+      "focuses": {
+        "class_based": "Characters are built by choosing a class that packages role, abilities, and advancement into one archetype (D&D, Pathfinder).",
+        "clue_questions": "Creation includes answering pointed questions whose answers seed the mysteries, clues, and secrets the campaign will explore (question-driven setup in Brindlewood Bay-style mystery games).",
+        "crimes_crises": "Characters are defined by the crimes they committed and the crises they survived, establishing motives, debts, and hooks before play (criminal-history setup in heist and noir games).",
+        "incarnation_history": "The character is built by detailing prior incarnations or past lives whose echoes supply abilities, memories, and old enemies (Nephilim's past incarnations, Exalted's prior lives).",
+        "lifepath": "Creation walks step by step through life stages — birth, upbringing, careers — each granting skills, contacts, and events (Traveller, Cyberpunk 2020, Burning Wheel).",
+        "mythos_logos_themes": "Characters are composed of themes split between a legendary Mythos side and an ordinary Logos side, and play shifts the balance between them (City of Mist).",
+        "playbook_based": "Players each pick a distinct playbook — a printed archetype booklet with its own moves, options, and hooks — that no one else at the table may share (Apocalypse World and PbtA games).",
+        "questionnaire": "A guided list of in-fiction questions determines stats, traits, and relationships as it is answered (Legend of the Five Rings 5e's Twenty Questions).",
+        "random_background": "A single random roll assigns the character's background, origin, or former life, which the player then builds upon (career or origin rolls in OSR-family games).",
+        "random_backgrounds": "Multiple random tables stack to generate the character's background details — occupation, trinkets, quirks, kin — largely from dice (DCC's zero-level occupations, Beyond the Wall playbook tables).",
+        "relationship_setup": "Setup mechanically establishes relationships between the characters — shared history, debts, and tensions — before any scene is played (Fiasco's relationship web, Smallville's pathways chart).",
+        "tags_traits": "Characters are defined by freeform descriptive tags or traits rather than fixed stat blocks, invoked whenever relevant (Risus clichés, 24XX skills, Over the Edge traits)."
+      }
+    },
+    "progression": {
+      "description": "How characters and player positions grow, advance, and score over time.",
+      "focuses": {
+        "appeal_conservation_tracks": "Advancement runs on two separate tracks — commercial appeal and conservation achievement — and the end triggers when a player's two markers cross (Ark Nova).",
+        "belief_xp": "Pursuing, testing, and resolving written Beliefs earns advancement rewards, paying players for dramatic conviction (Burning Wheel's artha for Beliefs).",
+        "bonds": "Forming, playing on, and resolving interpersonal bonds drives advancement (Dungeon World's end-of-session bond resolution, Ironsworn bonds).",
+        "build_points": "Characters improve by spending a general pool of earned points on any stats, skills, or traits, with costs scaling by rating (GURPS character points, Hero System).",
+        "careers_system": "Advancement is structured as entering, completing, and switching careers, each career unlocking its own set of advances (WFRP careers, Traveller terms).",
+        "civilization_cards": "Acquiring civilization cards permanently grows a player's capabilities and scoring engine across eras (Through the Ages, 7 Wonders' structures).",
+        "destination_tickets": "Secret route objectives score when completed and penalize when unfinished, steering long-term network building (Ticket to Ride).",
+        "experience_points": "Play earns numeric experience points that accumulate toward levels or purchases, the baseline advancement currency (D&D XP and levels).",
+        "farmer_scoring": "End-game scoring rates the development of a farm across mandatory categories — fields, pastures, grain, livestock, family — punishing neglected areas (Agricola).",
+        "gumshoe_points": "Between cases, investigators spend earned build points to deepen investigative and general ability pools (GUMSHOE: Trail of Cthulhu, Night's Black Agents).",
+        "highlighted_stats": "Each session certain stats are highlighted, and every roll of a highlighted stat marks experience, steering play toward chosen spotlights (Apocalypse World).",
+        "instinct_xp": "Acting on written Instincts — reflexive if-then behaviors — earns advancement rewards or free actions (Burning Wheel and Mouse Guard Instincts).",
+        "journey_log": "Completed journeys and their notable events are recorded in a log that converts into advancement, skills, or resources (travel-phase records in The One Ring-style journey play).",
+        "karma": "A spendable advancement currency earned from runs and good play buys skill, attribute, and power increases directly (Shadowrun karma).",
+        "knowledge_tiles": "Collecting knowledge or research tiles grants permanent player powers or end-game points, rewarding invested study actions (technology and research tiles in euro strategy games).",
+        "level_up_tokens": "Discrete tokens earned during play are cashed in to level a character or unit up on the spot (level-up tokens in dungeon-crawl board games).",
+        "license_level": "Advancement grants license levels with a manufacturer or authority, each unlocking new frames, gear, and systems to build with (Lancer).",
+        "monument_scoring": "Erecting monuments provides large point awards and permanent effects, anchoring a player's late-game score (monument buildings in Tzolk'in and similar euros).",
+        "no_leveling": "Characters do not gain levels or raw power; growth is lateral through gear, contacts, and position (classic Traveller).",
+        "noble_tiles": "Meeting development thresholds attracts noble tiles worth prestige, rewarding engine milestones automatically (Splendor's nobles).",
+        "none": "The game has no progression system at all; capabilities are fixed for the whole of play (one-shot designs and many short board games).",
+        "obsession": "The character's defining obsession fuels their power and advancement, and drifting from it stalls growth (Unknown Armies obsessions).",
+        "perks": "Advancement grants discrete named perks — situational abilities chosen from a menu at milestones (Fallout 2d20 perks, Savage Worlds edges).",
+        "permanent_scars": "Surviving grievous harm leaves permanent scars that alter stats or grant traits, so history is written on the body (Forbidden Lands critical injuries, Broken Compass scars).",
+        "personality_card_scoring": "Personality or character cards collected during play each score by their own condition at game end (leader and character card sets in euro card games).",
+        "playbook_xp": "Experience triggers are printed on each playbook — conditions marked when hit, distinct for every archetype (Monsterhearts and other PbtA end-of-session XP).",
+        "professions": "A character's practiced profession or occupation defines which skills grow cheaply or automatically over time, tying advancement to trade (occupational skill growth in BRP-family games).",
+        "prosperity_level": "A shared settlement's prosperity rises with player achievements, unlocking better starting levels, items, and options for everyone (Gloomhaven's town prosperity).",
+        "sanity_loss": "The character's long-term arc is measured in decline — eroding sanity that changes them permanently — rather than upward growth (Call of Cthulhu campaign play).",
+        "saving_throws": "Class-derived saving throw targets improve automatically as the character gains levels, marking growing resilience (TSR-era D&D save tables).",
+        "science_tech_tree": "Research advances along a branching technology tree whose unlocked nodes grant abilities and points (Beyond the Sun, civilization-style tech trees).",
+        "score_penalties": "Progression is partly about avoiding negative points — unmet obligations and neglected duties subtract at scoring (begging cards in Agricola, failed tickets in Ticket to Ride).",
+        "scoring_ladder": "Points are awarded on a fixed escalating ladder, so each additional item in a set is worth more (or less) than the last (set-collection ladders as in Coloretto or Azul).",
+        "shaman_scoring": "Shaman figures or cards provide a dedicated scoring channel, converting ritual or tribe actions into points (shaman scoring in tribal- and prehistory-themed euros).",
+        "skill_failure_ticks": "Failed skill uses are ticked on the sheet, and accumulated ticks convert into skill increases — the character learns from mistakes rather than triumphs (learn-from-failure variants of BRP-style improvement).",
+        "spirit_growth": "Each turn a spirit grows by reclaiming cards, adding presence, or gaining energy, permanently expanding its reach and options (Spirit Island's growth phase).",
+        "stars_on_triumph_track": "Completing categories of achievement places stars on a shared triumph track, and placing your final star ends the game (Scythe).",
+        "terraform_rating": "A central rating rises with each contribution to the shared project, driving both income and final score (Terraforming Mars' terraform rating).",
+        "trait_vote": "Periodically the table votes on which traits characters have earned or outgrown based on how they were actually played (Burning Wheel's trait vote).",
+        "victory_cards": "Players acquire cards whose only function is end-game points, clogging their engine as they enrich it (Dominion's victory cards).",
+        "victory_point_chips": "Points are collected during play as physical chips or tokens, banking score incrementally rather than at the end (VP chips in engine-building euros).",
+        "victory_points": "Progress is measured in accumulated victory points from varied sources, and the highest total wins (the standard euro-game scoring currency).",
+        "vineyards_scoring": "Developing a vineyard estate — planting vines, aging wine, filling orders — is the engine that converts labor into points (Viticulture).",
+        "vows": "Swearing formal vows and marking progress toward fulfilling them is the core advancement loop, with rewards scaled to the vow's rank (Ironsworn).",
+        "wildlife_scoring_cards": "Drawn wildlife cards define the spatial patterns each animal scores for at game end, so goals vary every play (Cascadia).",
+        "wonder_stages": "Building your wonder in fixed stages grants escalating one-time benefits and points (7 Wonders).",
+        "xp_discovery": "Discovering new places, lore, or secrets grants experience, rewarding exploration itself (Forbidden Lands discovery XP, West Marches play).",
+        "zenith_abilities": "Each class culminates in an ultimate zenith ability that resolves the character's arc — often removing them from play in a blaze of consequence (Heart: The City Beneath)."
+      }
+    },
+    "attributes": {
+      "description": "How core attribute scores are generated, structured, and expressed.",
+      "focuses": {
+        "standard_array": "Players assign a fixed published array of scores to attributes of their choice, guaranteeing balanced starts (D&D 5e's 15/14/13/12/10/8).",
+        "point_buy": "Attributes are purchased from a budget of points with escalating costs for high scores, trading breadth against peaks (D&D point buy, GURPS attribute costs).",
+        "rolled_stats": "Attribute scores are generated by rolling dice, embracing uneven and sometimes extreme characters (3d6 or 4d6-drop-lowest in D&D tradition).",
+        "stats_in_order": "Rolled scores must be kept in the order rolled rather than arranged, so the dice decide what kind of character you play (3d6 down the line in OSR play, DCC).",
+        "descriptive_ladders": "Attributes are rated in named adjectives rather than numbers — Fair, Good, Great — read directly in resolution (Fate's ladder, Fudge trait levels).",
+        "derived_attributes": "Secondary scores — hit points, encumbrance, initiative, sanity — are computed from primary attributes by formula (GURPS secondary characteristics, WFRP Wounds).",
+        "pool_based_attributes": "Attributes are spendable pools rather than static modifiers, drained by effort and damage alike and recovered with rest (Cypher System's Might, Speed, and Intellect).",
+        "no_attributes": "The system has no attribute scores at all; characters are defined entirely by skills, abilities, or traits (GUMSHOE's ability-only characters)."
+      }
+    },
+    "skills": {
+      "description": "How learned capabilities are structured, rated, and accessed.",
+      "focuses": {
+        "skill_ranks": "Skills are bought and raised in discrete ranks with points earned by level or session, each rank adding a fixed bonus (Pathfinder skill ranks).",
+        "percentile_improvement_by_use": "Skills used successfully during play are checked and may improve at session's end, so ability grows from practice (Call of Cthulhu and BRP experience checks).",
+        "broad_approaches": "Instead of granular skills, characters rate a handful of broad approaches or styles — Forceful, Sneaky, Clever — applied to any action (Fate Accelerated approaches).",
+        "specialty_trees": "Broad skills carry narrower specialties beneath them that grant extra dice or bonuses in their niche (World of Darkness specialties, L5R emphases).",
+        "class_skill_lists": "Access to skills is gated by class or profession, making some abilities cheap for insiders and dear or impossible for others (D&D 3e class skills).",
+        "skill_defaults": "Untrained characters attempt skills at a default derived from attributes or related skills, at a meaningful penalty (GURPS defaults).",
+        "proficiency_binary": "Characters are simply proficient or not: one flat scaling bonus applies to everything trained, with no per-skill ranks (D&D 5e proficiency).",
+        "skill_pyramid": "Skill ratings must form a pyramid or column shape — fewer skills allowed at each higher tier — enforcing breadth beneath every peak (Fate Core's skill pyramid).",
+        "freeform_skills": "Players invent and name their own skills or abilities, which the table then rates and interprets in play (Over the Edge traits, HeroQuest abilities).",
+        "attribute_skill_pairing": "Every check pairs an attribute with a skill chosen to fit the fiction, so the same skill flexes across different stats (Chronicles of Darkness dice pools, Cortex Prime)."
+      }
+    },
+    "identity": {
+      "description": "Mechanics that codify who the character is: origin, allegiance, personality, and moral position.",
+      "focuses": {
+        "ancestry_heritage": "The character's species, ancestry, or heritage is a mechanical choice granting traits, feats, or stat adjustments (Pathfinder 2e ancestries, D&D races).",
+        "backgrounds": "A background package encodes the character's former life as skills, contacts, and a signature feature (D&D 5e backgrounds, 13th Age's freeform backgrounds).",
+        "playbook_moves": "Identity is expressed as a unique list of moves only that archetype can take, making capability and character the same thing (PbtA playbook moves).",
+        "beliefs_instincts": "Players write explicit Beliefs and Instincts on the sheet as standing statements of conviction and reflex that the GM is expected to challenge (Burning Wheel, Torchbearer).",
+        "flaws_drawbacks": "Characters take rated flaws, disadvantages, or hindrances that complicate play in exchange for extra build resources (GURPS disadvantages, Savage Worlds hindrances).",
+        "bonds_relationships": "Ties to specific people are written and rated on the sheet, granting mechanical weight when the relationship enters play (Dungeon World bonds, Ironsworn connections).",
+        "alignment": "The character's moral-ethical stance is a declared mechanical category that constrains behavior and interacts with spells and items (D&D's law-chaos/good-evil grid).",
+        "nature_demeanor": "The character has a true inner archetype and a shown outer mask, with rewards for moments when the true nature surfaces (Vampire: the Masquerade's Nature and Demeanor).",
+        "splat_membership": "Belonging to a clan, tribe, or tradition is the core template choice, determining powers, weaknesses, and social position (Vampire clans, Werewolf tribes, Mage traditions).",
+        "paired_personality_traits": "Personality is rated as opposed trait pairs — Chaste/Lustful, Energetic/Lazy — rolled against to see whether character overrides player intent (Pendragon traits).",
+        "values_drives": "Rated values or drives grant bonuses when the character acts in accordance with them and may be challenged or rewritten by events (Star Trek Adventures values, L5R 5e giri and ninjō).",
+        "honor_glory_status": "Public standing is tracked as explicit scores — honor, glory, status, reputation — that gate social access and obligations (Legend of the Five Rings, Pendragon Glory)."
+      }
+    },
+    "lifecycle": {
+      "description": "The character's arc through time: generation, aging, death, and what comes after.",
+      "focuses": {
+        "lifepath_generation": "Character history is generated as a simulated life — terms served, events rolled, mishaps suffered — sometimes including injury or death before play begins (Traveller's career terms).",
+        "aging": "Characters age mechanically, rolling for declining attributes and mortality as years and winters pass (Pendragon's winter phase, Ars Magica aging rolls).",
+        "death_and_dying": "Explicit rules govern the threshold of death — death saves, dying counters, or bleed-out timers — and what heroics are possible in between (D&D 5e death saving throws, dying rules across editions).",
+        "resurrection_rules": "Death can be reversed through costly magic or ritual, with prices in wealth, permanence, or personal diminishment that shape how much death matters (D&D's raise dead economy).",
+        "funnel_play": "Players begin with several fragile zero-level nobodies and the survivors of the first adventure become the real characters (Dungeon Crawl Classics funnels).",
+        "retirement": "Characters can be deliberately retired at a goal, level, or trauma threshold, converting them into setting assets or epilogues (retirement in Blades in the Dark, Pendragon knights stepping aside).",
+        "legacy_inheritance": "A dead or retired character passes wealth, items, traits, or unlocks to a successor, so loss is never total (heirs in Pendragon, legacy unlocks in campaign board games).",
+        "generational_play": "The campaign spans generations, with players taking up heirs as decades pass and dynastic concerns becoming mechanics (The Great Pendragon Campaign, Legacy: Life Among the Ruins).",
+        "troupe_play": "Each player maintains several characters of different ranks — magus, companion, grog — and plays whichever fits the session (Ars Magica troupe style).",
+        "monstrous_transformation": "Accumulated corruption, shadow, or hunger can convert the character into a monster under GM control, ending the arc in damnation rather than death (The One Ring's Shadow, Vampire's wight state)."
+      }
+    }
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "domain": "economy",
+  "description": "How value is created, exchanged, and consumed: money, resources, markets, auctions, production engines, and wealth abstractions.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "auction": {
+      "description": "Competitive bidding structures that allocate goods, actions, or turn order by price.",
+      "focuses": {
+        "open_outcry_auction": "Players bid openly and repeatedly in any order until no one will raise, and the highest bidder takes the lot (open auctions in Modern Art).",
+        "sealed_bid": "Each player secretly commits a single bid; bids are revealed simultaneously and the highest wins (hidden auctions in Modern Art).",
+        "dutch_auction": "The price starts high and ticks downward until a player agrees to pay the current price, ending the auction instantly (as in Merchants of Amsterdam's price clock).",
+        "once_around_auction": "Bidding proceeds exactly once around the table in turn order, each player raising or passing a single time, so seat position matters greatly (once-around auctions in Modern Art, sun bids in Ra).",
+        "auction_lots": "Items accumulate into a mixed lot that is bid on as a bundle, so lot composition and the timing of the call drive value (as in Ra).",
+        "turn_order_auction": "Players bid money or resources for position in the turn order itself (as in Age of Steam).",
+        "all_pay_bidding": "Every bidder pays what they committed whether or not they win, making losing bids pure loss (influence track bids in A Game of Thrones: The Board Game).",
+        "fixed_denomination_bidding": "Bids are made with indivisible tokens or money cards of fixed values that cannot be broken into change, so bidding power depends on the denominations held (sun tokens in Ra, money cards in High Society)."
+      }
+    },
+    "barter": {
+      "description": "Exchange and value storage outside formal currency.",
+      "focuses": {
+        "abstract_wealth": "Wealth is a single abstract quantity or track standing in for money, goods, and property together, raised or spent wholesale rather than counted as itemized currency.",
+        "commodity_money": "Goods themselves function as the medium of exchange, with resources paid directly for purchases instead of being sold for coin first (resource payments in Catan)."
+      }
+    },
+    "card": {
+      "description": "Card- and tile-driven economic engines: drafting, deck-building, and tableau economies.",
+      "focuses": {
+        "bag_building_workers": "Players add worker tokens to a personal bag and draw randomly from it each round, curating the bag's composition over time (as in Orléans).",
+        "deck_building": "Players start with a small personal deck and buy cards into it during play, shuffling purchases in so the deck improves as the game progresses (as in Dominion).",
+        "deck_building_hand": "A deck-building variant where acquired cards are managed as a persistent or returning hand rather than a blind shuffled deck, letting players plan exact plays (the growing hand of action cards in Concordia).",
+        "draft_and_pass": "Players pick one card from a hand and pass the remainder to a neighbor, repeating until the hands are exhausted (as in 7 Wonders).",
+        "drafting": "Players take turns selecting cards from a limited shared pool or display, so every pick also denies options to opponents (the bird tray in Wingspan).",
+        "drafting_pyramid": "Cards or tiles are arranged in a tiered pyramid structure where higher tiers cost more or unlock only after lower tiers are taken (tiered power tiles in Kemet).",
+        "engine_activation": "Played cards sit in a tableau and are re-triggered by activation actions, so each activation sweeps the accumulated effects (habitat activations in Wingspan).",
+        "engine_cards": "Individual cards grant recurring production or discounts once in play, becoming the components of an economic engine (as in Terraforming Mars).",
+        "multi_use_cards": "Every card can be used in several distinct ways, such as an action, a resource, or a building, and choosing which use to sacrifice is the core tension (as in Glory to Rome or San Juan).",
+        "privileges_scrolls": "Purchasable privilege or scroll cards confer permanent rule-breaking rights, exemptions, or endgame bonuses that other players lack.",
+        "reef_effects": "Cards both add pieces to a growing structure and score patterns already present in it, so the play order against the evolving state is the central decision (as in Reef).",
+        "set_collection": "Players accumulate cards to complete matching or themed sets that score points or unlock rewards (coloured train cards in Ticket to Ride).",
+        "tableau_card_combos": "Cards played into a personal tableau interact, with later cards amplifying or triggering earlier ones to create combo chains (as in Race for the Galaxy).",
+        "tile_drafting_factory": "Tiles are drafted from factory displays where taking one tile means taking all matching tiles there, pushing the rest to a shared pool (as in Azul).",
+        "tile_token_drafting": "Players draft tiles or tokens from a shared market, often in constrained pairings, to build their personal position (as in Cascadia)."
+      }
+    },
+    "engine_building": {
+      "description": "Constructing compounding production loops whose output snowballs over the game.",
+      "focuses": {
+        "production_chains": "Buildings or cards convert goods into other goods, and chaining converters so outputs feed inputs is the heart of the engine (as in Le Havre or Food Chain Magnate).",
+        "tableau_engine": "An accumulating tableau of cards or tiles produces recurring income and powers each round, compounding as it grows (as in Race for the Galaxy or Wingspan).",
+        "combo_scaling": "Individual pieces are weak alone but multiply each other's output, rewarding synergy discovery (engine turns in Dominion).",
+        "rondel_economy": "Production and prices are tied to a wheel that rotates each round, so the same position yields something different over time (the price wheel in Vikings, the gears of Tzolk'in).",
+        "upgrade_conversion": "The engine's core move is converting basic goods into refined, higher-value forms through built or bought converters (upgrades in Century: Golem Edition).",
+        "accelerating_income": "Income compounds because earnings buy things that raise earnings, producing an exponential curve the game must eventually cash out (as in Space Base or Splendor).",
+        "engine_to_points_pivot": "Efficient play requires pivoting from growing the engine to converting it into victory points, and mistiming the pivot loses games (the shift to victory cards in Dominion, the endgame conversion in Terraforming Mars).",
+        "triggered_income": "Income triggers on events such as die rolls or opponents' actions rather than a fixed phase, paying out even off-turn (as in Space Base or Catan)."
+      }
+    },
+    "finance": {
+      "description": "Money management beyond simple spending: loans, debt, dividends, and solvency.",
+      "focuses": {
+        "lifestyle_cost": "Characters or players pay recurring living expenses scaled to their standard of living, draining wealth between adventures or rounds (lifestyle expenses in D&D 5e).",
+        "loan_interest": "Borrowed money must be repaid at a premium or bleeds income and points until settled, making debt a priced tool (loans in Le Havre or Brass).",
+        "bankruptcy_elimination": "Running out of money eliminates a player or triggers drastic penalties, making solvency itself a survival condition (as in Monopoly or 18xx bankruptcy).",
+        "share_dividends": "Owning shares pays periodic dividends based on company performance, and choosing to pay out versus withhold shapes company growth (as in 18xx).",
+        "hidden_money": "Player cash is kept secret, so bids, purchases, and standings must be estimated from observed behavior (as in Modern Art or Power Grid)."
+      }
+    },
+    "management": {
+      "description": "Allocating scarce inputs across competing needs and plans.",
+      "focuses": {
+        "card_drafting": "Selecting cards from shared pools is the central management decision, weighing immediate value against long-term plans and denial of opponents.",
+        "deck_building": "Curating a deck's composition over time, deciding when to add, upgrade, or cull cards, is treated as an ongoing resource-management problem rather than a one-time purchase decision.",
+        "resource_allocation": "Players distribute limited resources, workers, or time across competing needs, where every commitment forecloses others (as in Agricola)."
+      }
+    },
+    "market": {
+      "description": "Buying and selling at prices shaped by supply, demand, and player behavior.",
+      "focuses": {
+        "action_programming": "Economic actions are committed in advance and resolved later in sequence, so market moves must be anticipated before prices and supplies are known.",
+        "auction_bidding": "Goods, tiles, or opportunities are sold through competitive bidding, letting players rather than price charts set values (as in Ra or Modern Art).",
+        "card_drafting": "The market takes the form of a card row or display from which players draft or purchase, with availability and refresh order acting as the pricing mechanism (card drafting in Terraforming Mars).",
+        "dice_drafting": "Players draft dice from a rolled shared pool, with the pips determining what the acquired die can buy or do (as in Grand Austria Hotel or Sagrada).",
+        "dynamic_prices": "Buying and selling shifts prices along a scale, with purchases raising them and sales depressing them, so the market reacts to player activity (as in Navegador).",
+        "gear_worker_rotation": "Workers placed on rotating gears advance automatically each round toward more valuable rewards, trading time for yield (as in Tzolk'in).",
+        "income_track": "Each player's recurring income is a marker on a track moved by investments, decoupling earnings from cash on hand (the income track in Brass).",
+        "loan_taking": "Players may take loans or issue shares for immediate cash at the cost of future income or endgame points (share issues in Age of Steam).",
+        "mancala_movement": "Pieces are picked up and sown across a circuit of spaces mancala-style, with economic actions triggered where the last piece lands (as in Five Tribes or Trajan).",
+        "resource_pricing": "Different resource types command different standing prices reflecting their scarcity and utility, structuring which goods are worth producing or buying.",
+        "worker_bidding": "Workers double as bidding currency: committing them to an auction wins contests but removes them from productive labor (as in Keyflower).",
+        "worker_placement": "Players claim economic actions by placing workers on action spaces, converting labor into goods and money (as in Lords of Waterdeep).",
+        "worker_placement_seasons": "Worker placement is divided into seasons or phases that change which action spaces exist or are worth taking (summer and winter in Viticulture).",
+        "worker_station_allocation": "Workers are assigned to stations or building slots and remain there producing effects each round until deliberately reassigned (colonists in Puerto Rico).",
+        "fluctuating_prices": "Prices swing due to external events, cards, or dice rather than player transactions, injecting volatility that players can speculate on (market cards in Stockpile).",
+        "supply_demand_tracks": "The current price of a good is read off a track that fills and empties with stock, so scarcity directly sets cost (the resource market in Power Grid).",
+        "stock_shares": "Players buy partial ownership in companies or ventures whose value rises and falls, profiting from appreciation and control (as in Acquire or 18xx).",
+        "commodity_speculation": "Players buy goods cheaply in one time or place hoping to sell dearly in another, absorbing price risk for profit (as in Container, or speculative cargo in Traveller).",
+        "player_driven_market": "Prices are set by players' own offers and asking prices rather than by charts, making the market a pure product of negotiation and greed (as in Container).",
+        "market_manipulation": "Players take actions specifically to move prices, such as promoting artists or dumping stock, and profit from the swing they caused (as in Modern Art)."
+      }
+    },
+    "production": {
+      "description": "Generating goods, income, and named commodities through actions, buildings, and rolls.",
+      "focuses": {
+        "ability_disks": "Deploying or uncovering disks from a personal board simultaneously enables actions and changes ongoing production or upkeep (influence discs in Eclipse).",
+        "action_card_strength": "Action cards carry a strength value that grows or varies, determining how powerful the action is when finally played (card strength in Ark Nova).",
+        "action_role_selection": "The role chosen for a round determines which production step occurs for everyone, with the chooser gaining a privilege (the craftsman and captain in Puerto Rico).",
+        "action_selection_grid": "Available actions are laid out in a grid and choice is constrained by row, column, or adjacency position rather than free selection.",
+        "agricultural_goods": "Players grow and harvest crops or livestock that feed people or convert into value (as in Agricola or La Granja).",
+        "beer": "Beer is produced and consumed as a specific industrial input required to sell or advance other goods (as in Brass: Birmingham).",
+        "button_economy": "Income-generating symbols built into your position pay out each time a marker passes income points, forming a slow engine (buttons in Patchwork).",
+        "city_goods": "Cities or locations each produce a signature good, so controlling or visiting the right places determines your production mix (as in Concordia).",
+        "coal": "Coal is produced and consumed as fuel for industry or power, with its scarcity driving prices (as in Brass or Power Grid).",
+        "corn_feeding": "Workers must be paid or fed in a staple crop at intervals, making that crop the economy's baseline tax (corn in Tzolk'in).",
+        "dice_resource_generation": "Die rolls trigger resource payouts tied to board positions or numbers, so production arrives probabilistically (as in Catan).",
+        "dice_roll_gathering": "Players actively roll pools of dice to gather resources, with the roll determining how much the effort yields (as in Stone Age).",
+        "djinns_actions": "Acquired patrons grant unique ongoing powers or production abilities that bend the game's normal rules (djinns in Five Tribes).",
+        "egg_nesting": "Production capacity is stored on the producing pieces themselves, with laid units occupying limited nest space (eggs in Wingspan).",
+        "energy": "Energy or electricity is produced, stored, and consumed to power other systems, often converting between forms (as in Power Grid or Terraforming Mars).",
+        "enhancements": "Purchasable enhancements permanently improve the yield or efficiency of existing production actions or buildings.",
+        "gem_board_drafting": "Gems or resource tokens are taken from a spatial board layout where position constrains which combinations may be drafted (as in Splendor Duel).",
+        "gem_chips": "Discrete gem chips of several colors are collected and spent as the core purchasing currency (as in Splendor).",
+        "goods_upgrade": "Basic goods are converted upward into progressively more valuable grades through upgrade actions (cube upgrades in Century: Spice Road).",
+        "grape_aging": "Produced goods gain value by aging over rounds in storage before being used or sold (grapes and wine in Viticulture).",
+        "income_generation": "Players receive recurring income each round or phase based on their built position, engine, or track (the production phase in Terraforming Mars).",
+        "iron": "Iron or ore is a produced industrial commodity consumed by construction and manufacturing (as in Brass).",
+        "mech_license": "A license, patent, or blueprint must be acquired before the corresponding unit or good can be produced, gating production lines behind unlocks.",
+        "megacredits": "A single named currency underpins nearly all purchases, with its production rate tracked separately from the cash itself (megacredits in Terraforming Mars).",
+        "plants_energy_heat": "Several themed resources form a conversion ladder where surplus in one automatically or cheaply converts into the next (plants, energy, and heat in Terraforming Mars).",
+        "power_bowl_cycle": "A pool of power tokens cycles among bowls as it is charged and spent, so capacity and readiness are managed as a loop (power bowls in Terra Mystica).",
+        "power_cities": "Players pay resources to supply their network of cities and are paid per city powered, linking infrastructure size to income (as in Power Grid).",
+        "resource_generation": "Actions, buildings, or effects yield resources directly, forming the base inflow of the game's economy.",
+        "resource_purchasing": "Raw resources can be bought from a bank or open market with money rather than produced (the resource market in Power Grid).",
+        "resource_sharing": "A single production trigger pays out to multiple players at once, so opponents benefit from each other's infrastructure (dice rolls in Catan).",
+        "resource_tracks": "Resource quantities or production levels are recorded on bounded tracks rather than held as tokens, with caps and thresholds mattering (production tracks in Terraforming Mars).",
+        "resources": "The economy revolves around acquiring and spending discrete resource tokens of several types, the basic inputs of most actions.",
+        "resources_on_map": "Resources are produced on and gathered from specific map territories, so production depends on presence and control (as in Scythe).",
+        "role_selection": "Players choose from a shared set of roles granting distinct actions or benefits, with each role unavailable to others once taken (as in Citadels or San Juan).",
+        "solari": "A political currency is earned through intrigue and spent on influence and hardware, kept distinct from the game's other resources (solari in Dune: Imperium).",
+        "spice": "A prestige commodity is gathered from contested board spaces and converted into money, influence, or victory (spice in Dune: Imperium).",
+        "station_master": "Personnel placed at stations boost the value or output of vehicles and routes passing through them (as in Station Master).",
+        "steel_titanium": "Specialized resources act as discounted payment valid only for matching categories of purchases (steel and titanium in Terraforming Mars).",
+        "treasure_cards": "Treasure cards represent looted or drawn wealth, adding spendable value or endgame points when acquired (treasures in Dominion, loot in Clank!).",
+        "water": "Water is a scarce survival commodity that must be gathered and spent for expansion in a hostile setting (water in Dune: Imperium).",
+        "wood_clay_stone": "Multiple basic building materials are gathered and spent in recipe-like combinations for construction (wood, clay, and stone in Agricola)."
+      }
+    },
+    "resources": {
+      "description": "How resource holdings are stored, capped, converted, and tracked.",
+      "focuses": {
+        "coin": "Money exists as discrete coin tokens earned and spent in small denominations, the universal lubricant of the game's exchanges.",
+        "resource_circles": "Resource levels sit on circular dials or wheels, and rotation or thresholds trigger automatic conversion into refined goods (the production wheels in Glass Road).",
+        "stash": "Players maintain a protected personal stash of wealth set aside from operating funds, often tied to long-term goals (stash in Blades in the Dark).",
+        "storage_limits": "Holdings above a storage cap are lost or spoiled at checkpoints, forcing spending or investment in warehouses (spoilage in Puerto Rico).",
+        "perishable_goods": "Certain resources expire or degrade if not used within a time window (food spoilage in Robinson Crusoe).",
+        "finite_supply": "The bank's supply of a resource is deliberately finite and can run dry, making scarcity itself a strategic lever (gem chips in Splendor, the bank in Catan).",
+        "exchange_rates": "Resources convert to one another at fixed, often unfavorable ratios that can be improved through position or upgrades (the 4:1 and port trades in Catan)."
+      }
+    },
+    "trading": {
+      "description": "Moving goods between parties and places for profit: deals, shipping, shops, and reputation.",
+      "focuses": {
+        "barter": "Goods are exchanged directly for other goods without money as an intermediary (domestic trades in Catan).",
+        "barter_negotiation": "Trade terms are haggled openly between players, with deals limited mainly by what the parties will accept (as in Chinatown or Bohnanza).",
+        "bidding_treachery": "Players bid currency on concealed advantage cards, spending real money for uncertain and possibly useless payoffs (the treachery card auction in Dune).",
+        "black_market": "An illicit parallel market offers better prices or forbidden goods at the risk of penalties if caught or exposed.",
+        "cargo_shipping": "Goods must be loaded onto limited-capacity transports and physically delivered to markets to realize their value (as in Container).",
+        "cattle_market": "Players buy livestock of graded values to improve what their herd sells for at market (cattle purchases in Great Western Trail).",
+        "crafting": "Raw materials are converted into finished items with their own value or utility, usually via recipes, skills, or time (downtime crafting in D&D and Pathfinder).",
+        "popularity": "A public-standing track modifies scoring or trade terms, making reputation an economic asset worth buying (the popularity track in Scythe).",
+        "reputation_track": "A reputation score rises and falls with deeds and changes prices, job access, or reactions from contacts (as in Star Wars: Outer Rim).",
+        "sell_action": "A dedicated sell action converts held goods into money at posted or fluctuating rates, and timing sales well is the core skill (as in Jaipur).",
+        "ship_shipping": "Goods are exported on shared or personal ships with limited holds, and competition for cargo space determines who profits (the captain phase in Puerto Rico).",
+        "shop_items": "Equipment and items are bought from shops or markets at listed prices, translating wealth into capability (gear lists in D&D, the market in Clank!).",
+        "unit_recruitment": "Money or resources are spent to recruit units, workers, or crew that expand what a player can do (crew hiring in Merchants & Marauders).",
+        "smuggling_inspection": "Players declare goods that may be inspected, profiting from lies that pass and paying penalties when caught (as in Sheriff of Nottingham).",
+        "arbitrage_routes": "Profit comes from buying goods where they are cheap and hauling them to where they sell dear, reading price differentials across locations (as in Merchant of Venus or Xia: Legends of a Drift System)."
+      }
+    },
+    "wealth_abstraction": {
+      "description": "Abstract wealth systems that replace coin-counting, common on the TTRPG side.",
+      "focuses": {
+        "wealth_levels_abstract": "A character's buying power is a static rating or tier rather than counted currency, with purchases resolved by comparing cost against the rating (the Wealth bonus in d20 Modern, Resources in Fate).",
+        "lifestyle_costs": "Players choose a lifestyle tier whose recurring cost sets their standard of living and social access, abstracting away day-to-day expenses (lifestyles in Shadowrun).",
+        "resource_dice": "Consumables and funds are represented by a die that is rolled on use and downgrades on low results, abstracting depletion (usage dice in The Black Hack).",
+        "treasure_as_xp": "Recovered treasure converts directly into character advancement, making wealth extraction the main progress engine (gold-for-XP in early D&D and its retroclones).",
+        "wealth_by_level_budgets": "Expected character wealth is budgeted by level, and loot distribution is paced by the game master to match the curve (treasure parcels and wealth-by-level tables in D&D).",
+        "downtime_income": "Characters earn money through downtime activities between adventures, converting time and skill checks into income (Earn Income in Pathfinder 2e)."
+      }
+    }
+  }
+}

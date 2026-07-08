@@ -1,0 +1,81 @@
+{
+  "domain": "exploration",
+  "description": "Rules for venturing into the unknown: structured procedures for sites and wilderness, rewards for discovery, and the maps that record it.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "site": {
+      "description": "Rules for exploring bounded adventure sites such as dungeons, ruins, and complexes.",
+      "focuses": {
+        "dungeon_turn_procedure": "Site exploration runs on fixed dungeon turns of roughly ten minutes each, during which the party moves and acts while the GM checks light, encounters, and time (as in Old-School Essentials or Shadowdark).",
+        "room_stocking": "Rooms are keyed using stocking tables that set ratios of monsters, treasure, traps, and empty space (as in B/X dungeon stocking).",
+        "restocking_dungeons": "Cleared areas repopulate over in-game time, so revisited sites present new inhabitants and altered power balances.",
+        "megadungeon_factions": "A large site is inhabited by rival factions with goals and territories, letting players ally with, trick, or play them against one another.",
+        "zone_exploration": "Sites are broken into zones or areas explored as narrative units rather than mapped room by room, trading granularity for pace.",
+        "dungeon_level_depth": "Danger and reward scale with dungeon level, so stairways down are meaningful commitments (the megadungeon depth convention of early D&D).",
+        "random_dungeon_generation": "Corridors, rooms, and contents are generated with tables or tiles during play, so no one knows the layout in advance (as in Four Against Darkness or the AD&D DMG's random dungeon tables).",
+        "keyed_locations": "The site is prepared as a map with a numbered key describing each area's contents, revealed as players arrive.",
+        "room_searching": "Searching rooms and features is a structured action that costs time and offers codified find chances, making thoroughness a gamble against the clock.",
+        "stuck_doors": "Doors may be stuck or locked, requiring force-open rolls, tools, or spikes, and listening at them is its own procedure (as in B/X).",
+        "dungeon_dressing": "Tables of sensory details, debris, and oddities dress areas with non-mechanical texture that rewards player attention.",
+        "lock_and_key_gating": "Progress through a site is gated by keys, levers, and switches found elsewhere, structuring exploration into loops and backtracking."
+      }
+    },
+    "wilderness": {
+      "description": "Rules for exploring open country: terrain, weather, navigation, and journeys off the map's edge.",
+      "focuses": {
+        "hexcrawl_procedure": "Overland exploration runs as a per-hex procedure of moving, checking for encounters, and discovering contents, turning the map into discrete explorable cells (as in classic hexcrawl campaigns).",
+        "landmark_navigation": "Travelers orient by visible landmarks rather than coordinates, so what can be seen from where becomes navigational information.",
+        "terrain_types": "Regions are typed as forest, swamp, mountain, and so on, with type driving speed, encounters, forage, and visibility.",
+        "weather_fronts": "Weather systems are tracked as moving fronts that affect regions differently as they pass, rather than as one global condition.",
+        "region_generation": "Procedures generate regions with terrain layouts, sites, and lairs to fill maps ahead of or during play (as in the sandbox generators of Worlds Without Number).",
+        "points_of_interest": "Notable sites are seeded across the map to reward off-road exploration and give distant travel visible goals.",
+        "depthcrawl": "Journeys into an otherworldly expanse are tracked by abstract depth rather than geography, with deeper results growing stranger (as in The Gardens of Ynn or The Stygian Library).",
+        "journey_roles": "Each traveler takes a role such as guide, scout, hunter, or lookout, with role-specific tests deciding the journey's fortunes (as in The One Ring or Forbidden Lands).",
+        "crossings_obstacles": "Rivers, cliffs, and passes are obstacles demanding checks, equipment, or detours, giving terrain tactical teeth.",
+        "seafaring_exploration": "Charting waters brings distinct rules for wind, currents, provisioning, and the hazards of sailing beyond the known map.",
+        "overland_sightlines": "Rules define how far characters can see across terrain, letting towers, hills, and smoke reveal distant hexes or landmarks."
+      }
+    },
+    "discovery": {
+      "description": "Rules for finding what is hidden and the rewards that make discovery worthwhile.",
+      "focuses": {
+        "fog_of_war": "Unexplored areas are hidden from players until revealed by presence or scouting, keeping the map itself a reward (as in hidden board sections or virtual tabletop fog).",
+        "map_revealing": "Portions of a pre-made map are revealed as they are reached, by turning atlas pages or uncovering panels, so the world is fixed but unknown (as in Sleeping Gods).",
+        "secret_doors": "Hidden passages and compartments can be found through deliberate search procedures or passive detection chances, rewarding methodical suspicion (as in B/X secret door rolls).",
+        "treasure_maps": "Maps found as treasure point to caches or sites elsewhere, chaining one discovery into the next (a classic D&D treasure type).",
+        "exploration_xp": "Characters earn advancement for discovering new places such as sites, hexes, or wonders, making exploration itself the reward loop (as in Forbidden Lands).",
+        "rumor_tables": "Rumor tables seed hooks and half-truths in settlements, pointing expeditions toward, or astray from, the map's contents.",
+        "scouting": "A scout may range ahead to preview dangers or contents before the group commits, trading time and separation risk for information.",
+        "discovery_tiles": "Face-down tokens on the map yield rewards or hazards when first reached, spicing expansion with gambles (as in Eclipse's discovery tiles).",
+        "unlocking_content": "Sealed envelopes, boxes, or card packs open when conditions are met, permanently adding new rules and components (as in Charterstone's crates).",
+        "first_visit_triggers": "Locations fire scripted events the first time they are entered, making initial discovery a distinct experience from revisits (as in The 7th Continent).",
+        "hidden_caches": "Caches are concealed within described scenes and found only by interacting with the right feature, rewarding attentive play over dice."
+      }
+    },
+    "procedures": {
+      "description": "Timing and pressure procedures that pace exploration and generate danger.",
+      "focuses": {
+        "overloaded_encounter_die": "A single per-turn die roll resolves multiple time pressures at once, covering encounters, signs, light, and fatigue in one throw (the OSR overloaded encounter die).",
+        "tension_pool": "Dice accumulate in a visible pool as time passes or the party makes noise, and rolling the pool resolves whether danger materializes (the tension pool technique).",
+        "torchlight_deadlines": "Expiring light acts as the expedition's pacing clock, forcing depth-versus-retreat decisions as flames burn down (as in Shadowdark).",
+        "wandering_monster_checks": "Periodic dice checks determine whether wandering monsters appear, taxing time spent and rewarding decisiveness (as in B/X's one-in-six checks).",
+        "reaction_rolls": "When creatures are encountered, a reaction roll sets their starting disposition from hostile to friendly, so not every encounter is a fight (as in B/X's 2d6 reactions).",
+        "encounter_distance": "The distance at which an encounter begins is rolled based on terrain and surprise, shaping whether parley, flight, or ambush is possible.",
+        "surprise_checks": "A check determines whether either side is surprised, granting the alert party a free round or an escape window.",
+        "noise_attraction": "Loud actions trigger noise checks that draw threats toward the source, making stealth and restraint survival tools (as in Nemesis's noise rolls).",
+        "rest_turns": "Parties must rest periodically during exploration, classically one turn in six, or suffer fatigue penalties, building pacing into the procedure (as in B/X)."
+      }
+    },
+    "mapping": {
+      "description": "Rules for how the explored world is represented, assembled, and permanently recorded.",
+      "focuses": {
+        "player_cartography": "Players draw their own map from the GM's descriptions, and their errors, gaps, and guesses become part of play.",
+        "tile_reveal": "The map is built by drawing and placing tiles as exploration proceeds, so the layout emerges during play (as in Betrayal at House on the Hill).",
+        "modular_boards": "The board is assembled from modular sections that vary each session, so familiar rules meet fresh geography (as in Catan or Twilight Imperium).",
+        "legacy_map_stickers": "Permanent stickers and markings alter the shared map across a campaign, accumulating a physical history of past sessions (as in Pandemic Legacy or Charterstone).",
+        "location_card_maps": "Sites are laid out as connected location cards with movement between them, abstracting geography into a card network (as in Arkham Horror: The Card Game).",
+        "shifting_map_tiles": "Map segments slide or rotate during play, changing routes and separating explorers (as in Labyrinth or Room 25)."
+      }
+    }
+  }
+}

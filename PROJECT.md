@@ -203,3 +203,47 @@ OmniRules v2.0 is a local-first, high-performance mechanical gaming research stu
     };
   }
   ```
+
+---
+
+# Project: Catalog Depth Overhaul (v3)
+
+## Problem
+
+The original registry was wide but shallow: ~10,500 entries with a median of
+4 vectors per game, only 476 ad-hoc vectors, and 100% of vector explanations
+generated from mail-merge templates by keyword heuristics
+(`scripts/enrich_database.js`). A significant share of titles were
+procedurally fabricated. The data could not support the project's stated
+goal — querying which rulesets have explicit mechanics for a given subsystem.
+
+## Architecture
+
+1. **Canonical Taxonomy v2** — `data/taxonomy/<domain>.json` (26 domains,
+   150+ subsystems, 1,500+ vectors, every vector carrying a written
+   definition; see `data/taxonomy/FORMAT.md`). Bundled by
+   `scripts/build_taxonomy.js` into `data/taxonomy.json`, which the app loads
+   lazily to show canonical definitions in the Vector Dictionary and Vector
+   Search panels. All 476 legacy vector names are preserved verbatim.
+2. **Schema v2** — backward-compatible optional fields on GameRecord:
+   `provenance` (curated | generated | imported), `designers`, `publisher`,
+   `resolution_core`, `crunch` (1–5), `family`, `player_count`,
+   `playtime_minutes`. See `data/SCHEMA.md`.
+3. **Curated overlay pipeline** — fact-checked entries authored in
+   `data/curated/*.json` (per `data/curated/AUTHORING.md`), validated by
+   `scripts/validate_registry.js --strict` (≥12 vectors, ≥60-char
+   game-specific explanations, required metadata), merged onto
+   `registry.json` by `scripts/merge_curated.js` (id → title → append
+   matching; rebuilds `registry_names.json`; stamps `provenance: generated`
+   on legacy entries).
+4. **UI surfacing** — curated ✓ badge on cards, provenance-aware metadata
+   strip in the details modal, curated-count dashboard stat, canonical
+   definitions in dictionary/vector views.
+
+## Invariants
+
+- Every `governed_vectors` entry in `registry.json` exists in
+  `data/taxonomy.json` (`npm run data:validate` must exit 0).
+- Legacy vector spellings are never renamed.
+- `generated` entries are treated as unverified filler; research-grade
+  claims come only from `curated` entries.

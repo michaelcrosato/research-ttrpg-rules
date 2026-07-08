@@ -1,0 +1,66 @@
+{
+  "domain": "scoring",
+  "description": "Rules governing how play converts into points and victory: when scoring happens, how it is structured, how balance is preserved, and how winners are decided.",
+  "applies_to": ["board_game"],
+  "subsystems": {
+    "timing": {
+      "description": "When points are awarded and when the game ends.",
+      "focuses": {
+        "end_game_scoring": "Most or all points are tallied in a single final evaluation after the last turn (the final tableau tally typical of engine-building euros such as Everdell).",
+        "per_round_scoring": "Points are awarded at the end of every round using the same evaluation (wall scoring each round in Azul).",
+        "triggered_scoring_rounds": "Interim scorings fire when specific game events occur rather than on a fixed schedule (epoch scoring when Ra tiles are drawn in Ra).",
+        "immediate_incremental_scoring": "Points are earned on the spot as individual actions or completions happen (completed roads in Carcassonne, prestige from purchases in Splendor).",
+        "race_to_finish": "The game ends the moment someone crosses a target, making speed itself the score (first to 10 victory points in Catan, crossing the line in racing games).",
+        "escalating_round_multipliers": "Later scoring rounds are worth more than earlier ones, raising the stakes as the game progresses (Alhambra's three increasingly valuable scorings).",
+        "end_game_triggers": "Defined conditions set the endgame in motion, usually granting a final round to all players (a player running low on trains in Ticket to Ride).",
+        "investment_maturation_payouts": "Choices made early pay out only at later maturity points, rewarding foresight (stock payouts when hotel chains merge in Acquire)."
+      }
+    },
+    "structure": {
+      "description": "What earns points and how the totals are shaped.",
+      "focuses": {
+        "victory_points_salad": "Points flow from many small, diverse sources so nearly everything scores something (point-salad euros like The Castles of Burgundy).",
+        "majority_rankings": "Categories or regions award descending points to the first, second, and third place finishers (region scoring in El Grande).",
+        "set_scoring_multipliers": "Collected sets score superlinearly, so completing groups is worth far more than scattered singles (science symbol sets in 7 Wonders).",
+        "network_length_scoring": "Longer continuous networks score progressively more (length-scaled route points and the longest-route bonus in Ticket to Ride).",
+        "hidden_objectives": "Players hold secret goals scored at the end, hiding the true standings until the reveal (secret mission cards in Risk).",
+        "public_milestones": "Visible one-time achievements are claimed competitively, first come first served (milestones and awards in Terraforming Mars).",
+        "contract_fulfillment": "Players complete contracts or orders with specified requirements in exchange for fixed rewards (contracts in The Voyages of Marco Polo).",
+        "negative_point_penalties": "Waste, failures, or unmet commitments subtract points from a player's total (Azul's floor line).",
+        "leftover_resource_conversion": "Unspent resources and money convert into points at set exchange rates during final scoring (coins converting to points in Terra Mystica).",
+        "row_column_completion_bonuses": "Completing rows, columns, or color groups of a personal display grants endgame bonuses (Azul's completed-row and color bonuses).",
+        "variable_scoring_conditions_setup": "Which scoring rules apply is drawn or chosen at setup, changing the evaluation each play (wildlife scoring cards in Cascadia).",
+        "lowest_score_wins": "Scoring is inverted so players avoid accumulating points and the lowest total wins (Hearts, 6 nimmt!)."
+      }
+    },
+    "balance": {
+      "description": "Keeping the contest close and fair from first turn to last.",
+      "focuses": {
+        "catch_up_mechanisms": "Trailing players receive discrete boosts such as bonus resources, discounts, or priority (Power Grid re-sorting purchases so the last-place player buys first).",
+        "rubber_banding": "Systems continuously scale help and hindrance with the score gap, pulling the pack back together (a pattern familiar from Mario Kart's position-scaled items).",
+        "runaway_leader_mitigation": "Structural caps or taxes slow the leader's acceleration so an early lead cannot snowball uncontested (auction prices that rise for whoever is ahead, diminishing returns on repeated strategies).",
+        "bash_the_leader_incentives": "Rules or rewards direct aggression toward whoever is currently winning (a dynamic Munchkin embraces openly).",
+        "hidden_score_tracking": "Scores are concealed during play so the leader cannot be identified and targeted (face-down victory points in Tigris & Euphrates).",
+        "tiebreakers": "Explicit rules resolve tied scores through secondary measures, from leftover money to reverse turn order (the cascading tiebreaker lists in most euro rulebooks).",
+        "handicap_systems": "Asymmetric starting adjustments compensate for skill differences between specific players (komi and handicap stones in Go).",
+        "seat_order_compensation": "Later positions in turn order receive extra starting resources to offset first-player advantage (escalating starting coins by seat in many euros).",
+        "kingmaking_mitigation": "Designs limit the ability of players who can no longer win to decide the winner (hidden scores and simultaneous final turns that obscure who to dump on)."
+      }
+    },
+    "victory": {
+      "description": "The conditions under which the game is won or lost.",
+      "focuses": {
+        "elimination_victory": "The last player or side still standing wins as rivals are knocked out (Risk, Coup).",
+        "sudden_death_win_conditions": "Certain states end the game instantly with a winner regardless of scores (control of Europe or a DEFCON loss in Twilight Struggle, checkmate).",
+        "variable_win_conditions_per_player": "Different players or factions win by fundamentally different conditions (the asymmetric goals of Vast: The Crystal Caverns, dominance cards in Root).",
+        "alternate_victory_paths": "Any player may win through one of several distinct conditions and chooses which to chase (military, science, or civilian victory in 7 Wonders Duel).",
+        "cooperative_win_loss": "All players win or lose together against the system (Pandemic, Hanabi).",
+        "multiple_loss_conditions": "Several independent defeat clocks run at once, and any one of them can end the game in a loss (Pandemic's outbreak limit, exhausted player deck, and depleted cube supplies).",
+        "scenario_objective_victory": "Victory is defined per scenario by specific objectives rather than a universal condition (scenario victory conditions in Memoir '44 and published wargame scenarios).",
+        "graded_victory_levels": "Outcomes are graded in degrees such as marginal, tactical, or decisive rather than a binary win or loss (victory levels in hex-and-counter wargames).",
+        "campaign_progression_outcomes": "Results carry forward across linked sessions, with success measured over a campaign arc (Pandemic Legacy, TTRPG campaign milestones).",
+        "draws_and_shared_wins": "Explicit rules allow ties, joint victories, or drawn games as legitimate outcomes (stalemate in chess, shared alliance wins in Dune)."
+      }
+    }
+  }
+}

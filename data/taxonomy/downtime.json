@@ -1,0 +1,61 @@
+{
+  "domain": "downtime",
+  "description": "Rules for the time between adventures: long-term projects, recovery, downtime activities, and the phase structure that frames them.",
+  "applies_to": ["ttrpg"],
+  "subsystems": {
+    "projects": {
+      "description": "Rules for long-term endeavors advanced during downtime.",
+      "focuses": {
+        "long_term_project_clocks": "Ambitious endeavors are tracked as segmented clocks advanced by downtime rolls, completing whenever the segments fill (as in Blades in the Dark).",
+        "research_downtime": "Characters spend downtime researching questions, sites, or lore, converting time and resources into answers and advantages.",
+        "spell_transcription": "Casters copy new spells into books or formula documents during downtime, paying time and materials per spell (as in D&D wizards' spellbooks).",
+        "base_improvements": "Downtime is invested in upgrading the group's headquarters, unlocking facilities that grant ongoing benefits (as in crew upgrades in Blades in the Dark).",
+        "acquiring_assets": "Characters spend downtime obtaining assets such as gear, vehicles, or services, with a roll determining the quality of what they secure (as in Blades in the Dark's acquire asset).",
+        "seasonal_activities": "Downtime is measured in seasons, each committed wholesale to a single pursuit like study, labor, or preparation (as in Ars Magica or Pendragon).",
+        "delegated_projects": "Projects can be handed to hirelings, contacts, or followers who advance them while the characters adventure, at the risk of delay or betrayal."
+      }
+    },
+    "recovery": {
+      "description": "Rules for healing bodies and minds between adventures.",
+      "focuses": {
+        "healing_downtime": "Wounds and harm heal through dedicated downtime activity, so recovery competes against other downtime priorities (as in Blades in the Dark's recover action).",
+        "natural_healing_rates": "Left to rest, characters recover a fixed amount per day or week, making serious injury a calendar problem (as in classic D&D's daily healing).",
+        "long_term_care": "A caregiver providing sustained medical attention accelerates recovery, with medicine tests determining the improvement.",
+        "recovery_tests": "Recovery is rolled rather than automatic: a test determines whether a condition clears, persists, or worsens (as in Mouse Guard or Torchbearer).",
+        "condition_recovery": "Named conditions such as sick, afraid, or injured each specify their own downtime remedies, so recovery is handled per condition rather than as a single pool.",
+        "stress_relief_vice": "Characters shed accumulated stress by indulging a personal vice or comfort during downtime (as in Blades in the Dark).",
+        "vice_overindulgence": "Overindulging relief brings complications such as lost time, attracted trouble, or spilled secrets, making stress relief itself a gamble (as in Blades in the Dark)."
+      }
+    },
+    "activities": {
+      "description": "Rules for the discrete pursuits characters can undertake between adventures.",
+      "focuses": {
+        "carousing_tables": "Characters spend gold celebrating and roll on carousing tables that mix bonus XP with mishaps and morning-after complications (an OSR staple).",
+        "training_advancement": "Skills or abilities improve through downtime training, often requiring teachers, facilities, fees, and tracked time.",
+        "crafting_downtime": "Items are crafted between adventures at rates set by cost, tools, and checks, converting downtime into equipment.",
+        "business_management": "Characters run businesses or holdings during downtime, rolling for profits, events, and growth.",
+        "gambling_games": "Downtime gambling is resolved with its own mini-game or opposed rolls, risking wealth for windfalls and story hooks.",
+        "gathering_information": "Characters work contacts and streets to gather information, with rolls setting the quality and detail of what they learn (as in Blades in the Dark).",
+        "retainer_recruitment": "Downtime is spent finding and vetting hirelings and retainers, with offers, reputation, and loyalty rolls shaping who signs on.",
+        "family_events": "A structured domestic phase resolves marriages, births, deaths, and family fortunes between adventuring years (as in Pendragon's winter phase).",
+        "worship_ceremonies": "Characters attend or lead religious ceremonies during downtime to regain divine favor, magic, or blessings (as in RuneQuest's worship rites).",
+        "shopping_resupply": "Restocking gear and consumables is a downtime step with availability and prices determined by settlement size or rolls.",
+        "patron_petitions": "Characters petition patrons, guilds, or courts for backing, resolving favor and obligation through downtime social rolls.",
+        "day_job_rolls": "A single roll representing weeks of ordinary work yields income between adventures (as in Pathfinder Society's day job checks).",
+        "festivals_holidays": "Seasonal festivals and holy days grant one-off boons, contests, and social opportunities when downtime overlaps them."
+      }
+    },
+    "structure": {
+      "description": "Rules that frame downtime as a phase: its length, budget, costs, and interruptions.",
+      "focuses": {
+        "downtime_phases": "Play formally alternates between adventure and downtime phases, each with its own rules and available actions (as in Blades in the Dark's free play, score, and downtime loop).",
+        "entanglements_complications": "Each downtime the GM rolls entanglements, consequences of heat and faction standing that intrude on the group's plans (as in Blades in the Dark).",
+        "lifestyle_upkeep_costs": "Characters pay recurring lifestyle costs matching their standard of living, with cheap living carrying social and recovery penalties (as in Shadowrun or Blades in the Dark).",
+        "downtime_action_budget": "Each character receives a fixed number of downtime actions per interval, making activity selection a hard allocation choice (as in Blades in the Dark's two activities).",
+        "between_session_time": "Campaign time advances between sessions, sometimes in strict one-to-one time, so absent characters live onward and deadlines march (as in West Marches play).",
+        "downtime_scenes": "Downtime activities are played out as framed roleplay scenes rather than abstract picks when the table wants the spotlight there.",
+        "reducing_heat": "Laying low or paying bribes during downtime reduces accumulated heat or wanted levels before they boil over (as in Blades in the Dark)."
+      }
+    }
+  }
+}

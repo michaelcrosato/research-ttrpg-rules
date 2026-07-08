@@ -1,0 +1,72 @@
+{
+  "domain": "vehicles",
+  "description": "Operating machines and mounts: piloting, chases, vehicular combat, mecha, and long-distance travel.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "operation": {
+      "description": "Driving, piloting, crewing, and maintaining vehicles in ordinary use.",
+      "focuses": {
+        "piloting_checks": "Operating a vehicle under stress calls for pilot or drive skill checks, with failure margins mapping to swerves, stalls, and collisions.",
+        "vehicle_stats_blocks": "Vehicles are statted like characters — speed, handling, armor, hull — in their own block distinct from crew statistics (Traveller ship sheets, FFG Star Wars vehicles).",
+        "crew_positions": "Multi-crew vehicles define stations such as pilot, gunner, and engineer, each with distinct actions available per round (starship roles in Star Trek Adventures).",
+        "fuel_tracking": "Fuel is a tracked consumable limiting range and loiter time, making refueling a logistical concern (Traveller jump fuel).",
+        "control_loss_crashes": "Rules for losing control: control checks when stressed, then crash procedures for rolls, spins, and impact damage (Car Wars control rolls).",
+        "vehicle_construction_points": "Vehicles are built from a points or budget system — chassis, engine, weapons, accessories — making design itself a minigame (Car Wars, BattleTech construction rules).",
+        "maintenance_breakdowns": "Vehicles degrade without upkeep; wear tracks or reliability rolls force repairs, spare-part hunts, and roadside jury-rigs (Twilight: 2000 wear and maintenance).",
+        "autopilot_drones": "Rules for uncrewed or remotely piloted operation — drone rigs, autopilot ratings, and the action economy of controlling machines at a distance (Shadowrun rigging).",
+        "cargo_capacity": "Tonnage and load rules constrain what a vehicle can haul and how loading affects performance and speed (Traveller cargo tonnage)."
+      }
+    },
+    "chases": {
+      "description": "Pursuit between moving vehicles, resolved as its own structured contest.",
+      "focuses": {
+        "chase_ranges": "Chases track abstract range bands between pursuer and quarry rather than map positions, with actions widening or closing the gap (FFG Star Wars, Savage Worlds chases).",
+        "stunt_maneuvers": "Drivers attempt named stunts — bootlegger turns, jumps, sideswipes — trading control risk for positional advantage (Car Wars maneuvers).",
+        "pursuit_clocks": "Escape and capture are competing progress clocks filled by opposed rolls; fill yours first to get away or run the quarry down (Blades in the Dark).",
+        "speed_bands": "Vehicles occupy discrete speed categories that gate which maneuvers are legal and scale collision damage, rather than tracking exact velocity.",
+        "chase_obstacles": "The environment deals rolled or drawn hazards — traffic, barriers, sudden turns — that each participant must beat or suffer (Call of Cthulhu 7e chase hazards).",
+        "driver_vs_driver_opposed": "The chase core is repeated opposed driving checks, with accumulated wins deciding escape, interception, or wipeout.",
+        "passenger_actions": "Non-drivers act during the chase — leaning out to shoot, patching the engine, navigating — with penalties from the vehicle's motion."
+      }
+    },
+    "combat": {
+      "description": "Vehicles fighting vehicles: arcs, components, and machine-scale destruction.",
+      "focuses": {
+        "ship_to_ship_broadsides": "Naval-style ship combat built on maneuvering for broadside arcs and trading volleys of massed guns (age-of-sail RPG naval rules, Sails of Glory).",
+        "dogfight_positioning": "Air and space duels revolve around gaining tailing position and denying it, with advantage states or maneuver contests deciding who gets a shot (Star Wars: X-Wing, Crimson Skies).",
+        "ramming_boarding": "Rules for deliberate collision and boarding: ram damage shared between hulls, grappling alongside, and shifting to personal-scale fighting on deck.",
+        "component_damage": "Vehicle damage disables specific components — engines, weapons, controls — via hit locations or critical charts, degrading capability before outright destruction (BattleTech criticals).",
+        "shield_facing": "Energy shields are allocated by facing or quadrant; crews angle and reinforce arcs to meet incoming fire (Star Fleet Battles shield arcs).",
+        "maneuver_dials": "Each round pilots secretly set a maneuver on a dial, all revealed and executed simultaneously, making prediction the core piloting skill (Star Wars: X-Wing).",
+        "firing_arcs": "Weapons cover fixed arcs relative to the vehicle's facing, so movement is about bringing guns to bear while staying out of the enemy's arcs (X-Wing, BattleTech).",
+        "vehicle_damage_scale": "Vehicle-scale and personal-scale damage use different magnitudes with conversion rules, so small arms barely scratch hulls (FFG Star Wars planetary scale).",
+        "point_defense_countermeasures": "Active defenses — chaff, flares, anti-missile turrets — get their own step to intercept incoming ordnance before it strikes.",
+        "silent_running": "Vehicles cut emissions and speed to evade sensors, trading performance for stealth in cat-and-mouse engagements (submarine wargames, Captain Sonar)."
+      }
+    },
+    "mecha": {
+      "description": "Giant piloted machines and the systems unique to them.",
+      "focuses": {
+        "mech_customization": "Pilots assemble machines from frames, mounts, and license or tech trees, making the build itself a core progression system (Lancer licenses, BattleTech refits).",
+        "heat_management": "Mech actions generate heat that must stay under thresholds; running hot risks shutdowns, self-damage, or forced venting (BattleTech, Lancer).",
+        "pilot_sync": "Effectiveness depends on a rated bond or synchronization between pilot and machine, which mechanics test and strain under stress (Evangelion-inspired mecha RPGs).",
+        "ejection_survival": "Rules for punching out of a doomed machine: ejection timing, pilot survival on the field, and fighting on dismounted (BattleTech ejection).",
+        "transformation_modes": "Machines shift between modes — vehicle and humanoid — with different stat profiles, a transformation action swapping capability sets (Macross/Robotech-inspired games).",
+        "pilot_mech_statlines": "Pilot and machine keep separate stat lines and damage tracks, with pilot skills feeding the machine's performance (Lancer, BattleTech gunnery and piloting)."
+      }
+    },
+    "travel": {
+      "description": "Long-distance movement by vehicle or mount as a played procedure.",
+      "focuses": {
+        "space_jump_travel": "Interstellar movement happens in discrete jumps or FTL legs with fixed durations, fuel costs, and misjump risks (Traveller jump drive).",
+        "sailing_wind_rules": "Sailing performance depends on wind direction and points of sail, with weather shifts forcing course and speed decisions (age-of-sail campaign rules).",
+        "mount_riding": "Mounts as living conveyances: riding checks, mount statistics and training, and fighting from the saddle.",
+        "travel_events": "Journeys are punctuated by rolled or drawn travel events — encounters, discoveries, mishaps — that pace overland or interplanetary legs (The One Ring journey events).",
+        "convoy_caravan": "Managing vehicles moving as a group: convoy speed set by the slowest member, shared supplies, and defending the column on the move.",
+        "astrogation_navigation": "Plotting a course is its own skill procedure, with roll quality affecting travel time, arrival accuracy, and hazard exposure (Traveller astrogation).",
+        "weather_hazards": "Weather and environment modify vehicle travel — storms, ice, sandstorms — forcing checks, detours, or shelter stops.",
+        "atmospheric_entry": "Transitions between space and atmosphere are risky procedures of entry angle, heat, and piloting checks distinct from ordinary flight."
+      }
+    }
+  }
+}

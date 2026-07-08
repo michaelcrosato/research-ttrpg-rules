@@ -2628,3 +2628,67 @@ h6,
     display: none !important;
   }
 }
+
+/* ===== Schema v2 metadata strip (details modal) ===== */
+.modal-v2-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.4rem;
+}
+
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary, #a8b3cf);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.meta-chip.provenance-curated {
+  color: #7ef0c0;
+  border-color: rgba(126, 240, 192, 0.45);
+  background: rgba(126, 240, 192, 0.08);
+  box-shadow: 0 0 10px rgba(126, 240, 192, 0.15);
+}
+
+.meta-chip.provenance-generated {
+  color: #f0c97e;
+  border-color: rgba(240, 201, 126, 0.4);
+  background: rgba(240, 201, 126, 0.07);
+}
+
+/* ===== Canonical taxonomy definitions (dictionary + vector search) ===== */
+.dict-item-definition {
+  margin: 0.35rem 0 0.55rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-secondary, #a8b3cf);
+  font-style: italic;
+  border-left: 2px solid rgba(126, 240, 192, 0.35);
+  padding-left: 0.6rem;
+}
+
+.vector-canonical-def {
+  font-style: italic;
+  color: var(--text-secondary, #a8b3cf);
+}
+
+.curated-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #7ef0c0;
+  background: rgba(126, 240, 192, 0.09);
+  border: 1px solid rgba(126, 240, 192, 0.4);
+}

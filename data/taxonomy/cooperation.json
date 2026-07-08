@@ -1,0 +1,61 @@
+{
+  "domain": "cooperation",
+  "description": "Rules governing playing together: communication constraints, systemic opposition, team structures, and mutual assistance.",
+  "applies_to": ["board_game", "ttrpg"],
+  "subsystems": {
+    "communication": {
+      "description": "What players may say, show, and signal to each other.",
+      "focuses": {
+        "limited_table_talk": "Discussion is allowed but specific topics, such as the exact contents of your hand, are forbidden (The Crew's restrictions on discussing your cards).",
+        "no_communication_rules": "Players may not talk or signal at all, relying on shared conventions and timing (The Mind).",
+        "coded_communication": "Information flows only through a constrained formal channel with a fixed grammar (Hanabi's rationed color-and-number clues).",
+        "unrestricted_discussion_quarterbacking": "Fully open planning is allowed, which invites a dominant player to direct everyone; some designs deliberately counter this alpha-player problem (Pandemic).",
+        "inverted_hand_visibility": "Players see others' hidden information but not their own (Hanabi's outward-facing hands).",
+        "sanctioned_nonverbal_signals": "Specific gestures or physical signals are the only sanctioned way to communicate (Magic Maze's 'do something!' pawn).",
+        "timed_communication_windows": "Talking is permitted only during designated windows and cut off elsewhere (the communication blackouts announced by Space Alert's soundtrack).",
+        "dedicated_clue_giver_roles": "One player knows the answer and may communicate only through a tightly constrained clue channel (the spymaster in Codenames, the ghost in Mysterium)."
+      }
+    },
+    "challenge": {
+      "description": "How the game system itself provides opposition and difficulty.",
+      "focuses": {
+        "scaling_difficulty": "Difficulty automatically adjusts to player count or progress so the challenge stays proportionate (per-player-count adjustments in Spirit Island and Pandemic).",
+        "selectable_difficulty_modules": "Players opt into difficulty knobs such as adversaries, scenarios, or harsher decks (Spirit Island's leveled adversaries).",
+        "automa_opponents": "A card-driven bot simulates a competing player for solo or low-count play (the Automa decks of Scythe and Viticulture).",
+        "deterministic_ai_flowcharts": "Enemies follow published if-then decision rules that players can learn and play around (monster focus rules in Gloomhaven, solo-bot flowcharts).",
+        "boss_ai_decks": "A boss or monster acts through its own shuffled behavior deck, making it dangerous but variable (the AI cards of Kingdom Death: Monster).",
+        "event_deck_pressure": "A recurring event deck injects escalating problems the team must absorb each round (the event deck in Robinson Crusoe).",
+        "doom_track_escalation": "A visible track advances toward defeat, compressing the time available to win (Pandemic's outbreak track).",
+        "enemy_spawn_rules": "Systemic rules spawn and reinforce enemies at defined times and places (zombie spawn zones in Zombicide).",
+        "staged_escalation_acts": "The scenario advances through scripted stages that change the rules and raise the stakes (agenda and act decks in Arkham Horror: The Card Game)."
+      }
+    },
+    "structure": {
+      "description": "How teams and sides are organized.",
+      "focuses": {
+        "fully_cooperative": "All players form one team that wins or loses together against the game system (Spirit Island, Hanabi).",
+        "one_vs_many": "One empowered player opposes a coordinated team of the rest (the overlord in Descent).",
+        "semi_coop_selfish_goals": "Players must cooperate to survive but hold individual goals, and only some of them can win (secret objectives in Dead of Winter).",
+        "team_vs_team": "Fixed teams compete against each other while cooperating internally (Captain Sonar's dueling submarine crews, bridge partnerships).",
+        "formal_alliance_rules": "Explicit rules let players form, benefit from, and break alliances, sometimes sharing victory (alliances in Dune).",
+        "coop_competitive_phase_shifts": "Play alternates between cooperative and competitive modes within a single game (Cutthroat Caverns' cooperate-then-claim-the-kill encounters).",
+        "asymmetric_team_roles": "Teammates wield distinct roles with unique powers, so coordination means combining complementary strengths (Pandemic's role cards).",
+        "solo_mode_design": "Official rules support one player against the system through dedicated variants or scenarios (Mage Knight's solo play)."
+      }
+    },
+    "assistance": {
+      "description": "Mechanics through which players directly help one another.",
+      "focuses": {
+        "shared_resources": "The team draws from common stockpiles rather than private supplies (the shared resource pool of Robinson Crusoe).",
+        "restricted_teammate_trading": "Players may pass cards or resources to teammates only under tight positional or timing limits (Pandemic's Share Knowledge rules).",
+        "trading_actions_between_players": "Players can spend their own actions or capacity to let teammates act or grow (Spirit Island's gift powers that hand energy and elements to another spirit).",
+        "rescue_mechanics": "Dedicated actions recover captured, lost, or endangered characters (carrying victims to safety in Flash Point: Fire Rescue).",
+        "downed_player_rules": "Players reduced to zero enter an incapacitated state with limited options instead of leaving the game (incapacitated heroes in Sentinels of the Multiverse, death saves in D&D).",
+        "jointly_controlled_pieces": "Players share control of the same pieces, with each player empowered to do different things with them (Magic Maze's communally moved pawns).",
+        "teammate_buff_support": "Abilities exist chiefly to enhance other players' actions, defenses, or rolls (bardic inspiration in D&D).",
+        "damage_interposition_tanking": "Players can redirect incoming harm from allies onto themselves (taunt and bodyguard abilities in cooperative dungeon crawlers).",
+        "collective_health_pool": "The team shares a single life total whose depletion loses the game for everyone (Gravehold's shared life in Aeon's End)."
+      }
+    }
+  }
+}

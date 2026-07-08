@@ -1,0 +1,158 @@
+{
+  "domain": "logistics",
+  "description": "Rules for managing the practical burdens of play: carrying, feeding, moving, maintaining, and scheduling people and things.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "connection": {
+      "description": "Rules for building and exploiting networks of routes, links, and transport.",
+      "focuses": {
+        "canal_links": "Players build canal connections between towns during an early era, positioning networks before the technology shifts (as in Brass's canal era).",
+        "contract_deliveries": "Players fulfill specific delivery contracts naming goods and destinations for rewards, steering how the network gets used (as in crayon-rail games like Empire Builder).",
+        "longest_road": "A bonus is awarded to whoever maintains the longest continuous road network, contested as networks grow (as in Catan).",
+        "network_building": "Players expand a connected network of routes outward from existing holdings, with reach determining which opportunities they can access.",
+        "rail_links": "Players build rail connections between cities, each link enabling movement of goods or granting income (as in Brass's rail era or Age of Steam).",
+        "resource_transport": "Goods must be physically moved along built connections to where they are consumed or sold, making the network's shape matter (as in Age of Steam).",
+        "road_river_connections": "Settlements are linked along roads and rivers, with placement legality and benefits flowing from these natural and built connections.",
+        "route_claiming": "Players claim point-to-point routes by paying matching sets of cards or resources, permanently occupying the connection (as in Ticket to Ride).",
+        "route_drafting": "Players draft secret route tickets they must complete for points, suffering penalties for failures (as in Ticket to Ride's destination tickets).",
+        "set_collection": "Players accumulate matching cards or goods in sets whose size determines what they can claim or score, driving hand-building tempo (as in Ticket to Ride's train cards).",
+        "shipping_range": "A shipping rating limits how far across water or gaps a player can build or act until it is improved (as in Terra Mystica).",
+        "shipping_upgrade": "Players invest to advance a shipping or range track, permanently extending their reach (as in Terra Mystica).",
+        "train_stations": "Stations are built to access or share another player's network segment, softening otherwise blocked connections (as in Ticket to Ride Europe).",
+        "tunnel_route_drafting": "Tunnel routes carry hidden extra costs revealed when claimed, making mountain connections a gamble (as in Ticket to Ride Europe's tunnels)."
+      }
+    },
+    "downtime": {
+      "description": "Rules for how characters spend recovery and project time between excursions.",
+      "focuses": {
+        "healing": "Downtime is spent recuperating from harm, with time, care, and cost determining how much recovery occurs between adventures.",
+        "laboratory_research": "Characters spend downtime seasons in laboratories researching, inventing, or enchanting, with facility quality determining output (as in Ars Magica's lab work).",
+        "narrative_play": "Downtime is resolved as freeform narrative scenes rather than discrete mechanical picks, foregrounding character life between missions.",
+        "project_clocks": "Long-term downtime endeavors advance as segmented clocks filled by rolls each downtime, completing when full (as in Blades in the Dark).",
+        "vice_indulgence": "Characters relieve accumulated stress by indulging a defining vice, risking overindulgence complications (as in Blades in the Dark)."
+      }
+    },
+    "encumbrance": {
+      "description": "Rules for what characters can carry and the costs of carrying it.",
+      "focuses": {
+        "abstract_load_levels": "Encumbrance is abstracted into named tiers such as unencumbered, loaded, and overloaded, each imposing flat penalties without per-item arithmetic.",
+        "container_management": "Where items are stowed matters: packs, sacks, and belts have distinct capacities and access speeds (as in Torchbearer's pack management).",
+        "item_cards": "Possessions are represented by physical cards, and carrying capacity is simply how many cards you may hold or equip.",
+        "load_slots": "Characters pick a load level before a mission that grants a number of item slots, then declare specific gear from those slots during play (as in Blades in the Dark).",
+        "slot_based_inventory": "The character sheet provides a fixed grid of inventory slots and every item occupies one or more, making capacity visible at a glance (as in Mausritter or Knave).",
+        "strength_based": "Carrying capacity derives directly from a Strength attribute, so stronger characters haul more before penalties begin.",
+        "weight_based": "Each item has a listed weight summed against a carrying threshold, with encumbrance penalties as the total climbs."
+      }
+    },
+    "maintenance": {
+      "description": "Rules for the upkeep of possessions, vehicles, structures, and dependents.",
+      "focuses": {
+        "covenant_upkeep": "The group's shared home institution demands seasonal upkeep in resources and labor, and neglect degrades its benefits (as in Ars Magica's covenants).",
+        "engine_status": "A vehicle's engine or core systems have a tracked status that degrades under strain and must be serviced to avoid breakdowns.",
+        "fuel_tracking": "Vehicles consume fuel per distance or time, and running dry strands the party, making fuel a plannable resource.",
+        "hireling_upkeep": "Retainers and hirelings require ongoing wages, food, and fair treatment, and lapses risk desertion or mutiny.",
+        "home_life": "Characters maintain a household or shelter between excursions, balancing its needs against mission demands (as in This War of Mine: The Board Game).",
+        "repairs": "Damaged gear, vehicles, or structures are restored by spending time, parts, and successful checks, with costs scaling with the damage.",
+        "town_building": "A shared home settlement is developed building by building, granting services while requiring investment and defense (as in Frosthaven's outpost phase).",
+        "upgrade_actions": "Players spend actions to permanently upgrade their components or infrastructure, improving all future turns (as in Scythe's upgrade actions)."
+      }
+    },
+    "movement": {
+      "description": "Rules governing how pieces and characters move through mapped space.",
+      "focuses": {
+        "mech_abilities": "Acquiring mechs or vehicles unlocks special movement abilities such as river crossing or unit transport (as in Scythe).",
+        "point_to_point": "Movement follows lines between nodes on a map rather than open terrain, so route topology shapes strategy (as in Pandemic).",
+        "rule_based": "Pieces move only according to codified movement rules or patterns specific to their type, not free measurement.",
+        "terrain_cost": "Different terrain types cost different amounts of movement to enter, making path selection a budgeting problem.",
+        "wormhole_tiles": "Wormholes or portals connect distant spaces as if adjacent, warping the map's effective geography (as in Twilight Imperium).",
+        "zone_movement": "Space is divided into abstract zones and movement is counted in zone transitions rather than measured distance (as in FATE or Genesys)."
+      }
+    },
+    "survival": {
+      "description": "Rules for depleting reserves of body, mind, and supply that must be managed to stay alive and sane.",
+      "focuses": {
+        "camping_upkeep": "Making camp requires gear, chores, and choices about watches and fires, with camp quality shaping recovery and ambush risk (as in Forbidden Lands or Torchbearer's camp phase).",
+        "corruption_misfortune": "Accumulated corruption periodically erupts as rolled misfortunes such as mutations, omens, or bad luck rather than a simple death spiral (as in Warhammer Fantasy Roleplay).",
+        "corruption_track": "Exposure to dark forces fills a corruption track with thresholds that permanently mark or transform the character (as in Symbaroum).",
+        "creek_bites": "Wilderness hazards like river crossings inflict calamities such as snakebites and spoiled supplies that must be remedied before they worsen (as in The Oregon Trail games).",
+        "dice_pool_sharing": "The group draws from a shared, limited pool of dice, so one player's spending directly constrains everyone else's options.",
+        "disease": "Characters contract diseases with onset times, progressive symptoms, and recovery rolls, making illness a persistent condition rather than instant damage.",
+        "elimination": "Characters or players who run out of a critical survival resource are eliminated from play, raising the stakes of attrition.",
+        "exhaustion": "Exertion and deprivation accumulate as exhaustion levels with escalating penalties, threatening collapse at the limit (as in D&D 5e).",
+        "exhaustion_dice": "Fatigue is represented by dice added to or degraded in your pool, mechanically embodying tiredness in every roll.",
+        "fear_generation": "Frightening events generate fear that accumulates toward thresholds triggering effects, checks, or narrative escalation.",
+        "feast_feeding": "A periodic feast phase demands a banquet table be filled with sufficiently varied foods, penalizing monotonous larders (as in A Feast for Odin).",
+        "feeding_dwarves": "Each harvest your dwarves must be fed from farm and cave output, with hunger markers punishing shortfalls (as in Caverna).",
+        "feeding_family": "Family members must be fed at each harvest, and shortfalls force begging cards worth negative points (as in Agricola).",
+        "feeding_tribe": "Your whole tribe must be fed every round, making food income the first constraint on expansion (as in Stone Age).",
+        "fire_malfunctions": "Fires and malfunctions break out aboard the ship or station and spread until extinguished or repaired, damaging rooms and occupants (as in Nemesis).",
+        "food_tokens": "Food exists as discrete tokens consumed for survival, healing, or actions, making meals countable and scarce.",
+        "foraging_hunting": "Food can be gathered from the land through foraging and hunting tests whose yield depends on terrain, season, and tools (as in Forbidden Lands).",
+        "hand_limit_one": "Players may retain only a single card in hand, turning every keep-or-use decision into a hard tradeoff.",
+        "hand_management": "Your hand of cards is itself the survival resource: losing, spending, or burning cards depletes what keeps you alive (as in Gloomhaven's hand exhaustion).",
+        "heat_card_engine": "Pushing your engine adds heat cards that clog hand and deck until vented by easing off (as in Heat: Pedal to the Metal).",
+        "heating_farmhouse": "Rooms must be heated each period by burning fuel, with unheated rooms harming their occupants (as in Agricola: Farmers of the Moor).",
+        "item_durability": "Items wear out or break with use or misfortune, so equipment is a depleting resource rather than a permanent unlock.",
+        "keys_xp": "Characters advance by hitting personal keys, behavioral triggers that award XP when played to and can be bought off when outgrown (as in The Shadow of Yesterday or Lady Blackbird).",
+        "light_sources_timers": "Lit torches and lanterns burn on explicit timers measured in turns, hours, or real time, and expiry plunges the party into darkness (as in Shadowdark's real-time torches).",
+        "madness_dice": "Madness is inflicted or tested via dedicated dice whose results trigger breaks, hallucinations, or compulsions.",
+        "mana_dice": "Magical energy is embodied in dice that are rolled, allocated, or spent to fuel powers, depleting under heavy use.",
+        "momentum": "Successes bank momentum points the group can spend to boost later actions, but the pool decays, rewarding pressed advantage (as in the 2d20 System).",
+        "panic_checks": "When stress peaks, characters roll panic checks that can seize control from the player with flight, freezing, or worse (as in the Alien RPG or Nemesis).",
+        "project_timers": "Started projects carry countdown timers and mature or fail when time runs out, forcing patience under scarcity (as in The Quiet Year).",
+        "rations": "Rations are tracked and consumed at set intervals such as per day or per rest, and running out triggers starvation rules.",
+        "room_actions": "Rooms or locations grant actions usable only while present, so positioning determines your available options (as in Nemesis).",
+        "sanity_bonds": "Characters can shunt psychological damage onto their personal bonds, protecting the mind by eroding relationships (as in Delta Green).",
+        "sanity_points": "A numeric sanity pool erodes with each horror witnessed, with large losses triggering temporary or permanent breaks (as in Call of Cthulhu).",
+        "sanity_stability": "Mental state is split between short-term stability lost in scenes and deeper sanity eroded across the campaign (as in Trail of Cthulhu).",
+        "shock_gauge": "Accumulated shocks fill a gauge with breakdown thresholds, tracking acute psychological strain as distinct from injury.",
+        "sleep_exhaustion": "Characters must sleep regularly or accrue mounting penalties, making rest scheduling part of expedition planning.",
+        "spirit": "A spirit track measures morale and will; it is spent or lost under duress and hitting bottom means despair (as in Ironsworn).",
+        "stability_points": "Composure is a point pool depleted by stressors and refreshed by rest or comforts, with breaks occurring when it empties.",
+        "stasis_seal": "Characters can seal themselves in stasis pods or safe chambers to escape ongoing threats, surviving while exiting active play (as in Nemesis's hibernation).",
+        "stat_pools_effort": "Attributes are spendable pools used both to apply effort and to absorb damage, so pushing hard and getting hurt drain the same reserves (as in the Cypher System).",
+        "stress": "Pushing beyond limits, resisting consequences, and enduring danger accumulate stress, a resource that doubles as injury and must be managed (as in Blades in the Dark).",
+        "stress_fallout": "Crossing stress thresholds triggers fallout rolls that convert accumulated pressure into concrete harms of varying severity (as in Heart and Spire).",
+        "stress_tracker": "A visible stress meter climbs during play and inflicts afflictions or resolve tests at its cap (as in Darkest Dungeon).",
+        "structural_integrity": "A vessel, shelter, or structure has an integrity track damaged by events, and its collapse endangers everyone inside.",
+        "supply": "The party shares an abstract supply track standing in for food, ammunition, and sundries, depleted by travel and mishap (as in Ironsworn).",
+        "torch_economy": "Light sources are consumable inventory whose supply bounds how long a delve can last, making torches strategic cargo (a staple of OSR play).",
+        "trauma": "Maxing out stress inflicts permanent trauma conditions that reshape the character, and enough traumas force retirement (as in Blades in the Dark).",
+        "water_thirst": "Water is tracked separately from food, with thirst imposing faster and harsher penalties, especially in hostile climates.",
+        "wound_severity": "Injuries are classified by severity, such as scratch, wound, and critical, each with distinct effects and healing times rather than a single hit point pool."
+      }
+    },
+    "travel": {
+      "description": "Rules for journeys: how parties move across distances and what happens along the way.",
+      "focuses": {
+        "card_spending_movement": "Movement is paid for by playing or discarding cards, converting hand resources into distance.",
+        "chainsaw_ship_movement": "Your vessel advances along a fixed one-way course, choosing how far to move each turn and never backtracking, so passed opportunities are gone (as in Maracaibo).",
+        "charter_flights": "Players may spend a matching card or resource to travel directly to a distant location, trading assets for mobility (as in Pandemic's charter flights).",
+        "colonist_movement": "Colonists or settlers are moved between sites and assignments, and where they stand determines what functions (as in Puerto Rico).",
+        "gear_shifting_speed": "Players shift gears to set how many movement cards or points they use, balancing speed against control and strain (as in Heat: Pedal to the Metal).",
+        "hex_travel_points": "Each day grants a budget of travel points spent per hex according to terrain, converting the map into a movement economy (as in Forbidden Lands).",
+        "london_directory_map": "Players navigate a city using a street map and directory, looking up addresses to choose where to investigate next (as in Sherlock Holmes Consulting Detective).",
+        "map_movement_trading": "Players sail or travel across a map where movement enables buying low and selling high across ports (as in Merchants & Marauders).",
+        "marching_order": "The party declares a marching order that determines who triggers traps, spots danger, and absorbs ambushes.",
+        "navigation_getting_lost": "Navigation tests govern staying on course, and failure sends the party veering into unplanned hexes or terrain (as in classic B/X getting-lost rules).",
+        "pastoral_journey": "Travel is framed as gentle episodic vignettes emphasizing places, weather, and community over danger (as in Wanderhome or Ryuutama).",
+        "pointcrawl": "The wilderness is abstracted into a network of points and paths, so travel is a choice among connections rather than open hexes.",
+        "random_encounters_by_terrain": "Encounter checks during travel draw from tables keyed to the terrain being crossed, making route choice a risk decision.",
+        "trail_movement": "Movement follows a linear trail of spaces granting actions, often letting the rearmost player act next (as in Tokaido).",
+        "travel_checks": "Each travel leg calls for skill checks that determine mishaps, delays, or fatigue accrued en route.",
+        "undertake_a_journey": "Journeys are resolved through a formal procedure of legs, tests, and rolled events, converting distance into fatigue and story (as in The One Ring's journey rules).",
+        "weather_on_travel": "Rolled weather directly modifies travel speed, fatigue, and available options for the day's journey (as in The One Ring)."
+      }
+    },
+    "turn_order": {
+      "description": "Rules determining the sequence in which players act and how that sequence is earned.",
+      "focuses": {
+        "action_buy_clean": "Every turn follows a fixed action, buy, and cleanup phase sequence, with hand refresh built into cleanup (as in Dominion).",
+        "bidding_track": "Players bid resources on a track to set turn order, paying more for the privilege of acting earlier (as in Five Tribes).",
+        "pass_order": "The order in which players pass out of a round sets the next round's turn order, rewarding efficient early exits (as in Terra Mystica: Fire & Ice's variable turn order).",
+        "spending_based": "Turn order is recalculated from a tracked metric such as resources spent or points scored, so restraint or lag shifts a player earlier.",
+        "time_track": "Actions cost time on a shared track and the player furthest behind acts next, letting frugal players take extra turns (as in Thebes or Patchwork)."
+      }
+    }
+  }
+}

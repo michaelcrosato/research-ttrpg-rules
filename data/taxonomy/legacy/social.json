@@ -1,0 +1,23 @@
+[
+ "social.deception.assassin_card",
+ "social.deception.card_elimination",
+ "social.deception.card_voting_traps",
+ "social.deception.insight",
+ "social.deception.intercept_tokens",
+ "social.influence.aftermath_table",
+ "social.influence.bonds_connections",
+ "social.influence.cover_identities",
+ "social.influence.hx_history",
+ "social.influence.passions",
+ "social.influence.planetary_consensus",
+ "social.influence.tilt_table",
+ "social.influence.tokens_exchange",
+ "social.influence.weird_traits",
+ "social.intimidation.position_effect",
+ "social.persuasion.abstract_clues",
+ "social.persuasion.coded_clues",
+ "social.persuasion.duel_of_wits",
+ "social.persuasion.position_effect",
+ "social.persuasion.sojourn",
+ "social.persuasion.word_associations"
+]

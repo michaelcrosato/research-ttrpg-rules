@@ -1,0 +1,61 @@
+{
+  "domain": "luck",
+  "description": "Rules governing randomness: pressing risks, mitigating bad results, the devices that generate chance, and playing the odds.",
+  "applies_to": ["board_game", "ttrpg"],
+  "subsystems": {
+    "push": {
+      "description": "Deciding how far to press repeated risks before banking gains.",
+      "focuses": {
+        "push_your_luck_banking": "Players repeatedly draw or roll, choosing after each success whether to continue or to stop and bank accumulated gains (Can't Stop, The Quacks of Quedlinburg).",
+        "bust_thresholds": "A known numeric limit that, once exceeded, busts the turn and forfeits unbanked gains (going over 21 in blackjack, the pot exploding past seven in The Quacks of Quedlinburg).",
+        "hidden_hazard_matching": "Busting is triggered by drawing matching or repeated hazards whose timing cannot be known in advance (two same-colored ships in Port Royal, a second identical hazard in Incan Gold).",
+        "escalating_risk": "Each successive push carries a higher failure probability than the last as safe outcomes deplete or dangers stack (diving deeper in Deep Sea Adventure).",
+        "collective_push_bail_out": "A group shares one risk sequence and members individually decide when to bail out and lock in their share (leaving the temple in Incan Gold).",
+        "long_shot_gambles": "Optional low-probability, high-payoff wagers exist alongside safer plays, letting desperate players swing for the fences (trailing players betting on the overall race winner in Camel Up).",
+        "reward_ladder_progression": "Continuing climbs a structured ladder of increasing payouts, with each rung risking everything gained so far (staying aboard the airship in Celestia).",
+        "bust_consolation": "Busting yields a reduced or partial reward rather than a total loss, softening the penalty for pushing too far (choosing points or purchases, but not both, after exploding in The Quacks of Quedlinburg)."
+      }
+    },
+    "mitigation": {
+      "description": "Tools that let players soften, reshape, or retry random results.",
+      "focuses": {
+        "dice_rerolls": "Players may reroll some or all of their dice, freely or at a cost (Yahtzee's three rolls, reroll powers in King of Tokyo).",
+        "dice_placement_after_roll": "Dice are rolled first and then allocated to action slots or uses, converting raw randomness into constrained choice (Alien Frontiers, Grand Austria Hotel).",
+        "resource_to_modify_dice": "Spending a resource adjusts a die's face up or down after rolling (worker tokens in The Castles of Burgundy).",
+        "roll_and_keep_selection": "More dice are rolled than are used, and the player selects which results to keep (advantage in D&D 5e, Legend of the Five Rings' roll-and-keep).",
+        "dice_drafting": "Players pick dice from a shared rolled pool, so randomness sets the menu but choice determines allocation (Sagrada).",
+        "insurance_hedging": "Players can invest in secondary positions that pay off precisely when their primary bets fail (spreading bets across rival camels in Camel Up).",
+        "luck_points_currency": "A spendable meta-currency lets players reroll, adjust, or edit outcomes after the fact (bennies in Savage Worlds, Fate points).",
+        "guaranteed_minimum_results": "Mechanics establish a floor below which results cannot fall, trading upside for reliability (taking 10 in d20-era D&D).",
+        "mulligan_redraws": "Players may reject a bad opening draw and redraw, usually at a cost (the mulligan in Magic: The Gathering)."
+      }
+    },
+    "generators": {
+      "description": "The devices that produce randomness and how their distributions are shaped.",
+      "focuses": {
+        "bag_building_draws": "Random draws come from a bag whose contents players customize over the game, shifting their own odds (The Quacks of Quedlinburg, Orleans).",
+        "chit_pull": "Counters drawn from an opaque pool determine activations or events (chit-pull activation in hex-and-counter wargames).",
+        "spinner_random": "A physical spinner generates outcomes across a segmented wheel (The Game of Life, Twister).",
+        "weighted_decks": "Card decks are composed with deliberately skewed distributions, sometimes modifiable during play, so draws follow designed odds (Gloomhaven's attack modifier decks).",
+        "custom_dice_faces": "Dice carry bespoke symbols and distributions rather than uniform numbers (the narrative dice of Genesys, combat dice in X-Wing).",
+        "random_event_tables": "Rolling on lookup tables produces events, encounters, or complications (random encounter tables in D&D).",
+        "randomized_setup_variability": "Randomizing the board, market, or available components at setup varies each play before any in-game randomness occurs (Catan's shuffled hex layout).",
+        "random_market_rows": "A public offer row refills randomly from a deck, shaping what is available to acquire (the center row in Ascension).",
+        "cube_tower_drops": "Pieces dropped into a tower emerge unpredictably, with some retained inside to reappear later (the cube tower in Wallenstein and Shogun).",
+        "app_generated_randomness": "A companion app produces random events or hidden outcomes beyond what physical components could manage (Mansions of Madness Second Edition, XCOM: The Board Game)."
+      }
+    },
+    "odds": {
+      "description": "Understanding and exploiting the probabilities behind random systems.",
+      "focuses": {
+        "probability_management": "Play rewards steering toward favorable percentages when choosing among risky options (picking which columns to advance in Can't Stop).",
+        "card_counting_memory": "Tracking which cards or tokens have already appeared sharpens estimates of what remains (card counting in blackjack, tracking what is left in a depleting bag or deck).",
+        "transparent_distributions": "The randomizer's full composition is public, so exact odds are always calculable (the dice-frequency pips on Catan's number tokens).",
+        "outcome_betting": "Players wager on uncertain outcomes and are paid according to results (leg betting in Camel Up, race bets in Downforce).",
+        "dynamic_odds_payouts": "Earlier, riskier predictions pay more than later, safer ones as information accumulates (Camel Up's descending stacks of betting tiles).",
+        "variance_selection": "Players choose between low-variance and high-variance options of similar expected value, tuning risk to their position (taking the safe line when ahead and the gamble when behind).",
+        "distribution_curve_shaping": "Designs choose dice math to shape the spread of outcomes, such as flat single-die results versus bell-curved sums (d20 versus the 2d6 curve of PbtA games)."
+      }
+    }
+  }
+}

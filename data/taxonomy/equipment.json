@@ -1,0 +1,71 @@
+{
+  "domain": "equipment",
+  "description": "Rules for gear itself: weapon and armor properties, magic and signature items, crafting, wear and depletion, and how equipment enters and leaves play.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "gear": {
+      "description": "Rules defining the properties, categories, and special natures of items.",
+      "focuses": {
+        "weapon_properties_tags": "Weapons carry property tags such as reach, two-handed, loading, or messy that grant situational rules instead of bare damage numbers (as in D&D 5e properties or PbtA weapon tags).",
+        "armor_types": "Armor is categorized into types with distinct protection, cost, and penalties to stealth, speed, or skills, making protection a tradeoff.",
+        "quality_tiers": "Items come in craftsmanship grades such as poor, standard, fine, and masterwork that modify performance and price independent of magic.",
+        "item_rarity": "Items are classed by rarity from common to legendary, gating availability, pricing, and expected character power (as in D&D 5e magic item rarity).",
+        "magic_item_attunement": "Characters must attune to magic items to use their powers and can maintain only a limited number of attunements, capping how items stack (as in D&D 5e).",
+        "cursed_items": "Some items carry hidden curses revealed through use, punishing greed and making identification matter.",
+        "artifact_rules": "Artifacts are singular items with campaign-scale powers, their own agendas or costs, and rules for resisting or escaping their influence.",
+        "sentient_items": "Items with minds have personalities, goals, and means of communication, and may contest control with their wielder (as in D&D's sentient weapons).",
+        "shield_sacrifice": "A shield can be sacrificed to negate a blow entirely, converting equipment into a one-use survival resource (the OSR 'shields shall be splintered' rule).",
+        "signature_items": "A character's signature item grows alongside them, gaining traits or powers through play rather than being replaced (as in The One Ring's rewards for famous weapons).",
+        "special_materials": "Weapons and armor made of special materials such as silver, cold iron, or mithral interact with resistances and weight rules, making composition tactical.",
+        "trinket_tables": "Random tables issue small evocative possessions with no fixed mechanical use, seeding roleplay and improvised utility (as in D&D 5e's trinkets).",
+        "tool_kits": "Task-specific kits such as lockpicks, healer's bags, and climbing gear are required to attempt certain tasks, with quality or charges mattering.",
+        "consumable_items": "Single-use items like potions, scrolls, and bombs deliver strong effects that leave play when used, creating hoarding dilemmas.",
+        "item_identification": "Unknown items must be identified through spells, specialists, or risky experimentation before their properties are known."
+      }
+    },
+    "crafting": {
+      "description": "Rules for making, brewing, enchanting, and recycling items.",
+      "focuses": {
+        "recipe_crafting": "Items are crafted from known recipes specifying required materials, tools, and time, making crafting deterministic once inputs are secured.",
+        "recipe_discovery": "New recipes, formulas, or blueprints are learned by finding, buying, or experimenting, expanding what can be made.",
+        "material_harvesting": "Raw materials such as ores, herbs, and hides are gathered from the environment, with quality and quantity set by rolls and terrain.",
+        "monster_part_harvesting": "Slain creatures can be butchered for components, with checks determining what survives extraction and links hunting to crafting (as in Forbidden Lands).",
+        "enchanting": "Mundane items are imbued with magical properties through rituals, rare components, and costs, with rules for limits and failures.",
+        "alchemy_potions": "Potions, elixirs, and volatile concoctions are brewed from ingredients, often with side effects or potency rolls.",
+        "poison_crafting": "Poisons are brewed and applied under rules for potency, delivery method, onset time, and the legal or moral hazards of use.",
+        "smithing_tests": "Forging is resolved through skill tests where margins of success determine quality, flaws, or masterwork results (as in Forbidden Lands' crafting talents).",
+        "salvage_scrapping": "Items can be broken down into parts and materials, recycling loot into crafting inputs.",
+        "crafting_stations": "Crafting requires access to appropriate facilities such as a forge, laboratory, or workshop, making infrastructure part of the crafting economy.",
+        "cooking_provisions": "Meals and provisions are prepared from ingredients, granting buffs or morale and preserving food that would otherwise spoil."
+      }
+    },
+    "durability": {
+      "description": "Rules for wear, breakage, and the depletion of ammunition and charges.",
+      "focuses": {
+        "item_wear": "Items accumulate wear through use and mishap, degrading notch by notch until maintained or ruined.",
+        "weapon_breakage": "Weapons can break outright on fumbles, brutal parries, or overuse, abruptly removing them from play (as in Torchbearer or fumble-table traditions).",
+        "armor_ablation": "Armor absorbs harm by losing its own protective value, so defense is spent as a depleting buffer (as in Forbidden Lands' armor damage).",
+        "usage_dice": "A consumable's supply is a die rolled when used that steps down on low results and vanishes at the bottom, abstracting quantity into risk (as in The Black Hack).",
+        "ammo_depletion_abstract": "Ammunition is not counted per shot; instead flags, post-fight checks, or fictional cues determine when you run dry.",
+        "ammo_tracking": "Every arrow, bolt, and bullet is counted and crossed off, with recovery rules for retrieving spent ammunition after fights.",
+        "charge_depletion": "Wands, batteries, and devices hold limited charges expended per activation, sometimes with a risky roll on the final charge (as in D&D wands).",
+        "environmental_gear_damage": "Acid, rust, fire, and immersion damage equipment itself, so hazards and monsters threaten inventory as well as bodies (as with D&D's rust monster).",
+        "weapon_jamming": "Firearms and complex devices can jam, misfire, or overheat on bad rolls, requiring actions to clear and rewarding maintenance."
+      }
+    },
+    "economy_of_gear": {
+      "description": "Rules for how equipment is acquired, slotted, and abstracted into play.",
+      "focuses": {
+        "loadout_abstraction": "Characters choose an abstract loadout level rather than itemizing gear, with heavier loads slowing them but promising more options.",
+        "quick_equipment_flashback": "Characters can declare mid-mission that they packed an item via a flashback or resource spend, trading bookkeeping for a cost at the moment of need (as in Blades in the Dark).",
+        "starting_packages": "New characters pick pre-bundled equipment packages by class or background, skipping itemized shopping at creation.",
+        "upgrade_slots": "Items have limited upgrade or modification slots into which enhancements are installed, bounding how far gear can be improved (as in Gloomhaven's enhancements or weapon mod systems).",
+        "equip_slots": "Characters can equip a limited number of items by body location such as head, body, and hands, so wearing gear is a constrained choice distinct from carrying it (as in Gloomhaven).",
+        "loot_decks": "Loot is drawn from decks during play, randomizing rewards and letting acquisition happen at the table rather than from a price list (as in Gloomhaven's loot deck).",
+        "campaign_persistent_gear": "Items unlock, improve, or persist across campaign sessions, with stickers, envelopes, or logs recording the arsenal's history (as in legacy board games).",
+        "availability_rolls": "Whether an item can be found for sale is a roll based on settlement size, rarity, or law level, so markets vary by place (as in Traveller's availability throws).",
+        "equipment_drafting": "Starting or scenario equipment is drafted from a shared pool, so players shape loadouts by picking against one another (a common board game setup)."
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'systems-registry-v1';
+const CACHE_NAME = 'systems-registry-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -7,6 +7,7 @@ const ASSETS = [
   './dist/search-worker.js',
   './dist/flexsearch.bundle.js',
   './registry.json',
+  './data/taxonomy.json',
   './fonts/inter-latin-300-normal.woff2',
   './fonts/inter-latin-400-normal.woff2',
   './fonts/inter-latin-500-normal.woff2',

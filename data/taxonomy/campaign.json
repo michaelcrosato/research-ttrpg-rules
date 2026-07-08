@@ -1,0 +1,66 @@
+{
+  "domain": "campaign",
+  "description": "Rules spanning multiple sessions: long-term progression, continuity of world and characters, campaign management, and board-game campaign and legacy structures.",
+  "applies_to": ["ttrpg", "board_game"],
+  "subsystems": {
+    "progression": {
+      "description": "Mechanics for long-arc character and party advancement across a campaign.",
+      "focuses": {
+        "milestone_advancement": "Characters advance when the story reaches designated milestones rather than by tallying experience points.",
+        "campaign_arcs": "The campaign is organized into named arcs with defined beginnings, climaxes, and payoffs, and rules or rewards change at arc boundaries.",
+        "tier_play": "Play is divided into power tiers that change scope and stakes — local heroes to world-shakers — with rules modules gated by tier (D&D 4e's heroic/paragon/epic tiers).",
+        "epic_boons": "Past the normal advancement ceiling, characters earn extraordinary boons instead of levels, extending progression into legend (D&D epic boons).",
+        "character_retirement": "Characters retire upon fulfilling a personal goal, converting them into permanent benefits or unlocks for what follows (Gloomhaven personal quests and retirement).",
+        "story_xp_triggers": "Advancement is earned by hitting fiction-defined triggers — fulfilling vows, expressing beliefs, ending sessions — rather than defeating obstacles (Ironsworn vows, Burning Wheel artha).",
+        "long_term_projects": "Multi-session undertakings advance on persistent progress tracks worked during downtime until they complete (Blades in the Dark long-term project clocks).",
+        "group_advancement": "The party advances as a single unit — shared level, shared pools, or crew sheets — so progression belongs to the group rather than individuals (Blades in the Dark crew advancement)."
+      }
+    },
+    "continuity": {
+      "description": "Mechanics that carry consequences, characters, and worlds forward through time.",
+      "focuses": {
+        "legacy_permanent_changes": "Play permanently alters the game's state — the world, the rules, the components — and those changes persist for all future sessions.",
+        "campaign_inheritance": "When a character dies or retires, successors inherit a defined portion of their wealth, holdings, or reputation (Pendragon heirs, Gloomhaven's town donations).",
+        "generational_play": "The campaign spans generations, with players taking up descendants of earlier characters as decades of world time pass (Pendragon's Great Pendragon Campaign, Legacy: Life Among the Ruins).",
+        "west_marches_shared_world": "Many rotating players adventure in one persistent shared world where every group's expeditions alter the same map and fiction (West Marches-style play).",
+        "troupe_play": "Each player maintains a stable of characters at different power levels and plays different ones session to session (Ars Magica's magi, companions, and grogs).",
+        "living_campaign_play": "Organized-play rules synchronize a campaign across many tables worldwide, with sanctioned results feeding a common continuity (D&D Adventurers League, Pathfinder Society).",
+        "world_timeline_advancement": "The setting's clock advances between sessions or arcs by procedure, aging NPCs, maturing threats, and moving history whether or not players engage (1:1 timekeeping in early D&D campaigns).",
+        "replacement_character_rules": "Codified procedures set the level, gear, and integration of replacement characters after death or departure, keeping the campaign's power curve intact."
+      }
+    },
+    "management": {
+      "description": "Tools for planning, pacing, and administering an ongoing campaign.",
+      "focuses": {
+        "session_zero_tools": "A structured pre-play session establishes premise, characters, boundaries, and group expectations using formal worksheets or agendas.",
+        "campaign_fronts": "Long-term threats are organized as fronts — bundled dangers with goals and countdowns — that the GM advances between sessions (Apocalypse World and Dungeon World fronts).",
+        "adventure_hooks_tables": "Rumor and hook tables generate adventure leads procedurally, letting players choose among seeded opportunities rather than following one plot.",
+        "downtime_between_arcs": "Structured downtime phases between adventures let characters recover, train, scheme, and pursue personal business through codified activities (Blades in the Dark downtime, D&D downtime days).",
+        "campaign_prep_frameworks": "The GM prepares sessions through a prescribed lightweight checklist — strong start, secrets, scenes — instead of ad hoc notes (Return of the Lazy Dungeon Master's eight steps).",
+        "session_recap_rewards": "Sessions open with a player-delivered recap that earns a small mechanical reward, distributing memory-keeping to the table.",
+        "between_session_events": "Random or scheduled world events fire between sessions — kingdom turmoil, faction moves, weather seasons — keeping the setting live off-screen (Kingmaker kingdom events).",
+        "open_table_scheduling": "The campaign is structured for drop-in, drop-out attendance, with rules for absent characters and party composition changing every session.",
+        "campaign_calendars": "An explicit in-world calendar is tracked across sessions, with dates driving festivals, deadlines, seasons, and aging."
+      }
+    },
+    "board_campaign": {
+      "description": "Board-game campaign and legacy structures that persist state between plays.",
+      "focuses": {
+        "legacy_envelopes": "Sealed envelopes and boxes are opened only when triggered by campaign events, revealing new rules, components, or factions (Pandemic Legacy, Risk Legacy).",
+        "scenario_chaining": "Scenarios link into a connected sequence where each play's outcome selects or modifies the next scenario (Gloomhaven's scenario tree).",
+        "persistent_upgrades": "Characters, decks, or armies keep upgrades earned in prior sessions, growing stronger across the campaign (Gloomhaven items and perks, deck evolution in campaign deckbuilders).",
+        "branching_scenarios": "The campaign narrative branches on decisions and outcomes, so different groups experience different scenario paths and endings (Pandemic Legacy's branching months, 7th Continent routes).",
+        "sticker_permanence": "Stickers applied to boards, cards, or rulebooks permanently alter the game's physical state for all future plays (Risk Legacy scars, Charterstone buildings).",
+        "component_destruction": "Rules direct players to physically destroy components — tearing cards, discarding pieces forever — making choices irreversible (Risk Legacy's card destruction).",
+        "shared_settlement_growth": "A common town or base develops across plays, its improvement level unlocking options for every player (Gloomhaven's prosperity, Oakenshield-style village boards).",
+        "event_deck_evolution": "Cards are permanently added to or removed from shared decks as the campaign proceeds, so the deck itself records history (Pandemic Legacy's mutating decks, My City).",
+        "campaign_log_sheets": "A written campaign log records unlocks, decisions, and world state between sessions, acting as the game's save file.",
+        "chronicle_world_state": "The winner and manner of victory reshape the next game's starting setup in a repeatable, non-destructive chronicle (Oath's chronicle system).",
+        "progressive_rules_teaching": "Rules are introduced gradually scenario by scenario, so the campaign doubles as a tutorial ramp (Gloomhaven: Jaws of the Lion, My City).",
+        "campaign_scoring": "Results accumulate into a campaign-level score tallied at the end of the full run, judging the whole arc rather than single plays (Pandemic Legacy's final score).",
+        "unit_veterancy": "Surviving units or characters gain experience and battle honors carried between scenarios, becoming veterans worth protecting (BattleTech pilot experience, miniatures campaign systems).",
+        "app_managed_campaigns": "A companion app stores campaign state, narrative branches, and unlocks, driving setup and consequences between plays (Descent: Legends of the Dark, Mansions of Madness)."
+      }
+    }
+  }
+}

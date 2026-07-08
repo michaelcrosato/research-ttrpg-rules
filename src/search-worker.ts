@@ -180,12 +180,15 @@ function cleanAndFreezeGame(game: any): GameRulesetInternal {
  * @param game - Game data object
  */
 function addToIndexAndDictionary(game: GameRulesetInternal): void {
-  // Construct search content
+  // Construct search content (v2 metadata — designers, publisher, family,
+  // resolution engine — is indexed too so curated entries are findable by it)
   const title = game.title || '';
   const primaryGenre = game.primary_genre || '';
   const subgenresStr = (game.subgenres || []).join(' ');
   const vectorsStr = (game.governed_vectors || []).join(' ');
-  const searchContent = `${title} ${primaryGenre} ${subgenresStr} ${vectorsStr}`;
+  const designersStr = (game.designers || []).join(' ');
+  const metaStr = `${designersStr} ${game.publisher || ''} ${game.family || ''} ${game.resolution_core || ''}`;
+  const searchContent = `${title} ${primaryGenre} ${subgenresStr} ${vectorsStr} ${metaStr}`;
 
   // Add to FlexSearch Index
   if (index) {

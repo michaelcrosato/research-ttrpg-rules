@@ -1,0 +1,15 @@
+[
+ "stealth.action.hide",
+ "stealth.detection.alertness_clocks",
+ "stealth.detection.evade_action",
+ "stealth.detection.hunt_for_ring",
+ "stealth.detection.noise_rolls",
+ "stealth.detection.passive_perception",
+ "stealth.detection.sensors",
+ "stealth.detection.shadow_move",
+ "stealth.hacking.matrix_host",
+ "stealth.hacking.netrunning",
+ "stealth.infiltration.flashback",
+ "stealth.infiltration.physical",
+ "stealth.vision.light_levels"
+]

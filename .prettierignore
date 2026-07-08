@@ -11,3 +11,5 @@ package-lock.json
 .agent-cleaner
 src/transformers.min.js
 src/flexsearch.bundle.js
+data/taxonomy.json
+data/taxonomy_vectors.txt

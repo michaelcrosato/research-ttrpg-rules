@@ -1,0 +1,72 @@
+{
+  "domain": "mental",
+  "description": "Rules for the mind under siege: sanity erosion, stress and panic, fear responses, acquired psychological conditions, and the composure that resists them.",
+  "applies_to": ["ttrpg"],
+  "subsystems": {
+    "sanity": {
+      "description": "Long-arc mechanics for the erosion of a character's grip on reality.",
+      "focuses": {
+        "sanity_meter": "A numeric sanity score is depleted by horrific experiences and hard to restore, charting the character's slide toward madness (Call of Cthulhu's 0-99 SAN).",
+        "cthulhu_mythos_exposure": "Learning forbidden cosmic truth permanently lowers the ceiling of recoverable sanity, so knowledge and stability trade off directly (Call of Cthulhu's Cthulhu Mythos skill capping maximum SAN).",
+        "temporary_insanity": "Losing too much sanity at once triggers a short episode — fainting, screaming flight, hysteria — that seizes control of the character for minutes or hours (Call of Cthulhu).",
+        "indefinite_insanity": "Sustained sanity loss inflicts a lasting underlying condition that persists between scenarios until treated (Call of Cthulhu indefinite insanity).",
+        "hardened_desensitization": "Surviving repeated horrors of the same kind inures the character, reducing future reactions at the cost of empathy or humanity (Unknown Armies hardened notches, Delta Green adaptation).",
+        "sanity_zero_removal": "Hitting the bottom of the sanity scale removes the character from play permanently, becoming an NPC or worse (Call of Cthulhu at 0 SAN).",
+        "delusions_unreliable_narrator": "An unstable character's player receives false or distorted information from the GM, making their perception of the fiction untrustworthy (Call of Cthulhu 7e delusions and reality checks).",
+        "mythos_tome_study": "Deliberately reading forbidden tomes trades measured sanity loss for occult skill and spells, making study a priced transaction (Call of Cthulhu tome mechanics).",
+        "madness_as_insight": "Losing stability opens perception of hidden truths, granting real mechanical sight into what sane minds cannot register (KULT: Divinity Lost, where low stability pierces the illusion).",
+        "multi_axis_madness_meters": "Mental damage is tracked on several parallel meters keyed to different trauma types, each with its own hardened and failed thresholds (Unknown Armies' five madness meters)."
+      }
+    },
+    "stress": {
+      "description": "Short-cycle accumulation of pressure that boils over into panic and lasting trauma.",
+      "focuses": {
+        "stress_track": "Characters accumulate stress points from danger and horror into a track that fuels or triggers worse effects when it fills (Mothership stress, Blades in the Dark stress boxes).",
+        "panic_rolls": "At moments of crisis a character must roll against accumulated stress; failure triggers a panic effect from a table of freezes, flights, and breakdowns (Mothership panic checks, Alien panic rolls).",
+        "breaking_point": "Each character has a defined threshold at which accumulated strain forces a psychological break and reassessment of who they are (Delta Green breaking points, Call of Cthulhu 7e).",
+        "trauma_conditions": "Maxing out stress inflicts a permanent trauma trait — cold, haunted, paranoid — that reshapes how the character must be played (Blades in the Dark trauma).",
+        "stress_relief_vices": "Characters shed stress by indulging a rated vice, with overindulgence carrying its own complications (Blades in the Dark vice rolls).",
+        "stress_dice_bonus": "Accumulated stress adds dice or bonuses to rolls even as it raises the odds of panic, making pressure a double-edged fuel (Alien RPG stress dice).",
+        "panic_contagion": "One character's panic can trigger stress or panic tests in everyone who witnesses it, letting fear cascade through a group (Alien RPG).",
+        "stress_from_failure": "Failed checks automatically add stress, so incompetence under pressure compounds itself (Mothership).",
+        "sanctuary_recovery": "Stress can only be meaningfully recovered in designated safe havens or downtime phases, making safety a scarce resource (downtime in Blades in the Dark, hearth and haven rules in dark fantasy designs)."
+      }
+    },
+    "fear": {
+      "description": "Immediate mechanical responses to frightening threats and dreadful situations.",
+      "focuses": {
+        "fear_tests": "Facing a frightening threat forces an immediate test; failure imposes penalties, hesitation, or refusal to approach (WFRP Fear tests, Savage Worlds fear checks).",
+        "horror_checks": "Confronting the existentially wrong or grotesque tests the mind rather than the nerves, with failure leaving lingering revulsion or marks (Ravenloft horror checks as distinct from fear checks).",
+        "dread_escalation": "The system ratchets tension mechanically as the story proceeds — a tower grows less stable, candles burn down — so dread physically mounts toward collapse (Dread's Jenga tower, Ten Candles' dying light).",
+        "fear_terror_distinction": "Frightening things are tiered: lesser fear imposes penalties while greater terror forces flight, paralysis, or madness outright (WFRP fear versus terror).",
+        "fear_ratings_by_threat": "Monsters and situations carry numeric fear ratings that scale the difficulty or consequences of resisting them (fear ratings on WFRP creatures, Savage Worlds fear penalties).",
+        "environmental_dread": "Darkness, isolation, and being alone impose their own escalating fear effects independent of any visible threat (Ten Candles' darkness, survival horror isolation rules)."
+      }
+    },
+    "conditions": {
+      "description": "Named psychological afflictions: how they are acquired, expressed, and treated.",
+      "focuses": {
+        "madness_tables": "Mental breaks are resolved on random tables that assign a specific madness, from tics to full delusional episodes (Call of Cthulhu bouts of madness, Shadow of the Demon Lord insanity tables).",
+        "phobias_manias": "Characters acquire specific rated phobias or manias that trigger penalties or compulsions when encountered in play (Call of Cthulhu 7e phobia and mania lists).",
+        "disorders_treatment": "Acquired disorders can be reduced or cured through therapy, medication, or institutional care over downtime, at cost in time and money (Call of Cthulhu sanitarium stays and psychoanalysis).",
+        "addictions": "Dependency on substances or experiences is tracked mechanically, with cravings, withdrawal penalties, and escalating dosage (Shadowrun addiction rules).",
+        "amnesia_fugues": "Trauma can sever memory, with the GM controlling what the character actually remembers and revealing lost time as play unfolds (fugue states and amnesia in Call of Cthulhu).",
+        "condition_ladder_grind": "Hardship inflicts conditions from a fixed escalating ladder — hungry, angry, afraid, exhausted, injured, sick — each with set effects and specific remedies (Torchbearer, Mouse Guard).",
+        "nightmares_sleep_disruption": "Disturbed sleep and recurring nightmares deny recovery and impose waking penalties, tying mental state to rest (Don't Rest Your Head's exhaustion, recurring dreams in Call of Cthulhu scenarios)."
+      }
+    },
+    "composure": {
+      "description": "The resources and tests by which characters keep control of themselves under pressure.",
+      "focuses": {
+        "willpower_tests": "Resisting coercion, temptation, or supernatural influence is a discrete test of a willpower trait (World of Darkness Willpower rolls, Resolve tests).",
+        "emotional_states": "Characters enter defined emotional states — melancholy, rage, elation — that carry explicit mechanical effects until resolved (Pendragon's melancholic and maddened states).",
+        "frenzy_loss_of_control": "Failing a self-control test tips the character into a berserk or predatory frenzy played partly by the rules rather than the player (Vampire: the Masquerade frenzy, Werewolf rage).",
+        "social_pressure_tracks": "Composure functions as a defense pool that social and mental attacks deplete, with depletion forcing concession or influence (Exalted's Resolve and Willpower under social influence).",
+        "intimacies_leverage": "A character's rated attachments and principles are the levers by which persuasion works, lowering resistance when invoked (Exalted intimacies).",
+        "willpower_recovery": "Composure resources refresh through rest, fulfilled convictions, or roleplaying one's nature, making self-expression mechanically restorative (Vampire: the Masquerade willpower regain).",
+        "passion_inspiration_risk": "Invoking a rated passion can grant inspired near-superhuman performance on success, but failure unhinges the character into shame or madness (Pendragon passions).",
+        "hope_dice": "A dwindling reserve of hope offsets despair and fuels extraordinary effort, and its loss invites despair conditions or darkness (The One Ring's Hope pool against the Shadow, Ten Candles' hope die)."
+      }
+    }
+  }
+}
